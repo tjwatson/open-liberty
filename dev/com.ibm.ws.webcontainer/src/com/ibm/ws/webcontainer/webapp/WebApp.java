@@ -2470,7 +2470,7 @@ public abstract class WebApp extends BaseContainer implements ServletContext, IS
             if (com.ibm.ejs.ras.TraceComponent.isAnyTracingEnabled()&&logger.isLoggable (Level.FINE)){
                 logger.logp(Level.FINE, CLASS_NAME, "initializeServletContainerInitializers","ServletContainerInitializer " +sci.getClass().getName() + " is valid.");
             }
-            determineWhetherToAddScis(sci, myScis);
+            myScis.add(sci);
             //if the ServletContainerInitializer came from a valid jar, check the HandlesTypes annotation
             if(investigateHandlesTypes(sci, handleTypesHashMap, onStartupHashMap)){
                 needToScanClasses = true;
