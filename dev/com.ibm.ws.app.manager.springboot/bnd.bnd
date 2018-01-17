@@ -19,9 +19,18 @@ Bundle-Description: WebSphere Spring Boot Support, version ${bVersion}
 Private-Package: com.ibm.ws.app.manager.springboot.*
 
 Include-Resource: OSGI-INF=resources/OSGI-INF
-    
+
+Import-Package: \
+    com.ibm.ws.app.manager.module.internal, \
+    *
+
+
 -dsannotations-inherit: true
--dsannotations: com.ibm.ws.app.manager.springboot.internal.SpringBootHandler
+-dsannotations: \
+ com.ibm.ws.app.manager.springboot.internal.SpringApplicationTypeSupported, \
+ com.ibm.ws.app.manager.springboot.internal.SpringBootHandler, \
+ com.ibm.ws.app.manager.springboot.internal.SpringDeployedAppInfoFactoryImpl, \
+ com.ibm.ws.app.manager.springboot.internal.SpringModuleHandlerImpl
 
 instrument.classesExcludes: com/ibm/ws/app/manager/springboot/internal/resources/*.class
 
@@ -30,13 +39,18 @@ instrument.classesExcludes: com/ibm/ws/app/manager/springboot/internal/resources
 	com.ibm.ws.app.manager;version=latest,\
 	com.ibm.ws.app.manager.module;version=latest,\
 	com.ibm.ws.artifact;version=latest,\
+	com.ibm.ws.javaee.dd;version=latest,\
+	com.ibm.ws.javaee.version;version=latest,\
 	com.ibm.ws.kernel.service,\
 	com.ibm.ws.logging.core,\
 	com.ibm.websphere.org.osgi.core,\
 	com.ibm.websphere.org.osgi.service.component,\
 	com.ibm.wsspi.org.osgi.service.component.annotations,\
+	com.ibm.ws.threading,\
 	com.ibm.ws.container.service;version=latest,\
-	com.ibm.ws.classloading;version=latest
+	com.ibm.ws.classloading;version=latest,\
+	com.ibm.ws.javaee.ddmodel;version=latest,\
+	com.ibm.ws.javaee.dd.common;version=latest
 
 -testpath: \
 	../build.sharedResources/lib/junit/old/junit.jar;version=file, \
