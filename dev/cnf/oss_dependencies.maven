@@ -248,4 +248,10 @@ org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:1.5.0
 org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:1.5.0
 org.apache.deltaspike.modules:deltaspike-scheduler-module-api:1.5.0
 org.apache.deltaspike.modules:deltaspike-scheduler-module-impl:1.5.0
+org.springframework:spring-core:4.3.13.RELEASE
+org.springframework:spring-context:4.3.13.RELEASE
+org.springframework:spring-aop:4.3.13.RELEASE
+org.springframework:spring-expression:4.3.13.RELEASE
+org.springframework.boot:spring-boot-autoconfigure:1.5.9.RELEASE
+org.springframework.boot:spring-boot:1.5.9.RELEASE
 
