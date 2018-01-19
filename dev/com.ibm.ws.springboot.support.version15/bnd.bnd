@@ -24,7 +24,7 @@ Include-Resource: OSGI-INF=resources/OSGI-INF, \
 
 instrument.classesExcludes: com/ibm/ws/springboot/support/version15/osgi/internal/resources/*.class
 
-Provide-Capability: spring.boot.web.support; jars=springBoot15Starter.jar; version:Version=1.5
+Provide-Capability: spring.boot.support; jars:List<String>=springBoot15Starter.jar; version:Version=1.5
 
 -buildpath: \
 	org.springframework:spring-core;version=4.3.13.RELEASE, \
@@ -36,6 +36,7 @@ Provide-Capability: spring.boot.web.support; jars=springBoot15Starter.jar; versi
 	com.ibm.websphere.org.osgi.core, \
 	com.ibm.websphere.org.osgi.service.component,\
 	com.ibm.wsspi.org.osgi.service.component.annotations,\
+	com.ibm.ws.app.manager.springboot
 
 -testpath: \
 	../build.sharedResources/lib/junit/old/junit.jar;version=file, \
@@ -44,6 +45,7 @@ Provide-Capability: spring.boot.web.support; jars=springBoot15Starter.jar; versi
 	org.jmock:jmock-junit4;strategy=exact;version=2.5.1, \
 	org.jmock:jmock;strategy=exact;version=2.5.1
 
--dsannotations: com.ibm.ws.springboot.support.version15.osgi.Activator
+-dsannotations: com.ibm.ws.springboot.support.version15.osgi.SpringBoot15Support
+-dsannotations-inherit: true
 
 -make= (*).(jar); type=bnd; recipe="bnd/$1.bnd"

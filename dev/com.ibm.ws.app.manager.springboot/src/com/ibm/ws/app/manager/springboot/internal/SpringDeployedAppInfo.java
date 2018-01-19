@@ -54,7 +54,6 @@ import com.ibm.wsspi.classloading.ClassLoadingService;
 import com.ibm.wsspi.classloading.GatewayConfiguration;
 
 class SpringDeployedAppInfo extends DeployedAppInfoBase {
-
     private static final String CONTEXT_ROOT = "context-root";
 
     private final ModuleHandler springModuleHandler;
@@ -63,8 +62,7 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
     SpringDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation,
                           SpringDeployedAppInfoFactoryImpl factory) throws UnableToAdaptException {
         super(applicationInformation, factory);
-        this.springModuleHandler = factory.springModuleHandler;
-
+        this.springModuleHandler = factory.getSpringModuleHandler();
         String moduleURI = ModuleInfoUtils.getModuleURIFromLocation(applicationInformation.getLocation());
         String contextRoot = ContextRootUtil.getContextRoot((String) applicationInformation.getConfigProperty(CONTEXT_ROOT));
         //tWAS doesn't use the ibm-web-ext to obtain the context-root when the WAR exists in an EAR.
@@ -72,9 +70,10 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         if (contextRoot == null) {
             contextRoot = ContextRootUtil.getContextRoot(getContainer());
         }
-        this.springContainerModuleInfo = new SpringModuleContainerInfo(springModuleHandler, factory.getModuleMetaDataExtenders().get("web"), factory.getNestedModuleMetaDataFactories().get("web"), applicationInformation.getContainer(), null, moduleURI, moduleClassesInfo, contextRoot);
+        this.springContainerModuleInfo = new SpringModuleContainerInfo(factory.getSpringBootSupport(), springModuleHandler, factory.getModuleMetaDataExtenders().get("web"), factory.getNestedModuleMetaDataFactories().get("web"), applicationInformation.getContainer(), null, moduleURI, moduleClassesInfo, contextRoot);
         moduleContainerInfos.add(springContainerModuleInfo);
 
+        // We need to add to the cache so the container doesn't recalculate this for us
         NonPersistentCache npc = getContainer().adapt(NonPersistentCache.class);
         npc.addToCache(WebModuleClassesInfo.class, new WebModuleClassesInfo() {
 
@@ -172,13 +171,13 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         public final String contextRoot;
         public String defaultContextRoot;
 
-        public SpringModuleContainerInfo(ModuleHandler moduleHandler, List<ModuleMetaDataExtender> moduleMetaDataExtenders,
+        public SpringModuleContainerInfo(List<Container> springBootSupport, ModuleHandler moduleHandler, List<ModuleMetaDataExtender> moduleMetaDataExtenders,
                                          List<NestedModuleMetaDataFactory> nestedModuleMetaDataFactories,
                                          Container moduleContainer, Entry altDDEntry,
                                          String moduleURI, ModuleClassesInfoProvider moduleClassesInfo,
                                          String contextRoot) throws UnableToAdaptException {
             super(moduleHandler, moduleMetaDataExtenders, nestedModuleMetaDataFactories, moduleContainer, altDDEntry, moduleURI, ContainerInfo.Type.WEB_MODULE, moduleClassesInfo, WebApp.class);
-            getWebModuleClassesInfo(moduleContainer);
+            getWebModuleClassesInfo(moduleContainer, springBootSupport);
             this.contextRoot = contextRoot;
             this.defaultContextRoot = moduleName;
         }
@@ -216,29 +215,14 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
             }
         }
 
-        private void getWebModuleClassesInfo(Container moduleContainer) throws UnableToAdaptException {
+        private void getWebModuleClassesInfo(Container moduleContainer, List<Container> springBootSupport) throws UnableToAdaptException {
             ArrayList<String> resolved = new ArrayList<String>();
 
             Entry classesEntry = moduleContainer.getEntry("BOOT-INF/classes");
             if (classesEntry != null) {
                 final Container classesContainer = classesEntry.adapt(Container.class);
                 if (classesContainer != null) {
-                    ContainerInfo containerInfo = new ContainerInfo() {
-                        @Override
-                        public Type getType() {
-                            return Type.WEB_INF_CLASSES;
-                        }
-
-                        @Override
-                        public String getName() {
-                            return "BOOT-INF/classes";
-                        }
-
-                        @Override
-                        public Container getContainer() {
-                            return classesContainer;
-                        }
-                    };
+                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_CLASSES, "BOOT-INF/classes", classesContainer);
                     this.classesContainerInfo.add(containerInfo);
                 }
             }
@@ -249,34 +233,51 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
                 if (libContainer != null) {
                     for (Entry entry : libContainer) {
                         if (entry.getName().toLowerCase().endsWith(".jar") && !entry.getName().contains("tomcat-")) {
-                            final String jarEntryName = entry.getName();
-                            final Container jarContainer = entry.adapt(Container.class);
+                            String jarEntryName = entry.getName();
+                            Container jarContainer = entry.adapt(Container.class);
                             if (jarContainer != null) {
-                                ContainerInfo containerInfo = new ContainerInfo() {
-                                    @Override
-                                    public Type getType() {
-                                        return Type.WEB_INF_LIB;
-                                    }
-
-                                    @Override
-                                    public String getName() {
-                                        return "BOOT-INF/lib/" + jarEntryName;
-                                    }
-
-                                    @Override
-                                    public Container getContainer() {
-                                        return jarContainer;
-                                    }
-                                };
+                                ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, "BOOT-INF/lib/" + jarEntryName, jarContainer);
                                 this.classesContainerInfo.add(containerInfo);
-
                                 ManifestClassPathUtils.addCompleteJarEntryUrls(this.classesContainerInfo, entry, resolved);
                             }
                         }
                     }
                 }
+                for (Container supportContainer : springBootSupport) {
+                    Entry supportEntry = supportContainer.adapt(Entry.class);
+                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, "BOOT-INF/lib/" + supportEntry.getName(), supportContainer);
+                    this.classesContainerInfo.add(containerInfo);
+                }
             }
         }
     }
 
+    static class ContainerInfoImpl implements ContainerInfo {
+        private final Type type;
+        private final String name;
+        private final Container container;
+
+        public ContainerInfoImpl(Type type, String name, Container container) {
+            super();
+            this.type = type;
+            this.name = name;
+            this.container = container;
+        }
+
+        @Override
+        public Type getType() {
+            return type;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public Container getContainer() {
+            return container;
+        }
+
+    }
 }

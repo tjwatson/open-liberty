@@ -10,23 +10,14 @@
  *******************************************************************************/
 package com.ibm.ws.springboot.support.version15.osgi;
 
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 
-@Component(service = {})
-public class Activator implements BundleActivator {
+import com.ibm.ws.app.manager.springboot.SpringBootSupport;
 
-    @Override
-    @Activate
-    public void start(BundleContext bc) throws Exception {
-        System.out.println("GET RID OF THIS ACTIVATOR: " + bc.getBundle());
-    }
-
-    @Override
-    @Deactivate
-    public void stop(BundleContext arg0) throws Exception {}
+/**
+ *
+ */
+@Component(service = SpringBootSupport.class)
+public class SpringBoot15Support extends SpringBootSupport {
 
 }

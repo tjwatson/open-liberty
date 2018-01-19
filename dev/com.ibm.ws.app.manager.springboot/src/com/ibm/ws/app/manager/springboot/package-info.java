@@ -8,13 +8,14 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package com.ibm.ws.app.manager.springboot.internal;
-
 /**
- *
+ * Provides the classes necessary to implement a &quot;work-stealing&quot; threading
+ * implementation.
  */
-public final class SpringConstants {
-    public static final String SPRING_APP_TYPE = "spr";
-    public static final String SPRING_BOOT_SUPPORT_CAPABILITY = "spring.boot.support";
-    public static final String SPRING_BOOT_SUPPORT_CAPABILITY_JARS = "jars";
-}
+@Version("1.0.0")
+@TraceOptions(traceGroups = { "springboot", "applications", "app.manager" }, messageBundle = "com.ibm.ws.app.manager.springboot.internal.resources.Messages")
+package com.ibm.ws.app.manager.springboot;
+
+import org.osgi.annotation.versioning.Version;
+
+import com.ibm.websphere.ras.annotation.TraceOptions;
