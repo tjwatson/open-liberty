@@ -252,6 +252,7 @@ org.springframework:spring-core:4.3.13.RELEASE
 org.springframework:spring-context:4.3.13.RELEASE
 org.springframework:spring-aop:4.3.13.RELEASE
 org.springframework:spring-expression:4.3.13.RELEASE
+org.springframework:spring-beans:4.3.13.RELEASE
 org.springframework.boot:spring-boot-autoconfigure:1.5.9.RELEASE
 org.springframework.boot:spring-boot:1.5.9.RELEASE
 

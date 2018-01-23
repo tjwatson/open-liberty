@@ -31,6 +31,7 @@ Provide-Capability: spring.boot.support; jars:List<String>=springBoot15Starter.j
 	org.springframework:spring-context;version=4.3.13.RELEASE, \
 	org.springframework:spring-aop;version=4.3.13.RELEASE, \
 	org.springframework:spring-expression;version=4.3.13.RELEASE, \
+	org.springframework:spring-beans;version=4.3.13.RELEASE, \
 	org.springframework.boot:spring-boot-autoconfigure;version=1.5.9.RELEASE, \
 	org.springframework.boot:spring-boot;version=1.5.9.RELEASE, \
 	com.ibm.websphere.org.osgi.core, \

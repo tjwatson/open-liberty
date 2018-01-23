@@ -10,6 +10,15 @@
  *******************************************************************************/
 package com.ibm.ws.app.manager.springboot.internal;
 
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CLASSES_HEADER;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_INVOKE_MAIN;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_LIB_HEADER;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_START_CLASS_HEADER;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +27,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.jar.Manifest;
 
 import com.ibm.ws.app.manager.module.DeployedAppInfo;
 import com.ibm.ws.app.manager.module.internal.ContextRootUtil;
@@ -39,6 +50,7 @@ import com.ibm.ws.container.service.metadata.MetaDataException;
 import com.ibm.ws.container.service.metadata.extended.ModuleMetaDataExtender;
 import com.ibm.ws.container.service.metadata.extended.NestedModuleMetaDataFactory;
 import com.ibm.ws.ffdc.FFDCFilter;
+import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.javaee.dd.web.WebApp;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.DefaultNotification;
@@ -58,11 +70,13 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
 
     private final ModuleHandler springModuleHandler;
     private final SpringModuleContainerInfo springContainerModuleInfo;
+    private final boolean invokeSpringAppMain;
 
     SpringDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation,
                           SpringDeployedAppInfoFactoryImpl factory) throws UnableToAdaptException {
         super(applicationInformation, factory);
-        this.springModuleHandler = factory.getSpringModuleHandler();
+        invokeSpringAppMain = Boolean.parseBoolean(factory.getBundleContext().getProperty(SPRING_BOOT_INVOKE_MAIN));
+        springModuleHandler = factory.getSpringModuleHandler();
         String moduleURI = ModuleInfoUtils.getModuleURIFromLocation(applicationInformation.getLocation());
         String contextRoot = ContextRootUtil.getContextRoot((String) applicationInformation.getConfigProperty(CONTEXT_ROOT));
         //tWAS doesn't use the ibm-web-ext to obtain the context-root when the WAR exists in an EAR.
@@ -93,12 +107,12 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
     public ClassLoader createModuleClassLoader(ModuleInfo moduleInfo, List<ContainerInfo> moduleClassesContainers) {
         if (moduleInfo instanceof WebModuleInfo) {
             ApplicationInfo appInfo = moduleInfo.getApplicationInfo();
-            String j2eeAppName = appInfo.getDeploymentName();
-            String j2eeModuleName = moduleInfo.getURI();
+            String appName = appInfo.getDeploymentName();
+            String moduleName = moduleInfo.getURI();
             ClassLoadingService cls = classLoadingService;
             List<Container> containers = new ArrayList<Container>();
             Iterator<ContainerInfo> infos = moduleClassesContainers.iterator();
-            // We want the first item to be at the end of the class path for a war
+            // We want the first item to be at the end of the class path for a spr
             if (infos.hasNext()) {
                 infos.next();
                 while (infos.hasNext()) {
@@ -108,14 +122,12 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
                 containers.add(moduleClassesContainers.get(0).getContainer());
             }
 
-            GatewayConfiguration gwCfg = cls.createGatewayConfiguration()
-                            // TODO call .setApplicationVersion() with some appropriate value
-                            .setApplicationName(j2eeAppName).setDynamicImportPackage(DYNAMIC_IMPORT_PACKAGE_LIST);
+            GatewayConfiguration gwCfg = cls.createGatewayConfiguration().setApplicationName(appName).setDynamicImportPackage(DYNAMIC_IMPORT_PACKAGE_LIST);
 
             ProtectionDomain protectionDomain = getProtectionDomain();
 
-            ClassLoaderConfiguration clCfg = cls.createClassLoaderConfiguration().setId(cls.createIdentity("WebModule", j2eeAppName + "#"
-                                                                                                                        + j2eeModuleName)).setProtectionDomain(protectionDomain).setIncludeAppExtensions(true);
+            ClassLoaderConfiguration clCfg = cls.createClassLoaderConfiguration().setId(cls.createIdentity("SpringModule", appName + "#"
+                                                                                                                           + moduleName)).setProtectionDomain(protectionDomain).setIncludeAppExtensions(true);
 
             return createTopLevelClassLoader(containers, gwCfg, clCfg);
         } else {
@@ -163,23 +175,72 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         return new DefaultApplicationMonitoringInformation(notifications, false);
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.ibm.ws.app.manager.module.internal.DeployedAppInfoBase#preDeployApp(java.util.concurrent.Future)
+     */
+    @Override
+    public boolean preDeployApp(Future<Boolean> result) {
+        if (super.preDeployApp(result)) {
+            return invokeSpringMain();
+        }
+        return false;
+    }
+
+    private boolean invokeSpringMain() {
+        if (!invokeSpringAppMain) {
+            return true;
+        }
+        try {
+            Class<?> springAppClass = springContainerModuleInfo.getClassLoader().loadClass(springContainerModuleInfo.springStartClass);
+            Method main = springAppClass.getMethod("main", String[].class);
+            main.setAccessible(true);
+            main.invoke(null, new Object[] { new String[0] });
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            return false;
+        }
+        return false;
+    }
+
     private static final class SpringModuleContainerInfo extends ModuleContainerInfoBase {
         /**
          * The explicitly specified context root from application.xml, web
          * extension, or server configuration.
          */
         public final String contextRoot;
+        final String springStartClass;
+        final String springBootClasses;
+        final String springBootLib;
         public String defaultContextRoot;
 
+        @FFDCIgnore(IOException.class)
         public SpringModuleContainerInfo(List<Container> springBootSupport, ModuleHandler moduleHandler, List<ModuleMetaDataExtender> moduleMetaDataExtenders,
                                          List<NestedModuleMetaDataFactory> nestedModuleMetaDataFactories,
                                          Container moduleContainer, Entry altDDEntry,
                                          String moduleURI, ModuleClassesInfoProvider moduleClassesInfo,
                                          String contextRoot) throws UnableToAdaptException {
             super(moduleHandler, moduleMetaDataExtenders, nestedModuleMetaDataFactories, moduleContainer, altDDEntry, moduleURI, ContainerInfo.Type.WEB_MODULE, moduleClassesInfo, WebApp.class);
-            getWebModuleClassesInfo(moduleContainer, springBootSupport);
+
+            Entry manifestEntry = moduleContainer.getEntry("META-INF/MANIFEST.MF");
+            try {
+                Manifest mf = new Manifest(manifestEntry.adapt(InputStream.class));
+                springStartClass = mf.getMainAttributes().getValue(SPRING_START_CLASS_HEADER);
+                springBootClasses = removeTrailingSlash(mf.getMainAttributes().getValue(SPRING_BOOT_CLASSES_HEADER));
+                springBootLib = removeTrailingSlash(mf.getMainAttributes().getValue(SPRING_BOOT_LIB_HEADER));
+            } catch (IOException e) {
+                throw new UnableToAdaptException(e);
+            }
+            getSpringAppClassesInfo(moduleContainer, springBootSupport);
             this.contextRoot = contextRoot;
             this.defaultContextRoot = moduleName;
+        }
+
+        private static String removeTrailingSlash(String path) {
+            if (path != null && path.length() > 1 && path.endsWith("/")) {
+                return path.substring(0, path.length() - 1);
+            }
+            return path;
         }
 
         @Override
@@ -215,19 +276,19 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
             }
         }
 
-        private void getWebModuleClassesInfo(Container moduleContainer, List<Container> springBootSupport) throws UnableToAdaptException {
+        private void getSpringAppClassesInfo(Container moduleContainer, List<Container> springBootSupport) throws UnableToAdaptException {
             ArrayList<String> resolved = new ArrayList<String>();
 
-            Entry classesEntry = moduleContainer.getEntry("BOOT-INF/classes");
+            Entry classesEntry = moduleContainer.getEntry(springBootClasses);
             if (classesEntry != null) {
                 final Container classesContainer = classesEntry.adapt(Container.class);
                 if (classesContainer != null) {
-                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_CLASSES, "BOOT-INF/classes", classesContainer);
+                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_CLASSES, springBootClasses, classesContainer);
                     this.classesContainerInfo.add(containerInfo);
                 }
             }
 
-            Entry libEntry = moduleContainer.getEntry("BOOT-INF/lib");
+            Entry libEntry = moduleContainer.getEntry(springBootLib);
             if (libEntry != null) {
                 Container libContainer = libEntry.adapt(Container.class);
                 if (libContainer != null) {
@@ -236,7 +297,7 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
                             String jarEntryName = entry.getName();
                             Container jarContainer = entry.adapt(Container.class);
                             if (jarContainer != null) {
-                                ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, "BOOT-INF/lib/" + jarEntryName, jarContainer);
+                                ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, springBootLib + '/' + jarEntryName, jarContainer);
                                 this.classesContainerInfo.add(containerInfo);
                                 ManifestClassPathUtils.addCompleteJarEntryUrls(this.classesContainerInfo, entry, resolved);
                             }
@@ -245,7 +306,7 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
                 }
                 for (Container supportContainer : springBootSupport) {
                     Entry supportEntry = supportContainer.adapt(Entry.class);
-                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, "BOOT-INF/lib/" + supportEntry.getName(), supportContainer);
+                    ContainerInfo containerInfo = new ContainerInfoImpl(Type.WEB_INF_LIB, springBootLib + '/' + supportEntry.getName(), supportContainer);
                     this.classesContainerInfo.add(containerInfo);
                 }
             }
@@ -278,6 +339,5 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         public Container getContainer() {
             return container;
         }
-
     }
 }
