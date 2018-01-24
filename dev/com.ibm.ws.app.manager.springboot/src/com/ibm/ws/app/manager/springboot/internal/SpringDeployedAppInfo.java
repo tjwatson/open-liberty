@@ -200,7 +200,7 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             return false;
         }
-        return false;
+        return true;
     }
 
     private static final class SpringModuleContainerInfo extends ModuleContainerInfoBase {
