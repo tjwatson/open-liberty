@@ -27,8 +27,16 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.jar.Manifest;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleReference;
 
 import com.ibm.ws.app.manager.module.DeployedAppInfo;
 import com.ibm.ws.app.manager.module.internal.ContextRootUtil;
@@ -38,6 +46,7 @@ import com.ibm.ws.app.manager.module.internal.ModuleClassLoaderFactory;
 import com.ibm.ws.app.manager.module.internal.ModuleHandler;
 import com.ibm.ws.app.manager.module.internal.ModuleInfoUtils;
 import com.ibm.ws.app.manager.module.internal.WebModuleInfoImpl;
+import com.ibm.ws.app.manager.springboot.container.SpringContainer;
 import com.ibm.ws.container.service.app.deploy.ApplicationInfo;
 import com.ibm.ws.container.service.app.deploy.ContainerInfo;
 import com.ibm.ws.container.service.app.deploy.ManifestClassPathUtils;
@@ -52,6 +61,8 @@ import com.ibm.ws.container.service.metadata.extended.NestedModuleMetaDataFactor
 import com.ibm.ws.ffdc.FFDCFilter;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.javaee.dd.web.WebApp;
+import com.ibm.ws.threading.FutureMonitor;
+import com.ibm.ws.threading.listeners.CompletionListener;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.DefaultNotification;
 import com.ibm.wsspi.adaptable.module.Entry;
@@ -65,18 +76,23 @@ import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
 import com.ibm.wsspi.classloading.ClassLoadingService;
 import com.ibm.wsspi.classloading.GatewayConfiguration;
 
-class SpringDeployedAppInfo extends DeployedAppInfoBase {
+class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContainer {
     private static final String CONTEXT_ROOT = "context-root";
 
     private final ModuleHandler springModuleHandler;
+    private final ExecutorService executor;
+    private final FutureMonitor futureMonitor;
     private final SpringModuleContainerInfo springContainerModuleInfo;
     private final boolean invokeSpringAppMain;
+    private final CountDownLatch waitToDeploy = new CountDownLatch(1);
 
     SpringDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation,
                           SpringDeployedAppInfoFactoryImpl factory) throws UnableToAdaptException {
         super(applicationInformation, factory);
         invokeSpringAppMain = Boolean.parseBoolean(factory.getBundleContext().getProperty(SPRING_BOOT_INVOKE_MAIN));
         springModuleHandler = factory.getSpringModuleHandler();
+        executor = factory.getExecutor();
+        futureMonitor = factory.getFutureMonitor();
         String moduleURI = ModuleInfoUtils.getModuleURIFromLocation(applicationInformation.getLocation());
         String contextRoot = ContextRootUtil.getContextRoot((String) applicationInformation.getConfigProperty(CONTEXT_ROOT));
         //tWAS doesn't use the ibm-web-ext to obtain the context-root when the WAR exists in an EAR.
@@ -182,25 +198,80 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
      */
     @Override
     public boolean preDeployApp(Future<Boolean> result) {
+        final AtomicBoolean success = new AtomicBoolean(true);
         if (super.preDeployApp(result)) {
-            return invokeSpringMain();
+            registerSpringContainerService();
+
+            Future<Boolean> mainInvokeResult = futureMonitor.createFuture(Boolean.class);
+
+            futureMonitor.onCompletion(mainInvokeResult, new CompletionListener<Boolean>() {
+                @Override
+                public void successfulCompletion(Future<Boolean> future, Boolean result) {
+                    waitToDeploy.countDown();
+                }
+
+                @Override
+                public void failedCompletion(Future<Boolean> future, Throwable t) {
+                    success.set(false);
+                    waitToDeploy.countDown();
+                    futureMonitor.setResult(result, t);
+                }
+            });
+            invokeSpringMain(mainInvokeResult);
+
+            try {
+                waitToDeploy.await();
+            } catch (InterruptedException e) {
+                futureMonitor.setResult(result, e);
+                return false;
+            }
         }
-        return false;
+        return success.get();
     }
 
-    private boolean invokeSpringMain() {
-        if (!invokeSpringAppMain) {
-            return true;
+    /**
+     *
+     */
+    private void registerSpringContainerService() {
+        ClassLoader cl = springContainerModuleInfo.getClassLoader();
+        while (cl != null && !(cl instanceof BundleReference)) {
+            cl = cl.getParent();
         }
+        if (cl == null) {
+            throw new IllegalStateException("Did not find a BundleReference class loader.");
+        }
+        Bundle b = ((BundleReference) cl).getBundle();
+        BundleContext context = b.getBundleContext();
+        context.registerService(SpringContainer.class, this, null);
+    }
+
+    private void invokeSpringMain(Future<Boolean> mainInvokeResult) {
+        if (!invokeSpringAppMain) {
+            futureMonitor.setResult(mainInvokeResult, true);
+            return;
+        }
+        final Method main;
         try {
             Class<?> springAppClass = springContainerModuleInfo.getClassLoader().loadClass(springContainerModuleInfo.springStartClass);
-            Method main = springAppClass.getMethod("main", String[].class);
+            main = springAppClass.getMethod("main", String[].class);
             main.setAccessible(true);
-            main.invoke(null, new Object[] { new String[0] });
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            return false;
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            futureMonitor.setResult(mainInvokeResult, e);
+            return;
         }
-        return true;
+
+        executor.execute(() -> {
+            try {
+                // TODO figure out how to pass arguments
+                main.invoke(null, new Object[] { new String[0] });
+                futureMonitor.setResult(mainInvokeResult, true);
+            } catch (InvocationTargetException e) {
+                futureMonitor.setResult(mainInvokeResult, e.getTargetException());
+            } catch (IllegalAccessException | IllegalArgumentException e) {
+                // Auto FFDC here this should not happen
+                futureMonitor.setResult(mainInvokeResult, e);
+            }
+        });
     }
 
     private static final class SpringModuleContainerInfo extends ModuleContainerInfoBase {
@@ -339,5 +410,25 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase {
         public Container getContainer() {
             return container;
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.ibm.ws.app.manager.springboot.container.SpringContainer#configure(java.util.Map)
+     */
+    @Override
+    public void configure(Map<String, String> config) {
+        // TODO Auto-generated method stub
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.ibm.ws.app.manager.springboot.container.SpringContainer#deploy()
+     */
+    @Override
+    public void deploy() {
+        waitToDeploy.countDown();
     }
 }

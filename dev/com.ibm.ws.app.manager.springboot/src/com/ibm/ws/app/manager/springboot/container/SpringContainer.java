@@ -8,14 +8,15 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
+package com.ibm.ws.app.manager.springboot.container;
+
+import java.util.Map;
+
 /**
- * Provides the classes necessary to implement a &quot;work-stealing&quot; threading
- * implementation.
+ *
  */
-@Version("1.0.0")
-@TraceOptions(traceGroups = { "springboot", "applications", "app.manager" }, messageBundle = "com.ibm.ws.app.manager.springboot.internal.resources.Messages")
-package com.ibm.ws.app.manager.springboot;
+public interface SpringContainer {
+    void configure(Map<String, String> config);
 
-import org.osgi.annotation.versioning.Version;
-
-import com.ibm.websphere.ras.annotation.TraceOptions;
+    void deploy();
+}

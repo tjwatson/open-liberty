@@ -8,16 +8,11 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package com.ibm.ws.springboot.support.version15.osgi;
-
-import org.osgi.service.component.annotations.Component;
-
-import com.ibm.ws.app.manager.springboot.support.SpringBootSupport;
-
 /**
- *
+ * Provides the classes necessary to implement a &quot;work-stealing&quot; threading
+ * implementation.
  */
-@Component(service = SpringBootSupport.class)
-public class SpringBoot15Support extends SpringBootSupport {
+@Version("1.0.0")
+package com.ibm.ws.springboot.support.version15.osgi.service;
 
-}
+import org.osgi.annotation.versioning.Version;

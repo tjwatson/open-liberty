@@ -10,4 +10,5 @@ Subsystem-Name: Spring Boot Support version 1.5
 -bundles=com.ibm.ws.springboot.support.version15
 kind=noship
 edition=core
-IBM-API-Package: com.ibm.websphere.ras; type="internal"
+IBM-API-Package: com.ibm.websphere.ras; type="internal", \
+ com.ibm.ws.springboot.support.version15.osgi.service; type="internal"

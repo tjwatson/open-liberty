@@ -13,10 +13,13 @@
 
 bVersion=1.0
 
+javac.source: 1.8
+javac.target: 1.8
+
 Bundle-Name: WebSphere Spring Boot 1.5 Support
 Bundle-SymbolicName: com.ibm.ws.springboot.support.version15
 Bundle-Description: WebSphere Spring Boot 1.5 Support, version ${bVersion}
-
+Export-Package: com.ibm.ws.springboot.support.version15.osgi.service
 Private-Package: com.ibm.ws.springboot.support.version15.osgi.*
 
 Include-Resource: OSGI-INF=resources/OSGI-INF, \
@@ -37,7 +40,10 @@ Provide-Capability: spring.boot.support; jars:List<String>=springBoot15Starter.j
 	com.ibm.websphere.org.osgi.core, \
 	com.ibm.websphere.org.osgi.service.component,\
 	com.ibm.wsspi.org.osgi.service.component.annotations,\
-	com.ibm.ws.app.manager.springboot
+	com.ibm.ws.app.manager.springboot, \
+	com.ibm.websphere.javaee.servlet.3.1, \
+	com.ibm.ws.webcontainer,\
+	com.ibm.ws.org.osgi.annotation.versioning
 
 -testpath: \
 	../build.sharedResources/lib/junit/old/junit.jar;version=file, \

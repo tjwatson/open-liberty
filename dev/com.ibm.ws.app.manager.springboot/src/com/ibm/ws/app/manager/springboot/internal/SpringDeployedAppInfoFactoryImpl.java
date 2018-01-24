@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
@@ -32,7 +33,8 @@ import com.ibm.ws.app.manager.module.DeployedAppInfo;
 import com.ibm.ws.app.manager.module.DeployedAppInfoFactory;
 import com.ibm.ws.app.manager.module.internal.DeployedAppInfoFactoryBase;
 import com.ibm.ws.app.manager.module.internal.ModuleHandler;
-import com.ibm.ws.app.manager.springboot.SpringBootSupport;
+import com.ibm.ws.app.manager.springboot.support.SpringBootSupport;
+import com.ibm.ws.threading.FutureMonitor;
 import com.ibm.wsspi.adaptable.module.AdaptableModuleFactory;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.Entry;
@@ -53,6 +55,8 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
     private ArtifactContainerFactory containerFactory;
     private AdaptableModuleFactory adaptableFactory;
     private List<Container> springBootSupport;
+    private ExecutorService executor;
+    private FutureMonitor futureMonitor;
 
     private final ZipUtils zipUtils = new ZipUtils();
 
@@ -93,6 +97,15 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
             }
         }
         springBootSupport = Collections.unmodifiableList(supportContainers);
+    }
+
+    @Reference
+    protected void setExecutor(ExecutorService executor) {
+        this.executor = executor;
+    }
+
+    ExecutorService getExecutor() {
+        return executor;
     }
 
     @Override
