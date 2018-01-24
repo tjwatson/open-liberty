@@ -22,7 +22,7 @@ import com.ibm.ws.container.service.app.deploy.extended.ModuleRuntimeContainer;
 public class SpringModuleHandlerImpl extends ModuleHandlerBase {
 
     @Reference(target = "(type=web)")
-    protected void setWebContainer(ModuleRuntimeContainer webContainer) {
+    protected void setRuntimeContainer(ModuleRuntimeContainer webContainer) {
         super.setModuleRuntimeContainer(webContainer);
     }
 }

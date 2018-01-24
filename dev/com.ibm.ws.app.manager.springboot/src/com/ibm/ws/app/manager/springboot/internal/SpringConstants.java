@@ -15,4 +15,10 @@ package com.ibm.ws.app.manager.springboot.internal;
  */
 public final class SpringConstants {
     public static final String SPRING_APP_TYPE = "spr";
+    public static final String SPRING_BOOT_SUPPORT_CAPABILITY = "spring.boot.support";
+    public static final String SPRING_BOOT_SUPPORT_CAPABILITY_JARS = "jars";
+    public static final String SPRING_START_CLASS_HEADER = "Start-Class";
+    public static final String SPRING_BOOT_CLASSES_HEADER = "Spring-Boot-Classes";
+    public static final String SPRING_BOOT_LIB_HEADER = "Spring-Boot-Lib";
+    public static final String SPRING_BOOT_INVOKE_MAIN = "com.ibm.ws.app.manager.spring.invoke.main";
 }
