@@ -73,6 +73,9 @@ public class LibertyServletContainer implements EmbeddedServletContainer {
             Thread.currentThread().interrupt();
             throw new EmbeddedServletContainerException("Initialization of ServletContext got interrupted.", e);
         }
+        if (exception.get() != null) {
+            throw new EmbeddedServletContainerException("Error occured initializing the ServletContext.", exception.get());
+        }
     }
 
     /*

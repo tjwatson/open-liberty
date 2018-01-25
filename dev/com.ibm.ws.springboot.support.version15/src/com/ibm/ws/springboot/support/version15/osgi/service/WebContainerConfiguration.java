@@ -34,6 +34,9 @@ import com.ibm.wsspi.webcontainer.servlet.IServletContext;
  */
 public final class WebContainerConfiguration {
     public static WebContainerConfiguration getWebContainerConfiguration(Object consumer) {
+        // A Spring Container is registered with the gateway bundle for the application
+        // here we find the gateway bundle by looking for a BundleReference in the class
+        // loader hierarchy.
         ClassLoader cl = consumer.getClass().getClassLoader();
         while (cl != null && (!(cl instanceof BundleReference))) {
             cl = cl.getParent();
@@ -41,7 +44,7 @@ public final class WebContainerConfiguration {
         if (cl == null) {
             throw new IllegalStateException("Did not find a BundleReference class loader.");
         }
-        return new WebContainerConfiguration(getSpringContainer(cl), cl);
+        return new WebContainerConfiguration(getSpringContainer(cl));
     }
 
     private static SpringContainer getSpringContainer(ClassLoader cl) {
@@ -61,19 +64,20 @@ public final class WebContainerConfiguration {
     }
 
     private final SpringContainer springContainer;
-    private final ClassLoader cl;
 
     /**
      * @param springContainer
      * @param cl
      */
-    private WebContainerConfiguration(SpringContainer springContainer, ClassLoader cl) {
+    private WebContainerConfiguration(SpringContainer springContainer) {
         this.springContainer = springContainer;
-        this.cl = cl;
     }
 
     public void deploy(UnaryOperator<ServletContext> contextListener) {
+        // register an extension factory for the context BEFORE deploying
         registerExtensionFactory(contextListener);
+        // Deploy the application will make the application known to the
+        // web container.  This will cause the extension factory to be called
         springContainer.deploy();
     }
 
@@ -96,6 +100,7 @@ public final class WebContainerConfiguration {
                         // TODO figure out how to make sure this is the correct context
                         if (true /* webapp.getClassLoader() == cl */) {
                             contextListener.apply(webapp);
+                            // this registration is no longer needed
                             reg.unregister();
                         }
                         return null;

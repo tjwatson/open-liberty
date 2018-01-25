@@ -20,5 +20,4 @@ public final class SpringConstants {
     public static final String SPRING_START_CLASS_HEADER = "Start-Class";
     public static final String SPRING_BOOT_CLASSES_HEADER = "Spring-Boot-Classes";
     public static final String SPRING_BOOT_LIB_HEADER = "Spring-Boot-Lib";
-    public static final String SPRING_BOOT_INVOKE_MAIN = "com.ibm.ws.app.manager.spring.invoke.main";
 }

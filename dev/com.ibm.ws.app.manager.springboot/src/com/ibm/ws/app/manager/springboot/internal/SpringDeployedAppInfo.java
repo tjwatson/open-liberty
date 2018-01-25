@@ -11,7 +11,6 @@
 package com.ibm.ws.app.manager.springboot.internal;
 
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CLASSES_HEADER;
-import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_INVOKE_MAIN;
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_LIB_HEADER;
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_START_CLASS_HEADER;
 
@@ -83,13 +82,11 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
     private final ExecutorService executor;
     private final FutureMonitor futureMonitor;
     private final SpringModuleContainerInfo springContainerModuleInfo;
-    private final boolean invokeSpringAppMain;
     private final CountDownLatch waitToDeploy = new CountDownLatch(1);
 
     SpringDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation,
                           SpringDeployedAppInfoFactoryImpl factory) throws UnableToAdaptException {
         super(applicationInformation, factory);
-        invokeSpringAppMain = Boolean.parseBoolean(factory.getBundleContext().getProperty(SPRING_BOOT_INVOKE_MAIN));
         springModuleHandler = factory.getSpringModuleHandler();
         executor = factory.getExecutor();
         futureMonitor = factory.getFutureMonitor();
@@ -207,16 +204,22 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
             futureMonitor.onCompletion(mainInvokeResult, new CompletionListener<Boolean>() {
                 @Override
                 public void successfulCompletion(Future<Boolean> future, Boolean result) {
+                    // doing a countDown here just to be safe incase invoking main did not do it.
+                    // TODO this would really be unexpected, should we log some error if the count is not zero first?
                     waitToDeploy.countDown();
                 }
 
                 @Override
                 public void failedCompletion(Future<Boolean> future, Throwable t) {
+                    // Something bad happened invoking main record failure
                     success.set(false);
-                    waitToDeploy.countDown();
+                    // set the error BEFORE countDown to ensure the future is set before continuing
                     futureMonitor.setResult(result, t);
+                    // unblock any potential awaits still going on
+                    waitToDeploy.countDown();
                 }
             });
+
             invokeSpringMain(mainInvokeResult);
 
             try {
@@ -233,6 +236,10 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
      *
      */
     private void registerSpringContainerService() {
+        // Register the SpringContainer service with the context
+        // of the gateway bundle for the application.
+        // Find the gateway bunlde by searching the hierarchy of the
+        // the application classloader until a BundleReference is found.
         ClassLoader cl = springContainerModuleInfo.getClassLoader();
         while (cl != null && !(cl instanceof BundleReference)) {
             cl = cl.getParent();
@@ -242,24 +249,26 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
         }
         Bundle b = ((BundleReference) cl).getBundle();
         BundleContext context = b.getBundleContext();
+        // We don't save the registration here, the service implementation track the reg.
         context.registerService(SpringContainer.class, this, null);
     }
 
+    // TODO should @FFDCIgnore on InvocationTragetException -- but that doesn't seem to work for lambdas
+    //@FFDCIgnore(InvocationTargetException.class)
     private void invokeSpringMain(Future<Boolean> mainInvokeResult) {
-        if (!invokeSpringAppMain) {
-            futureMonitor.setResult(mainInvokeResult, true);
-            return;
-        }
         final Method main;
         try {
             Class<?> springAppClass = springContainerModuleInfo.getClassLoader().loadClass(springContainerModuleInfo.springStartClass);
             main = springAppClass.getMethod("main", String[].class);
+            // TODO not sure Spring Boot supports non-private main methods
             main.setAccessible(true);
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             futureMonitor.setResult(mainInvokeResult, e);
             return;
         }
 
+        // Execute the main method asynchronously.
+        // The mainInvokeResult is tracked to monitor completion
         executor.execute(() -> {
             try {
                 // TODO figure out how to pass arguments
