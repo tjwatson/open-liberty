@@ -34,7 +34,6 @@ import com.ibm.ws.app.manager.module.DeployedAppInfoFactory;
 import com.ibm.ws.app.manager.module.internal.DeployedAppInfoFactoryBase;
 import com.ibm.ws.app.manager.module.internal.ModuleHandler;
 import com.ibm.ws.app.manager.springboot.support.SpringBootSupport;
-import com.ibm.ws.threading.FutureMonitor;
 import com.ibm.wsspi.adaptable.module.AdaptableModuleFactory;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.Entry;
@@ -56,14 +55,13 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
     private AdaptableModuleFactory adaptableFactory;
     private List<Container> springBootSupport;
     private ExecutorService executor;
-    private FutureMonitor futureMonitor;
 
     private final ZipUtils zipUtils = new ZipUtils();
 
     private final static Map<String, Long> timestamps = new HashMap<String, Long>();
 
     @Reference(target = "(type=" + SPRING_APP_TYPE + ")")
-    protected void setWebModuleHandler(ModuleHandler handler) {
+    protected void setSprModuleHandler(ModuleHandler handler) {
         this.springModuleHandler = handler;
     }
 
