@@ -99,7 +99,7 @@ public final class WebContainerConfiguration {
                     public ExtensionProcessor createExtensionProcessor(IServletContext webapp) throws Exception {
                         // TODO figure out how to make sure this is the correct context
                         if (true /* webapp.getClassLoader() == cl */) {
-                            contextListener.apply(webapp);
+                            contextListener.apply(webapp.getFacade());
                             // this registration is no longer needed
                             reg.unregister();
                         }
