@@ -253,7 +253,7 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
         }
         Bundle b = ((BundleReference) cl).getBundle();
         BundleContext context = b.getBundleContext();
-        // We don't save the registration here, the service implementation track the reg.
+
         context.registerService(SpringContainer.class, this, null);
     }
 

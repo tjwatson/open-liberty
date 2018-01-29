@@ -172,7 +172,9 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
         File thinFile = thinSpringAppFile.asFile();
         try (ZipOutputStream thinJar = new ZipOutputStream(new FileOutputStream(thinFile))) {
             for (Entry entry : container) {
-                storeEntry(thinJar, sprMF, entry);
+                if (!"org".equals(entry.getName())) { // hack to omit spring boot loader
+                    storeEntry(thinJar, sprMF, entry);
+                }
             }
         }
 
@@ -193,7 +195,7 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
             path = path.substring(1);
         }
         if (path.equals(sprMF.springBootLib)) {
-            storeLibDirEntry(thinJar, entry);
+            storeLibDirEntry(thinJar, path, entry);
         } else {
             try (InputStream in = entry.adapt(InputStream.class)) {
                 if (in == null) {
@@ -222,13 +224,14 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
 
     /**
      * @param thinJar
+     * @param path
      * @param entry
      * @throws UnableToAdaptException
      * @throws IOException
      */
-    private void storeLibDirEntry(ZipOutputStream thinJar, Entry libEntry) throws UnableToAdaptException, IOException {
+    private void storeLibDirEntry(ZipOutputStream thinJar, String path, Entry libEntry) throws UnableToAdaptException, IOException {
         // create the lib folder entry first
-        ZipEntry dirEntry = new ZipEntry(libEntry.getPath() + '/');
+        ZipEntry dirEntry = new ZipEntry(path + '/');
         thinJar.putNextEntry(dirEntry);
         thinJar.closeEntry();
 
