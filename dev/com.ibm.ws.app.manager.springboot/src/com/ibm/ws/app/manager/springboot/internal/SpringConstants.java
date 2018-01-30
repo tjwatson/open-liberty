@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.ibm.ws.app.manager.springboot.internal;
 
+import com.ibm.wsspi.kernel.service.location.WsLocationConstants;
+
 /**
  *
  */
@@ -20,4 +22,7 @@ public final class SpringConstants {
     public static final String SPRING_START_CLASS_HEADER = "Start-Class";
     public static final String SPRING_BOOT_CLASSES_HEADER = "Spring-Boot-Classes";
     public static final String SPRING_BOOT_LIB_HEADER = "Spring-Boot-Lib";
+    public static final String SPRING_SHARED_LIB_CACHE_DIR = "lib.index.cache/";
+    public static final String SPRING_LIB_INDEX_FILE = "META-INF/spring.lib.index";
+    public static final String SPRING_THIN_APPS_DIR = WsLocationConstants.SYMBOL_SERVER_CONFIG_DIR + "apps/spring.thin.apps/";
 }

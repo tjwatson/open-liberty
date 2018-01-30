@@ -35,7 +35,8 @@ Import-Package: \
  com.ibm.ws.app.manager.springboot.internal.SpringApplicationTypeSupported, \
  com.ibm.ws.app.manager.springboot.internal.SpringBootHandler, \
  com.ibm.ws.app.manager.springboot.internal.SpringDeployedAppInfoFactoryImpl, \
- com.ibm.ws.app.manager.springboot.internal.SpringModuleHandlerImpl
+ com.ibm.ws.app.manager.springboot.internal.SpringModuleHandlerImpl, \
+ com.ibm.ws.app.manager.springboot.internal.LibIndexCache
 
 instrument.classesExcludes: com/ibm/ws/app/manager/springboot/internal/resources/*.class
 
