@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.ibm.ws.springboot.support.version15.osgi.service;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.UnaryOperator;
 
@@ -30,7 +32,8 @@ public final class WebContainerConfiguration {
         // A Spring Container is registered with the gateway bundle for the application
         // here we find the gateway bundle by looking for a BundleReference in the class
         // loader hierarchy.
-        ClassLoader cl = consumer.getClass().getClassLoader();
+
+        ClassLoader cl = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> consumer.getClass().getClassLoader());
         while (cl != null && (!(cl instanceof BundleReference))) {
             cl = cl.getParent();
         }
