@@ -12,22 +12,37 @@ package com.ibm.ws.session.store.cache;
 
 import java.util.Map;
 
+import javax.cache.Cache;
+import javax.cache.CacheException;
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.configuration.Configuration;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.spi.CachingProvider;
 import javax.servlet.ServletContext;
 import javax.transaction.UserTransaction;
 
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.component.annotations.ReferencePolicyOption;
 
+import com.ibm.websphere.ras.Tr;
+import com.ibm.websphere.ras.TraceComponent;
+import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.serialization.SerializationService;
 import com.ibm.ws.session.MemoryStoreHelper;
 import com.ibm.ws.session.SessionManagerConfig;
 import com.ibm.ws.session.SessionStoreService;
+import com.ibm.ws.session.store.cache.serializable.SessionData;
+import com.ibm.ws.session.store.cache.serializable.SessionKey;
 import com.ibm.ws.session.utils.SessionLoader;
+import com.ibm.wsspi.library.Library;
 import com.ibm.wsspi.session.IStore;
 
 /**
@@ -35,9 +50,18 @@ import com.ibm.wsspi.session.IStore;
  */
 @Component(name = "com.ibm.ws.session.cache", configurationPolicy = ConfigurationPolicy.OPTIONAL, service = { SessionStoreService.class })
 public class CacheStoreService implements SessionStoreService {
+    
+    private static final TraceComponent tc = Tr.register(CacheStoreService.class);
+    
     private Map<String, Object> configurationProperties;
 
+    Cache<SessionKey, SessionData> cache;
+    CacheManager cacheManager;
+
     private volatile boolean completedPassivation = true;
+
+    @Reference(policyOption = ReferencePolicyOption.GREEDY, target = "(id=unbound)")
+    protected Library library;
 
     @Reference
     protected SerializationService serializationService;
@@ -52,8 +76,29 @@ public class CacheStoreService implements SessionStoreService {
      * @param context for this component instance
      * @param props service properties
      */
+    @Activate
+    @FFDCIgnore(CacheException.class)
     protected void activate(ComponentContext context, Map<String, Object> props) {
         configurationProperties = props;
+
+        // load JCache provider from configured library, which is either specified as a libraryRef or via a bell
+        CachingProvider provider = Caching.getCachingProvider(library.getClassLoader());
+        cacheManager = provider.getCacheManager(null, new CacheClassLoader()); // TODO When class loader is specified, it isn't being used for deserialization. Why?
+        cache = cacheManager.getCache("com.ibm.ws.session.cache", SessionKey.class, SessionData.class);
+        if (cache == null) {
+            Configuration<SessionKey, SessionData> config = new MutableConfiguration<SessionKey, SessionData>().setTypes(SessionKey.class, SessionData.class);
+            try {
+                cache = cacheManager.createCache("com.ibm.ws.session.cache", config);
+            } catch (CacheException x) {
+                cache = cacheManager.getCache("com.ibm.ws.session.cache", SessionKey.class, SessionData.class);
+                if (cache == null)
+                    throw x;
+            }
+            if(TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled())
+                Tr.debug(tc, "Created a new cache: " + cache);
+        } else if(TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
+                Tr.debug(tc, "Found existing cache: " + cache);
+        }
     }
 
     @Override
@@ -70,7 +115,9 @@ public class CacheStoreService implements SessionStoreService {
      *
      * @param context for this component instance
      */
+    @Deactivate
     protected void deactivate(ComponentContext context) {
+        cacheManager.close();
     }
 
     @Override
