@@ -8,17 +8,14 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package com.ibm.ws.app.manager.springboot.container;
-
-import com.ibm.ws.app.manager.springboot.container.config.ServerConfiguration;
-
 /**
- *
+ * Provides the classes necessary to implement a &quot;work-stealing&quot; threading
+ * implementation.
  */
-public interface SpringContainer {
-    ServerConfiguration createServerConfiguration();
+@Version("1.0.0")
+@TraceOptions(traceGroups = { "springboot", "applications", "app.manager" }, messageBundle = "com.ibm.ws.app.manager.springboot.internal.resources.Messages")
+package com.ibm.ws.app.manager.springboot.container.config;
 
-    void configure(ServerConfiguration configuration);
+import org.osgi.annotation.versioning.Version;
 
-    void deploy();
-}
+import com.ibm.websphere.ras.annotation.TraceOptions;

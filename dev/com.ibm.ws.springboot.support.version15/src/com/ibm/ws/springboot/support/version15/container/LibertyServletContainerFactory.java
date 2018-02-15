@@ -21,12 +21,12 @@ public class LibertyServletContainerFactory extends AbstractEmbeddedServletConta
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.boot.context.embedded.EmbeddedServletContainerFactory#getEmbeddedServletContainer(org.springframework.boot.web.servlet.ServletContextInitializer[])
      */
     @Override
     public EmbeddedServletContainer getEmbeddedServletContainer(ServletContextInitializer... initializers) {
-        return new LibertyServletContainer(mergeInitializers(initializers));
+        return new LibertyServletContainer(this, mergeInitializers(initializers));
     }
 
 }

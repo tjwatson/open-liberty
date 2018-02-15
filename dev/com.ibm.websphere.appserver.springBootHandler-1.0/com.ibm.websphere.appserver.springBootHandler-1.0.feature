@@ -9,3 +9,4 @@ visibility=private
 -bundles=com.ibm.ws.app.manager.springboot
 kind=noship
 edition=core
+IBM-API-Package: com.ibm.ws.app.manager.springboot.container.config; type="internal"

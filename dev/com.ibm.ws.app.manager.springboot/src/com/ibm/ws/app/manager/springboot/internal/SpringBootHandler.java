@@ -11,9 +11,21 @@
 package com.ibm.ws.app.manager.springboot.internal;
 
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_APP_TYPE;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CONFIG_NAMESPACE;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.Future;
 
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.Constants;
+import org.osgi.framework.wiring.BundleCapability;
+import org.osgi.framework.wiring.FrameworkWiring;
+import org.osgi.resource.Requirement;
+import org.osgi.resource.Resource;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -31,6 +43,41 @@ public class SpringBootHandler implements ApplicationHandler<DeployedAppInfo> {
 
     private FutureMonitor futureMonitor;
     private DeployedAppInfoFactory deployedAppFactory;
+
+    @Activate
+    protected void activate(BundleContext context) {
+        FrameworkWiring fwkWiring = context.getBundle(Constants.SYSTEM_BUNDLE_LOCATION).adapt(FrameworkWiring.class);
+
+        Collection<BundleCapability> configs = fwkWiring.findProviders(new Requirement() {
+            @Override
+            public Resource getResource() {
+                return null;
+            }
+
+            @Override
+            public String getNamespace() {
+                return SPRING_BOOT_CONFIG_NAMESPACE;
+            }
+
+            @Override
+            public Map<String, String> getDirectives() {
+                return Collections.emptyMap();
+            }
+
+            @Override
+            public Map<String, Object> getAttributes() {
+                return Collections.emptyMap();
+            }
+        });
+
+        configs.forEach((c) -> {
+            try {
+                c.getRevision().getBundle().uninstall();
+            } catch (BundleException e) {
+                // AUTO FFDC here
+            }
+        });
+    }
 
     @Reference
     protected void setFutureMonitor(FutureMonitor fm) {

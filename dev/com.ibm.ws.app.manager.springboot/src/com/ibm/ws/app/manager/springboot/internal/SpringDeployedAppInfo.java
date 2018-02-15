@@ -11,6 +11,8 @@
 package com.ibm.ws.app.manager.springboot.internal;
 
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CLASSES_HEADER;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CONFIG_BUNDLE_PREFIX;
+import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_CONFIG_NAMESPACE;
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_BOOT_LIB_HEADER;
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_LIB_INDEX_FILE;
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_START_CLASS_HEADER;
@@ -19,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
@@ -35,11 +38,17 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.jar.Manifest;
+
+import javax.xml.bind.JAXBException;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.BundleReference;
+import org.osgi.framework.Constants;
+import org.osgi.framework.startlevel.BundleStartLevel;
 
 import com.ibm.ws.app.manager.module.DeployedAppInfo;
 import com.ibm.ws.app.manager.module.internal.ContextRootUtil;
@@ -50,6 +59,9 @@ import com.ibm.ws.app.manager.module.internal.ModuleHandler;
 import com.ibm.ws.app.manager.module.internal.ModuleInfoUtils;
 import com.ibm.ws.app.manager.module.internal.WebModuleInfoImpl;
 import com.ibm.ws.app.manager.springboot.container.SpringContainer;
+import com.ibm.ws.app.manager.springboot.container.config.HttpEndpoint;
+import com.ibm.ws.app.manager.springboot.container.config.ServerConfiguration;
+import com.ibm.ws.app.manager.springboot.container.config.VirtualHost;
 import com.ibm.ws.container.service.app.deploy.ApplicationInfo;
 import com.ibm.ws.container.service.app.deploy.ContainerInfo;
 import com.ibm.ws.container.service.app.deploy.ManifestClassPathUtils;
@@ -61,6 +73,7 @@ import com.ibm.ws.container.service.app.deploy.extended.ExtendedApplicationInfo;
 import com.ibm.ws.container.service.metadata.MetaDataException;
 import com.ibm.ws.container.service.metadata.extended.ModuleMetaDataExtender;
 import com.ibm.ws.container.service.metadata.extended.NestedModuleMetaDataFactory;
+import com.ibm.ws.dynamic.bundle.BundleFactory;
 import com.ibm.ws.ffdc.FFDCFilter;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.javaee.dd.web.WebApp;
@@ -87,13 +100,18 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
     private final FutureMonitor futureMonitor;
     private final SpringModuleContainerInfo springContainerModuleInfo;
     private final CountDownLatch waitToDeploy = new CountDownLatch(1);
+    private final BundleContext context;
+    private final AtomicReference<Bundle> virtualHostConfig = new AtomicReference<>();
+    private final int locationHash;
 
-    SpringDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation,
+    SpringDeployedAppInfo(int locationHash, ApplicationInformation<DeployedAppInfo> applicationInformation,
                           SpringDeployedAppInfoFactoryImpl factory) throws UnableToAdaptException {
         super(applicationInformation, factory);
+        this.locationHash = locationHash;
         springModuleHandler = factory.getSpringModuleHandler();
         executor = factory.getExecutor();
         futureMonitor = factory.getFutureMonitor();
+        context = factory.getBundleContext();
         String moduleURI = ModuleInfoUtils.getModuleURIFromLocation(applicationInformation.getLocation());
         String contextRoot = ContextRootUtil.getContextRoot((String) applicationInformation.getConfigProperty(CONTEXT_ROOT));
         //tWAS doesn't use the ibm-web-ext to obtain the context-root when the WAR exists in an EAR.
@@ -476,23 +494,76 @@ class SpringDeployedAppInfo extends DeployedAppInfoBase implements SpringContain
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.ibm.ws.app.manager.springboot.container.SpringContainer#configure(java.util.Map)
-     */
     @Override
-    public void configure(Map<String, String> config) {
-        // TODO Auto-generated method stub
+    public void configure(final ServerConfiguration libertyConfig) {
+        virtualHostConfig.updateAndGet((b) -> installVirtualHostBundle(b, libertyConfig));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.ibm.ws.app.manager.springboot.container.SpringContainer#deploy()
-     */
     @Override
     public void deploy() {
         waitToDeploy.countDown();
+    }
+
+    private Bundle installVirtualHostBundle(Bundle previous, ServerConfiguration libertyConfig) {
+        if (previous != null) {
+            try {
+                previous.uninstall();
+            } catch (BundleException e) {
+                // auto FFDC here
+            }
+        }
+        BundleFactory factory = new BundleFactory();
+        String name = "com.ibm.ws.app.manager.springboot." + locationHash;
+        factory.setBundleName(name);
+        factory.setBundleSymbolicName(name);
+        factory.setBundleLocationPrefix(SPRING_BOOT_CONFIG_BUNDLE_PREFIX);
+        factory.setBundleLocation("springBoot:" + locationHash);
+        factory.setDefaultInstance(getDefaultInstances(libertyConfig));
+        factory.setBundleContext(context);
+        factory.addManifestAttribute("IBM-Default-Config", Collections.singleton("OSGI-INF/wlp/defaultInstances.xml"));
+        String configCap = SPRING_BOOT_CONFIG_NAMESPACE + "; " + SPRING_BOOT_CONFIG_NAMESPACE + "=\"" + locationHash + "\"";
+        factory.addManifestAttribute(Constants.PROVIDE_CAPABILITY, Collections.singleton(configCap));
+        Bundle b = factory.createBundle();
+        b.adapt(BundleStartLevel.class).setStartLevel(context.getBundle().adapt(BundleStartLevel.class).getStartLevel());
+        try {
+            b.start(Bundle.START_TRANSIENT);
+        } catch (BundleException e) {
+            throw new IllegalStateException(e);
+        }
+        return b;
+    }
+
+    @FFDCIgnore(IOException.class)
+    private String getDefaultInstances(ServerConfiguration libertyConfig) {
+        if (libertyConfig.getHttpEndpoints().size() != 1) {
+            throw new IllegalStateException("Only one httpEndpoint is allowed: " + libertyConfig.getHttpEndpoints());
+        }
+        if (libertyConfig.getVirtualHosts().size() != 1) {
+            throw new IllegalStateException("Only one virtualHost is allowed: " + libertyConfig.getVirtualHosts());
+        }
+
+        // fill out the pids to wire the virtualHost to the httpEndpoint
+        HttpEndpoint httpEndpoint = libertyConfig.getHttpEndpoints().iterator().next();
+        VirtualHost virtualHost = libertyConfig.getVirtualHosts().iterator().next();
+
+        httpEndpoint.setId("springHttpEndpoint-" + locationHash);
+        virtualHost.setAllowFromEndpoint(httpEndpoint.getId());
+        virtualHost.setId("springVirtualHost-" + locationHash);
+        libertyConfig.setDescription("springConfig-" + locationHash);
+
+        StringWriter result = new StringWriter();
+        try {
+            ServerConfigurationWriter.getInstance().write(libertyConfig, result);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+        return result.toString();
+    }
+
+    @Override
+    public ServerConfiguration createServerConfiguration() {
+        return new ServerConfiguration();
     }
 }

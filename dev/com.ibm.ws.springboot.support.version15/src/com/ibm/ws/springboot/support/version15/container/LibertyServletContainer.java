@@ -10,13 +10,20 @@
  *******************************************************************************/
 package com.ibm.ws.springboot.support.version15.container;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.boot.context.embedded.EmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerException;
+import org.springframework.boot.context.embedded.Ssl;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 
+import com.ibm.ws.app.manager.springboot.container.config.HttpEndpoint;
+import com.ibm.ws.app.manager.springboot.container.config.HttpSession;
+import com.ibm.ws.app.manager.springboot.container.config.ServerConfiguration;
+import com.ibm.ws.app.manager.springboot.container.config.VirtualHost;
 import com.ibm.ws.springboot.support.version15.osgi.service.WebContainerConfiguration;
 
 /**
@@ -24,12 +31,15 @@ import com.ibm.ws.springboot.support.version15.osgi.service.WebContainerConfigur
  */
 public class LibertyServletContainer implements EmbeddedServletContainer {
     private final ServletContextInitializer[] initializers;
+    private final LibertyServletContainerFactory factory;
 
     /**
+     * @param libertyServletContainerFactory
      * @param mergeInitializers
      */
-    public LibertyServletContainer(ServletContextInitializer[] initializers) {
+    public LibertyServletContainer(LibertyServletContainerFactory factory, ServletContextInitializer[] initializers) {
         this.initializers = initializers;
+        this.factory = factory;
         start0();
     }
 
@@ -85,8 +95,55 @@ public class LibertyServletContainer implements EmbeddedServletContainer {
      */
     @Override
     public void start() throws EmbeddedServletContainerException {
-        // TODO Auto-generated method stub
+        WebContainerConfiguration containerConfig = WebContainerConfiguration.getWebContainerConfiguration(this);
+        ServerConfiguration serverConfig = containerConfig.createServerConfiguration();
+        List<HttpEndpoint> endpoints = serverConfig.getHttpEndpoints();
+        endpoints.clear();
+        HttpEndpoint endpoint = new HttpEndpoint();
+        if (factory.getAddress() != null) {
+            endpoint.setHost(factory.getAddress().getHostAddress());
+        } else {
+            endpoint.setHost("0.0.0.0");
+        }
 
+        Ssl ssl = factory.getSsl();
+        if (ssl == null || ssl.getKeyStore() == null) {
+            endpoint.setHttpPort(factory.getPort());
+            endpoint.setHttpsPort(-1);
+            // TODO configure ssl
+        } else {
+            endpoint.setHttpPort(-1);
+            endpoint.setHttpsPort(factory.getPort());
+        }
+
+        if (factory.getServerHeader() != null) {
+            endpoint.getHttpOptions().setServerHeaderValue(factory.getServerHeader());
+        }
+
+        if (factory.getSessionTimeout() > 0) {
+            configureSession(serverConfig);
+        }
+        endpoints.add(endpoint);
+
+        List<VirtualHost> virtualHosts = serverConfig.getVirtualHosts();
+        virtualHosts.clear();
+        VirtualHost virtualHost = new VirtualHost();
+        Set<String> aliases = virtualHost.getHostAliases();
+        aliases.clear();
+        // TODO would be better to use *:* for wildcarding the port
+        aliases.add("*:" + factory.getPort());
+        virtualHosts.add(virtualHost);
+
+        containerConfig.configure(serverConfig);
+    }
+
+    /**
+     * @param serverConfig
+     */
+    private void configureSession(ServerConfiguration serverConfig) {
+        // TODO is this only configurable for all endpoints?
+        HttpSession session = serverConfig.getHttpSession();
+        session.setInvalidationTimeout(factory.getSessionTimeout());
     }
 
     /*

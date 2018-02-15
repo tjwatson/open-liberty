@@ -48,6 +48,8 @@ public class SimpleTest {
         server.startServer(true, false);
         assertNotNull("The application was not installed", server
                         .waitForStringInLog("CWWKZ0001I:.*"));
+        // NOTE we set the port to the expected port according to the test application.properties
+        server.setHttpDefaultPort(8081);
         HttpUtils.findStringInUrl(server, "com.ibm.ws.springboot.support.version15.test.app-0.0.1-SNAPSHOT", "HELLO SPRING BOOT!!");
     }
 

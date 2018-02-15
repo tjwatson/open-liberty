@@ -19,8 +19,9 @@ Bundle-Name: WebSphere Spring Boot Support
 Bundle-SymbolicName: com.ibm.ws.app.manager.springboot
 Bundle-Description: WebSphere Spring Boot Support, version ${bVersion}
 Export-Package: \
- com.ibm.ws.app.manager.springboot.container, \
- com.ibm.ws.app.manager.springboot.support
+	com.ibm.ws.app.manager.springboot.container.config,\
+	com.ibm.ws.app.manager.springboot.container,\
+	com.ibm.ws.app.manager.springboot.support
 Private-Package: com.ibm.ws.app.manager.springboot.internal.*
 
 Include-Resource: OSGI-INF=resources/OSGI-INF
@@ -57,7 +58,8 @@ instrument.classesExcludes: com/ibm/ws/app/manager/springboot/internal/resources
 	com.ibm.ws.classloading;version=latest,\
 	com.ibm.ws.javaee.ddmodel;version=latest,\
 	com.ibm.ws.javaee.dd.common;version=latest,\
-	com.ibm.ws.org.osgi.annotation.versioning
+	com.ibm.ws.org.osgi.annotation.versioning,\
+	com.ibm.ws.dynamic.bundle
 
 -testpath: \
 	../build.sharedResources/lib/junit/old/junit.jar;version=file, \

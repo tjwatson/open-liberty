@@ -23,6 +23,7 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 
 import com.ibm.ws.app.manager.springboot.container.SpringContainer;
+import com.ibm.ws.app.manager.springboot.container.config.ServerConfiguration;
 
 /**
  *
@@ -96,6 +97,14 @@ public final class WebContainerConfiguration {
         // Deploy the application will make the application known to the
         // web container.
         springContainer.deploy();
+    }
+
+    public ServerConfiguration createServerConfiguration() {
+        return new ServerConfiguration();
+    }
+
+    public void configure(ServerConfiguration config) {
+        springContainer.configure(config);
     }
 
     public UnaryOperator<ServletContext> getListener() {

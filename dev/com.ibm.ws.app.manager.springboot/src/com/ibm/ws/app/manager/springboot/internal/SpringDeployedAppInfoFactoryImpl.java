@@ -40,6 +40,7 @@ import com.ibm.ws.app.manager.module.internal.ModuleHandler;
 import com.ibm.ws.app.manager.springboot.internal.SpringDeployedAppInfo.SpringBootManifest;
 import com.ibm.ws.app.manager.springboot.support.SpringBootSupport;
 import com.ibm.wsspi.adaptable.module.AdaptableModuleFactory;
+import com.ibm.wsspi.adaptable.module.AddEntryToOverlay;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.Entry;
 import com.ibm.wsspi.adaptable.module.UnableToAdaptException;
@@ -53,6 +54,23 @@ import com.ibm.wsspi.kernel.service.utils.FileUtils;
            property = { "service.vendor=IBM", "type=" + SPRING_APP_TYPE })
 public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase {
     private static final TraceComponent tc = Tr.register(SpringDeployedAppInfoFactoryImpl.class);
+
+    private static final String XML_BND_NAME = "WEB-INF/ibm-web-bnd.xml";
+    private static final String VIRTUAL_HOST_START = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                                                     "<web-bnd \n" +
+                                                     "        xmlns=\"http://websphere.ibm.com/xml/ns/javaee\"\n" +
+                                                     "        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                                                     "        xsi:schemaLocation=\"http://websphere.ibm.com/xml/ns/javaee http://websphere.ibm.com/xml/ns/javaee/ibm-web-bnd_1_0.xsd\"\n"
+                                                     +
+                                                     "        version=\"1.0\">\n" +
+                                                     "\n" +
+                                                     "        <virtual-host name=\"";
+    private static final String VIRTUAL_HOST_END = "\" />\n" +
+                                                   "\n" +
+                                                   "        <resource-ref name=\"SAMPLE\" binding-name=\"jdbc/SAMPLE\">\n" +
+                                                   "                <authentication-alias name=\"USER_AUTH\" />\n" +
+                                                   "        </resource-ref>\n" +
+                                                   "</web-bnd>";
 
     private ModuleHandler springModuleHandler;
     private ArtifactContainerFactory containerFactory;
@@ -109,13 +127,37 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
 
     @Override
     public SpringDeployedAppInfo createDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation) throws UnableToAdaptException {
-        //expandApp(applicationInformation);
-
         storeLibs(applicationInformation);
 
-        SpringDeployedAppInfo deployedApp = new SpringDeployedAppInfo(applicationInformation, this);
+        int locationHash = applicationInformation.getLocation().hashCode();
+        if (locationHash < 0) {
+            locationHash = -(locationHash);
+        }
+        addVirtualHostBinding(locationHash, applicationInformation);
+
+        SpringDeployedAppInfo deployedApp = new SpringDeployedAppInfo(locationHash, applicationInformation, this);
         applicationInformation.setHandlerInfo(deployedApp);
         return deployedApp;
+    }
+
+    /**
+     * @param applicationInformation
+     * @throws UnableToAdaptException
+     */
+    private void addVirtualHostBinding(int locationHash, ApplicationInformation<DeployedAppInfo> applicationInformation) throws UnableToAdaptException {
+        AddEntryToOverlay virtualHostBnd = applicationInformation.getContainer().adapt(AddEntryToOverlay.class);
+        virtualHostBnd.add(XML_BND_NAME, getVirtualHostConfig(locationHash));
+    }
+
+    /**
+     * @param applicationInformation
+     * @return
+     */
+    private String getVirtualHostConfig(int locationHash) {
+        StringBuilder builder = new StringBuilder(VIRTUAL_HOST_START);
+        builder.append("springVirtualHost-" + locationHash);
+        builder.append(VIRTUAL_HOST_END);
+        return builder.toString();
     }
 
     /**
