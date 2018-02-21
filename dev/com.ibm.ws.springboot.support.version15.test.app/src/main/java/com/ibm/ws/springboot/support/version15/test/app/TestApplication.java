@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class Gradle1Application {
+public class TestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Gradle1Application.class, args);
+		SpringApplication.run(TestApplication.class, args);
 	}
 
 	@RequestMapping("/")
