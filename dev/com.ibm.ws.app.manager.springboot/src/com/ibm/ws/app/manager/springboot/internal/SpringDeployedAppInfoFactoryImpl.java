@@ -15,16 +15,12 @@ import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_
 import static com.ibm.ws.app.manager.springboot.internal.SpringConstants.SPRING_THIN_APPS_DIR;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
@@ -37,8 +33,8 @@ import com.ibm.ws.app.manager.module.DeployedAppInfo;
 import com.ibm.ws.app.manager.module.DeployedAppInfoFactory;
 import com.ibm.ws.app.manager.module.internal.DeployedAppInfoFactoryBase;
 import com.ibm.ws.app.manager.module.internal.ModuleHandler;
-import com.ibm.ws.app.manager.springboot.internal.SpringDeployedAppInfo.SpringBootManifest;
 import com.ibm.ws.app.manager.springboot.support.SpringBootSupport;
+import com.ibm.ws.app.manager.springboot.util.SpringBootThinUtil;
 import com.ibm.wsspi.adaptable.module.AdaptableModuleFactory;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.adaptable.module.Entry;
@@ -108,20 +104,27 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
     }
 
     @Override
-    public SpringDeployedAppInfo createDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation) throws UnableToAdaptException {
+    public SpringDeployedAppInfo createDeployedAppInfo(ApplicationInformation<DeployedAppInfo> applicationInformation) {
         //expandApp(applicationInformation);
+        SpringDeployedAppInfo deployedApp = null;
+        try {
+            storeLibs(applicationInformation);
+            deployedApp = new SpringDeployedAppInfo(applicationInformation, this);
+            applicationInformation.setHandlerInfo(deployedApp);
 
-        storeLibs(applicationInformation);
-
-        SpringDeployedAppInfo deployedApp = new SpringDeployedAppInfo(applicationInformation, this);
-        applicationInformation.setHandlerInfo(deployedApp);
+        } catch (UnableToAdaptException e) {
+            // Log error and continue to use the container for the SPR file
+            Tr.error(tc, "warning.could.not.expand.application", applicationInformation.getName(), e.getMessage());
+        }
         return deployedApp;
     }
 
     /**
      * @param applicationInformation
+     * @throws UnableToAdaptException
+     * @throws NoSuchAlgorithmException
      */
-    private void storeLibs(ApplicationInformation<DeployedAppInfo> applicationInformation) {
+    private void storeLibs(ApplicationInformation<DeployedAppInfo> applicationInformation) throws UnableToAdaptException {
         String location = applicationInformation.getLocation();
         if (location.toLowerCase().endsWith(XML_SUFFIX)) {
             // don't do this for loose applications
@@ -140,123 +143,38 @@ public class SpringDeployedAppInfoFactoryImpl extends DeployedAppInfoFactoryBase
         WsResource thinAppsDir = getLocationAdmin().resolveResource(SPRING_THIN_APPS_DIR);
         thinAppsDir.create();
 
-        WsResource thinSpringAppFile = getLocationAdmin().resolveResource(SPRING_THIN_APPS_DIR + applicationInformation.getName() + "." + SPRING_APP_TYPE);
+        WsResource thinSpringAppResource = getLocationAdmin().resolveResource(SPRING_THIN_APPS_DIR + applicationInformation.getName() + "." + SPRING_APP_TYPE);
+        File thinSpringAppFile = thinSpringAppResource.asFile();
         try {
             if (thinSpringAppFile.exists()) {
                 // If the Spring app file has been changed, delete the thin app file
-                if (thinSpringAppFile.getLastModified() != springAppFile.lastModified()) {
-                    thinSpringApp(applicationInformation, container, thinSpringAppFile, springAppFile.lastModified());
+                if (thinSpringAppFile.lastModified() != springAppFile.lastModified()) {
+                    thinSpringApp(springAppFile, thinSpringAppFile, springAppFile.lastModified());
                 }
             } else {
-                thinSpringApp(applicationInformation, container, thinSpringAppFile, springAppFile.lastModified());
+                thinSpringApp(springAppFile, thinSpringAppFile, springAppFile.lastModified());
             }
 
             // Set up the new container pointing to the thin spring app file
-            container = setupContainer(applicationInformation.getPid(), thinSpringAppFile.asFile());
+            container = setupContainer(applicationInformation.getPid(), thinSpringAppFile);
             applicationInformation.setContainer(container);
-        } catch (UnableToAdaptException | IOException e) {
-            // Log error and continue to use the container for the SPR file
-            Tr.error(tc, "warning.could.not.expand.application", applicationInformation.getName(), e.getMessage());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new UnableToAdaptException(e);
         }
     }
 
     /**
-     * @param container
+     * @param springAppFile
      * @param thinSpringAppFile
-     * @throws UnableToAdaptException
-     */
-    private void thinSpringApp(ApplicationInformation<DeployedAppInfo> applicationInformation, Container container,
-                               WsResource thinSpringAppFile, long timestamp) throws UnableToAdaptException, IOException {
-        SpringBootManifest sprMF = new SpringBootManifest(container);
-        thinSpringAppFile.delete();
-        File thinFile = thinSpringAppFile.asFile();
-        try (ZipOutputStream thinJar = new ZipOutputStream(new FileOutputStream(thinFile))) {
-            for (Entry entry : container) {
-                if (!"org".equals(entry.getName())) { // hack to omit spring boot loader
-                    storeEntry(thinJar, sprMF, entry);
-                }
-            }
-        }
-
-        thinFile.setLastModified(timestamp);
-
-    }
-
-    /**
-     * @param thinJar
-     * @param sprMF
-     * @param entry
+     * @param lastModified
      * @throws IOException
-     * @throws UnableToAdaptException
+     * @throws NoSuchAlgorithmException
      */
-    private void storeEntry(ZipOutputStream thinJar, SpringBootManifest sprMF, Entry entry) throws UnableToAdaptException, IOException {
-        String path = entry.getPath();
-        if (path.length() > 1 && path.charAt(0) == '/') {
-            path = path.substring(1);
-        }
-        if (path.equals(sprMF.springBootLib)) {
-            storeLibDirEntry(thinJar, path, entry);
-        } else {
-            try (InputStream in = entry.adapt(InputStream.class)) {
-                if (in == null) {
-                    // must be a directory
-                    ZipEntry dirEntry = new ZipEntry(path + '/');
-                    thinJar.putNextEntry(dirEntry);
-                    thinJar.closeEntry();
-                    for (Entry nested : entry.adapt(Container.class)) {
-                        storeEntry(thinJar, sprMF, nested);
-                    }
-                } else {
-                    try {
-                        thinJar.putNextEntry(new ZipEntry(path));
-                        byte[] buffer = new byte[1024];
-                        int read = -1;
-                        while ((read = in.read(buffer)) != -1) {
-                            thinJar.write(buffer, 0, read);
-                        }
-                    } finally {
-                        thinJar.closeEntry();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * @param thinJar
-     * @param path
-     * @param entry
-     * @throws UnableToAdaptException
-     * @throws IOException
-     */
-    private void storeLibDirEntry(ZipOutputStream thinJar, String path, Entry libEntry) throws UnableToAdaptException, IOException {
-        // create the lib folder entry first
-        ZipEntry dirEntry = new ZipEntry(path + '/');
-        thinJar.putNextEntry(dirEntry);
-        thinJar.closeEntry();
-
-        // write out each library to the cache
-        List<String> libEntries = new ArrayList<>();
-        Container libContainer = libEntry.adapt(Container.class);
-        if (libContainer != null) {
-            for (Entry entry : libContainer) {
-                String hash = libIndexCache.storeLibrary(entry);
-                String libLine = libEntry.getPath() + '/' + entry.getName() + '=' + hash;
-                libEntries.add(libLine);
-                Tr.debug(tc, "Stored library {1}", libLine);
-            }
-        }
-
-        // save the lib index file in the thin jar
-        thinJar.putNextEntry(new ZipEntry(SPRING_LIB_INDEX_FILE));
-        try {
-            for (String libLine : libEntries) {
-                thinJar.write(libLine.getBytes(StandardCharsets.UTF_8));
-                thinJar.write('\n');
-            }
-        } finally {
-            thinJar.closeEntry();
-        }
+    private void thinSpringApp(File springAppFile, File thinSpringAppFile, long lastModified) throws IOException, NoSuchAlgorithmException {
+        File libIndexCacheFile = libIndexCache.getLibIndexRoot();
+        SpringBootThinUtil springBootThinUtil = new SpringBootThinUtil(springAppFile, thinSpringAppFile, libIndexCacheFile, true);
+        springBootThinUtil.execute();
+        thinSpringAppFile.setLastModified(lastModified);
     }
 
     private Container getContainerForBundle(Bundle bundle) {
