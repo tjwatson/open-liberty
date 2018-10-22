@@ -40,8 +40,8 @@ public class FrameworkConfigurator {
      * allow sub-classes to further massage framework initialization properties.
      *
      * @param config
-     *            BootstrapConfig object containing the active set of properties
-     *            that will be used to initialize the framework.
+     *                   BootstrapConfig object containing the active set of properties
+     *                   that will be used to initialize the framework.
      */
     public static void configure(BootstrapConfig config) {
         extraBootDelegationPackages(config);
@@ -157,6 +157,12 @@ public class FrameworkConfigurator {
         config.put("org.apache.aries.blueprint.parser.service.ignore.unknown.namespace.handlers", "true");
 
         config.put("ds.global.extender", "true");
+
+        if (config.get("org.osgi.service.log.admin.loglevel") == null) {
+            // We need to enable DEBUG by default if not already set.
+            // This was the default before and is needed for compatibility
+            config.put("org.osgi.service.log.admin.loglevel", "DEBUG");
+        }
     }
 
     /**
@@ -204,7 +210,7 @@ public class FrameworkConfigurator {
      *
      * @return non-null instance of the framework factory.
      * @throws LaunchException
-     *             if Factory can not be found or instantiated.
+     *                             if Factory can not be found or instantiated.
      * @see {@link KernelUtils#getServiceClass(BufferedReader)}
      */
     public static FrameworkFactory getFrameworkFactory(ClassLoader loader) {
