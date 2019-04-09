@@ -28,12 +28,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.Constants;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.cm.ManagedService;
-import org.osgi.service.cm.ManagedServiceFactory;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventAdmin;
 import org.osgi.service.metatype.AttributeDefinition;
 import org.osgi.service.metatype.MetaTypeInformation;
 import org.osgi.service.metatype.MetaTypeProvider;
@@ -50,7 +44,6 @@ import com.ibm.ws.config.xml.internal.metatype.ExtendedAttributeDefinition;
 import com.ibm.ws.config.xml.internal.metatype.ExtendedAttributeDefinitionImpl;
 import com.ibm.ws.config.xml.internal.metatype.ExtendedObjectClassDefinition;
 import com.ibm.ws.config.xml.internal.metatype.ExtendedObjectClassDefinitionImpl;
-import com.ibm.wsspi.kernel.service.utils.FrameworkState;
 
 /**
  * Registry for MetaType information.
@@ -110,9 +103,6 @@ final class MetaTypeRegistry {
 
         metaTypeTracker = new ServiceTracker<MetaTypeService, MetaTypeService>(bc, MetaTypeService.class.getName(), null);
         metaTypeTracker.open();
-
-        this.mtpTracker = new MTPTracker(bc, this);
-        this.mtpTracker.open();
     }
 
     void stop(BundleContext context) {
@@ -439,9 +429,9 @@ final class MetaTypeRegistry {
         private final boolean isParentFirst;
 
         /**
-         * @param referencedEntry RegistryEntry of child (nested)
+         * @param referencedEntry  RegistryEntry of child (nested)
          * @param referencingEntry RegistryEntry for parent (outer)
-         * @param ad parent AD name containing the ibm:reference or ibm:service or childAlias
+         * @param ad               parent AD name containing the ibm:reference or ibm:service or childAlias
          */
         PidReference(RegistryEntry referencedEntry, RegistryEntry referencingEntry, String ad, boolean isParentFirst) {
             this.referencedEntry = referencedEntry;
@@ -764,7 +754,7 @@ final class MetaTypeRegistry {
          * @param pid
          * @param isFactory
          * @param bundle
-         * @param ocd an already verified to be internally consistent ObjectClassDefinition
+         * @param ocd              an already verified to be internally consistent ObjectClassDefinition
          * @param metatypeRegistry
          */
         RegistryEntry(String pid, boolean isFactory, Bundle bundle, ExtendedObjectClassDefinition ocd, MetaTypeRegistry metatypeRegistry) {
@@ -793,7 +783,7 @@ final class MetaTypeRegistry {
 
         /**
          * @param metatypeRegistry MetaTypeRegistry for lookups in error messages
-         * @param extendedEntry valid RegistryEntry that this one extends or refines.
+         * @param extendedEntry    valid RegistryEntry that this one extends or refines.
          */
         public void complete(RegistryEntry extendedEntry, MetaTypeRegistry metatypeRegistry) {
             if (!extendedEntry.isFactory()) {
@@ -1503,159 +1493,6 @@ final class MetaTypeRegistry {
         }
 
     }
-
-    private static class MTPTracker extends ServiceTracker<MetaTypeProvider, MetaTypeProvider> {
-
-        private final MetaTypeRegistry registry;
-        private ServiceTracker<EventAdmin, EventAdmin> eventTracker = null;
-
-        private MTPTracker(BundleContext bc, MetaTypeRegistry registry) {
-            super(bc, MetaTypeProvider.class.getName(), null);
-            this.registry = registry;
-
-            eventTracker = new ServiceTracker<EventAdmin, EventAdmin>(bc, EventAdmin.class.getName(), null);
-            eventTracker.open();
-        }
-
-        @Override
-        public void close() {
-            if (null != this.eventTracker) {
-                this.eventTracker.close();
-                this.eventTracker = null;
-            }
-
-            super.close();
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public MetaTypeProvider addingService(ServiceReference<MetaTypeProvider> reference) {
-
-            MetaTypeProvider provider = super.addingService(reference);
-            if (FrameworkState.isStopping()) {
-                return provider;
-            }
-            Bundle bundle = reference.getBundle();
-
-            synchronized (bundle) {
-                MetaTypeInformation information = registry.getExtendedMetaTypeInformation(bundle);
-                if (information == null) {
-                    // Per spec, only use MetaTypeProviders when no metatype xml is specified
-                    return provider;
-                }
-
-                ExtendedMetaTypeInformation wrapper = (ExtendedMetaTypeInformation) information;
-                wrapper.addMetaTypeProvider(provider, getPids(reference, MetaTypeProvider.METATYPE_PID), false);
-                wrapper.addMetaTypeProvider(provider, getPids(reference, MetaTypeProvider.METATYPE_FACTORY_PID), true);
-
-                if (provider instanceof ManagedService) {
-                    wrapper.addMetaTypeProvider(provider, getPids(reference, Constants.SERVICE_PID), false);
-                }
-                if (provider instanceof ManagedServiceFactory) {
-                    wrapper.addMetaTypeProvider(provider, getPids(reference, Constants.SERVICE_PID), true);
-                }
-
-                Set<RegistryEntry> updatedRegistryEntries = registry.addMetaType(information);
-                if (!updatedRegistryEntries.isEmpty()) {
-
-                    EventAdmin eventAdmin = eventTracker.getService();
-                    Map<String, Object> properties = new HashMap<String, Object>();
-                    properties.put(BUNDLE, bundle);
-                    properties.put(UPDATED_PIDS, updatedRegistryEntries);
-                    Event event = new Event(MTP_ADDED_TOPIC, properties);
-                    eventAdmin.postEvent(event);
-                }
-            }
-            return provider;
-
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void modifiedService(ServiceReference<MetaTypeProvider> reference, MetaTypeProvider service) {
-            super.modifiedService(reference, service);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void removedService(ServiceReference<MetaTypeProvider> reference, MetaTypeProvider service) {
-            if (FrameworkState.isStopping()) {
-                return;
-            }
-
-            Bundle bundle = reference.getBundle();
-
-            synchronized (bundle) {
-                MetaTypeInformation information = registry.getMetaTypeInformation(bundle);
-                if (information == null || !(information instanceof ExtendedMetaTypeInformation)) {
-                    return;
-                }
-
-                ExtendedMetaTypeInformation wrapper = (ExtendedMetaTypeInformation) information;
-                String pid = (String) reference.getProperty(Constants.SERVICE_PID);
-
-                PIDCollection removedPids = wrapper.removeMetaTypeProvider(service);
-
-                if (service instanceof ManagedService) {
-                    wrapper.removePid(pid, false);
-                }
-
-                if (service instanceof ManagedServiceFactory) {
-                    wrapper.removePid(pid, true);
-                }
-
-                Collection<String> pids = removedPids.getPids();
-                Collection<String> factoryPids = removedPids.getFactoryPids();
-                Set<RegistryEntry> updatedPids;
-
-                updatedPids = registry.removeMetaTypeDefinitions(information, pids.toArray(new String[pids.size()]));
-                updatedPids.addAll(registry.removeMetaTypeDefinitions(information, factoryPids.toArray(new String[factoryPids.size()])));
-
-                EventAdmin eventAdmin = eventTracker.getService();
-                Map<String, Object> properties = new HashMap<String, Object>();
-                properties.put(MTP_INFO, information);
-                properties.put(UPDATED_PIDS, updatedPids);
-                Event event = new Event(MTP_REMOVED_TOPIC, properties);
-                eventAdmin.postEvent(event);
-            }
-
-            super.removedService(reference, service);
-
-        }
-
-        /**
-         * @param ref
-         * @param metatypePid
-         * @return
-         */
-        @SuppressWarnings("unchecked")
-        private Collection<String> getPids(ServiceReference<MetaTypeProvider> ref, String pid) {
-
-            Object property = ref.getProperty(pid);
-
-            if (property == null)
-                return Collections.emptyList();
-
-            if (property instanceof String) {
-                return Collections.singletonList((String) property);
-            }
-
-            if (property instanceof String[]) {
-                Collection<String> retVal = new ArrayList<String>();
-                for (String value : (String[]) property) {
-                    retVal.add(value);
-                }
-                return retVal;
-            }
-
-            if (property instanceof Collection) {
-                return (Collection<String>) property;
-            }
-
-            return Collections.emptyList();
-        }
-    }
-
     // ---old api
 
     RegistryEntry getRegistryEntry(ConfigElement element) {
