@@ -480,6 +480,22 @@ public class BootstrapConfig {
     }
 
     /**
+     * Set a new property into the set of initial properties only if the
+     * key does not already have an existing value.
+     * @param key the key to set
+     * @param value the value to set
+     * @return the previous value associated with the specified key, or
+     *         {@code null} if there was no mapping for the key.
+     *         (A {@code null} return can also indicate that the map
+     *         previously associated {@code null} with the key,
+     *         if the implementation supports null values.)
+     */
+    public String putIfAbsent(String key, String value) {
+        String current = get(key);
+        return current == null ? put(key, value) : value;
+    }
+
+    /**
      * Clear property
      *
      * @param key
