@@ -4,6 +4,7 @@ package com.ibm.ws.diagnostics.osgi;
 import org.apache.felix.scr.component.manager.ComponentManager;
 import org.apache.felix.scr.component.manager.Parameters;
 import org.apache.felix.scr.component.manager.ReturnValue;
+import org.eclipse.equinox.region.RegionDigraph;
 import org.osgi.service.component.ComponentContext;
 
 /**
