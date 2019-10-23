@@ -17,6 +17,9 @@ Bundle-Description: WAS OSGi Gateway Class Loading Service
 
 IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
 
+Import-Package: org.osgi.framework;version="[1.9,2.0)", \
+ *
+
 # For each exported package, create (in that package) a package-info.java
 # file, and place an @version javadoc tag in package-level javadoc. 
 # Append ";provide:=true" if this bundle also provides an implementation
