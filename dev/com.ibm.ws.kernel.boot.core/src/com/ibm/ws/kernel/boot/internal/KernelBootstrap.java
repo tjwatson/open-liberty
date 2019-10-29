@@ -72,15 +72,12 @@ public class KernelBootstrap {
     /** File used to determine if JVM exited gracefully or not */
     protected File serverRunning = null;
 
-    protected final boolean libertyBoot;
-
     /**
      * @param bootProps BootstrapProperties carry forward all of the parameters and
      *                      options used to launch the kernel.
      */
     public KernelBootstrap(BootstrapConfig bootProps) {
         this.bootProps = bootProps;
-        libertyBoot = Boolean.parseBoolean(bootProps.get(BootstrapConstants.LIBERTY_BOOT_PROPERTY));
 
         // Use initialized bootstrap configuration to create the server lock.
         // This ensures the server and nested workarea directory exist and are writable
@@ -124,7 +121,7 @@ public class KernelBootstrap {
             // Read the bootstrap manifest
             BootstrapManifest bootManifest = null;
             try {
-                bootManifest = BootstrapManifest.readBootstrapManifest(libertyBoot);
+                bootManifest = BootstrapManifest.readBootstrapManifest(bootProps.getAtomosRuntime());
             } catch (IOException e) {
                 throw new LaunchException("Could not read the jar manifest", BootstrapConstants.messages.getString("error.unknown.kernel.version"), e);
             }
@@ -147,7 +144,7 @@ public class KernelBootstrap {
 
             // Find the bootstrap resources we need to launch the nested framework.
             // MAY THROW if these resources can not be found or read
-            KernelResolver resolver = new KernelResolver(bootProps.getInstallRoot(), bootProps.getWorkareaFile(KernelResolver.CACHE_FILE), bootDefaults.getKernelDefinition(bootProps), bootDefaults.getLogProviderDefinition(bootProps), bootDefaults.getOSExtensionDefinition(bootProps), libertyBoot);
+            KernelResolver resolver = new KernelResolver(bootProps.getInstallRoot(), bootProps.getWorkareaFile(KernelResolver.CACHE_FILE), bootDefaults.getKernelDefinition(bootProps), bootDefaults.getLogProviderDefinition(bootProps), bootDefaults.getOSExtensionDefinition(bootProps), bootProps.getAtomosRuntime());
 
             // ISSUE LAUNCH FEEDBACK TO THE CONSOLE -- we've done the cursory validation at least.
             String logLevel = bootProps.get("com.ibm.ws.logging.console.log.level");
@@ -183,8 +180,8 @@ public class KernelBootstrap {
             ClassLoader loader;
             List<URL> urlList = new ArrayList<URL>();
 
-            // for liberty boot all the jars are already on the classpath
-            if (!libertyBoot) {
+            // When using Atomos all the jars are already on the classpath
+            if (bootProps.getAtomosRuntime() == null) {
                 // Add bootstrap jar(s)
                 bootProps.addBootstrapJarURLs(urlList);
                 // Add OSGi framework, log provider, and/or os extension "boot.jar" elements
@@ -388,8 +385,8 @@ public class KernelBootstrap {
      * @return
      */
     protected ClassLoader buildClassLoader(final List<URL> urlList, String verifyJarProperty) {
-        if (libertyBoot) {
-            // for liberty boot we just use the class loader that loaded this class
+        if (bootProps.getAtomosRuntime() != null) {
+            // When using Atomos we just use the class loader that loaded this class
             return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
                 @Override
                 public ClassLoader run() {
@@ -466,7 +463,7 @@ public class KernelBootstrap {
     public static void showVersion(BootstrapConfig bootProps) {
         BootstrapManifest bootManifest;
         try {
-            bootManifest = BootstrapManifest.readBootstrapManifest(Boolean.parseBoolean(bootProps.get(BootstrapConstants.LIBERTY_BOOT_PROPERTY)));
+            bootManifest = BootstrapManifest.readBootstrapManifest(bootProps.getAtomosRuntime());
             String kernelVersion = bootManifest.getBundleVersion();
             String productInfo = getProductInfoDisplayName();
 

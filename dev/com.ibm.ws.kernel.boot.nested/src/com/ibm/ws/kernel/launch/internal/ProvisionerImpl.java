@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.atomos.framework.AtomosLayer;
+import org.atomos.framework.AtomosRuntime;
 import org.eclipse.osgi.container.Module;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -37,7 +39,6 @@ import com.ibm.ws.kernel.boot.internal.KernelResolver.KernelBundleElement;
 import com.ibm.ws.kernel.boot.internal.KernelStartLevel;
 import com.ibm.ws.kernel.provisioning.BundleRepositoryRegistry;
 import com.ibm.ws.kernel.provisioning.ContentBasedLocalBundleRepository;
-import com.ibm.ws.kernel.provisioning.LibertyBootRuntime;
 import com.ibm.ws.kernel.provisioning.VersionUtility;
 
 /**
@@ -51,7 +52,8 @@ public class ProvisionerImpl implements Provisioner {
     private static final String ME = ProvisionerImpl.class.getName();
     private static final TraceComponent tc = Tr.register(ProvisionerImpl.class);
     private static final String BUNDLE_LOC_KERNEL_TAG = "kernel@";
-    private ServiceTracker<LibertyBootRuntime, LibertyBootRuntime> serviceTracker;
+
+    private ServiceTracker<Object, Object> atomosRuntime;
 
     /**
      * Reference to a bundle context (could be the system bundle or the kernel
@@ -157,7 +159,7 @@ public class ProvisionerImpl implements Provisioner {
     /**
      * Fetch required services: should be called before provisioning operations.
      */
-    protected void getServices(BundleContext bundleCtx) {
+    protected void getServices(final BundleContext bundleCtx) {
         context = bundleCtx;
 
         // OSGi 4.3 uses the bundle.adapt() mechanism as a way to get to
@@ -165,8 +167,8 @@ public class ProvisionerImpl implements Provisioner {
         frameworkStartLevel = bundleCtx.getBundle(Constants.SYSTEM_BUNDLE_LOCATION).adapt(FrameworkStartLevel.class);
         frameworkStartLevel.setInitialBundleStartLevel(KernelStartLevel.ACTIVE.getLevel());
 
-        serviceTracker = new ServiceTracker<LibertyBootRuntime, LibertyBootRuntime>(context, LibertyBootRuntime.class, null);
-        serviceTracker.open();
+        atomosRuntime = new ServiceTracker<>(context, "org.atomos.framework.AtomosRuntime", null);
+        atomosRuntime.open();
     }
 
     /**
@@ -339,24 +341,28 @@ public class ProvisionerImpl implements Provisioner {
             return;
         }
 
-        //getting the LibertyBootRuntime service and installing boot bundle
-        LibertyBootRuntime rt = serviceTracker.getService();
-        if (rt == null) {
-            throw new IllegalStateException("No LibertyBootRuntime service found!");
+        // getting the Atomos bundle and installing it
+        AtomosLayer bootLayer = ((AtomosRuntime) atomosRuntime.getService()).getBootLayer();
+        if (bootLayer == null) {
+            throw new IllegalStateException("No AtomosRuntime available.");
         }
-
-        Bundle b = null;
+        Bundle b;
         try {
-            b = rt.installBootBundle(kernelBundle.getSymbolicName(), VersionUtility.stringToVersionRange(kernelBundle.getRangeString()), BUNDLE_LOC_KERNEL_TAG);
+            b = bootLayer.findAtomosBundle(kernelBundle.getSymbolicName()).map((a) -> {
+                try {
+                    return a.install(BUNDLE_LOC_KERNEL_TAG);
+                } catch (BundleException e) {
+                    // We encountered an error installing a bundle, add it to
+                    // the status, and continue. The caller will handle as
+                    // appropriate
+                    installStatus.addInstallException(kernelBundle.toNameVersionString(), e);
+                }
+                return null;
+            }).orElse(null);
         } catch (IllegalStateException e) {
             // The framework is stopping: this is an expected but not ideal occurrence.
             e.getCause();
             throw (InvalidBundleContextException) new InvalidBundleContextException().initCause(e);
-        } catch (Throwable e) {
-            // We encountered an error installing a bundle, add it to
-            // the status, and continue. The caller will handle as
-            // appropriate
-            installStatus.addInstallException(kernelBundle.toNameVersionString(), e);
         }
         if (b == null) {
             installStatus.addMissingBundle(kernelBundle.toNameVersionString());

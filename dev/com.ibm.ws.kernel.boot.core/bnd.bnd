@@ -11,6 +11,9 @@
 -include= ~../cnf/resources/bnd/bundle.props
 bVersion=1.0
 
+javac.source: 1.8
+javac.target: 1.8
+
 Export-Package: \
 	com.ibm.ws.kernel.boot,\
 	com.ibm.ws.kernel.boot.archive,\
@@ -34,8 +37,9 @@ instrument.disabled: true
 publish.wlp.jar.disabled: true
 
 -buildpath: \
+	org.eclipse.osgi;version=latest,\
 	com.ibm.ws.kernel.boot.common;version=latest,\
 	com.ibm.websphere.org.osgi.core;version=latest,\
-	com.ibm.ws.logging.core;version=latest, \
 	com.ibm.ws.org.osgi.annotation.versioning;version=latest, \
-	com.ibm.ws.logging;version=latest
+	com.ibm.ws.logging;version=latest, \
+	com.ibm.ws.org.atomos:atomos.framework;verson=0.0.1

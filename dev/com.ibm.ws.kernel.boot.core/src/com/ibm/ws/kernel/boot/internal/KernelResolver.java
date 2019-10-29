@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,6 +34,11 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.regex.Pattern;
+
+import org.atomos.framework.AtomosLayer;
+import org.atomos.framework.AtomosRuntime;
+import org.osgi.framework.Constants;
+import org.osgi.framework.connect.ConnectContent;
 
 import com.ibm.ws.kernel.boot.Debug;
 import com.ibm.ws.kernel.boot.LaunchException;
@@ -90,7 +94,7 @@ public class KernelResolver {
     private final File osExtensionMf;
     private final boolean forceCleanStart;
 
-    private final boolean libertyBoot;
+    private final Object atomosRuntime;
     private static final String BUNDLE_SYMBOLICNAME = "Bundle-SymbolicName";
 
     /**
@@ -99,7 +103,7 @@ public class KernelResolver {
      * @param osExtensionName
      */
     public KernelResolver(File installRoot, File cacheFile, String kernelDefName, String logProviderName, String osExtensionName) {
-        this(installRoot, cacheFile, kernelDefName, logProviderName, osExtensionName, false);
+        this(installRoot, cacheFile, kernelDefName, logProviderName, osExtensionName, null);
     }
 
     /**
@@ -108,15 +112,15 @@ public class KernelResolver {
      * @param kernelDefinition
      * @param logProviderDefinition
      * @param osExtensionDefinition
-     * @param libertyBoot
+     * @param atomosRuntime
      */
-    public KernelResolver(File installRoot, File cacheFile, String kernelDefName, String logProviderName, String osExtensionName, boolean libertyBoot) {
-        this.libertyBoot = libertyBoot;
+    public KernelResolver(File installRoot, File cacheFile, String kernelDefName, String logProviderName, String osExtensionName, Object atomosRuntime) {
+        this.atomosRuntime = atomosRuntime;
         boolean cacheAvailable = cacheFile != null && cacheFile.exists();
         boolean cleanStart = false;
 
         // Try to load the cache file, if we can't, it isn't a dire event.
-        cache = new ResolverCache(cacheFile, libertyBoot);
+        cache = new ResolverCache(cacheFile, atomosRuntime != null);
         cache.load();
 
         List<String> kernelFeatures = new ArrayList<String>();
@@ -141,38 +145,38 @@ public class KernelResolver {
 
             // Make sure we can find the log provider
             if (logProviderName == null || logProviderName.trim().length() == 0)
-                logThrowLaunchException(new LaunchException("Log provider definition not found (Tr/FFDC)",
-                                BootstrapConstants.messages.getString("error.rasProvider")));
+                logThrowLaunchException(new LaunchException("Log provider definition not found (Tr/FFDC)", BootstrapConstants.messages.getString("error.rasProvider")));
 
             logProviderMf = new File(platformDir, logProviderName + ".mf");
             if (!logProviderMf.exists())
-                logThrowLaunchException(new LaunchException("Kernel definition could not be found: " + logProviderMf.getAbsolutePath(),
-                                MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"), logProviderName)));
+                logThrowLaunchException(new LaunchException("Kernel definition could not be found: "
+                                                            + logProviderMf.getAbsolutePath(), MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"),
+                                                                                                                    logProviderName)));
 
             // The log provider also most specify the class we should be creating so we have logging!
             ManifestCacheElement entry = cache.checkEntry(logProviderMf, true, repo);
             logProviderClass = entry.getLogProviderClass();
             if (logProviderClass == null)
-                logThrowLaunchException(new LaunchException("A log provider implementation was not defined",
-                                BootstrapConstants.messages.getString("error.rasProvider")));
+                logThrowLaunchException(new LaunchException("A log provider implementation was not defined", BootstrapConstants.messages.getString("error.rasProvider")));
 
             // Make sure we can find the kernel definition
             if (kernelDefName == null || kernelDefName.trim().length() == 0)
-                logThrowLaunchException(new LaunchException("Could not find kernel definition",
-                                BootstrapConstants.messages.getString("error.kernelDef")));
+                logThrowLaunchException(new LaunchException("Could not find kernel definition", BootstrapConstants.messages.getString("error.kernelDef")));
 
             kernelMf = new File(platformDir, kernelDefName + ".mf");
             if (!kernelMf.exists())
-                logThrowLaunchException(new LaunchException("Kernel definition could not be found: " + kernelMf.getAbsolutePath(),
-                                MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"), kernelDefName)));
+                logThrowLaunchException(new LaunchException("Kernel definition could not be found: "
+                                                            + kernelMf.getAbsolutePath(), MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"),
+                                                                                                               kernelDefName)));
             cache.checkEntry(kernelMf, false, repo);
 
             // If we have an os extension to work with, make sure we can find it, too
             if (osExtensionName != null) {
                 osExtensionMf = new File(platformDir, osExtensionName + ".mf");
                 if (!osExtensionMf.exists())
-                    logThrowLaunchException(new LaunchException("Kernel definition could not be found: " + osExtensionMf.getAbsolutePath(),
-                                    MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"), osExtensionName)));
+                    logThrowLaunchException(new LaunchException("Kernel definition could not be found: "
+                                                                + osExtensionMf.getAbsolutePath(), MessageFormat.format(BootstrapConstants.messages.getString("error.kernelDefFile"),
+                                                                                                                        osExtensionName)));
 
                 cache.checkEntry(osExtensionMf, true, repo);
             } else {
@@ -247,7 +251,7 @@ public class KernelResolver {
      * Given the list of files, add the URL for each file to the list of URLs
      *
      * @param jarFiles List of Files (source)
-     * @param urlList List of URLs (target)
+     * @param urlList  List of URLs (target)
      */
     private void addBootJars(List<File> jarFiles, List<URL> urlList) {
         for (File jarFile : jarFiles) {
@@ -260,7 +264,7 @@ public class KernelResolver {
     }
 
     public String appendExtraSystemPackages(String packages) throws IOException {
-        if (libertyBoot) {
+        if (atomosRuntime != null) {
             // for liberty boot we do not have real boot jars on disk to read
             packages = appendLibertyBootJarPackages(packages);
         } else {
@@ -273,57 +277,31 @@ public class KernelResolver {
     }
 
     private String appendLibertyBootJarPackages(String packages) throws IOException {
+        Set<String> libertyBootSymbolicNames = new HashSet<String>();
         for (ManifestCacheElement element : cache.getManifestElements()) {
-            Set<String> libertyBootSymbolicNames = new HashSet<String>();
             for (KernelBundleElement b : element.getBundleElements()) {
                 // For boot.jar types liberty boot uses the LIBERTY_BOOT startlevel
                 if (b.getStartLevel() == KernelStartLevel.LIBERTY_BOOT.getLevel()) {
                     libertyBootSymbolicNames.add(b.getSymbolicName());
                 }
             }
-            Collection<URL> bootManifestURLs = getLibertyBootManifests(libertyBootSymbolicNames);
-            for (URL bootManifestURL : bootManifestURLs) {
-                try {
-                    Manifest manifest = new Manifest(bootManifestURL.openStream());
-                    // Look for exported packages in manifest: append to value
-                    String mPackages = manifest.getMainAttributes().getValue(MANIFEST_EXPORT_PACKAGE);
-                    if (mPackages != null && !mPackages.isEmpty()) {
-                        packages = (packages == null) ? mPackages : packages + "," + mPackages;
+        }
+        AtomosLayer bootLayer = ((AtomosRuntime) atomosRuntime).getBootLayer();
+        final StringBuilder packageBuilder = packages == null ? new StringBuilder() : new StringBuilder(packages);
+        libertyBootSymbolicNames.forEach((s) -> {
+            bootLayer.findAtomosBundle(s).filter((b) -> !Constants.SYSTEM_BUNDLE_LOCATION.equals(b.getLocation())).ifPresent((b) -> {
+                ConnectContent content = b.getConnectContent();
+                Manifest mf = BootstrapManifest.getManifestFromContent(content);
+                String mPkgs = mf.getMainAttributes().getValue(MANIFEST_EXPORT_PACKAGE);
+                if (mPkgs != null && !mPkgs.isEmpty()) {
+                    if (packageBuilder.length() > 0) {
+                        packageBuilder.append(',');
                     }
-                } catch (IOException e) {
-                    throw new LaunchException("Exception loading log provider jar " + (bootManifestURL) + ", "
-                                              + e, MessageFormat.format(BootstrapConstants.messages.getString("error.rasProviderResolve"),
-                                                                        bootManifestURL.toString()), e);
+                    packageBuilder.append(mPkgs);
                 }
-            }
-        }
-        return packages;
-    }
-
-    /**
-     * @param libertyBootSymbolicNames
-     * @return
-     * @throws IOException
-     */
-    private Collection<URL> getLibertyBootManifests(Set<String> libertyBootSymbolicNames) throws IOException {
-        Collection<URL> result = new ArrayList<URL>();
-        ClassLoader cl = KernelResolver.class.getClassLoader();
-        Enumeration<URL> classpathManifests = cl.getResources("META-INF/MANIFEST.MF");
-        while (classpathManifests.hasMoreElements()) {
-            URL manifestURL = classpathManifests.nextElement();
-            Manifest manifest = new Manifest(manifestURL.openStream());
-            Attributes attr = manifest.getMainAttributes();
-            String bsn = attr.getValue(BUNDLE_SYMBOLICNAME);
-            if (bsn != null) {
-                String[] bsnElements = bsn.split(";");
-                if (libertyBootSymbolicNames.contains(bsnElements[0])) {
-                    result.add(manifestURL);
-                }
-            }
-        }
-
-        return result;
-
+            });
+        });
+        return packageBuilder.toString();
     }
 
     private String appendExtraSystemPackages(List<File> files, String packages) {
@@ -346,8 +324,9 @@ public class KernelResolver {
                     packages = (packages == null) ? mPackages : packages + "," + mPackages;
                 }
             } catch (IOException e) {
-                throw new LaunchException("Exception loading log provider jar " + (jarFile != null ? jarFile.getName() : "null") + ", " + e,
-                                MessageFormat.format(BootstrapConstants.messages.getString("error.rasProviderResolve"), (jarFile != null ? jarFile.getName() : "null")), e);
+                throw new LaunchException("Exception loading log provider jar " + (jarFile != null ? jarFile.getName() : "null") + ", "
+                                          + e, MessageFormat.format(BootstrapConstants.messages.getString("error.rasProviderResolve"),
+                                                                    (jarFile != null ? jarFile.getName() : "null")), e);
             } finally {
                 Utils.tryToClose(jarFile);
             }
@@ -520,7 +499,7 @@ public class KernelResolver {
          * environment that has a plethora of them.
          *
          * @param mfFile *.mf file to retrieve boot.jar files from. The returned
-         *            list will include any elements provided by an included *.mf file.
+         *                   list will include any elements provided by an included *.mf file.
          */
         public ManifestCacheElement checkEntry(File mfFile, boolean followIncludes, NameBasedLocalBundleRepository repo) {
             ManifestCacheElement entry = cacheEntries.get(mfFile.getName());
@@ -590,8 +569,8 @@ public class KernelResolver {
                                     File bestMatchFile = repo.selectBundle(element.symbolicName,
                                                                            VersionUtility.stringToVersionRange(element.vrangeString));
                                     if (bestMatchFile == null) {
-                                        throw new LaunchException("Could not find bundle for " + element + ".",
-                                                        BootstrapConstants.messages.getString("error.missingBundleException"));
+                                        throw new LaunchException("Could not find bundle for " + element
+                                                                  + ".", BootstrapConstants.messages.getString("error.missingBundleException"));
                                     } else {
                                         // Add to the list of boot jars...
                                         jarList.add(bestMatchFile);
@@ -642,8 +621,8 @@ public class KernelResolver {
                     cacheEntries.put(mfFile.getName(), entry);
                     return entry;
                 } catch (IOException e) {
-                    throw new LaunchException("Kernel definition could not be read: " + mfFile.getAbsolutePath(),
-                                    MessageFormat.format(BootstrapConstants.messages.getString("error.unknownException"), e));
+                    throw new LaunchException("Kernel definition could not be read: "
+                                              + mfFile.getAbsolutePath(), MessageFormat.format(BootstrapConstants.messages.getString("error.unknownException"), e));
                 } finally {
                     Utils.tryToClose(reader);
                 }
@@ -837,7 +816,7 @@ public class KernelResolver {
         private File bestMatchFile;
 
         /**
-         * @param cache Owning cache
+         * @param cache   Owning cache
          * @param element SubsystemContentElement read from the kernel manifest
          * @throws IOException If the value read from the cache is an invalid start phase
          */
@@ -861,7 +840,7 @@ public class KernelResolver {
 
         /**
          * @param cache Owning cache
-         * @param str String from the kernel feature manifest
+         * @param str   String from the kernel feature manifest
          * @throws IOException
          */
         BundleCacheElement(ResolverCache cache, String str) throws IOException {

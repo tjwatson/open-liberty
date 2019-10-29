@@ -37,12 +37,14 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.atomos.framework.AtomosRuntime;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.connect.ConnectFactory;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
@@ -183,15 +185,24 @@ public class FrameworkManager {
 
     private final CountDownLatch serverListenerLatch = new CountDownLatch(1);
 
+    private final Object atomosRuntime;
+
+    /**
+     * @param connectFactory
+     */
+    public FrameworkManager(Object atomosRuntime) {
+        this.atomosRuntime = atomosRuntime;
+    }
+
     /**
      * Create and launch the OSGi framework
      *
      * @param config
-     *            BootstrapConfig object encapsulating active initial framework
-     *            properties
+     *                        BootstrapConfig object encapsulating active initial framework
+     *                        properties
      * @param logProvider
-     *            The initialized/active log provider that must be included in
-     *            framework management activities (start/stop/.. ), or null
+     *                        The initialized/active log provider that must be included in
+     *                        framework management activities (start/stop/.. ), or null
      * @param callback
      */
     public void launchFramework(BootstrapConfig config, LogProvider logProvider) {
@@ -472,9 +483,9 @@ public class FrameworkManager {
      * launch the platform/runtime.
      *
      * @param systemBundleCtx
-     *            The framework system bundle context
+     *                            The framework system bundle context
      * @param config
-     *            The active bootstrap config
+     *                            The active bootstrap config
      */
     private void registerLibertyProcessService(BundleContext systemBundleCtx, BootstrapConfig config) {
         List<String> cmds = config.getCmdArgs();
@@ -489,7 +500,7 @@ public class FrameworkManager {
      * Register the instrumentation class as a service in the OSGi registry
      *
      * @param systemBundleCtx
-     *            The framework system bundle context
+     *                            The framework system bundle context
      */
     protected void registerInstrumentationService(BundleContext systemContext) {
         Instrumentation inst = config.getInstrumentation();
@@ -507,7 +518,7 @@ public class FrameworkManager {
      * Register the PauseableComponentController class as a service in the OSGi registry
      *
      * @param systemBundleCtx
-     *            The framework system bundle context
+     *                            The framework system bundle context
      */
     protected void registerPauseableComponentController(BundleContext systemContext) {
         PauseableComponentControllerImpl pauseableComponentController = new PauseableComponentControllerImpl(systemContext);
@@ -564,7 +575,7 @@ public class FrameworkManager {
         // This exception will have a translated message stating that an unknown exception occurred.
         // This is so bizarre a case that it should never happen.
         try {
-            Framework fwk = fwkFactory.newFramework(config.getFrameworkProperties());
+            Framework fwk = fwkFactory.newFramework(config.getFrameworkProperties(), getConnectFactory());
             if (fwk == null)
                 return null;
             fwk.start();
@@ -579,6 +590,13 @@ public class FrameworkManager {
                 throw ex;
             return null;
         }
+    }
+
+    private ConnectFactory getConnectFactory() {
+        if (atomosRuntime != null) {
+            return ((AtomosRuntime) atomosRuntime).newConnectFactory();
+        }
+        return null;
     }
 
     private static final String MANAGER_DIR_NAME = ".manager";
@@ -890,11 +908,11 @@ public class FrameworkManager {
      * the elapsed time, in milliseconds, to format
      *
      * @param factor
-     *            If true, the elapsed time will be factored into more detailed
-     *            units: days/hours/minutes/seconds
-     *            The decimal format of the seconds is #.### or #.## or #.# or # or 0
-     *            If false it will be returned as the total of seconds
-     *            The decimal format of the seconds is #.### or #.## or #.# or # or 0
+     *                   If true, the elapsed time will be factored into more detailed
+     *                   units: days/hours/minutes/seconds
+     *                   The decimal format of the seconds is #.### or #.## or #.# or # or 0
+     *                   If false it will be returned as the total of seconds
+     *                   The decimal format of the seconds is #.### or #.## or #.# or # or 0
      *
      * @return A String containing the formatted elapsed time.
      *         Examples when the English language 'en' is the 'Locale':
@@ -1071,9 +1089,9 @@ public class FrameworkManager {
      * server status from them.
      *
      * @param timestamp
-     *            Create a unique dump folder based on the time stamp string.
+     *                            Create a unique dump folder based on the time stamp string.
      * @param javaDumpActions
-     *            The java dumps to create, or null for the default set.
+     *                            The java dumps to create, or null for the default set.
      */
     public void introspectFramework(String timestamp, Set<JavaDumpAction> javaDumpActions) {
         Tr.audit(tc, "info.introspect.request.received");

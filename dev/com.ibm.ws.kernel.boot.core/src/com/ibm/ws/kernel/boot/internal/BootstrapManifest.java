@@ -12,24 +12,23 @@ package com.ibm.ws.kernel.boot.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.jar.Attributes;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 
-import org.osgi.framework.Version;
+import org.atomos.framework.AtomosBundleInfo;
+import org.atomos.framework.AtomosRuntime;
+import org.osgi.framework.connect.ConnectContent;
 
 import com.ibm.ws.kernel.boot.BootstrapConfig;
 import com.ibm.ws.kernel.boot.LaunchException;
@@ -40,6 +39,8 @@ import com.ibm.ws.kernel.boot.cmdline.Utils;
  */
 public class BootstrapManifest {
 
+    /**  */
+    private static final String KERNEL_BOOT_NAME = "com.ibm.ws.kernel.boot";
     static final String BUNDLE_VERSION = "Bundle-Version";
     static final String JAR_PROTOCOL = "jar";
 
@@ -58,12 +59,12 @@ public class BootstrapManifest {
     private static BootstrapManifest instance = null;
 
     private final Attributes manifestAttributes;
-    private final boolean libertyBoot;
+    private final Object atomosRuntime;
 
-    public static BootstrapManifest readBootstrapManifest(boolean libertyBoot) throws IOException {
+    public static BootstrapManifest readBootstrapManifest(Object connectFactory) throws IOException {
         BootstrapManifest manifest = instance;
         if (manifest == null) {
-            manifest = instance = new BootstrapManifest(libertyBoot);
+            manifest = instance = new BootstrapManifest(connectFactory);
         }
         return manifest;
     }
@@ -74,19 +75,19 @@ public class BootstrapManifest {
     }
 
     protected BootstrapManifest() throws IOException {
-        this(false);
+        this(null);
     }
 
     /**
      * In the case of liberty boot the manifest is discovered
      * by looking up the jar URL for this class.
      *
-     * @param libertyBoot enables liberty boot
+     * @param atomosRuntime enables the use of a atomos
      * @throws IOException if here is an error reading the manifest
      */
-    protected BootstrapManifest(boolean libertyBoot) throws IOException {
-        this.libertyBoot = libertyBoot;
-        manifestAttributes = libertyBoot ? getLibertyBootAttributes() : getAttributesFromBootstrapJar();
+    protected BootstrapManifest(Object atomosRuntime) throws IOException {
+        this.atomosRuntime = atomosRuntime;
+        manifestAttributes = atomosRuntime != null ? getLibertyBootAttributes(atomosRuntime) : getAttributesFromBootstrapJar();
     }
 
     private static Attributes getAttributesFromBootstrapJar() throws IOException {
@@ -102,17 +103,40 @@ public class BootstrapManifest {
         }
     }
 
-    private static Attributes getLibertyBootAttributes() {
-        JarFile jf = getLibertBootJarFile();
-        Manifest mf;
+    private static Attributes getLibertyBootAttributes(Object at) {
+        AtomosBundleInfo atomosBundle = ((AtomosRuntime) at).getBootLayer().findAtomosBundle(KERNEL_BOOT_NAME).orElseThrow(() -> new IllegalStateException("No kernel boot found."));
+        ConnectContent content = atomosBundle.getConnectContent();
+        return getManifestFromContent(content).getMainAttributes();
+    }
+
+    static Manifest getManifestFromContent(Object c) {
+        ConnectContent content = (ConnectContent) c;
         try {
-            mf = jf.getManifest();
-            return mf.getMainAttributes();
-        } catch (IOException e) {
+            content.open();
+            Manifest mf = content.getEntry("META-INF/MANIFEST.MF").map((m) -> {
+                try {
+                    return m.getInputStream();
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }).map((i) -> {
+                try {
+                    return new Manifest(i);
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }).orElseThrow(IllegalStateException::new);
+            return mf;
+        } catch (IOException | UncheckedIOException e) {
             throw new IllegalStateException(e);
         } finally {
-            Utils.tryToClose(jf);
+            try {
+                content.close();
+            } catch (IOException e) {
+                // ignore
+            }
         }
+
     }
 
     private static JarFile getLibertBootJarFile() {
@@ -140,7 +164,7 @@ public class BootstrapManifest {
      */
     private JarFile getBootJar() throws IOException {
         // For liberty boot don't try to find the bootstrap jar.
-        return libertyBoot ? getLibertBootJarFile() : new JarFile(KernelUtils.getBootstrapJar());
+        return atomosRuntime != null ? getLibertBootJarFile() : new JarFile(KernelUtils.getBootstrapJar());
     }
 
     /**
@@ -149,6 +173,17 @@ public class BootstrapManifest {
     public String getBundleVersion() {
         return manifestAttributes.getValue(BUNDLE_VERSION);
     }
+
+    private static final List<String> SYSTEM_PACKAGE_FILES //
+                    = Arrays.asList(//
+                                    "OSGI-OPT/websphere/system-packages_12.properties", //
+                                    "OSGI-OPT/websphere/system-packages_11.properties", //
+                                    "OSGI-OPT/websphere/system-packages_10.properties", //
+                                    "OSGI-OPT/websphere/system-packages_9.properties", //
+                                    "OSGI-OPT/websphere/system-packages_1.8.0.properties", //
+                                    "OSGI-OPT/websphere/system-packages_1.7.0.properties", //
+                                    "OSGI-OPT/websphere/system-packages_1.6.0.properties" //
+                    );
 
     /**
      * @param bootProps
@@ -183,73 +218,30 @@ public class BootstrapManifest {
             javaVersion = (index == -1) ? javaVersion : javaVersion.substring(0, index);
             String pkgListFileName = SYSTEM_PKG_PREFIX + javaVersion + SYSTEM_PKG_SUFFIX;
 
-            JarFile jarFile = null;
             try {
-                jarFile = getBootJar();
+                // work out the appropriate package file
+                // otherwise try the default which will produce a nice error message
 
-                List<String> systemPackageFileNames = new ArrayList<String>();
-
-                Enumeration<JarEntry> bootstrapJarEntries = jarFile.entries();
-                while (bootstrapJarEntries.hasMoreElements()) {
-                    JarEntry entry = bootstrapJarEntries.nextElement();
-                    if (entry != null && entry.getName().startsWith(SYSTEM_PKG_PREFIX) && entry.getName().endsWith(SYSTEM_PKG_SUFFIX)) {
-                        //was one of the system package properties files, add to the list
-                        systemPackageFileNames.add(entry.getName());
-                    }
+                //check if we have a package file for the version of Java we are using
+                int indexOfPackageFileToUse = SYSTEM_PACKAGE_FILES.indexOf(pkgListFileName);
+                // If not found, check for a more generic version string
+                if (indexOfPackageFileToUse < 0 && javaVersion.indexOf('.') > 0) {
+                    // If exact version match is not found, strip the minor/micro versions leaving just the major version
+                    String genericPkgListFileName = SYSTEM_PKG_PREFIX + javaVersion.split("\\.")[0] + SYSTEM_PKG_SUFFIX;
+                    indexOfPackageFileToUse = SYSTEM_PACKAGE_FILES.indexOf(genericPkgListFileName);
                 }
 
-                int numNames = systemPackageFileNames.size();
-                //if we found any package files then work out the appropriate one
-                //otherwise try the default which will produce a nice error message
-                if (numNames != 0) {
-                    //sort the files by version (high to low)
-                    if (numNames > 1) {
-                        Collections.sort(systemPackageFileNames, new Comparator<String>() {
-                            @Override
-                            public int compare(String name1, String name2) {
-                                //elements can't be null because we don't allow
-                                //null elements to be added to the list
-                                //use OSGi versions so we can cope easily with, for example, java 10
-                                Version oneVersion = getVersion(name1);
-                                Version twoVersion = getVersion(name2);
-                                //!!NOTE reverse the comparison order to get high to low ordering
-                                return twoVersion.compareTo(oneVersion);
-                            }
+                //if we don't, then we should use the highest available package list instead
+                //unless there are no files at all, we don't worry about the case of not having
+                //a matching file for a lower version because the minimum execution environment
+                //means we will always be running on the minimum supported level.
+                if (indexOfPackageFileToUse < 0)
+                    indexOfPackageFileToUse = 0;
+                //cut down the list to be from the current java version to the oldest version
+                //we will read all the files and append the properties to save maintenance effort on the package lists
+                List<String> systemPackageFileNames = SYSTEM_PACKAGE_FILES.subList(indexOfPackageFileToUse, SYSTEM_PACKAGE_FILES.size());
 
-                            private Version getVersion(String name) {
-                                //remove the prefix
-                                String version = name.substring(SYSTEM_PKG_PREFIX.length(), name.length());
-                                //remove the suffix
-                                version = version.substring(0, version.indexOf(SYSTEM_PKG_SUFFIX, 0));
-                                return new Version(version);
-                            }
-                        });
-                    }
-
-                    //check if we have a package file for the version of Java we are using
-                    int indexOfPackageFileToUse = systemPackageFileNames.indexOf(pkgListFileName);
-                    // If not found, check for a more generic version string
-                    if (indexOfPackageFileToUse < 0 && javaVersion.indexOf('.') > 0) {
-                        // If exact version match is not found, strip the minor/micro versions leaving just the major version
-                        String genericPkgListFileName = SYSTEM_PKG_PREFIX + javaVersion.split("\\.")[0] + SYSTEM_PKG_SUFFIX;
-                        indexOfPackageFileToUse = systemPackageFileNames.indexOf(genericPkgListFileName);
-                    }
-
-                    //if we don't, then we should use the highest available package list instead
-                    //unless there are no files at all, we don't worry about the case of not having
-                    //a matching file for a lower version because the minimum execution environment
-                    //means we will always be running on the minimum supported level.
-                    if (indexOfPackageFileToUse < 0)
-                        indexOfPackageFileToUse = 0;
-                    //cut down the list to be from the current java version to the oldest version
-                    //we will read all the files and append the properties to save maintenance effort on the package lists
-                    systemPackageFileNames = systemPackageFileNames.subList(indexOfPackageFileToUse, numNames);
-                } else {
-                    //default system package file name
-                    systemPackageFileNames = Arrays.asList(new String[] { pkgListFileName });
-                }
-
-                syspackages = getMergedSystemProperties(jarFile, systemPackageFileNames);
+                syspackages = getMergedSystemProperties(systemPackageFileNames);
 
                 // save new system packages
                 if (syspackages != null)
@@ -258,23 +250,60 @@ public class BootstrapManifest {
             } catch (IOException ioe) {
                 throw new LaunchException("Unable to find or read specified properties file; "
                                           + pkgListFileName, MessageFormat.format(BootstrapConstants.messages.getString("error.unknownException"), ioe.toString()), ioe);
-            } finally {
-                Utils.tryToClose(jarFile);
             }
+        }
+
+    }
+
+    private String getMergedSystemProperties(List<String> pkgListFileNames) throws IOException {
+        try {
+            if (atomosRuntime == null) {
+                try (JarFile jarFile = getBootJar()) {
+                    return getMergedSystemProperties((p) -> {
+                        ZipEntry entry = jarFile.getEntry(p);
+                        if (entry != null) {
+                            try {
+                                return jarFile.getInputStream(entry);
+                            } catch (IOException e) {
+                                throw new UncheckedIOException(e);
+                            }
+                        }
+                        return null;
+                    }, pkgListFileNames);
+                }
+            } else {
+                AtomosBundleInfo atomosBundle = ((AtomosRuntime) atomosRuntime).getBootLayer().findAtomosBundle(KERNEL_BOOT_NAME).orElseThrow(() -> new IllegalStateException("No kernel boot found."));
+                ConnectContent content = atomosBundle.getConnectContent();
+                content.open();
+                try {
+                    return getMergedSystemProperties((p) -> {
+                        return content.getEntry(p).map((c) -> {
+                            try {
+                                return c.getInputStream();
+                            } catch (IOException e) {
+                                throw new UncheckedIOException(e);
+                            }
+                        }).orElse(null);
+                    }, pkgListFileNames);
+                } finally {
+                    content.close();
+                }
+            }
+        } catch (UncheckedIOException e) {
+            throw e.getCause();
         }
     }
 
-    private String getMergedSystemProperties(JarFile jarFile, List<String> pkgListFileNames) throws IOException {
+    private String getMergedSystemProperties(Function<String, InputStream> input, List<String> pkgListFileNames) throws IOException {
         String packages = null;
         boolean inheritSystemPackages = true;
         for (String pkgListFileName : pkgListFileNames) {
             if (!inheritSystemPackages)
-                continue;
-            ZipEntry propFile = jarFile.getEntry(pkgListFileName);
-            if (propFile != null) {
+                break;
+            InputStream is = input.apply(pkgListFileName);
+            if (is != null) {
                 // read org.osgi.framework.system.packages property value from the file
                 Properties properties = new Properties();
-                InputStream is = jarFile.getInputStream(propFile);
                 try {
                     properties.load(is);
                     String loadedPackages = properties.getProperty(BootstrapConstants.INITPROP_OSGI_SYSTEM_PACKAGES);

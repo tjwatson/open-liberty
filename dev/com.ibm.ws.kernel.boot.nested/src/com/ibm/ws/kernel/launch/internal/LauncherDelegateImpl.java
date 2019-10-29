@@ -91,7 +91,7 @@ public class LauncherDelegateImpl implements LauncherDelegate {
             LogProvider provider = getLogProviderImpl(loader, config);
 
             // get framework/platform manager
-            manager = new FrameworkManager();
+            manager = new FrameworkManager(config.getAtomosRuntime());
             managerLatch.countDown();
 
             // Update framework configuration

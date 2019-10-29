@@ -119,6 +119,8 @@ public class BootstrapConfig {
      */
     protected KernelResolver kernelResolver;
 
+    protected Object atomosRuntime;
+
     public BootstrapConfig() {
         File fbootstrapLib = null;
         try {
@@ -1058,6 +1060,14 @@ public class BootstrapConfig {
 
     public void setKernelResolver(KernelResolver resolver) {
         this.kernelResolver = resolver;
+    }
+
+    public Object getAtomosRuntime() {
+        return atomosRuntime;
+    }
+
+    public void setAtomosRuntime(Object atomosRuntime) {
+        this.atomosRuntime = atomosRuntime;
     }
 
     public Instrumentation getInstrumentation() {

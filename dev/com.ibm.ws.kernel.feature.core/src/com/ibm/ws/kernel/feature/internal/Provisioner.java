@@ -29,12 +29,15 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
+import org.atomos.framework.AtomosBundleInfo;
+import org.atomos.framework.AtomosRuntime;
 import org.eclipse.equinox.region.Region;
 import org.eclipse.equinox.region.RegionDigraph;
 import org.eclipse.equinox.region.RegionDigraph.FilteredRegion;
@@ -73,7 +76,6 @@ import com.ibm.ws.kernel.feature.provisioning.FeatureResource;
 import com.ibm.ws.kernel.feature.provisioning.ProvisioningFeatureDefinition;
 import com.ibm.ws.kernel.provisioning.BundleRepositoryRegistry.BundleRepositoryHolder;
 import com.ibm.ws.kernel.provisioning.ContentBasedLocalBundleRepository;
-import com.ibm.ws.kernel.provisioning.LibertyBootRuntime;
 import com.ibm.ws.kernel.provisioning.packages.SharedPackageInspector.PackageType;
 import com.ibm.ws.kernel.service.util.ResolutionReportHelper;
 import com.ibm.wsspi.kernel.service.location.WsLocationAdmin;
@@ -346,12 +348,20 @@ public class Provisioner {
 
             private Bundle installLibertyBootBundle(String productName, FeatureResource fr, FrameworkWiring fwkWiring) throws BundleException, IOException {
                 //getting the LibertyBootRuntime instance and installing the boot bundle
-                LibertyBootRuntime libertyBoot = featureManager.getLibertyBoot();
-                if (libertyBoot == null) {
-                    throw new IllegalStateException("No LibertBootRuntime service available!");
+                AtomosRuntime atomosRuntime = (AtomosRuntime) featureManager.getAtomosRuntime();
+                if (atomosRuntime == null) {
+                    throw new IllegalStateException("No AtomosRuntime service available!");
                 }
 
-                Bundle bundle = libertyBoot.installBootBundle(fr.getSymbolicName(), fr.getVersionRange(), BUNDLE_LOC_FEATURE_TAG);
+                Optional<AtomosBundleInfo> atomosBundle = atomosRuntime.getBootLayer().findAtomosBundle(fr.getSymbolicName());
+                Bundle bundle = atomosBundle.map((a) -> {
+                    try {
+                        return a.install(BUNDLE_LOC_FEATURE_TAG);
+                    } catch (BundleException e) {
+                        sneakyThrow(e);
+                        return null;
+                    }
+                }).orElse(null);
                 if (bundle == null) {
                     installStatus.addMissingBundle(fr);
                     return null;
@@ -1221,4 +1231,8 @@ public class Provisioner {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static <E extends Throwable> void sneakyThrow(Throwable e) throws E {
+        throw (E) e;
+    }
 }

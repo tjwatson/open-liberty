@@ -13,12 +13,11 @@ package com.ibm.ws.kernel.launch.internal;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import junit.framework.Assert;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import junit.framework.Assert;
 import test.common.SharedOutputManager;
 
 /**
@@ -39,7 +38,7 @@ public class FrameworkManagerTimeTest {
         outputMgr = SharedOutputManager.getInstance();
         outputMgr.captureStreams();
         saveLocale = Locale.getDefault();
-        frameworkManager = new FrameworkManager();
+        frameworkManager = new FrameworkManager(null);
     }
 
     /**
@@ -264,8 +263,7 @@ public class FrameworkManagerTimeTest {
         String whiteSpacePattern = "\\s";
         //int i = 47;
         for (int i = 0; i < expectedResults.length; i++) {
-            boolean result = expectedResults[i].replaceAll(whiteSpacePattern, "").
-                            equalsIgnoreCase(processedTime[i].replaceAll(whiteSpacePattern, ""));
+            boolean result = expectedResults[i].replaceAll(whiteSpacePattern, "").equalsIgnoreCase(processedTime[i].replaceAll(whiteSpacePattern, ""));
             String errMsg = "Elapsed Time is not formated correctly for the " + Locale.getDefault() + " language.\n"
                             + "The expected result at test # [" + i + "] is: " + expectedResults[i] + "\n"
                             + "The actual result is: " + processedTime[i];

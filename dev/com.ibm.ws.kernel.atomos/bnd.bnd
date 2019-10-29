@@ -14,25 +14,15 @@ bVersion=1.0
 javac.source: 1.8
 javac.target: 1.8
 
-Require-Capability: osgi.ee; filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Private-Package: \
+	com.ibm.ws.kernel.atomos
 
-Export-Package: \
-	com.ibm.ws.kernel.launch.service,\
-	com.ibm.ws.kernel,\
-	com.ibm.ws.kernel.launch.internal
+instrument.disabled: true
 
-instrument.ffdc: true
-instrument.taskInjection: true
-instrument.classesIncludes: com/ibm/ws/kernel/launch/internal/*.class
-
-publish.wlp.jar.disabled: true
 
 -buildpath: \
+	com.ibm.ws.org.atomos:atomos.framework;verson=0.0.1,\
 	org.eclipse.osgi;version=latest,\
 	com.ibm.ws.kernel.boot.core;version=latest,\
-	com.ibm.ws.logging.core;version=latest,\
-	com.ibm.ws.kernel.security.thread;version=latest,\
-	com.ibm.websphere.org.osgi.core;version=latest, \
-	com.ibm.ws.org.osgi.annotation.versioning;version=latest, \
-	com.ibm.ws.org.atomos:atomos.framework;verson=0.0.1
+	com.ibm.ws.org.osgi.annotation.versioning;version=latest
 

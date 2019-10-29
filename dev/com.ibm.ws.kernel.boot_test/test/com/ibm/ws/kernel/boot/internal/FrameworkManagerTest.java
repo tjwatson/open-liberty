@@ -225,9 +225,17 @@ public class FrameworkManagerTest {
     }
 
     @SuppressWarnings("serial")
-    private static class TestException extends RuntimeException {}
+    private static class TestException extends RuntimeException {
+    }
 
     private class TestFrameworkManager extends FrameworkManager {
+        /**
+         * @param atomosRuntime
+         */
+        public TestFrameworkManager() {
+            super(null);
+        }
+
         private final CountDownLatch frameworkStoppedLatch = new CountDownLatch(1);
 
         void runShutdownHook() {
@@ -256,10 +264,12 @@ public class FrameworkManagerTest {
         }
 
         @Override
-        protected void innerLaunchFramework(boolean isClient) {}
+        protected void innerLaunchFramework(boolean isClient) {
+        }
 
         @Override
-        protected void startServerCommandListener() {}
+        protected void startServerCommandListener() {
+        }
 
         @Override
         public boolean waitForReady() throws InterruptedException {
