@@ -11,7 +11,8 @@
 -include= jar:${fileuri;${repo;org.apache.felix:org.apache.felix.gogo.command;0.16.0}}!/META-INF/MANIFEST.MF,bnd.overrides
 
 -includeresource: \
-   @${repo;org.apache.felix:org.apache.felix.gogo.command;0.16.0}!/!META-INF/maven/*
+   @${repo;org.apache.felix:org.apache.felix.gogo.command;0.16.0}!/!(org/osgi|META-INF/maven)/*
+-includepackage: !org.osgi.service.log
 
 instrument.disabled: true
 
