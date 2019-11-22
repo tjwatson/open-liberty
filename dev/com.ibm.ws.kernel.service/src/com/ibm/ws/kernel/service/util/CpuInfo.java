@@ -310,12 +310,20 @@ public class CpuInfo {
 
         @Override
         public long getProcessCpuTime() {
-            return mbean.getProcessCpuTime();
+            try {
+                return mbean.getProcessCpuTime();
+            } catch (Error e) {
+                return -1;
+            }
         }
 
         @Override
         public double getSystemCpuLoad() {
-            return mbean.getSystemCpuLoad();
+            try {
+                return mbean.getSystemCpuLoad();
+            } catch (Error e) {
+                return -1;
+            }
         }
     }
 

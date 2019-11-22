@@ -72,36 +72,39 @@ public class JavaInfo {
                 VENDOR = Vendor.UNKNOWN;
         }
 
-        String runtimeVersion = getSystemProperty("java.runtime.version").toLowerCase();
+        String runtimeVersion = getSystemProperty("java.runtime.version");
 
-        // Parse service release
         int sr = 0;
-        int srloc = runtimeVersion.indexOf("sr");
-        if (srloc > (-1)) {
-            srloc += 2;
-            if (srloc < runtimeVersion.length()) {
-                int len = 0;
-                while ((srloc + len < runtimeVersion.length()) && Character.isDigit(runtimeVersion.charAt(srloc + len))) {
-                    len++;
+        int fp = 0;
+        if (runtimeVersion != null) {
+            runtimeVersion = runtimeVersion.toLowerCase();
+            // Parse service release
+            int srloc = runtimeVersion.indexOf("sr");
+            if (srloc > (-1)) {
+                srloc += 2;
+                if (srloc < runtimeVersion.length()) {
+                    int len = 0;
+                    while ((srloc + len < runtimeVersion.length()) && Character.isDigit(runtimeVersion.charAt(srloc + len))) {
+                        len++;
+                    }
+                    sr = parseIntSafe(runtimeVersion.substring(srloc, srloc + len));
                 }
-                sr = parseIntSafe(runtimeVersion.substring(srloc, srloc + len));
+            }
+
+            // Parse fixpack
+            int fploc = runtimeVersion.indexOf("fp");
+            if (fploc > (-1)) {
+                fploc += 2;
+                if (fploc < runtimeVersion.length()) {
+                    int len = 0;
+                    while ((fploc + len < runtimeVersion.length()) && Character.isDigit(runtimeVersion.charAt(fploc + len))) {
+                        len++;
+                    }
+                    fp = parseIntSafe(runtimeVersion.substring(fploc, fploc + len));
+                }
             }
         }
         SERVICE_RELEASE = sr;
-
-        // Parse fixpack
-        int fp = 0;
-        int fploc = runtimeVersion.indexOf("fp");
-        if (fploc > (-1)) {
-            fploc += 2;
-            if (fploc < runtimeVersion.length()) {
-                int len = 0;
-                while ((fploc + len < runtimeVersion.length()) && Character.isDigit(runtimeVersion.charAt(fploc + len))) {
-                    len++;
-                }
-                fp = parseIntSafe(runtimeVersion.substring(fploc, fploc + len));
-            }
-        }
         FIXPACK = fp;
     }
 
