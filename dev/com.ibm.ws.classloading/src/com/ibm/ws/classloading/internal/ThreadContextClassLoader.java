@@ -44,8 +44,23 @@ public class ThreadContextClassLoader extends UnifiedClassLoader implements Keye
     private final ClassLoader appLoader;
     private final ClassLoadingServiceImpl clSvc;
 
-    public ThreadContextClassLoader(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
-        super(appLoader instanceof ParentLastClassLoader ? appLoader : augLoader, appLoader instanceof ParentLastClassLoader ? augLoader : appLoader);
+    public static ThreadContextClassLoader create(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
+        if (appLoader instanceof ParentLastClassLoader) {
+            return new ThreadContextClassLoader(appLoader, augLoader, key, clSvc);
+        }
+        return new ThreadContextClassLoader(augLoader, appLoader, key, clSvc);
+    }
+
+    protected ThreadContextClassLoader(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
+        super(augLoader, appLoader);
+        bundle.set(augLoader.getBundle());
+        this.key = key;
+        this.appLoader = appLoader;
+        this.clSvc = clSvc;
+    }
+
+    protected ThreadContextClassLoader(ClassLoader appLoader, GatewayClassLoader augLoader,  String key, ClassLoadingServiceImpl clSvc) {
+        super(appLoader, augLoader);
         bundle.set(augLoader.getBundle());
         this.key = key;
         this.appLoader = appLoader;

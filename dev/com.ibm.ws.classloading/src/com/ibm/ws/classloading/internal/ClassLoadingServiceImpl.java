@@ -599,9 +599,9 @@ public class ClassLoadingServiceImpl implements LibertyClassLoadingService, Clas
 
         ThreadContextClassLoader tccl;
         if (cl instanceof BundleReference) {
-            tccl = new ThreadContextClassLoaderForBundles(aug, cl, key, this);
+            tccl = ThreadContextClassLoaderForBundles.create(aug, cl, key, this);
         } else {
-            tccl = new ThreadContextClassLoader(aug, cl, key, this);
+            tccl = ThreadContextClassLoader.create(aug, cl, key, this);
         }
 
         return tccl;

@@ -24,11 +24,22 @@ import org.osgi.framework.BundleReference;
 public class ThreadContextClassLoaderForBundles extends ThreadContextClassLoader implements BundleReference
 {
 
-    public ThreadContextClassLoaderForBundles(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
+    public static ThreadContextClassLoaderForBundles create(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
+        if (appLoader instanceof ParentLastClassLoader) {
+            return new ThreadContextClassLoaderForBundles(appLoader, augLoader, key, clSvc);
+        }
+        return new ThreadContextClassLoaderForBundles(augLoader, appLoader, key, clSvc);
+    }
+
+    private ThreadContextClassLoaderForBundles(GatewayClassLoader augLoader, ClassLoader appLoader, String key, ClassLoadingServiceImpl clSvc) {
         super(augLoader, appLoader, key, clSvc);
         _bundleClassLoader = (BundleReference) appLoader;
     }
 
+    private ThreadContextClassLoaderForBundles(ClassLoader appLoader, GatewayClassLoader augLoader,  String key, ClassLoadingServiceImpl clSvc) {
+        super(appLoader, augLoader,  key, clSvc);
+        _bundleClassLoader = (BundleReference) appLoader;
+    }
     private final BundleReference _bundleClassLoader;
 
     @Override
