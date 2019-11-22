@@ -42,7 +42,7 @@ public class UtilImpl_Factory implements Util_Factory {
     public UtilImpl_Factory() {
         super();
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         if (tc.isDebugEnabled()) {
             Tr.debug(tc, MessageFormat.format("[ {0} ] Created", this.hashText));

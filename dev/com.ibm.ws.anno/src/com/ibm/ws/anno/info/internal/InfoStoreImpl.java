@@ -28,7 +28,6 @@ import com.ibm.wsspi.anno.info.InfoStoreException;
 public class InfoStoreImpl implements InfoStore {
 
     private static final TraceComponent tc = Tr.register(InfoStoreImpl.class);
-    public static final TraceComponent scanStateLogger = AnnotationServiceImpl_Logging.stateLogger;
 
     public static final String CLASS_NAME = InfoStoreImpl.class.getName();
 
@@ -47,7 +46,7 @@ public class InfoStoreImpl implements InfoStore {
     public InfoStoreImpl(InfoStoreFactoryImpl infoStoreFactory, ClassSource_Aggregate classSource) {
         String methodName = "<init>";
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this) + "( " + classSource.hashCode() + " )";
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode()) + "( " + classSource.hashCode() + " )";
 
         Tr.entry(tc, methodName, this.hashText);
 
@@ -392,9 +391,9 @@ public class InfoStoreImpl implements InfoStore {
 
     @Trivial
     public void logState() {
-        if (scanStateLogger.isDebugEnabled()) {
-            log(scanStateLogger);
-        }
+//        if (AnnotationServiceImpl_Logging.getStateLogger().isDebugEnabled()) {
+//            log(AnnotationServiceImpl_Logging.getStateLogger());
+//        }
     }
 
     //

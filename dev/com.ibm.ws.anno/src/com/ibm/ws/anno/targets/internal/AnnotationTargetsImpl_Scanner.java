@@ -42,7 +42,7 @@ public class AnnotationTargetsImpl_Scanner {
 
         String methodName = "init";
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         this.factory = factory;
         this.classSource = classSource;
@@ -340,11 +340,11 @@ public class AnnotationTargetsImpl_Scanner {
     //
 
     public void logState() {
-        TraceComponent stateLogger = AnnotationServiceImpl_Logging.stateLogger;
-
-        if (stateLogger.isDebugEnabled()) {
-            log(stateLogger);
-        }
+//        TraceComponent stateLogger = AnnotationServiceImpl_Logging.getStateLogger();
+//
+//        if (stateLogger.isDebugEnabled()) {
+//            log(stateLogger);
+//        }
     }
 
     public void log(TraceComponent logger) {

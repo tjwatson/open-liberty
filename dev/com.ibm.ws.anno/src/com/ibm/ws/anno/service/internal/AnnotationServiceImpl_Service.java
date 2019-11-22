@@ -64,7 +64,7 @@ public class AnnotationServiceImpl_Service implements AnnotationService_Service 
 
         String methodName = "<init>";
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         if (tc.isEntryEnabled()) {
             Tr.entry(tc, methodName, this.hashText);

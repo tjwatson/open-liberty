@@ -81,7 +81,7 @@ public abstract class ClassSourceImpl implements ClassSource {
 
         this.options = options;
 
-        String useHashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        String useHashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
         useHashText += "(" + this.canonicalName;
         if (hashTextSuffix != null) {
             useHashText += ", " + hashTextSuffix;
@@ -438,11 +438,11 @@ public abstract class ClassSourceImpl implements ClassSource {
     @Override
     @Trivial
     public void logState() {
-        TraceComponent stateLogger = AnnotationServiceImpl_Logging.stateLogger;
-
-        if (stateLogger.isDebugEnabled()) {
-            log(stateLogger);
-        }
+//        TraceComponent stateLogger = AnnotationServiceImpl_Logging.getStateLogger();
+//
+//        if (stateLogger.isDebugEnabled()) {
+//            log(stateLogger);
+//        }
     }
 
     @Override

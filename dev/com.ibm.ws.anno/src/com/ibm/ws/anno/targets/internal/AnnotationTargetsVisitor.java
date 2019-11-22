@@ -134,7 +134,7 @@ public class AnnotationTargetsVisitor extends ClassVisitor {
     public AnnotationTargetsVisitor(AnnotationTargetsImpl_Targets annotationTargets) {
         super(Opcodes.ASM7);
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         // Basic identity: Bind the visitor to specific targets,
         // and cache some referenced values of those targets.

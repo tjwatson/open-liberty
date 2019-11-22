@@ -167,9 +167,9 @@ public class UtilImpl_EmptyInternMap implements Util_InternMap {
     @Override
     @Trivial
     public void logState() {
-        if (com.ibm.ws.anno.service.internal.AnnotationServiceImpl_Logging.stateLogger.isDebugEnabled()) {
-            log(com.ibm.ws.anno.service.internal.AnnotationServiceImpl_Logging.stateLogger);
-        }
+//        if (com.ibm.ws.anno.service.internal.AnnotationServiceImpl_Logging.getStateLogger().isDebugEnabled()) {
+//            log(com.ibm.ws.anno.service.internal.AnnotationServiceImpl_Logging.getStateLogger());
+//        }
     }
 
     @Override

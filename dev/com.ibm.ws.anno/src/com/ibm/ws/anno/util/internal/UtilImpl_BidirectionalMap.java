@@ -52,7 +52,7 @@ public class UtilImpl_BidirectionalMap implements Util_BidirectionalMap {
                                         boolean isEnabled) {
         super();
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this) +
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode()) +
                         "(" + holderTag + " : " + heldTag + ", enabled='" + (isEnabled ? "true" : "false") + "')";
 
         this.factory = factory;
@@ -344,11 +344,11 @@ public class UtilImpl_BidirectionalMap implements Util_BidirectionalMap {
     @Override
     @Trivial
     public void logState() {
-        TraceComponent stateLogger = AnnotationServiceImpl_Logging.stateLogger;
-
-        if (stateLogger.isDebugEnabled()) {
-            log(stateLogger);
-        }
+//        TraceComponent stateLogger = AnnotationServiceImpl_Logging.getStateLogger();
+//
+//        if (stateLogger.isDebugEnabled()) {
+//            log(stateLogger);
+//        }
     }
 
     @Override

@@ -40,7 +40,7 @@ public class InfoStoreFactoryImpl implements InfoStoreFactory {
     public InfoStoreFactoryImpl(UtilImpl_Factory utilFactory) {
         super();
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         this.utilFactory = utilFactory;
 

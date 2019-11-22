@@ -38,7 +38,7 @@ public class AnnotationTargetsImpl_Streamer implements ClassSource_Streamer {
     protected AnnotationTargetsImpl_Streamer(AnnotationTargetsImpl_Scanner scanner) {
         super();
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         this.scanner = scanner;
         this.targets = scanner.getAnnotationTargets();

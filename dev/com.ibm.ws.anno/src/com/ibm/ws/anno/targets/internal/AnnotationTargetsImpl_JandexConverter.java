@@ -68,7 +68,7 @@ public class AnnotationTargetsImpl_JandexConverter {
     
     public AnnotationTargetsImpl_JandexConverter(AnnotationTargetsImpl_Targets annotationTargets) {
         this.annotationTargets = annotationTargets;
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
     }
 
     //

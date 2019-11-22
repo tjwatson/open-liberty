@@ -141,7 +141,7 @@ public class UtilImpl_InternMap implements Util_InternMap {
 
         this.name = name;
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this) + "(" + this.name + ")";
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode()) + "(" + this.name + ")";
 
         this.valueType = valueType;
         this.checkValues = tc.isDebugEnabled();
@@ -321,9 +321,9 @@ public class UtilImpl_InternMap implements Util_InternMap {
     @Override
     @Trivial
     public void logState() {
-        if (AnnotationServiceImpl_Logging.stateLogger.isDebugEnabled()) {
-            log(AnnotationServiceImpl_Logging.stateLogger);
-        }
+//        if (AnnotationServiceImpl_Logging.getStateLogger().isDebugEnabled()) {
+//            log(AnnotationServiceImpl_Logging.getStateLogger());
+//        }
     }
 
     @Override

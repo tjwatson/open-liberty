@@ -52,7 +52,7 @@ public class AnnotationTargetsImpl_Targets implements AnnotationTargets_Targets 
     protected AnnotationTargetsImpl_Targets(AnnotationTargetsImpl_Factory factory,
                                             UtilImpl_InternMap classInternMap,
                                             boolean isDetailEnabled) {
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         this.factory = factory;
 
@@ -1246,11 +1246,11 @@ public class AnnotationTargetsImpl_Targets implements AnnotationTargets_Targets 
     //
 
     public void logState() {
-        TraceComponent stateLogger = AnnotationServiceImpl_Logging.stateLogger;
-
-        if (stateLogger.isDebugEnabled()) {
-            log(stateLogger);
-        }
+//        TraceComponent stateLogger = AnnotationServiceImpl_Logging.getStateLogger();
+//
+//        if (stateLogger.isDebugEnabled()) {
+//            log(stateLogger);
+//        }
     }
 
     public void log(TraceComponent logger) {

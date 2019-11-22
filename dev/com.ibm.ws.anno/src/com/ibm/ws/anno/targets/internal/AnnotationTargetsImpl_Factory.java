@@ -42,7 +42,7 @@ public class AnnotationTargetsImpl_Factory implements AnnotationTargets_Factory 
                                          ClassSourceImpl_Factory classSourceFactory) {
         super();
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         this.utilFactory = utilFactory;
 

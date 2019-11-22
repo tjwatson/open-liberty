@@ -50,8 +50,11 @@ public class AnnotationServiceImpl_Logging implements AnnotationService_Logging 
     // Special category loggers ... these cut across the function loggers.
 
     /** <p>Common reference to the annotations state logger.</p> */
-    public static final TraceComponent stateLogger = Tr.register(AnnotationServiceImpl_Logging.class);
+    private static final TraceComponent stateLogger = Tr.register(AnnotationServiceImpl_Logging.class);
 
+    public static TraceComponent getStateLogger() {
+        return stateLogger;
+    }
     /**
      * <p>Answer a base hash code for a target object.</p>
      *

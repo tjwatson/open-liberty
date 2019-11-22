@@ -39,7 +39,7 @@ public abstract class ClassSourceImpl_Specification implements ClassSource_Speci
 
         this.factory = factory;
 
-        this.hashText = AnnotationServiceImpl_Logging.getBaseHash(this);
+        this.hashText = this.getClass().getSimpleName() + "@" + Integer.toString((new Object()).hashCode());
 
         if (tc.isDebugEnabled()) {
             Tr.debug(tc, this.hashText);
@@ -70,11 +70,11 @@ public abstract class ClassSourceImpl_Specification implements ClassSource_Speci
 
     @Override
     public void logState() {
-        TraceComponent stateLogger = AnnotationServiceImpl_Logging.stateLogger;
-
-        if (stateLogger.isDebugEnabled()) {
-            log(stateLogger);
-        }
+//        TraceComponent stateLogger = AnnotationServiceImpl_Logging.getStateLogger();
+//
+//        if (stateLogger.isDebugEnabled()) {
+//            log(stateLogger);
+//        }
     }
 
     @Override
