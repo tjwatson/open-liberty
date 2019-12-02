@@ -1,0 +1,3280 @@
+[
+{
+  "name":"com.ibm.ws.kernel.equinox.module.internal.ModuleBundleFileWrapperFactoryHook",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.kernel.filemonitor.internal.CoreServiceImpl",
+  "allDeclaredMethods":true
+},
+{
+  "name":"com.ibm.ws.kernel.launch.internal.LauncherDelegateImpl",
+  "methods":[{"name":"<init>","parameterTypes":["com.ibm.ws.kernel.boot.BootstrapConfig"] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.WsLogger",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.Class","java.lang.String"] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.BaseFFDCService",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.BaseTraceService",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.LogProviderImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javax.management.StandardEmitterMBean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"javax.management.StandardMBean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"javax.naming.spi.NamingManager",
+  "allDeclaredFields":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Basic",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Files",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Inspect",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.runtime.CommandProcessorImpl",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Builtin",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Posix",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Procedural",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Shell",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Telnet",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.scr.impl.ComponentCommands",
+  "allPublicMethods":true
+},
+{
+  "name":"org.atomos.framework.base.AtomosCommands",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.DisconnectCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.EquinoxCommandProvider",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.HelpCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.ManCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.telnet.TelnetCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.metatype.impl.MetaTypeMsg",
+  "allDeclaredFields":true
+},
+{
+  "name":"com.ibm.ws.tcpchannel.internal.TCPChannelFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.http.channel.internal.inbound.HttpInboundChannelFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.http.dispatcher.internal.channel.HttpDispatcherFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.tcpchannel.internal.NioTCPChannel",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.config.ext.ConfigExtension",
+    "fields" : [
+      { "name" : "useDefaultConfigValidation" },
+      { "name" : "forceEmbeddedConfigValidation" }
+    ]
+},
+
+  {
+    "name":"com.ibm.io.async.IAsyncProvider$AsyncIOHelper"
+  },
+  {
+    "name":"com.ibm.websphere.channelfw.osgi.CHFWBundle",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setApproxTimeService" },
+      { "name" : "setAsyncIOHelper" },
+      { "name" : "setBehavior" },
+      { "name" : "setByteBufferConfig" },
+      { "name" : "setEventService" },
+      { "name" : "setExecutorService" },
+      { "name" : "setFactoryProvider" },
+      { "name" : "setScheduledEventService" },
+      { "name" : "setScheduledExecutorService" },
+      { "name" : "setServerStarted" },
+      { "name" : "unsetApproxTimeService" },
+      { "name" : "unsetAsyncIOHelper" },
+      { "name" : "unsetBehavior" },
+      { "name" : "unsetByteBufferConfig" },
+      { "name" : "unsetEventService" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetFactoryProvider" },
+      { "name" : "unsetScheduledEventService" },
+      { "name" : "unsetScheduledExecutorService" },
+      { "name" : "unsetServerStarted" }
+    ]
+  },
+  {
+    "name":"com.ibm.websphere.channelfw.osgi.ChannelFactoryProvider"
+  },
+  {
+    "name":"com.ibm.websphere.csi.J2EENameFactory"
+  },
+  {
+    "name":"com.ibm.websphere.event.EventEngine"
+  },
+  {
+    "name":"com.ibm.websphere.event.EventHandler"
+  },
+  {
+    "name":"com.ibm.websphere.event.ExecutorServiceFactory"
+  },
+  {
+    "name":"com.ibm.websphere.event.ScheduledEventService"
+  },
+  {
+    "name":"com.ibm.websphere.metatype.SchemaGenerator"
+  },
+  {
+    "name":"com.ibm.websphere.security.WSSecurityHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setWsSecurityService" },
+      { "name" : "unsetWsSecurityService" }
+    ]
+  },
+  {
+    "name":"com.ibm.websphere.security.auth.WSSubject",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setSubjectManagerService" },
+      { "name" : "unsetSubjectManagerService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.AdaptableModuleFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAdapterFactoryService" },
+      { "name" : "setContainerFactory" },
+      { "name" : "setOverlayContainerFactory" },
+      { "name" : "unsetAdapterFactoryService" },
+      { "name" : "unsetContainerFactory" },
+      { "name" : "unsetOverlayContainerFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.AdapterFactoryServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContainerHelper" },
+      { "name" : "setEntryHelper" },
+      { "name" : "unsetContainerHelper" },
+      { "name" : "unsetEntryHelper" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.AddEntryToOverlayContainerAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.FastModeControlContainerAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.MaskedPathEntryAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.NonPersistentCacheContainerAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.adaptable.module.internal.NonPersistentCacheEntryAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.anno.classsource.internal.ClassSourceImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.anno.info.internal.InfoStoreFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.anno.service.internal.AnnotationServiceImpl_Service",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.anno.targets.internal.AnnotationTargetsImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.anno.util.internal.UtilImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.annocache.classsource.internal.ClassSourceImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.annocache.info.internal.InfoStoreFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.annocache.service.internal.AnnotationCacheServiceImpl_Service",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.annocache.targets.cache.internal.TargetCacheImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.annocache.targets.internal.AnnotationTargetsImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.annocache.util.internal.UtilImpl_Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.app.manager.ApplicationManager",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.ear.internal.EARApplicationHandlerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setDeployedAppFactory" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "unsetDeployedAppFactory" },
+      { "name" : "unsetFutureMonitor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.ear.internal.EARApplicationTypeSupported",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.ear.internal.EARDeployedAppInfoFactoryImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "deployedAppServices" }
+    ],
+    "methods" : [
+      { "name" : "setApplicationManager" },
+      { "name" : "setClientModuleHandler" },
+      { "name" : "setConnectorModuleHandler" },
+      { "name" : "setDeployedAppMBeanRuntime" },
+      { "name" : "setEjbModuleHandler" },
+      { "name" : "setVersion" },
+      { "name" : "setWebModuleHandler" },
+      { "name" : "unsetApplicationManager" },
+      { "name" : "unsetClientModuleHandler" },
+      { "name" : "unsetConnectorModuleHandler" },
+      { "name" : "unsetDeployedAppMBeanRuntime" },
+      { "name" : "unsetEjbModuleHandler" },
+      { "name" : "unsetVersion" },
+      { "name" : "unsetWebModuleHandler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.internal.ApplicationConfigurator",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setAdaptableModuleFactory" },
+      { "name" : "setAppHandler" },
+      { "name" : "setAppRecycleComponent" },
+      { "name" : "setAppRecycleContext" },
+      { "name" : "setAppTypeSupported" },
+      { "name" : "setApplicationManager" },
+      { "name" : "setApplicationMonitorConfigurator" },
+      { "name" : "setConfigurationAdmin" },
+      { "name" : "setContainerFactory" },
+      { "name" : "setExecutorService" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setLocationService" },
+      { "name" : "setRuntimeUpdateManager" },
+      { "name" : "setScheduledExecutorService" },
+      { "name" : "unsetAdaptableModuleFactory" },
+      { "name" : "unsetAppHandler" },
+      { "name" : "unsetAppRecycleComponent" },
+      { "name" : "unsetAppRecycleContext" },
+      { "name" : "unsetAppTypeSupported" },
+      { "name" : "unsetApplicationManager" },
+      { "name" : "unsetApplicationMonitorConfigurator" },
+      { "name" : "unsetConfigurationAdmin" },
+      { "name" : "unsetContainerFactory" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetRuntimeUpdateManager" },
+      { "name" : "unsetScheduledExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setApplicationMonitor" },
+      { "name" : "setDropinMonitor" },
+      { "name" : "unsetApplicationMonitor" },
+      { "name" : "unsetDropinMonitor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.internal.monitor.ApplicationMonitor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setExecutorService" },
+      { "name" : "unsetExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.internal.monitor.DropinMonitor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setLocationService" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetLocationService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.DeployedAppInfoFactory"
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.DeployedAppMBeanRuntime"
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.DeployedAppServices"
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.internal.DeployedAppServicesImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setApplicationInfoFactory" },
+      { "name" : "setArtifactFactory" },
+      { "name" : "setClassLoadingService" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setGlobalSharedLibrary" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setMetaDataService" },
+      { "name" : "setModuleFactory" },
+      { "name" : "setModuleMetaDataExtender" },
+      { "name" : "setNestedModuleMetaDataFactory" },
+      { "name" : "setPermissionManager" },
+      { "name" : "setStateChangeService" },
+      { "name" : "unsetApplicationInfoFactory" },
+      { "name" : "unsetArtifactFactory" },
+      { "name" : "unsetClassLoadingService" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetGlobalSharedLibrary" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetMetaDataService" },
+      { "name" : "unsetModuleFactory" },
+      { "name" : "unsetModuleMetaDataExtender" },
+      { "name" : "unsetNestedModuleMetaDataFactory" },
+      { "name" : "unsetPermissionManager" },
+      { "name" : "unsetStateChangeService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.internal.ModuleHandler"
+  },
+  {
+    "name":"com.ibm.ws.app.manager.module.internal.ModuleHandlerBase",
+    "methods" : [
+      { "name" : "setFutureMonitor" },
+      { "name" : "setMetaDataService" },
+      { "name" : "setStateChangeService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.ready.AppManagerActivator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.war.internal.WARApplicationHandlerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setDeployedAppFactory" },
+      { "name" : "setFutureMonitor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.war.internal.WARApplicationTypeSupported",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.war.internal.WARDeployedAppInfoFactoryImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "applicationManager" },
+      { "name" : "deployedAppServices" },
+      { "name" : "webModuleHandler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.app.manager.web.internal.WebModuleHandlerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setWebContainer" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.bundle.internal.BundleContainerFactoryHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setContainerFactory" },
+      { "name" : "unsetContainerFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.contributor.ArtifactContainerFactoryHelper"
+  },
+  {
+    "name":"com.ibm.ws.artifact.equinox.module.internal.ModuleBundleFileFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContainerFinder" },
+      { "name" : "unsetContainerFinder" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.file.internal.FileContainerFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContainerFactory" },
+      { "name" : "unsetContainerFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.internal.ArtifactContainerFactoryService",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContributor" },
+      { "name" : "setHelper" },
+      { "name" : "unsetContributor" },
+      { "name" : "unsetHelper" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.loose.internal.LooseContainerFactoryHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setContainerFactory" },
+      { "name" : "setLocationService" },
+      { "name" : "unsetContainerFactory" },
+      { "name" : "unsetLocationService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.overlay.internal.OverlayContainerFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContainerFactory" },
+      { "name" : "unsetContainerFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.overlay.internal.OverlayContainerIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setOverlayContainerFactor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.url.internal.URLStreamHandlerServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.url.internal.WSJarURLStreamHandler",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setZipCachingService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.zip.cache.ZipCachingService"
+  },
+  {
+    "name":"com.ibm.ws.artifact.zip.cache.internal.ZipCachingIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setZipCachingService" },
+      { "name" : "unsetZipCachingService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.artifact.zip.cache.internal.ZipCachingServiceImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.artifact.zip.internal.ZipFileContainerFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setContainerFactory" },
+      { "name" : "setGlobalClassloadingConfiguration" },
+      { "name" : "setZipCachingService" },
+      { "name" : "unsetContainerFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.bytebuffer.internal.ByteBufferConfiguration",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setDirectByteBufferHelper" },
+      { "name" : "unsetDirectByteBufferHelper" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.channelfw.internal.CHFWEventHandler",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.ClassGenerator"
+  },
+  {
+    "name":"com.ibm.ws.classloading.MetaInfServicesProvider"
+  },
+  {
+    "name":"com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.internal.ApplicationClassloadingServiceFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setConfigAdmin" },
+      { "name" : "unsetConfigAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.internal.ApplicationClassloadingServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setClassLoadingService" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setGlobalSharedLibrary" },
+      { "name" : "setLibraryStatus" },
+      { "name" : "unsetClassLoadingService" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetGlobalSharedLibrary" },
+      { "name" : "unsetLibraryStatus" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.internal.ClassLoadingButlerAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.classloading.internal.ClassLoadingServiceImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "appExtLibs" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "addGenerator" },
+      { "name" : "addMetaInfServicesProvider" },
+      { "name" : "addResourceProvider" },
+      { "name" : "deactivate" },
+      { "name" : "removeGenerator" },
+      { "name" : "removeMetaInfServicesProvider" },
+      { "name" : "removeResourceProvider" },
+      { "name" : "setGlobalClassloadingConfiguration" },
+      { "name" : "setInstrumentation" },
+      { "name" : "setMetadataIdentifierService" },
+      { "name" : "setRegionDigraph" },
+      { "name" : "setURLStreamHandlerService" },
+      { "name" : "unsetGlobalClassloadingConfiguration" },
+      { "name" : "unsetInstrumentation" },
+      { "name" : "unsetMetadataIdentifierService" },
+      { "name" : "unsetRegionDigraph" },
+      { "name" : "unsetURLStreamHandlerService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.internal.NativeLibraryAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.classloading.java2sec.JavaPermissionsConfiguration",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.classloading.java2sec.PermissionManager",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setClassLoadingService" },
+      { "name" : "setPermission" },
+      { "name" : "setWsjarURLStreamHandler" },
+      { "name" : "unsetClassLoadingService" },
+      { "name" : "unsetPermission" },
+      { "name" : "unsetWsjarURLStreamHandler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.collector.manager.internal.CollectorManagerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setConfigurationAdmin" },
+      { "name" : "setHandler" },
+      { "name" : "setSource" },
+      { "name" : "unsetConfigurationAdmin" },
+      { "name" : "unsetHandler" },
+      { "name" : "unsetSource" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.featuregen.internal.FeatureListMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "unsetLocationAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.internal.WSConfigActivator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.config.schemagen.internal.SchemaGeneratorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setMetaTypeService" },
+      { "name" : "unsetMetaTypeService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.schemagen.internal.ServerSchemaGeneratorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setSchemaGen" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetSchemaGen" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.ConfigVariables"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.ConfigIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setMetaTypeRegistry" },
+      { "name" : "setSystemConfiguration" },
+      { "name" : "unsetMetaTypeRegistry" },
+      { "name" : "unsetSystemConfiguration" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.MetaTypeIntrospection",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "metaTypeRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.MetaTypeRegistry"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.ServerXMLConfigurationMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setSystemConfiguration" },
+      { "name" : "unsetSystemConfiguration" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.SystemConfiguration"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.metatype.MetaTypeFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.annocache.internal.AnnotationsAdapterImpl",
+    "fields" : [
+      { "name" : "annoCacheService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.annocache.internal.CDIContainerAnnotationsAdapterImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.annocache.internal.ContainerAnnotationsAdapterImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.annocache.internal.ModuleAnnotationsAdapterImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.annocache.internal.WebAnnotationsAdapterImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.annotations.internal.ContainerAnnotationsAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAnnoService" },
+      { "name" : "unsetAnnoService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.annotations.internal.ModuleAnnotationsAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAnnoService" },
+      { "name" : "unsetAnnoService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.annotations.internal.WebAnnotationsAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAnnoService" },
+      { "name" : "unsetAnnoService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.InjectionClassListProvider"
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.extended.ApplicationInfoFactory"
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.extended.ModuleRuntimeContainer"
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.internal.ApplicationInfoFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setJ2eeNameFactory" },
+      { "name" : "unsetJ2eeNameFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.internal.InjectionClassListAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setInjectionClassListProviders" },
+      { "name" : "unsetInjectionClassListProviders" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.app.deploy.internal.WebModuleClassesInfoAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.config.ServletConfiguratorHelperFactory"
+  },
+  {
+    "name":"com.ibm.ws.container.service.config.internal.WebFragmentsInfoAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.ApplicationMetaDataListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.ComponentMetaDataListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.MetaDataService"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.MetaDataSlotService"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.MethodMetaDataListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.ModuleMetaDataListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.extended.DeferredMetaDataFactory"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.extended.MetaDataIdentifierService"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.extended.ModuleMetaDataExtender"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.extended.NestedModuleMetaDataFactory"
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.internal.J2EENameFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.internal.MetaDataServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "addApplicationMetaDataListener" },
+      { "name" : "addComponentMetaDataListener" },
+      { "name" : "addMethodMetaDataListener" },
+      { "name" : "addModuleMetaDataListener" },
+      { "name" : "deactivate" },
+      { "name" : "removeApplicationMetaDataListener" },
+      { "name" : "removeComponentMetaDataListener" },
+      { "name" : "removeMethodMetaDataListener" },
+      { "name" : "removeModuleMetaDataListener" },
+      { "name" : "setDeferredMetaDataFactory" },
+      { "name" : "unsetDeferredMetaDataFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.metadata.internal.MetaDataSlotServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setMetaDataService" },
+      { "name" : "unsetMetaDataService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.container.service.naming.JavaColonNamingHelper"
+  },
+  {
+    "name":"com.ibm.ws.container.service.naming.RemoteObjectInstanceFactory"
+  },
+  {
+    "name":"com.ibm.ws.container.service.naming.RemoteObjectInstanceFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.security.internal.SecurityRolesAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.container.service.state.ApplicationStateListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.state.ModuleStateListener"
+  },
+  {
+    "name":"com.ibm.ws.container.service.state.StateChangeService"
+  },
+  {
+    "name":"com.ibm.ws.container.service.state.internal.StateChangeServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "addApplicationStateListener" },
+      { "name" : "addModuleStateListener" },
+      { "name" : "deactivate" },
+      { "name" : "removeApplicationStateListener" },
+      { "name" : "removeModuleStateListener" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.crypto.util.PasswordCipherUtil",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setCustomPasswordEncryption" },
+      { "name" : "unsetCustomPasswordEncryption" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.crypto.util.VariableResolver",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariableRegistry" },
+      { "name" : "unsetVariableRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.EnvironmentVariables",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.JavaHeapMBeanIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.JavaRuntimeInformation",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.NetworkInterfaces",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.OperatingSystemMBeanIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.ThreadInfoIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BlueprintIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BundleStateIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BundleWiringIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ComponentInfoIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setScrInfo" },
+      { "name" : "unsetScrInfo" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ConfigAdminIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setConfigAdmin" },
+      { "name" : "unsetConfigAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ConfigVariableIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariables" },
+      { "name" : "unsetVariables" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.RegionIntrospection",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "digraph" }
+    ],
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ServiceIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.EventEngineImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setExecutorServiceFactory" },
+      { "name" : "setLogService" },
+      { "name" : "setOsgiEventHandler" },
+      { "name" : "setWsEventHandler" },
+      { "name" : "unsetExecutorServiceFactory" },
+      { "name" : "unsetLogService" },
+      { "name" : "unsetOsgiEventHandler" },
+      { "name" : "unsetWsEventHandler" },
+      { "name" : "updatedOsgiEventHandler" },
+      { "name" : "updatedWsEventHandler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.ScheduledEventServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setEventEngine" },
+      { "name" : "setScheduledExecutor" },
+      { "name" : "unsetEventEngine" },
+      { "name" : "unsetScheduledExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.WorkStageExecutorServiceFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutorService" },
+      { "name" : "unsetExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.channel.internal.inbound.HttpPipelineEventHandler",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.dispatcher.internal.HttpDispatcher",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setApproxTime" },
+      { "name" : "setBehavior" },
+      { "name" : "setChfwBundle" },
+      { "name" : "setEncodingUtils" },
+      { "name" : "setEventService" },
+      { "name" : "setExecutorService" },
+      { "name" : "setWebContainer" },
+      { "name" : "setWorkClassifier" },
+      { "name" : "unsetApproxTime" },
+      { "name" : "unsetBehavior" },
+      { "name" : "unsetChfwBundle" },
+      { "name" : "unsetEncodingUtils" },
+      { "name" : "unsetEventService" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetWebContainer" },
+      { "name" : "unsetWorkClassifier" },
+      { "name" : "updatedWebContainer" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.dispatcher.internal.channel.WelcomePageHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activeate" },
+      { "name" : "deactiveate" },
+      { "name" : "setWelcomePage" },
+      { "name" : "unsetWelcomePage" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.DefaultMimeTypesImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.DefaultWelcomePage",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.EncodingUtilsImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.HttpChannelProvider",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.HttpDateFormatImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.http.internal.HttpEndpointImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setAccessLogging" },
+      { "name" : "setChfwBundle" },
+      { "name" : "setEventAdmin" },
+      { "name" : "setExecutorService" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setHttpDispatcher" },
+      { "name" : "setHttpOptions" },
+      { "name" : "setRemoteIp" },
+      { "name" : "setSslOptions" },
+      { "name" : "setSslSupport" },
+      { "name" : "setTcpOptions" },
+      { "name" : "unsetAccessLogging" },
+      { "name" : "unsetChfwBundle" },
+      { "name" : "unsetEventAdmin" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetHttpDispatcher" },
+      { "name" : "unsetHttpOptions" },
+      { "name" : "unsetRemoteIp" },
+      { "name" : "unsetSslOptions" },
+      { "name" : "unsetSslSupport" },
+      { "name" : "unsetTcpOptions" },
+      { "name" : "updatedHttpOptions" },
+      { "name" : "updatedRemoteIp" },
+      { "name" : "updatedSslOptions" },
+      { "name" : "updatedTcpOptions" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.HttpProxyRedirect",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.internal.VirtualHostImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setListener" },
+      { "name" : "setMimeTypeDefaults" },
+      { "name" : "unsetListener" },
+      { "name" : "unsetMimeTypeDefaults" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.logging.internal.AccessLogger",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.logging.source.AccessLogSource",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setBufferManager" },
+      { "name" : "unsetBufferManager" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.http.plugin.merge.internal.PluginMergeToolImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.IndirectJndiLookupObjectFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setInjectionEngine" },
+      { "name" : "setJavaCompDefault" },
+      { "name" : "unsetInjectionEngine" },
+      { "name" : "unsetJavaCompDefault" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.InjectionIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setInjectionEngine" },
+      { "name" : "unsetInjectionEngine" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "registerInjectionMetaDataListener" },
+      { "name" : "registerInjectionProcessorProvider" },
+      { "name" : "registerObjectFactoryInfo" },
+      { "name" : "setEJBLinkReferenceFactory" },
+      { "name" : "setMetaDataSlotService" },
+      { "name" : "setResourceBindingListener" },
+      { "name" : "setResourceFactoryBuilder" },
+      { "name" : "setResourceRefConfigFactory" },
+      { "name" : "unregisterInjectionMetaDataListener" },
+      { "name" : "unregisterInjectionProcessorProvider" },
+      { "name" : "unregisterObjectFactoryInfo" },
+      { "name" : "unsetEJBLinkReferenceFactory" },
+      { "name" : "unsetMetaDataSlotService" },
+      { "name" : "unsetResourceBindingListener" },
+      { "name" : "unsetResourceFactoryBuilder" },
+      { "name" : "unsetResourceRefConfigFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.ResourceFactoryObjectFactory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.naming.DeferredNonCompInjectionJavaColonHelper",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.injectionengine.osgi.internal.naming.InjectionJavaColonHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setInjectionEngine" },
+      { "name" : "setRemoteObjectInstanceFactory" },
+      { "name" : "setSerializationService" },
+      { "name" : "unsetInjectionEngine" },
+      { "name" : "unsetRemoteObjectInstanceFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.ApplicationBnd"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.Group"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.RunAs"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.SecurityRole"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.SpecialSubject"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appbnd.User"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.appext.ApplicationExt"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.clientbnd.ApplicationClientBnd"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.AuthenticationAlias"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.CustomLoginConfiguration"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.DataSource"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.EJBRef"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.EnvEntry"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.Interceptor"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.MessageDestination"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.MessageDestinationRef"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.Property"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.ResourceEnvRef"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonbnd.ResourceRef"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonext.GlobalTransaction"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonext.LocalTransaction"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.commonext.ResourceRef"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbbnd.EJBJarBnd"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbbnd.JCAAdapter"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbbnd.MessageDriven"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbbnd.Session"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.BeanCache"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.EJBJarExt"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.MessageDriven"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.Session"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.StartAtAppStart"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.ejbext.TimeOut"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.managedbean.ManagedBean"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.managedbean.ManagedBeanBnd"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.webbnd.VirtualHost"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.webbnd.WebBnd"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.webext.Attribute"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.webext.MimeFilter"
+  },
+  {
+    "name":"com.ibm.ws.javaee.dd.webext.WebExt"
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.app.ApplicationAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.ApplicationBndAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.ApplicationBndComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "setSecurity_role" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" },
+      { "name" : "unsetSecurity_role" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.GroupComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.RunAsComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.SecurityRoleComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "run_as" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setGroup" },
+      { "name" : "setSpecial_subject" },
+      { "name" : "setUser" },
+      { "name" : "unsetGroup" },
+      { "name" : "unsetSpecial_subject" },
+      { "name" : "unsetUser" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.SpecialSubjectComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.SubjectComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appbnd.UserComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appext.ApplicationExtAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.appext.ApplicationExtComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.bval.ValidationConfigAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.bval.ValidationConfigEntryAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.client.ApplicationClientAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.client.ApplicationClientDDParserVersion"
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.client.ApplicationClientEntryAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.clientbnd.ApplicationClientBndAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.clientbnd.ApplicationClientBndComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.clientbnd.ClientRefBindingsGroupComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.AuthenticationAliasComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configAdmin" }
+    ],
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.CustomLoginConfigurationComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setProperty" },
+      { "name" : "unsetProperty" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.DataSourceComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.EJBRefComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.EnvEntryComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.InterceptorComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.MessageDestinationComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.MessageDestinationRefComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.PropertyComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.RefBindingsGroupComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.ResourceEnvRefComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonbnd.ResourceRefComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "authentication_alias" },
+      { "name" : "custom_login_configuration" }
+    ],
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonext.GlobalTransactionComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonext.LocalTransactionComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonext.MethodComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.commonext.ResourceRefComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejb.EJBJarAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejb.EJBJarDDParserVersion"
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejb.EJBJarEntryAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.EJBJarBndAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.EJBJarBndComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setInterceptor" },
+      { "name" : "setMessage_destination" },
+      { "name" : "setMessage_driven" },
+      { "name" : "setSession" },
+      { "name" : "unsetInterceptor" },
+      { "name" : "unsetMessage_destination" },
+      { "name" : "unsetMessage_driven" },
+      { "name" : "unsetSession" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.EnterpriseBeanComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.JCAAdapterComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.MessageDrivenComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "jca_adapter" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbbnd.SessionComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.BeanCacheComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.EJBJarExtAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.EJBJarExtComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setMessage_driven" },
+      { "name" : "setSession" },
+      { "name" : "unsetMessage_driven" },
+      { "name" : "unsetSession" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.EnterpriseBeanComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "bean_cache" },
+      { "name" : "global_transaction" },
+      { "name" : "local_transaction" },
+      { "name" : "start_at_app_start" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.EnterpriseBeanType",
+    "fields" : [
+      { "name" : "bean_cache" },
+      { "name" : "global_transaction" },
+      { "name" : "local_transaction" },
+      { "name" : "start_at_app_start" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.MessageDrivenComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "bean_cache" },
+      { "name" : "global_transaction" },
+      { "name" : "local_transaction" },
+      { "name" : "start_at_app_start" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.SessionComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "bean_cache" },
+      { "name" : "global_transaction" },
+      { "name" : "local_transaction" },
+      { "name" : "start_at_app_start" },
+      { "name" : "time_out" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.StartAtAppStartComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.ejbext.TimeOutComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.jsf.FacesConfigAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.jsf.FacesConfigEntryAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanBndAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanBndComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setInterceptor" },
+      { "name" : "setManaged_bean" },
+      { "name" : "unsetInterceptor" },
+      { "name" : "unsetManaged_bean" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.permissions.PermissionsAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.web.WebAppAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.web.WebAppEntryAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.web.WebFragmentAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVersion" },
+      { "name" : "unsetVersion" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webbnd.VirtualHostComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webbnd.WebBndAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webbnd.WebBndComponentImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "virtual_host" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setData_source" },
+      { "name" : "setEjb_ref" },
+      { "name" : "setEnv_entry" },
+      { "name" : "setMessage_destination_ref" },
+      { "name" : "setResource_env_ref" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetData_source" },
+      { "name" : "unsetEjb_ref" },
+      { "name" : "unsetEnv_entry" },
+      { "name" : "unsetMessage_destination_ref" },
+      { "name" : "unsetResource_env_ref" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webext.AttributeComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webext.MimeFilterComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webext.WebExtAdapter",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "configurations" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.ddmodel.webext.WebExtComponentImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setFile_serving_attribute" },
+      { "name" : "setInvoker_attribute" },
+      { "name" : "setJsp_attribute" },
+      { "name" : "setMime_filter" },
+      { "name" : "setResource_ref" },
+      { "name" : "unsetFile_serving_attribute" },
+      { "name" : "unsetInvoker_attribute" },
+      { "name" : "unsetJsp_attribute" },
+      { "name" : "unsetMime_filter" },
+      { "name" : "unsetResource_ref" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.platform.defaultresource.internal.DefaultResourceJavaColonNamingHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "addResourceFactory" },
+      { "name" : "removeResourceFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.javaee.version.FacesVersion"
+  },
+  {
+    "name":"com.ibm.ws.javaee.version.JavaEEVersion",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.javaee.version.ServletVersion",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jmx.internal.DelayedMBeanActivatorHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setMBeanServerPipeline" },
+      { "name" : "unsetMBeanServerPipeline" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.jsp.taglib.InjectionServiceImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jsp.taglib.SharedLibClassesContainerInfoAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setArtifactFactory" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setLocAdmin" },
+      { "name" : "setModuleFactory" },
+      { "name" : "unsetArtifactFactory" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetLocAdmin" },
+      { "name" : "unsetModuleFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.jsp.translator.visitor.generator.GeneratorUtilsExtFactory"
+  },
+  {
+    "name":"com.ibm.ws.jsp.translator.visitor.validator.ElValidatorExtFactory"
+  },
+  {
+    "name":"com.ibm.ws.jsp.webcontainerext.JSPExtensionFactory",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "classLoadingService" },
+      { "name" : "elValidatorExtFactory" },
+      { "name" : "generatorUtilsExtFactory" },
+      { "name" : "jspVersionFactory" },
+      { "name" : "locationService" },
+      { "name" : "prepareJspHelperFactory" }
+    ],
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setExpressionFactoryService" },
+      { "name" : "setGlobalTagLibConfig" },
+      { "name" : "unsetExpressionFactoryService" },
+      { "name" : "unsetGlobalTagLibConfig" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.jsp.webcontainerext.JspVersionFactory"
+  },
+  {
+    "name":"com.ibm.ws.jsp.webcontainerext.ws.PrepareJspHelperFactory"
+  },
+  {
+    "name":"com.ibm.ws.jsp.webxml.JspConfiguratorHelperFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.jsp.webxml.JspXmlExtConfigAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.jsp23.translator.visitor.generator.GeneratorUtilsExtFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jsp23.translator.visitor.validator.ElValidatorExtFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jsp23.webcontainerext.JspVersionFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jsp23.webcontainerext.ws.PrepareJspHelper23Factory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.kernel.LibertyProcess"
+  },
+  {
+    "name":"com.ibm.ws.kernel.boot.jmx.service.MBeanServerPipeline"
+  },
+  {
+    "name":"com.ibm.ws.kernel.feature.ServerStarted"
+  },
+  {
+    "name":"com.ibm.ws.kernel.feature.internal.FeatureManager",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAtomosRuntime" },
+      { "name" : "setDigraph" },
+      { "name" : "setEventAdminService" },
+      { "name" : "setExecutorService" },
+      { "name" : "setLocationService" },
+      { "name" : "setRuntimeUpdateManager" },
+      { "name" : "setVariableRegistry" },
+      { "name" : "unsetAtomosRuntime" },
+      { "name" : "unsetDigraph" },
+      { "name" : "unsetEventAdminService" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetRuntimeUpdateManager" },
+      { "name" : "unsetVariableRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.FileNotification"
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.internal.CoreServiceImpl",
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setLocation" },
+      { "name" : "setMonitor" },
+      { "name" : "setScheduler" },
+      { "name" : "unsetLocation" },
+      { "name" : "unsetMonitor" },
+      { "name" : "unsetScheduler" },
+      { "name" : "updatedMonitor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.internal.FileNotificationImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setNotificationDelegate" },
+      { "name" : "unsetNotificationDelegate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.internal.scan.ScanningCoreServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setProcess" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.launch.service.PauseableComponentController"
+  },
+  {
+    "name":"com.ibm.ws.kernel.server.internal.ServerEndpointControlMBeanImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "pauseableComponentController" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.server.internal.ServerInfoMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariableRegistry" },
+      { "name" : "setWsLocationAdmin" },
+      { "name" : "unsetVariableRegistry" },
+      { "name" : "unsetWsLocationAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.service.location.internal.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.library.internal.LibraryStatusService"
+  },
+  {
+    "name":"com.ibm.ws.library.internal.SharedLibraryFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setArtifactContainerFactory" },
+      { "name" : "setClassLoadingService" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setDigrah" },
+      { "name" : "setLocationService" },
+      { "name" : "unsetArtifactContainerFactory" },
+      { "name" : "unsetClassLoadingService" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetLocationService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.logging.ffdc.source.FFDCSource",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setBufferManager" },
+      { "name" : "unsetBufferManager" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.logging.internal.osgi.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.logging.internal.osgi.FFDCJanitor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setScheduler" },
+      { "name" : "unsetScheduler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.managedobject.ManagedObjectService"
+  },
+  {
+    "name":"com.ibm.ws.managedobject.internal.ManagedObjectServiceImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.request.probe.RequestProbeIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.request.probe.RequestProbeService",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setRequestProbe" },
+      { "name" : "unsetRequestProbe" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.request.probe.bci.internal.RequestProbeBCIManagerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setInstrumentation" },
+      { "name" : "setRequestProbeMetaDataProvider" },
+      { "name" : "unsetInstrumentation" },
+      { "name" : "unsetRequestProbeMetaDataProvider" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.resource.ResourceFactoryBuilder"
+  },
+  {
+    "name":"com.ibm.ws.resource.ResourceRefConfigFactory"
+  },
+  {
+    "name":"com.ibm.ws.resource.internal.ResourceFactoryTracker",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.resource.internal.ResourceRefConfigFactoryImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.RuntimeUpdateListener"
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.RuntimeUpdateManager"
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setExecutorService" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setProcess" },
+      { "name" : "setRuntimeUpdateListener" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetRuntimeUpdateListener" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.RuntimeUpdateNotificationMBeanImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.security.intfc.SubjectManagerService"
+  },
+  {
+    "name":"com.ibm.ws.security.intfc.WSSecurityService"
+  },
+  {
+    "name":"com.ibm.ws.security.utils.SecurityUtils",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAuditService" },
+      { "name" : "unsetAuditService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.serialization.DeserializationClassProvider",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.serialization.DeserializationObjectResolver"
+  },
+  {
+    "name":"com.ibm.ws.serialization.SerializationObjectReplacer"
+  },
+  {
+    "name":"com.ibm.ws.serialization.SerializationService"
+  },
+  {
+    "name":"com.ibm.ws.serialization.internal.SerializationServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "addClassProvider" },
+      { "name" : "addReplacer" },
+      { "name" : "addResolver" },
+      { "name" : "deactivate" },
+      { "name" : "removeClassProvider" },
+      { "name" : "removeReplacer" },
+      { "name" : "removeResolver" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.session.SessionManagerMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.session.SessionStoreService"
+  },
+  {
+    "name":"com.ibm.ws.threading.FutureMonitor"
+  },
+  {
+    "name":"com.ibm.ws.threading.PolicyExecutorProvider",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "globalExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.DeferrableScheduledExecutorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ExecutorServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setInterceptor" },
+      { "name" : "setThreadFactory" },
+      { "name" : "unsetInterceptor" },
+      { "name" : "unsetThreadFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.FutureMonitorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ScheduledExecutorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ThreadingIntrospector",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "provider" }
+    ],
+    "methods" : [
+      { "name" : "setWSExecutorService" },
+      { "name" : "unsetWSExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.timer.internal.QuickApproxTimeImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setScheduledExecutor" },
+      { "name" : "unsetScheduledExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.async.AsyncContextFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.collaborator.CollaboratorService"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.cors.CorsHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setCorsConfig" },
+      { "name" : "unsetCorsConfig" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.cors.CorsRequestInterceptor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setCorsHelper" },
+      { "name" : "unsetCorsHelper" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.cors.config.CorsConfig",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.httpsession.SessionManager"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.httpsession.SessionMgrCoordinator",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setAppRecycleService" },
+      { "name" : "setConfigAdmin" },
+      { "name" : "setLocationService" },
+      { "name" : "setScheduledExecutorService" },
+      { "name" : "setSessionStoreService" },
+      { "name" : "unsetAppRecycleService" },
+      { "name" : "unsetConfigAdmin" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetScheduledExecutorService" },
+      { "name" : "unsetSessionStoreService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.DynamicVirtualHostManager",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setLocationService" },
+      { "name" : "setScheduledExececutor" },
+      { "name" : "setVirtualHost" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetScheduledExececutor" },
+      { "name" : "unsetVirtualHost" },
+      { "name" : "updatedVirtualHost" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.WebContainer",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setAdapterFactoryDependency" },
+      { "name" : "setAsyncContextFactory" },
+      { "name" : "setCacheManager" },
+      { "name" : "setCacheServletWrapperFactory" },
+      { "name" : "setClassLoadingService" },
+      { "name" : "setCollaboratorService" },
+      { "name" : "setConnContextPool" },
+      { "name" : "setEncodingService" },
+      { "name" : "setEventService" },
+      { "name" : "setExecutorService" },
+      { "name" : "setExtensionFactory" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setInjectionEngine" },
+      { "name" : "setJ2eeNameFactory" },
+      { "name" : "setLocationService" },
+      { "name" : "setManagedObjectService" },
+      { "name" : "setMetaDataService" },
+      { "name" : "setRequestFactory" },
+      { "name" : "setResponseFactory" },
+      { "name" : "setServletContainerInitializers" },
+      { "name" : "setSessionHelper" },
+      { "name" : "setTransferService" },
+      { "name" : "setURIMatcherFactory" },
+      { "name" : "setVersion" },
+      { "name" : "setVirtualHostMgr" },
+      { "name" : "setWebAppFactory" },
+      { "name" : "setWebMBeanRuntime" },
+      { "name" : "unsetAdapterFactoryDependency" },
+      { "name" : "unsetAsyncContextFactory" },
+      { "name" : "unsetCacheManager" },
+      { "name" : "unsetCacheServletWrapperFactory" },
+      { "name" : "unsetClassLoadingService" },
+      { "name" : "unsetCollaboratorService" },
+      { "name" : "unsetConnContextPool" },
+      { "name" : "unsetEncodingService" },
+      { "name" : "unsetEventService" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetExtensionFactory" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetInjectionEngine" },
+      { "name" : "unsetJ2eeNameFactory" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetManagedObjectService" },
+      { "name" : "unsetMetaDataService" },
+      { "name" : "unsetRequestFactory" },
+      { "name" : "unsetResponseFactory" },
+      { "name" : "unsetServletContainerInitializers" },
+      { "name" : "unsetSessionHelper" },
+      { "name" : "unsetTransferService" },
+      { "name" : "unsetURIMatcherFactory" },
+      { "name" : "unsetVersion" },
+      { "name" : "unsetVirtualHostMgr" },
+      { "name" : "unsetWebAppFactory" },
+      { "name" : "unsetWebMBeanRuntime" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.WebContainerListener",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setJEENameFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.WebMBeanRuntime"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.collaborator.CollaboratorServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setWebAppConnectionCollaborator" },
+      { "name" : "setWebAppInitializationCollaborator" },
+      { "name" : "setWebAppInvocationCollaborator" },
+      { "name" : "setWebAppSecurityCollaborator" },
+      { "name" : "setWebAppTransactionCollaborator" },
+      { "name" : "unsetWebAppConnectionCollaborator" },
+      { "name" : "unsetWebAppInitializationCollaborator" },
+      { "name" : "unsetWebAppInvocationCollaborator" },
+      { "name" : "unsetWebAppSecurityCollaborator" },
+      { "name" : "unsetWebAppTransactionCollaborator" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.container.config.WebAppConfigurationAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAdaptorFactoryService" },
+      { "name" : "setResourceRefConfigFactory" },
+      { "name" : "setServletConfiguratorHelperFactory" },
+      { "name" : "setWebAppConfiguratorHelperFactory" },
+      { "name" : "unsetAdaptorFactoryService" },
+      { "name" : "unsetResourceRefConfigFactory" },
+      { "name" : "unsetServletConfiguratorHelperFactory" },
+      { "name" : "unsetWebAppConfiguratorHelperFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.container.config.WebAppConfiguratorHelperFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.interceptor.RegisterRequestInterceptor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setRequestInterceptor" },
+      { "name" : "unsetRequestInterceptor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.interceptor.RequestInterceptor"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.mbeans.GeneratePluginConfigMBean",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setLocationService" },
+      { "name" : "setSessionManager" },
+      { "name" : "setVirtualHostMgr" },
+      { "name" : "setWebContainer" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetSessionManager" },
+      { "name" : "unsetVirtualHostMgr" },
+      { "name" : "unsetWebContainer" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.request.IRequestFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.response.IResponseFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.session.SessionHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setSessionContextRegistryImplFactory" },
+      { "name" : "setSessionManager" },
+      { "name" : "unsetSessionContextRegistryImplFactory" },
+      { "name" : "unsetSessionManager" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.srt.SRTConnectionContextPool"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.webapp.WebAppFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.osgi.webapp.WebAppInjectionClassListAdapter",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setWebAppInjectionClassListCollaborators" },
+      { "name" : "unsetWebAppInjectionClassListCollaborators" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.servlet.CacheServletWrapperFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer.session.impl.SessionContextRegistryImplFactory"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.async.factory.AsyncContextFactory31Impl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.container.config.factory.WebAppConfiguratorFactory31Impl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.listener.PostEventListenerProvider"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.listener.PreEventListenerProvider"
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.listener.RegisterEventListenerProvider",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setPostEventListenerProvider" },
+      { "name" : "setPreEventListenerProvider" },
+      { "name" : "unsetPostEventListenerProvider" },
+      { "name" : "unsetPreEventListenerProvider" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.response.factory.IRequestResponseFactory",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.srt.factory.SRTConnectionContextPool31Impl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.osgi.webapp.factory.WebAppFactoryImpl31",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.servlet.factory.CacheServletWrapperFactory31Impl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.session.impl.factory.SessionContextRegistryImplFactoryImpl31",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webcontainer31.util.ServletInjectionClassListCollaborator",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webserver.plugin.runtime.collaborators.GenPluginConfigCollaborator",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.webserver.plugin.runtime.interfaces.PluginUtilityConfigGenerator"
+  },
+  {
+    "name":"com.ibm.ws.webserver.plugin.runtime.listeners.GeneratePluginConfigListener",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setExecutor" },
+      { "name" : "setGeneratePluginConfig" },
+      { "name" : "setLocationService" },
+      { "name" : "setSessionManager" },
+      { "name" : "unsetExecutor" },
+      { "name" : "unsetGeneratePluginConfig" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetSessionManager" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.webserver.plugin.runtime.requester.PluginConfigRequesterImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setPluginUtilityConfigGenerator" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetPluginUtilityConfigGenerator" }
+    ]
+  },
+  {
+    "name":"com.ibm.wsspi.adaptable.module.AdaptableModuleFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.adaptable.module.adapters.AdapterFactoryService"
+  },
+  {
+    "name":"com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"
+  },
+  {
+    "name":"com.ibm.wsspi.adaptable.module.adapters.EntryAdapter"
+  },
+  {
+    "name":"com.ibm.wsspi.anno.service.AnnotationService_Service"
+  },
+  {
+    "name":"com.ibm.wsspi.annocache.service.AnnotationCacheService_Service"
+  },
+  {
+    "name":"com.ibm.wsspi.application.handler.ApplicationHandler"
+  },
+  {
+    "name":"com.ibm.wsspi.application.handler.ApplicationTypeSupported"
+  },
+  {
+    "name":"com.ibm.wsspi.application.lifecycle.ApplicationRecycleComponent"
+  },
+  {
+    "name":"com.ibm.wsspi.application.lifecycle.ApplicationRecycleContext"
+  },
+  {
+    "name":"com.ibm.wsspi.application.lifecycle.ApplicationRecycleCoordinator"
+  },
+  {
+    "name":"com.ibm.wsspi.artifact.equinox.module.ModuleContainerFinder"
+  },
+  {
+    "name":"com.ibm.wsspi.artifact.factory.ArtifactContainerFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.artifact.factory.contributor.ArtifactContainerFactoryContributor"
+  },
+  {
+    "name":"com.ibm.wsspi.artifact.overlay.OverlayContainerFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.bytebuffer.WsByteBufferPoolManager$DirectByteBufferHelper"
+  },
+  {
+    "name":"com.ibm.wsspi.channelfw.ChannelConfiguration",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" }
+    ]
+  },
+  {
+    "name":"com.ibm.wsspi.channelfw.HttpProtocolBehavior",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.wsspi.classloading.ClassLoadingService"
+  },
+  {
+    "name":"com.ibm.wsspi.classloading.ResourceProvider"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.BufferManager"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.Handler"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.Source"
+  },
+  {
+    "name":"com.ibm.wsspi.config.FilesetChangeListener"
+  },
+  {
+    "name":"com.ibm.wsspi.config.internal.FilesetImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setListener" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "unsetListener" }
+    ]
+  },
+  {
+    "name":"com.ibm.wsspi.el.ELFactoryWrapperForCDI"
+  },
+  {
+    "name":"com.ibm.wsspi.http.DefaultMimeTypes"
+  },
+  {
+    "name":"com.ibm.wsspi.http.EncodingUtils"
+  },
+  {
+    "name":"com.ibm.wsspi.http.VirtualHost"
+  },
+  {
+    "name":"com.ibm.wsspi.http.VirtualHostListener"
+  },
+  {
+    "name":"com.ibm.wsspi.http.WelcomePage"
+  },
+  {
+    "name":"com.ibm.wsspi.http.WorkClassifier"
+  },
+  {
+    "name":"com.ibm.wsspi.http.ee7.HttpTransportBehavior",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.wsspi.injectionengine.InjectionEngine"
+  },
+  {
+    "name":"com.ibm.wsspi.injectionengine.InjectionMetaDataListener"
+  },
+  {
+    "name":"com.ibm.wsspi.injectionengine.InjectionProcessorProvider"
+  },
+  {
+    "name":"com.ibm.wsspi.injectionengine.ObjectFactoryInfo"
+  },
+  {
+    "name":"com.ibm.wsspi.injectionengine.factory.EJBLinkReferenceFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.jsp.taglib.config.GlobalTagLibConfig"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.filemonitor.FileMonitor"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.service.location.VariableRegistry"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.service.location.WsLocationAdmin"
+  },
+  {
+    "name":"com.ibm.wsspi.library.ApplicationExtensionLibrary"
+  },
+  {
+    "name":"com.ibm.wsspi.library.Library"
+  },
+  {
+    "name":"com.ibm.wsspi.probeExtension.ProbeExtension"
+  },
+  {
+    "name":"com.ibm.wsspi.request.probe.bci.RequestProbeTransformDescriptor"
+  },
+  {
+    "name":"com.ibm.wsspi.resource.ResourceBindingListener"
+  },
+  {
+    "name":"com.ibm.wsspi.resource.ResourceFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.security.audit.AuditService"
+  },
+  {
+    "name":"com.ibm.wsspi.security.crypto.CustomPasswordEncryption"
+  },
+  {
+    "name":"com.ibm.wsspi.security.registry.RegistryHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setWsSecurityService" },
+      { "name" : "unsetWsSecurityService" }
+    ]
+  },
+  {
+    "name":"com.ibm.wsspi.threading.ExecutorServiceTaskInterceptor"
+  },
+  {
+    "name":"com.ibm.wsspi.threading.WSExecutorService"
+  },
+  {
+    "name":"com.ibm.wsspi.timer.ApproximateTime"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.cache.CacheManager"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.IConnectionCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.IWebAppSecurityCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.IWebAppTransactionCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.WebAppInitializationCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.WebAppInjectionClassListCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.collaborator.WebAppInvocationCollaborator"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.extension.ExtensionFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.metadata.WebModuleMetaDataAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.osgi.mbeans.GeneratePluginConfig"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.servlet.ITransferContextService"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.util.URIMatcherFactory"
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer.webapp.WebAppConfigAdapter",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.wsspi.webcontainer31.util.factory.URIMatcherFactory31Impl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"java.lang.instrument.Instrumentation"
+  },
+  {
+    "name":"java.util.concurrent.ExecutorService"
+  },
+  {
+    "name":"java.util.concurrent.ScheduledExecutorService"
+  },
+  {
+    "name":"java.util.concurrent.ThreadFactory"
+  },
+  {
+    "name":"javax.servlet.ServletContainerInitializer"
+  },
+  {
+    "name":"org.apache.aries.jmx.core.whiteboard.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.command.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.runtime.activator.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.shell.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.scr.impl.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.scr.info.ScrInfo"
+  },
+  {
+    "name":"org.atomos.framework.AtomosRuntime"
+  },
+  {
+    "name":"org.eclipse.equinox.console.command.adapter.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.coordinator.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.internal.region.RegionManager",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.metatype.EquinoxMetaTypeService"
+  },
+  {
+    "name":"org.eclipse.equinox.metatype.impl.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.region.RegionDigraph"
+  },
+  {
+    "name":"org.osgi.service.cm.ConfigurationAdmin"
+  },
+  {
+    "name":"org.osgi.service.component.runtime.ServiceComponentRuntime"
+  },
+  {
+    "name":"org.osgi.service.event.EventAdmin"
+  },
+  {
+    "name":"org.osgi.service.event.EventHandler"
+  },
+  {
+    "name":"org.osgi.service.log.LogService"
+  },
+  {
+    "name":"org.osgi.service.url.URLStreamHandlerService"
+  }
+
+]

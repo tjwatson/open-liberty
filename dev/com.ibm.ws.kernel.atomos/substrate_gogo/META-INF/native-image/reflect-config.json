@@ -1,0 +1,665 @@
+[
+{
+  "name":"com.ibm.ws.kernel.equinox.module.internal.ModuleBundleFileWrapperFactoryHook",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.kernel.filemonitor.internal.CoreServiceImpl",
+  "allDeclaredMethods":true
+},
+{
+  "name":"com.ibm.ws.kernel.launch.internal.LauncherDelegateImpl",
+  "methods":[{"name":"<init>","parameterTypes":["com.ibm.ws.kernel.boot.BootstrapConfig"] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.WsLogger",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.Class","java.lang.String"] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.BaseFFDCService",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.BaseTraceService",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.ibm.ws.logging.internal.impl.LogProviderImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javax.management.StandardEmitterMBean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"javax.management.StandardMBean",
+  "allDeclaredMethods":true
+},
+{
+  "name":"javax.naming.spi.NamingManager",
+  "allDeclaredFields":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Basic",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Files",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.command.Inspect",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.runtime.CommandProcessorImpl",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Builtin",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Posix",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Procedural",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Shell",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.gogo.shell.Telnet",
+  "allPublicMethods":true
+},
+{
+  "name":"org.apache.felix.scr.impl.ComponentCommands",
+  "allPublicMethods":true
+},
+{
+  "name":"org.atomos.framework.base.AtomosCommands",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.DisconnectCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.EquinoxCommandProvider",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.HelpCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.commands.ManCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.console.telnet.TelnetCommand",
+  "allPublicMethods":true
+},
+{
+  "name":"org.eclipse.equinox.metatype.impl.MetaTypeMsg",
+  "allDeclaredFields":true
+},
+
+  {
+    "name":"com.ibm.ws.logging.internal.osgi.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.kernel.service.location.internal.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.metatype.impl.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.coordinator.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.internal.region.RegionManager",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.config.internal.WSConfigActivator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.scr.impl.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.aries.jmx.core.whiteboard.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.command.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.eclipse.equinox.console.command.adapter.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.shell.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"org.apache.felix.gogo.runtime.activator.Activator",
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"com.ibm.ws.logging.internal.osgi.FFDCJanitor",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setScheduler" },
+      { "name" : "unsetScheduler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.logging.ffdc.source.FFDCSource",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setBufferManager" },
+      { "name" : "unsetBufferManager" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.collector.manager.internal.CollectorManagerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setConfigurationAdmin" },
+      { "name" : "setHandler" },
+      { "name" : "setSource" },
+      { "name" : "unsetConfigurationAdmin" },
+      { "name" : "unsetHandler" },
+      { "name" : "unsetSource" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.server.internal.ServerEndpointControlMBeanImpl",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "pauseableComponentController" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.server.internal.ServerInfoMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariableRegistry" },
+      { "name" : "setWsLocationAdmin" },
+      { "name" : "unsetVariableRegistry" },
+      { "name" : "unsetWsLocationAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.ServerXMLConfigurationMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setSystemConfiguration" },
+      { "name" : "unsetSystemConfiguration" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.metatype.MetaTypeFactoryImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.ConfigIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setMetaTypeRegistry" },
+      { "name" : "setSystemConfiguration" },
+      { "name" : "unsetMetaTypeRegistry" },
+      { "name" : "unsetSystemConfiguration" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.schemagen.internal.SchemaGeneratorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setMetaTypeService" },
+      { "name" : "unsetMetaTypeService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.schemagen.internal.ServerSchemaGeneratorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setSchemaGen" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetSchemaGen" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.featuregen.internal.FeatureListMBeanImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "unsetLocationAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.MetaTypeIntrospection",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "metaTypeRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.wsspi.config.internal.FilesetImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setListener" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "unsetListener" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.crypto.util.VariableResolver",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariableRegistry" },
+      { "name" : "unsetVariableRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.crypto.util.PasswordCipherUtil",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setCustomPasswordEncryption" },
+      { "name" : "unsetCustomPasswordEncryption" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.EventEngineImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setExecutorServiceFactory" },
+      { "name" : "setLogService" },
+      { "name" : "setOsgiEventHandler" },
+      { "name" : "setWsEventHandler" },
+      { "name" : "unsetExecutorServiceFactory" },
+      { "name" : "unsetLogService" },
+      { "name" : "unsetOsgiEventHandler" },
+      { "name" : "unsetWsEventHandler" },
+      { "name" : "updatedOsgiEventHandler" },
+      { "name" : "updatedWsEventHandler" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.WorkStageExecutorServiceFactory",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutorService" },
+      { "name" : "unsetExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.event.internal.ScheduledEventServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setEventEngine" },
+      { "name" : "setScheduledExecutor" },
+      { "name" : "unsetEventEngine" },
+      { "name" : "unsetScheduledExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.FutureMonitorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ThreadingIntrospector",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "provider" }
+    ],
+    "methods" : [
+      { "name" : "setWSExecutorService" },
+      { "name" : "unsetWSExecutorService" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.PolicyExecutorProvider",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "globalExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ScheduledExecutorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.DeferrableScheduledExecutorImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setExecutor" },
+      { "name" : "unsetExecutor" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.threading.internal.ExecutorServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "modified" },
+      { "name" : "setInterceptor" },
+      { "name" : "setThreadFactory" },
+      { "name" : "unsetInterceptor" },
+      { "name" : "unsetThreadFactory" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.RuntimeUpdateNotificationMBeanImpl",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "setExecutorService" },
+      { "name" : "setFutureMonitor" },
+      { "name" : "setLocationAdmin" },
+      { "name" : "setProcess" },
+      { "name" : "setRuntimeUpdateListener" },
+      { "name" : "unsetFutureMonitor" },
+      { "name" : "unsetLocationAdmin" },
+      { "name" : "unsetRuntimeUpdateListener" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.internal.FileNotificationImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setNotificationDelegate" },
+      { "name" : "unsetNotificationDelegate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.internal.scan.ScanningCoreServiceImpl",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setProcess" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ServiceIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.RegionIntrospection",
+    "allPublicConstructors" : true,
+    "fields" : [
+      { "name" : "digraph" }
+    ],
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ConfigAdminIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setConfigAdmin" },
+      { "name" : "unsetConfigAdmin" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BlueprintIntrospector",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.NetworkInterfaces",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.OperatingSystemMBeanIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.ThreadInfoIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ConfigVariableIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setVariables" },
+      { "name" : "unsetVariables" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BundleWiringIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.JavaRuntimeInformation",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.BundleStateIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.JavaHeapMBeanIntrospector",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.osgi.ComponentInfoIntrospection",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "setScrInfo" },
+      { "name" : "unsetScrInfo" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.diagnostics.java.EnvironmentVariables",
+    "allPublicConstructors" : true
+  },
+  {
+    "name":"com.ibm.ws.jmx.internal.DelayedMBeanActivatorHelper",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setMBeanServerPipeline" },
+      { "name" : "unsetMBeanServerPipeline" }
+    ]
+  },
+  {
+    "name":"com.ibm.ws.kernel.feature.internal.FeatureManager",
+    "allPublicConstructors" : true,
+    "methods" : [
+      { "name" : "activate" },
+      { "name" : "deactivate" },
+      { "name" : "setAtomosRuntime" },
+      { "name" : "setDigraph" },
+      { "name" : "setEventAdminService" },
+      { "name" : "setExecutorService" },
+      { "name" : "setLocationService" },
+      { "name" : "setRuntimeUpdateManager" },
+      { "name" : "setVariableRegistry" },
+      { "name" : "unsetAtomosRuntime" },
+      { "name" : "unsetDigraph" },
+      { "name" : "unsetEventAdminService" },
+      { "name" : "unsetExecutorService" },
+      { "name" : "unsetLocationService" },
+      { "name" : "unsetRuntimeUpdateManager" },
+      { "name" : "unsetVariableRegistry" }
+    ]
+  },
+  {
+    "name":"com.ibm.websphere.metatype.SchemaGenerator"
+  },
+  {
+    "name":"org.osgi.service.log.LogService"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.service.location.VariableRegistry"
+  },
+  {
+    "name":"com.ibm.ws.kernel.filemonitor.FileNotification"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.SystemConfiguration"
+  },
+  {
+    "name":"org.atomos.framework.AtomosRuntime"
+  },
+  {
+    "name":"com.ibm.websphere.event.ExecutorServiceFactory"
+  },
+  {
+    "name":"org.osgi.service.event.EventHandler"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.service.location.WsLocationAdmin"
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.RuntimeUpdateListener"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.Source"
+  },
+  {
+    "name":"com.ibm.websphere.event.EventHandler"
+  },
+  {
+    "name":"org.osgi.service.component.runtime.ServiceComponentRuntime"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.ConfigVariables"
+  },
+  {
+    "name":"com.ibm.ws.kernel.LibertyProcess"
+  },
+  {
+    "name":"java.util.concurrent.ScheduledExecutorService"
+  },
+  {
+    "name":"com.ibm.wsspi.threading.WSExecutorService"
+  },
+  {
+    "name":"com.ibm.ws.kernel.launch.service.PauseableComponentController"
+  },
+  {
+    "name":"org.apache.felix.scr.info.ScrInfo"
+  },
+  {
+    "name":"java.util.concurrent.ThreadFactory"
+  },
+  {
+    "name":"java.util.concurrent.ExecutorService"
+  },
+  {
+    "name":"com.ibm.wsspi.threading.ExecutorServiceTaskInterceptor"
+  },
+  {
+    "name":"org.eclipse.equinox.metatype.EquinoxMetaTypeService"
+  },
+  {
+    "name":"com.ibm.wsspi.config.FilesetChangeListener"
+  },
+  {
+    "name":"com.ibm.websphere.event.EventEngine"
+  },
+  {
+    "name":"com.ibm.ws.runtime.update.RuntimeUpdateManager"
+  },
+  {
+    "name":"com.ibm.wsspi.kernel.filemonitor.FileMonitor"
+  },
+  {
+    "name":"com.ibm.ws.config.xml.internal.MetaTypeRegistry"
+  },
+  {
+    "name":"com.ibm.wsspi.security.crypto.CustomPasswordEncryption"
+  },
+  {
+    "name":"com.ibm.ws.threading.FutureMonitor"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.Handler"
+  },
+  {
+    "name":"org.eclipse.equinox.region.RegionDigraph"
+  },
+  {
+    "name":"com.ibm.ws.kernel.boot.jmx.service.MBeanServerPipeline"
+  },
+  {
+    "name":"org.osgi.service.cm.ConfigurationAdmin"
+  },
+  {
+    "name":"com.ibm.wsspi.collector.manager.BufferManager"
+  },
+  {
+    "name":"org.osgi.service.event.EventAdmin"
+  }
+
+]

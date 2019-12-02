@@ -1,0 +1,37 @@
+{
+  "bundles": [
+    { "name":"com.ibm.ws.kernel.boot.resources.LauncherMessages"},
+    { "name" : "com.ibm.ws.collector.manager.internal.resources.LoggingMessages" },
+    { "name" : "com.ibm.ws.config.internal.resources.ConfigMessages" },
+    { "name" : "com.ibm.ws.config.internal.resources.ConfigOptions" },
+    { "name" : "com.ibm.ws.config.internal.resources.SchemaData" },
+    { "name" : "com.ibm.ws.crypto.util.internal.resources.Messages" },
+    { "name" : "com.ibm.ws.kernel.feature.internal.resources.FeatureToolOptions" },
+    { "name" : "com.ibm.ws.kernel.feature.internal.resources.ProvisionerMessages" },
+    { "name" : "com.ibm.ws.kernel.filemonitor.internal.resources.Messages" },
+    { "name" : "com.ibm.ws.kernel.pseudo.internal.resources.Messages" },
+    { "name" : "com.ibm.ws.kernel.service.location.internal.resources.LocServiceMessages" },
+    { "name" : "com.ibm.ws.kernel.service.utils.resources.ServiceMessages" },
+    { "name" : "com.ibm.ws.logging.internal.osgi.resources.OSGiMessages" },
+    { "name" : "com.ibm.ws.runtime.update.internal.resources.Messages" },
+    { "name" : "com.ibm.ws.threading.internal.resources.ThreadingMessages" },
+    { "name" : "wlp.lib.extract.SelfExtractMessages" }
+  ],
+  "resources" : [
+    {"pattern":"com/ibm/ws/kernel/instrument/serialfilter/config/default.properties"},
+    {"pattern":"com/ibm/ws/ras/instrument/internal/buildtasks/default.properties"},
+    {"pattern":"org/apache/aries/util/messages/UTILmessages.properties"},
+    {"pattern":"org/eclipse/equinox/console/commands/ConsoleMessages.properties"},
+    {"pattern":"org/eclipse/equinox/coordinator/LogMessages.properties"},
+    {"pattern":"org/eclipse/equinox/coordinator/messages.properties"},
+    {"pattern":"org/eclipse/equinox/metatype/impl/ExternalMessages.properties"},
+    {"pattern":"org/eclipse/equinox/metatype/impl/LogMessages.properties"},
+    {"pattern":"org/eclipse/osgi/internal/framework/osname.aliases"},
+    {"pattern":"org/eclipse/osgi/internal/framework/processor.aliases"},
+    {"pattern":"org/eclipse/osgi/internal/messages/ExternalMessages.properties"},
+    {"pattern":"org/eclipse/osgi/internal/permadmin/implied.permissions"},
+    {"pattern":"org/eclipse/osgi/internal/signedcontent/SignedContentMessages.properties"},
+    {"pattern":"org/eclipse/osgi/internal/url/SetAccessible.bytes"},
+    {"pattern":"org/eclipse/osgi/internal/url/SetAccessible.java.src"}
+  ]
+}
