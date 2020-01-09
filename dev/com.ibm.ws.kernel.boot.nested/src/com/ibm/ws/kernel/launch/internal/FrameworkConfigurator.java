@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-import org.osgi.framework.launch.FrameworkFactory;
+import org.osgi.framework.connect.ConnectFrameworkFactory;
 
 import com.ibm.ws.kernel.boot.BootstrapConfig;
 import com.ibm.ws.kernel.boot.LaunchException;
@@ -215,11 +215,11 @@ public class FrameworkConfigurator {
      *                             if Factory can not be found or instantiated.
      * @see {@link KernelUtils#getServiceClass(BufferedReader)}
      */
-    public static FrameworkFactory getFrameworkFactory(ClassLoader loader) {
-        FrameworkFactory factory = null;
+    public static ConnectFrameworkFactory getFrameworkFactory(ClassLoader loader) {
+        ConnectFrameworkFactory factory = null;
         Class<?> factoryClass = null;
 
-        final String factoryResource = "META-INF/services/org.osgi.framework.launch.FrameworkFactory";
+        final String factoryResource = "META-INF/services/org.osgi.framework.connect.ConnectFrameworkFactory";
 
         java.io.InputStream inputstream = loader.getResourceAsStream(factoryResource);
         if (inputstream == null)
@@ -244,7 +244,7 @@ public class FrameworkConfigurator {
             factoryClass = loader.loadClass(factoryClassName);
 
             Constructor<?> ctor = factoryClass.getConstructor();
-            factory = (FrameworkFactory) ctor.newInstance();
+            factory = (ConnectFrameworkFactory) ctor.newInstance();
         } catch (Exception e) {
             throw new IllegalStateException("Could not load/instantiate framework factory (" + factoryClassName + ")", e);
         } catch (Error e) {

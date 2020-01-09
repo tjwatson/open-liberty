@@ -44,9 +44,9 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.framework.connect.ConnectFactory;
+import org.osgi.framework.connect.ConnectFramework;
+import org.osgi.framework.connect.ConnectFrameworkFactory;
 import org.osgi.framework.launch.Framework;
-import org.osgi.framework.launch.FrameworkFactory;
 
 import com.ibm.ejs.ras.TraceNLS;
 import com.ibm.websphere.ras.DataFormatHelper;
@@ -569,7 +569,7 @@ public class FrameworkManager {
 
         fwkClassloader = config.getFrameworkClassloader();
 
-        FrameworkFactory fwkFactory = FrameworkConfigurator.getFrameworkFactory(fwkClassloader);
+        ConnectFrameworkFactory fwkFactory = FrameworkConfigurator.getFrameworkFactory(fwkClassloader);
         // Initialize the framework to create a valid system bundle context
         // Start the shutdown monitor (before we start any bundles)
         // This exception will have a translated message stating that an unknown exception occurred.
@@ -592,9 +592,9 @@ public class FrameworkManager {
         }
     }
 
-    private ConnectFactory getConnectFactory() {
+    private ConnectFramework getConnectFactory() {
         if (atomosRuntime != null) {
-            return ((AtomosRuntime) atomosRuntime).newConnectFactory();
+            return ((AtomosRuntime) atomosRuntime).newConnectFramework();
         }
         return null;
     }
