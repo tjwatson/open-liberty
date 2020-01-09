@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.artifact.zip.service" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="category" type="String" value="JAR"/>
+  <property name="handlesType" type="String">java.io.File
+com.ibm.wsspi.artifact.ArtifactEntry</property>
+  <property name="handlesEntries" type="String">.zip
+.jar
+.sar
+.war
+.ear
+.rar
+.eba
+.esa
+.spring</property>
+  <service>
+    <provide interface="com.ibm.ws.artifact.contributor.ArtifactContainerFactoryHelper"/>
+  </service>
+  <reference name="containerFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" bind="setContainerFactory" unbind="unsetContainerFactory"/>
+  <reference name="zipCachingService" cardinality="1..1" interface="com.ibm.ws.artifact.zip.cache.ZipCachingService" bind="setZipCachingService"/>
+  <reference name="globalClassloadingConfiguration" cardinality="1..1" interface="com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration" bind="setGlobalClassloadingConfiguration"/>
+  <implementation class="com.ibm.ws.artifact.zip.internal.ZipFileContainerFactory"/>
+</scr:component>

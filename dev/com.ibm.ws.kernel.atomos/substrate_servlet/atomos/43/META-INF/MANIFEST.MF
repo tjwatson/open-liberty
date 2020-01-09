@@ -1,0 +1,102 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:24 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: com.ibm.ws.anno
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.anno; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.wsspi.anno.service;version="1.0";uses:="com.ib
+ m.wsspi.anno.classsource,com.ibm.wsspi.anno.info,com.ibm.wsspi.anno.t
+ argets,com.ibm.wsspi.anno.util",com.ibm.wsspi.anno.info;version="1.0"
+ ;uses:="com.ibm.websphere.ras,com.ibm.websphere.ras.annotation,com.ib
+ m.ws.ras.instrument.annotation,com.ibm.wsspi.anno.classsource,com.ibm
+ .wsspi.anno.util",com.ibm.wsspi.anno.targets;version="1.0";uses:="com
+ .ibm.websphere.ras,com.ibm.websphere.ras.annotation,com.ibm.ws.ras.in
+ strument.annotation,com.ibm.wsspi.anno.classsource,com.ibm.wsspi.anno
+ .util",com.ibm.wsspi.anno.classsource;version="1.1";uses:="com.ibm.we
+ bsphere.ras,com.ibm.websphere.ras.annotation,com.ibm.ws.anno.classsou
+ rce.specification,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.
+ adaptable.module,com.ibm.wsspi.anno.util",com.ibm.wsspi.anno.util;ver
+ sion="1.0";uses:="com.ibm.websphere.ras,com.ibm.websphere.ras.annotat
+ ion,com.ibm.ws.ras.instrument.annotation",com.ibm.ws.anno.classsource
+ .specification;version="1.0";uses:="com.ibm.websphere.ras,com.ibm.web
+ sphere.ras.annotation,com.ibm.ws.ras.instrument.annotation,com.ibm.ws
+ spi.adaptable.module,com.ibm.wsspi.anno.classsource",com.ibm.wsspi.an
+ nocache.service;version="1.0";uses:="com.ibm.wsspi.annocache.classsou
+ rce,com.ibm.wsspi.annocache.info,com.ibm.wsspi.annocache.targets,com.
+ ibm.wsspi.annocache.targets.cache,com.ibm.wsspi.annocache.util",com.i
+ bm.wsspi.annocache.info;version="1.0";uses:="com.ibm.websphere.ras.an
+ notation,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.anno.info
+ ,com.ibm.wsspi.annocache.classsource,com.ibm.wsspi.annocache.util",co
+ m.ibm.wsspi.annocache.targets;version="1.0";uses:="com.ibm.websphere.
+ ras.annotation,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.ann
+ o.targets,com.ibm.wsspi.annocache.classsource,com.ibm.wsspi.annocache
+ .util",com.ibm.wsspi.annocache.targets.cache;version="1.0",com.ibm.ws
+ spi.annocache.classsource;version="1.0";uses:="com.ibm.websphere.ras.
+ annotation,com.ibm.ws.annocache.classsource.specification,com.ibm.ws.
+ ras.instrument.annotation,com.ibm.wsspi.adaptable.module,com.ibm.wssp
+ i.anno.classsource,com.ibm.wsspi.annocache.util",com.ibm.wsspi.annoca
+ che.util;version="1.0";uses:="com.ibm.websphere.ras,com.ibm.websphere
+ .ras.annotation,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.an
+ no.util",com.ibm.ws.annocache.classsource.specification;version="2.0"
+ ;uses:="com.ibm.wsspi.annocache.classsource,com.ibm.wsspi.annocache.u
+ til"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.anno.classsource.spec
+ ification;version="[1.0,1.1)",com.ibm.ws.annocache.classsource.specif
+ ication;version="[2.0,2.1)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm
+ .ws.kernel.security.thread;version="[1.0,2)",com.ibm.ws.ras.instrumen
+ t.annotation;version="[1.0,2)",com.ibm.wsspi.adaptable.module;version
+ ="[1.0,2)",com.ibm.wsspi.anno.classsource;version="[1.1,1.2)",com.ibm
+ .wsspi.anno.info;version="[1.0,1.1)",com.ibm.wsspi.anno.service;versi
+ on="[1.0,1.1)",com.ibm.wsspi.anno.targets;version="[1.0,1.1)",com.ibm
+ .wsspi.anno.util;version="[1.0,1.1)",com.ibm.wsspi.annocache.classsou
+ rce;version="[1.0,1.1)",com.ibm.wsspi.annocache.info;version="[1.0,1.
+ 1)",com.ibm.wsspi.annocache.service;version="[1.0,1.1)",com.ibm.wsspi
+ .annocache.targets;version="[1.0,1.1)",com.ibm.wsspi.annocache.target
+ s.cache;version="[1.0,1.1)",com.ibm.wsspi.annocache.util;version="[1.
+ 0,1.1)",com.ibm.wsspi.artifact;version="[1.0,2)",com.ibm.wsspi.kernel
+ .service.utils;version="[1.4,2)",org.jboss.jandex;version="[2.0,3)",o
+ rg.objectweb.asm;version="[7.2,8)",org.osgi.framework;version="[1.9,2
+ )",org.osgi.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.anno.classsource.internal;version="1.1",co
+ m.ibm.ws.anno.info.internal;version="1.0",com.ibm.ws.anno.targets.int
+ ernal;version="1.1",com.ibm.ws.anno.jandex.internal;version="1.0",com
+ .ibm.ws.anno.classsource.specification.internal,com.ibm.ws.anno.util.
+ internal;version="1.0",com.ibm.ws.anno.resources.internal,com.ibm.ws.
+ anno.service.internal;version="1.0",com.ibm.ws.annocache.util.interna
+ l;version="2.0",com.ibm.ws.annocache.targets;version="2.0",com.ibm.ws
+ .annocache.targets.internal;version="2.0",com.ibm.ws.annocache.target
+ s.delta;version="2.0",com.ibm.ws.annocache.classsource.internal;versi
+ on="2.0",com.ibm.ws.annocache.classsource.specification.internal;vers
+ ion="2.0",com.ibm.ws.annocache.targets.cache.internal;version="2.0",c
+ om.ibm.ws.annocache.info.internal;version="2.0",com.ibm.ws.annocache.
+ jandex.internal;version="2.0",com.ibm.ws.annocache.util.delta.interna
+ l;version="2.0",com.ibm.ws.annocache.targets.cache;version="2.0",com.
+ ibm.ws.annocache.service.internal;version="2.0",com.ibm.ws.annocache.
+ targets.delta.internal;version="2.0"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Service-Component: OSGI-INF/com.ibm.wsspi.anno.service.xml,OSGI-INF/co
+ m.ibm.wsspi.anno.info.xml,OSGI-INF/com.ibm.wsspi.anno.targets.xml,OSG
+ I-INF/com.ibm.wsspi.anno.classsource.xml,OSGI-INF/com.ibm.wsspi.anno.
+ classsource.specification.xml,OSGI-INF/com.ibm.wsspi.anno.util.xml,OS
+ GI-INF/com.ibm.wsspi.annocache.service.xml,OSGI-INF/com.ibm.wsspi.ann
+ ocache.info.xml,OSGI-INF/com.ibm.wsspi.annocache.targets.xml,OSGI-INF
+ /com.ibm.wsspi.annocache.targets.cache.xml,OSGI-INF/com.ibm.wsspi.ann
+ ocache.classsource.xml,OSGI-INF/com.ibm.wsspi.annocache.classsource.s
+ pecification.xml,OSGI-INF/com.ibm.wsspi.annocache.util.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: com.ibm.ws.anno
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.commonbnd.CustomLoginConfigurationComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.commonbnd.CustomLoginConfiguration">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.commonbnd.CustomLoginConfiguration"/>
+  </service>
+  <reference name="property" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.Property" target="(id=unbound)" bind="setProperty" unbind="unsetProperty"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.commonbnd.CustomLoginConfigurationComponentImpl"/>
+</scr:component>

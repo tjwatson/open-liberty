@@ -221,6 +221,7 @@
     { "pattern" : "org/eclipse/osgi/internal/signedcontent/SignedContentMessages.properties" },
     { "pattern" : "org/eclipse/osgi/internal/url/SetAccessible.bytes" },
     { "pattern" : "org/eclipse/osgi/internal/url/SetAccessible.java.src" },
-    { "pattern" : "trax/trax.properties" }
+    { "pattern" : "trax/trax.properties" },
+    { "pattern" : "atomos/.*$"}
   ]
 }

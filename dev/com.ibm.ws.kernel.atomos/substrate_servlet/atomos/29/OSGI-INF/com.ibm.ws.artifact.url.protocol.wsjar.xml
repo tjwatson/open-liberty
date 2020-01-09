@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.artifact.url.protocol.wsjar" configuration-policy="ignore">
+  <property name="url.handler.protocol" type="String" value="wsjar"/>
+  <service>
+    <provide interface="org.osgi.service.url.URLStreamHandlerService"/>
+  </service>
+  <reference name="zipCachingService" cardinality="1..1" interface="com.ibm.ws.artifact.zip.cache.ZipCachingService" bind="setZipCachingService"/>
+  <implementation class="com.ibm.ws.artifact.url.internal.WSJarURLStreamHandler"/>
+</scr:component>

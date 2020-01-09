@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.channelfw" configuration-policy="optional" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.channelfw">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.channelfw.osgi.CHFWBundle"/>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+  </service>
+  <reference name="ApproxTimeService" cardinality="1..1" interface="com.ibm.wsspi.timer.ApproximateTime" bind="setApproxTimeService" unbind="unsetApproxTimeService"/>
+  <reference name="AsyncIOHelper" cardinality="0..1" interface="com.ibm.io.async.IAsyncProvider$AsyncIOHelper" bind="setAsyncIOHelper" unbind="unsetAsyncIOHelper"/>
+  <reference name="Behavior" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.channelfw.HttpProtocolBehavior" bind="setBehavior" unbind="unsetBehavior" policy-option="greedy"/>
+  <reference name="ByteBufferConfig" cardinality="1..1" interface="com.ibm.ws.bytebuffer.internal.ByteBufferConfiguration" bind="setByteBufferConfig" unbind="unsetByteBufferConfig"/>
+  <reference name="EventService" cardinality="1..1" interface="com.ibm.websphere.event.EventEngine" bind="setEventService" unbind="unsetEventService"/>
+  <reference name="ExecutorService" cardinality="1..1" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="FactoryProvider" cardinality="0..n" policy="dynamic" interface="com.ibm.websphere.channelfw.osgi.ChannelFactoryProvider" bind="setFactoryProvider" unbind="unsetFactoryProvider" policy-option="greedy"/>
+  <reference name="ScheduledEventService" cardinality="1..1" interface="com.ibm.websphere.event.ScheduledEventService" bind="setScheduledEventService" unbind="unsetScheduledEventService"/>
+  <reference name="ScheduledExecutorService" cardinality="1..1" interface="java.util.concurrent.ScheduledExecutorService" bind="setScheduledExecutorService" unbind="unsetScheduledExecutorService"/>
+  <reference name="ServerStarted" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.kernel.feature.ServerStarted" bind="setServerStarted" unbind="unsetServerStarted" policy-option="greedy"/>
+  <implementation class="com.ibm.websphere.channelfw.osgi.CHFWBundle"/>
+</scr:component>

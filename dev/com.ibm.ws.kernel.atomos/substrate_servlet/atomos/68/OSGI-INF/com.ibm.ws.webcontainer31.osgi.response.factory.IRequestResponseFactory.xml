@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer31.osgi.response.factory.IRequestResponseFactory">
+  <property name="servlet.version" type="String" value="3.1"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.ranking" type="Integer" value="31"/>
+  <service>
+    <provide interface="com.ibm.ws.webcontainer.osgi.request.IRequestFactory"/>
+    <provide interface="com.ibm.ws.webcontainer.osgi.response.IResponseFactory"/>
+  </service>
+  <implementation class="com.ibm.ws.webcontainer31.osgi.response.factory.IRequestResponseFactory"/>
+</scr:component>

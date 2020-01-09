@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.container.service.metadata.MetaDataService">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.metadata.MetaDataService"/>
+    <provide interface="com.ibm.ws.container.service.metadata.internal.MetaDataServiceImpl"/>
+    <provide interface="com.ibm.ws.container.service.metadata.extended.MetaDataIdentifierService"/>
+  </service>
+  <reference name="applicationMetaDataListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.ApplicationMetaDataListener" bind="addApplicationMetaDataListener" unbind="removeApplicationMetaDataListener"/>
+  <reference name="moduleMetaDataListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.ModuleMetaDataListener" bind="addModuleMetaDataListener" unbind="removeModuleMetaDataListener"/>
+  <reference name="componentMetaDataListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.ComponentMetaDataListener" bind="addComponentMetaDataListener" unbind="removeComponentMetaDataListener"/>
+  <reference name="methodMetaDataListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.MethodMetaDataListener" bind="addMethodMetaDataListener" unbind="removeMethodMetaDataListener"/>
+  <reference name="deferredMetaDataFactory" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.extended.DeferredMetaDataFactory" bind="setDeferredMetaDataFactory" unbind="unsetDeferredMetaDataFactory" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.container.service.metadata.internal.MetaDataServiceImpl"/>
+</scr:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.threading.internal.FutureMonitorImpl">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.threading.FutureMonitor"/>
+  </service>
+  <reference name="executor" cardinality="1..1" interface="java.util.concurrent.ScheduledExecutorService" bind="setExecutor" unbind="unsetExecutor"/>
+  <implementation class="com.ibm.ws.threading.internal.FutureMonitorImpl"/>
+</component>

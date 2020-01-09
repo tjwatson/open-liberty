@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.logging.internal.bundlewiring">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <implementation class="com.ibm.ws.diagnostics.osgi.BundleWiringIntrospection"/>
+</scr:component>

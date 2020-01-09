@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.artifact.internal.ArtifactContainerFactoryService" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="Contributor" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.artifact.factory.contributor.ArtifactContainerFactoryContributor" bind="setContributor" unbind="unsetContributor"/>
+  <reference name="Helper" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.artifact.contributor.ArtifactContainerFactoryHelper" bind="setHelper" unbind="unsetHelper"/>
+  <implementation class="com.ibm.ws.artifact.internal.ArtifactContainerFactoryService"/>
+</scr:component>

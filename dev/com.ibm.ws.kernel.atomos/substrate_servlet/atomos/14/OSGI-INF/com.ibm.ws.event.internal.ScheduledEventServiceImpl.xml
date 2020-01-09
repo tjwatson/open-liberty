@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.event.internal.ScheduledEventServiceImpl" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.event.ScheduledEventService"/>
+  </service>
+  <reference name="EventEngine" interface="com.ibm.websphere.event.EventEngine" bind="setEventEngine" unbind="unsetEventEngine"/>
+  <reference name="ScheduledExecutor" interface="java.util.concurrent.ScheduledExecutorService" bind="setScheduledExecutor" unbind="unsetScheduledExecutor"/>
+  <implementation class="com.ibm.ws.event.internal.ScheduledEventServiceImpl"/>
+</scr:component>

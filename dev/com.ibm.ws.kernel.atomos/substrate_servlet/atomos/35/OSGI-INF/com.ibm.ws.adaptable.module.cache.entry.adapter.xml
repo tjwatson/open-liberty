@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.adaptable.module.cache.entry.adapter" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.wsspi.adaptable.module.NonPersistentCache"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.EntryAdapter"/>
+  </service>
+  <implementation class="com.ibm.ws.adaptable.module.internal.NonPersistentCacheEntryAdapter"/>
+</scr:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.event.internal.EventEngineImpl" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.event">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.event.EventEngine"/>
+    <provide interface="org.osgi.service.event.EventAdmin"/>
+  </service>
+  <reference name="ExecutorServiceFactory" interface="com.ibm.websphere.event.ExecutorServiceFactory" bind="setExecutorServiceFactory" unbind="unsetExecutorServiceFactory"/>
+  <reference name="LogService" cardinality="0..1" policy="dynamic" interface="org.osgi.service.log.LogService" bind="setLogService" unbind="unsetLogService"/>
+  <reference name="OsgiEventHandler" cardinality="0..n" policy="dynamic" interface="org.osgi.service.event.EventHandler" bind="setOsgiEventHandler" unbind="unsetOsgiEventHandler" updated="updatedOsgiEventHandler"/>
+  <reference name="WsEventHandler" cardinality="0..n" policy="dynamic" interface="com.ibm.websphere.event.EventHandler" bind="setWsEventHandler" unbind="unsetWsEventHandler" updated="updatedWsEventHandler"/>
+  <implementation class="com.ibm.ws.event.internal.EventEngineImpl"/>
+</scr:component>

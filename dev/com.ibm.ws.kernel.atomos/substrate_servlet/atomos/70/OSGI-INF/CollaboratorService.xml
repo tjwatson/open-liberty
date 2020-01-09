@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="CollaboratorService">
+  <service>
+    <provide interface="com.ibm.ws.webcontainer.collaborator.CollaboratorService"/>
+  </service>
+  <reference name="webAppConnectionCollaborator" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.IConnectionCollaborator" bind="setWebAppConnectionCollaborator" unbind="unsetWebAppConnectionCollaborator"/>
+  <reference name="webAppSecurityCollaborator" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.IWebAppSecurityCollaborator" bind="setWebAppSecurityCollaborator" unbind="unsetWebAppSecurityCollaborator"/>
+  <reference name="webAppTransactionCollaborator" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.IWebAppTransactionCollaborator" bind="setWebAppTransactionCollaborator" unbind="unsetWebAppTransactionCollaborator"/>
+  <reference name="webAppInvocationCollaborator" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.WebAppInvocationCollaborator" bind="setWebAppInvocationCollaborator" unbind="unsetWebAppInvocationCollaborator"/>
+  <reference name="webAppInitializationCollaborator" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.WebAppInitializationCollaborator" bind="setWebAppInitializationCollaborator" unbind="unsetWebAppInitializationCollaborator"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.collaborator.CollaboratorServiceImpl"/>
+</component>

@@ -1,7 +1,7 @@
 rm -r substrate_build/temp/gogo
 mkdir -p substrate_build/temp/gogo
 rm -r ../build.image/wlp/usr/servers/substrateGogo
-mkdir ../build.image/wlp/usr/servers/substrateGogo
+mkdir -p ../build.image/wlp/usr/servers/substrateGogo
 cp substrate_gogo/server.xml ../build.image/wlp/usr/servers/substrateGogo
 cp substrate_gogo/bootstrap.properties ../build.image/wlp/usr/servers/substrateGogo
 ../build.image/wlp/bin/server package substrateGogo --archive=`pwd`/substrate_build/temp/substrateGogo.zip --include=minify

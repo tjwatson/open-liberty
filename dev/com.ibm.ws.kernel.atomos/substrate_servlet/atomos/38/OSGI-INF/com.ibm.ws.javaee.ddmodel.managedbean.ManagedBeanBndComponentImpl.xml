@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanBndComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.managedbean.ManagedBeanBnd">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.managedbean.ManagedBeanBnd"/>
+  </service>
+  <reference name="interceptor" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.Interceptor" target="(id=unbound)" bind="setInterceptor" unbind="unsetInterceptor"/>
+  <reference name="managed-bean" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.managedbean.ManagedBean" target="(id=unbound)" bind="setManaged_bean" unbind="unsetManaged_bean"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanBndComponentImpl"/>
+</scr:component>

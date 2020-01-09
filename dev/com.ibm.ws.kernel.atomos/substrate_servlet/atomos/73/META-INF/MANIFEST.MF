@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Automatic-Module-Name: org.apache.commons.io
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:32 CST 2019
+Build-Jdk: 1.8.0_144
+Built-By: britter
+Bundle-Description: The Apache Commons IO library contains utility cla
+ sses, stream implementations, file filters,file comparators, endian t
+ ransformation classes, and much more.
+Bundle-Distributor: IBM
+Bundle-DocURL: http://commons.apache.org/proper/commons-io/
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Commons IO
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.commons.io
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.apache.commons.io;version="2.6";uses:="org.apache.
+ commons.io.filefilter",org.apache.commons.io.comparator;version="2.6"
+ ;uses:="org.apache.commons.io",org.apache.commons.io.filefilter;versi
+ on="2.6";uses:="org.apache.commons.io",org.apache.commons.io.input;ve
+ rsion="2.6";uses:="org.apache.commons.io",org.apache.commons.io.outpu
+ t;version="2.6",org.apache.commons.io.monitor;version="2.6";uses:="or
+ g.apache.commons.io",org.apache.commons.io.serialization;version="2.6
+ ",org.apache.commons.io;version="2.6",org.apache.commons.io.comparato
+ r;version="2.6",org.apache.commons.io.filefilter;version="2.6",org.ap
+ ache.commons.io.input;version="2.6",org.apache.commons.io.output;vers
+ ion="2.6"
+Implementation-Title: Apache Commons IO
+Implementation-URL: http://commons.apache.org/proper/commons-io/
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: commons-io
+Implementation-Version: 2.6
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Specification-Title: Apache Commons IO
+Specification-Vendor: The Apache Software Foundation
+Specification-Version: 2.6
+Tool: Bnd-4.1.0.201810181252
+

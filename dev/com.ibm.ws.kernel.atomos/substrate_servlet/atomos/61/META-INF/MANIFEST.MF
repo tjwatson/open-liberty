@@ -1,0 +1,92 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:51 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebSphere Application Manager, version 1.1
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebSphere Application Manager
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.app.manager
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.application;version="1.1.0",com.ibm.
+ wsspi.application;version="1.1.16",com.ibm.wsspi.application.handler;
+ version="1.2",com.ibm.ws.app.manager;version="1.1.16"
+Import-Package: com.ibm.websphere.application;version="[1.1,2)",com.ib
+ m.websphere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;ve
+ rsion="[1.0,2)",com.ibm.ws.adaptable.module;version="[1.0,2)",com.ibm
+ .ws.classloading;version="[1.0,2)",com.ibm.ws.container.service.app.d
+ eploy.extended;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",co
+ m.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws.runti
+ me.update;version="[1.0,2)",com.ibm.ws.threading;version="[1.0,2)",co
+ m.ibm.ws.threading.listeners;version="[1.0,2)",com.ibm.wsspi.adaptabl
+ e.module;version="[1.0,2)",com.ibm.wsspi.application;version="[1.1,2)
+ ",com.ibm.wsspi.application.handler;version="[1.2,2)",com.ibm.wsspi.a
+ pplication.lifecycle;version="[1.0,2)",com.ibm.wsspi.artifact;version
+ ="[1.0,2)",com.ibm.wsspi.artifact.factory;version="[1.0,2)",com.ibm.w
+ sspi.kernel.filemonitor;version="[1.0,2)",com.ibm.wsspi.kernel.servic
+ e.location;version="[1.2,2)",com.ibm.wsspi.kernel.service.utils;versi
+ on="[1.4,2)",com.ibm.wsspi.logging;version="[1.1,2)",javax.management
+ ,org.osgi.framework;version="[1.9,2)",org.osgi.service.cm;version="[1
+ .6,2)",org.osgi.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.app.manager.internal.monitor,com.ibm.ws.ap
+ p.manager.internal.resources,com.ibm.ws.app.manager.internal.statemac
+ hine,com.ibm.ws.app.manager.internal.lifecycle,com.ibm.ws.app.manager
+ .internal
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ app.manager.ApplicationManager",osgi.service;objectClass:List<String>
+ ="com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator",osg
+ i.service;objectClass:List<String>="com.ibm.ws.app.manager.internal.m
+ onitor.ApplicationMonitor",osgi.service;objectClass:List<String>="com
+ .ibm.ws.app.manager.internal.monitor.DropinMonitor",osgi.service;obje
+ ctClass:List<String>="com.ibm.ws.runtime.update.RuntimeUpdateListener
+ ,com.ibm.wsspi.application.lifecycle.ApplicationRecycleCoordinator,co
+ m.ibm.wsspi.logging.Introspector,org.osgi.service.cm.ManagedServiceFa
+ ctory"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.app.manager.Applicatio
+ nManager)";effective:=active,osgi.service;filter:="(objectClass=com.i
+ bm.ws.app.manager.internal.monitor.AppMonitorConfigurator)";effective
+ :=active,osgi.service;filter:="(objectClass=com.ibm.ws.app.manager.in
+ ternal.monitor.ApplicationMonitor)";effective:=active,osgi.service;fi
+ lter:="(objectClass=com.ibm.ws.app.manager.internal.monitor.DropinMon
+ itor)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.w
+ s.runtime.update.RuntimeUpdateManager)";effective:=active,osgi.servic
+ e;filter:="(objectClass=com.ibm.ws.threading.FutureMonitor)";effectiv
+ e:=active,osgi.service;filter:="(objectClass=com.ibm.wsspi.adaptable.
+ module.AdaptableModuleFactory)";effective:=active,osgi.service;filter
+ :="(objectClass=com.ibm.wsspi.application.handler.ApplicationHandler)
+ ";effective:=active;resolution:=optional;cardinality:=multiple,osgi.s
+ ervice;filter:="(objectClass=com.ibm.wsspi.application.handler.Applic
+ ationTypeSupported)";effective:=active;resolution:=optional;cardinali
+ ty:=multiple,osgi.service;filter:="(objectClass=com.ibm.wsspi.applica
+ tion.lifecycle.ApplicationRecycleComponent)";effective:=active;resolu
+ tion:=optional;cardinality:=multiple,osgi.service;filter:="(objectCla
+ ss=com.ibm.wsspi.application.lifecycle.ApplicationRecycleContext)";ef
+ fective:=active;resolution:=optional;cardinality:=multiple,osgi.servi
+ ce;filter:="(objectClass=com.ibm.wsspi.artifact.factory.ArtifactConta
+ inerFactory)";effective:=active,osgi.service;filter:="(objectClass=co
+ m.ibm.wsspi.kernel.service.location.WsLocationAdmin)";effective:=acti
+ ve,osgi.service;filter:="(objectClass=java.util.concurrent.ExecutorSe
+ rvice)";effective:=active,osgi.service;filter:="(objectClass=java.uti
+ l.concurrent.ScheduledExecutorService)";effective:=active,osgi.servic
+ e;filter:="(objectClass=org.osgi.service.cm.ConfigurationAdmin)";effe
+ ctive:=active,osgi.extender;filter:="(&(osgi.extender=osgi.component)
+ (version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.app.manager.ApplicationManager.
+ xml,OSGI-INF/com.ibm.ws.app.manager.internal.ApplicationConfigurator.
+ xml,OSGI-INF/com.ibm.ws.app.manager.internal.monitor.AppMonitorConfig
+ urator.xml,OSGI-INF/com.ibm.ws.app.manager.internal.monitor.Applicati
+ onMonitor.xml,OSGI-INF/com.ibm.ws.app.manager.internal.monitor.Dropin
+ Monitor.xml
+Tool: Bnd-4.1.0.201810181252
+

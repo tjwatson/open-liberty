@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.classloading.internal.ClassLoadingServiceImpl" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.classloading.ClassLoadingService"/>
+    <provide interface="com.ibm.ws.classloading.LibertyClassLoadingService"/>
+    <provide interface="com.ibm.ws.classloading.ClassLoaderIdentifierService"/>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <reference name="GlobalClassloadingConfiguration" interface="com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration" bind="setGlobalClassloadingConfiguration" unbind="unsetGlobalClassloadingConfiguration"/>
+  <reference name="Instrumentation" cardinality="0..1" interface="java.lang.instrument.Instrumentation" bind="setInstrumentation" unbind="unsetInstrumentation"/>
+  <reference name="MetaInfServicesProvider" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.classloading.MetaInfServicesProvider" bind="addMetaInfServicesProvider" unbind="removeMetaInfServicesProvider" policy-option="greedy"/>
+  <reference name="RegionDigraph" interface="org.eclipse.equinox.region.RegionDigraph" bind="setRegionDigraph" unbind="unsetRegionDigraph"/>
+  <reference name="ResourceProvider" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.classloading.ResourceProvider" bind="addResourceProvider" unbind="removeResourceProvider" policy-option="greedy"/>
+  <reference name="URLStreamHandlerService" interface="org.osgi.service.url.URLStreamHandlerService" target="(url.handler.protocol=wsjar)" bind="setURLStreamHandlerService" unbind="unsetURLStreamHandlerService"/>
+  <reference name="appExtLibs" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.library.ApplicationExtensionLibrary" policy-option="greedy" field="appExtLibs" field-collection-type="service"/>
+  <reference name="generators" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.classloading.ClassGenerator" bind="addGenerator" unbind="removeGenerator"/>
+  <reference name="metadataIdentifierService" interface="com.ibm.ws.container.service.metadata.extended.MetaDataIdentifierService" bind="setMetadataIdentifierService" unbind="unsetMetadataIdentifierService"/>
+  <implementation class="com.ibm.ws.classloading.internal.ClassLoadingServiceImpl"/>
+</scr:component>

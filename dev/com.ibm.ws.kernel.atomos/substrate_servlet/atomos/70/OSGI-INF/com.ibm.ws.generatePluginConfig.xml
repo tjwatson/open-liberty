@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.generatePluginConfig" immediate="true" modified="modified">
+  <property name="jmx.objectname" type="String" value="WebSphere:name=com.ibm.ws.jmx.mbeans.generatePluginConfig"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="javax.management.DynamicMBean"/>
+    <provide interface="com.ibm.wsspi.webcontainer.osgi.mbeans.GeneratePluginConfig"/>
+    <provide interface="com.ibm.ws.webserver.plugin.runtime.interfaces.PluginUtilityConfigGenerator"/>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+  </service>
+  <reference name="locationService" cardinality="1..1" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <reference name="virtualHostMgr" cardinality="1..1" interface="com.ibm.ws.webcontainer.osgi.DynamicVirtualHostManager" bind="setVirtualHostMgr" unbind="unsetVirtualHostMgr"/>
+  <reference name="webContainer" cardinality="1..1" interface="com.ibm.ws.container.service.app.deploy.extended.ModuleRuntimeContainer" target="(type=web)" bind="setWebContainer" unbind="unsetWebContainer"/>
+  <reference name="sessionManager" cardinality="1..1" interface="com.ibm.ws.webcontainer.httpsession.SessionManager" bind="setSessionManager" unbind="unsetSessionManager"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.mbeans.GeneratePluginConfigMBean"/>
+</scr:component>

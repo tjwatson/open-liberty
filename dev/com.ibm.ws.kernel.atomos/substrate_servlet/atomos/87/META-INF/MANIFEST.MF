@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:29 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Equinox Module Adaptor for loading bundles out of 
+ a Container
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Equinox Module Adaptor
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.kernel.equinox.module
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.wsspi.kernel.equinox.module;version="1.0"
+Fragment-Host: org.eclipse.osgi
+Private-Package: com.ibm.ws.kernel.equinox.module.internal
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: kernelEquinoxModule
+

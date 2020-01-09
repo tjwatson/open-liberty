@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.platform.defaultresource.internal.DefaultResourceJavaColonNamingHelper" activate="activate">
+  <property name="javaCompDefault" type="Boolean" value="true"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.naming.JavaColonNamingHelper"/>
+  </service>
+  <reference name="resourceFactories" cardinality="1..n" policy="dynamic" interface="com.ibm.wsspi.resource.ResourceFactory" target="(&amp;(creates.objectClass=*)(javaCompDefaultName=*))" bind="addResourceFactory" unbind="removeResourceFactory"/>
+  <implementation class="com.ibm.ws.javaee.platform.defaultresource.internal.DefaultResourceJavaColonNamingHelper"/>
+</scr:component>

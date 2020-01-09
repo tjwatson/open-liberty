@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.artifact.equinox.module.internal.ModuleBundleFileFactoryImpl" configuration-policy="ignore" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.kernel.equinox.module.ModuleBundleFileFactory"/>
+  </service>
+  <reference name="ContainerFinder" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.artifact.equinox.module.ModuleContainerFinder" bind="setContainerFinder" unbind="unsetContainerFinder"/>
+  <implementation class="com.ibm.ws.artifact.equinox.module.internal.ModuleBundleFileFactoryImpl"/>
+</scr:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.webcontainer.v31.httpProtocolBehavior">
+  <property name="httpVersionSetting" type="String" value="2.0_Optional_Off"/>
+  <service>
+    <provide interface="com.ibm.wsspi.channelfw.HttpProtocolBehavior"/>
+  </service>
+  <implementation class="com.ibm.wsspi.channelfw.HttpProtocolBehavior"/>
+</component>

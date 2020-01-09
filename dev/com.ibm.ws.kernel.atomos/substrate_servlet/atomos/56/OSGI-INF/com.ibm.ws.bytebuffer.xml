@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.bytebuffer" configuration-policy="optional" activate="activate" deactivate="deactivate" configuration-pid="com.ibm.ws.bytebuffer">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.bytebuffer.internal.ByteBufferConfiguration"/>
+  </service>
+  <reference name="directByteBufferHelper" cardinality="0..1" interface="com.ibm.wsspi.bytebuffer.WsByteBufferPoolManager$DirectByteBufferHelper" bind="setDirectByteBufferHelper" unbind="unsetDirectByteBufferHelper"/>
+  <implementation class="com.ibm.ws.bytebuffer.internal.ByteBufferConfiguration"/>
+</scr:component>

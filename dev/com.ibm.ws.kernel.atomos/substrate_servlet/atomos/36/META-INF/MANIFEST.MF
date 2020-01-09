@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:25:55 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Implementation of the Equinox Module Bundle File F
+ actory; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Equinox Module Bundle File Factory
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.artifact.equinox.module
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.wsspi.artifact.equinox.module;version="1.0";us
+ es:="com.ibm.wsspi.adaptable.module"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)
+ ",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.wssp
+ i.adaptable.module;version="[1.0,2)",com.ibm.wsspi.artifact.equinox.m
+ odule;version="[1.0,2)",com.ibm.wsspi.kernel.equinox.module;version="
+ [1.0,2)",com.ibm.wsspi.kernel.service.utils;version="[1.4,2)",org.ecl
+ ipse.osgi.storage.bundlefile,org.osgi.framework;version="[1.10,2)",or
+ g.osgi.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.artifact.equinox.module.internal
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.wss
+ pi.kernel.equinox.module.ModuleBundleFileFactory"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.wsspi.artifact.equinox.mo
+ dule.ModuleContainerFinder)";effective:=active;resolution:=optional;c
+ ardinality:=multiple,osgi.extender;filter:="(&(osgi.extender=osgi.com
+ ponent)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.artifact.equinox.module.interna
+ l.ModuleBundleFileFactoryImpl.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: equinox.module
+

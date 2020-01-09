@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:20 CST 2019
+Build-Jdk: 1.8.0_51
+Build-Timestamp: Tue, 2 Aug 2016 13:41:44 -0500
+Built-By: jason
+Bundle-Description: Parent POM for JBoss projects. Provides default pr
+ oject build configuration.
+Bundle-Distributor: IBM
+Bundle-DocURL: http://www.jboss.org
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: jandex
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.jboss.jandex
+Bundle-Vendor: JBoss by Red Hat
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.jboss.jandex;version="2.0.3.Final";uses:="org.apac
+ he.tools.ant,org.apache.tools.ant.types"
+Implementation-Title: Java Annotation Indexer
+Implementation-URL: http://www.jboss.org/jandex
+Implementation-Vendor: JBoss by Red Hat
+Implementation-Vendor-Id: org.jboss
+Implementation-Version: 2.0.3.Final
+Import-Package: org.apache.tools.ant;resolution:=optional,org.apache.t
+ ools.ant.types;resolution:=optional
+Java-Vendor: Oracle Corporation
+Java-Version: 1.8.0_51
+Main-Class: org.jboss.jandex.Main
+Os-Arch: x86_64
+Os-Name: Mac OS X
+Os-Version: 10.11.5
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Scm-Connection: scm:git:git@github.com:jboss/jboss-parent-pom.git/jand
+ ex
+Scm-Revision: 2c728591b533b7b35eb4ec43dfd6bd84c85fdb59
+Scm-Url: http://github.com/jboss/jboss-parent-pom/jandex
+Specification-Title: Java Annotation Indexer
+Specification-Vendor: JBoss by Red Hat
+Specification-Version: 2.0.3.Final
+Tool: Bnd-4.1.0.201810181252
+

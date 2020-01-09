@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.classloading.java2sec.PermissionManager" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.classloading.java2sec.PermissionManager"/>
+  </service>
+  <reference name="permission" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.classloading.java2sec.JavaPermissionsConfiguration" bind="setPermission" unbind="unsetPermission" policy-option="greedy"/>
+  <reference name="classLoadingService" cardinality="1..1" interface="com.ibm.wsspi.classloading.ClassLoadingService" bind="setClassLoadingService" unbind="unsetClassLoadingService"/>
+  <reference name="wsjarURLStreamHandler" cardinality="1..1" interface="org.osgi.service.url.URLStreamHandlerService" target="(url.handler.protocol=wsjar)" bind="setWsjarURLStreamHandler" unbind="unsetWsjarURLStreamHandler"/>
+  <implementation class="com.ibm.ws.classloading.java2sec.PermissionManager"/>
+</scr:component>

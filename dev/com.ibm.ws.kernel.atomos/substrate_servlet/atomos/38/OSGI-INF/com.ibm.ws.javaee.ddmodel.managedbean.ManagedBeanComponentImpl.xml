@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.managedbean.ManagedBean">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.managedbean.ManagedBean"/>
+  </service>
+  <reference name="data-source" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.DataSource" target="(id=unbound)" bind="setData_source" unbind="unsetData_source"/>
+  <reference name="ejb-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.EJBRef" target="(id=unbound)" bind="setEjb_ref" unbind="unsetEjb_ref"/>
+  <reference name="env-entry" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.EnvEntry" target="(id=unbound)" bind="setEnv_entry" unbind="unsetEnv_entry"/>
+  <reference name="message-destination-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.MessageDestinationRef" target="(id=unbound)" bind="setMessage_destination_ref" unbind="unsetMessage_destination_ref"/>
+  <reference name="resource-env-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.ResourceEnvRef" target="(id=unbound)" bind="setResource_env_ref" unbind="unsetResource_env_ref"/>
+  <reference name="resource-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.ResourceRef" target="(id=unbound)" bind="setResource_ref" unbind="unsetResource_ref"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.managedbean.ManagedBeanComponentImpl"/>
+</scr:component>

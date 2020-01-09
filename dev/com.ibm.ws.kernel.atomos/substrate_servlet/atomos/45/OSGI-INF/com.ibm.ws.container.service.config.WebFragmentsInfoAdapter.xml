@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.container.service.config.WebFragmentsInfoAdapter" configuration-policy="optional">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.container.service.config.WebFragmentsInfo"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="version" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.version.ServletVersion" bind="setVersion" unbind="unsetVersion" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.container.service.config.internal.WebFragmentsInfoAdapter"/>
+</scr:component>

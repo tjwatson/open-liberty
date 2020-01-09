@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.commonbnd.ResourceRefComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.commonbnd.ResourceRef">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.commonbnd.ResourceRef"/>
+  </service>
+  <reference name="authentication-alias" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.AuthenticationAlias" target="(id=unbound)" field="authentication_alias"/>
+  <reference name="custom-login-configuration" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonbnd.CustomLoginConfiguration" target="(id=unbound)" field="custom_login_configuration"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.commonbnd.ResourceRefComponentImpl"/>
+</scr:component>

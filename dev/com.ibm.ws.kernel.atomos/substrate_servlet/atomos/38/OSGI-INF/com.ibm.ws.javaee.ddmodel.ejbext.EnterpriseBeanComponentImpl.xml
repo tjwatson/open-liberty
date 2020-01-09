@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.ejbext.EnterpriseBeanComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.ejbext.EnterpriseBean">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.ejbext.EnterpriseBean"/>
+  </service>
+  <reference name="bean-cache" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.ejbext.BeanCache" target="(id=unbound)" field="bean_cache"/>
+  <reference name="global-transaction" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonext.GlobalTransaction" target="(id=unbound)" field="global_transaction"/>
+  <reference name="local-transaction" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonext.LocalTransaction" target="(id=unbound)" field="local_transaction"/>
+  <reference name="resource-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonext.ResourceRef" target="(id=unbound)" bind="setResource_ref" unbind="unsetResource_ref"/>
+  <reference name="start-at-app-start" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.ejbext.StartAtAppStart" target="(id=unbound)" field="start_at_app_start"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.ejbext.EnterpriseBeanComponentImpl"/>
+</scr:component>

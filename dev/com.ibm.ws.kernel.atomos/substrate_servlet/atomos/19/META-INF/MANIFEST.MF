@@ -1,0 +1,49 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:20:40 CST 2019
+Build-Jdk: 1.7.0_79
+Built-By: gnodet
+Bundle-Description: This bundle contains the OSGi common util for Apac
+ he Aries
+Bundle-Distributor: IBM
+Bundle-DocURL: http://www.apache.org
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Aries Util
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.aries.util
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.apache.aries.util;version="1.0.0";uses:="org.osgi.
+ framework",org.apache.aries.util.filesystem;version="1.1.0",org.apach
+ e.aries.util.filesystem.impl;version="1.1.3";uses:="org.apache.aries.
+ util.filesystem",org.apache.aries.util.internal;version="1.1.3";uses:
+ ="org.osgi.framework",org.apache.aries.util.io;version="1.0.0";uses:=
+ "org.apache.aries.util.filesystem",org.apache.aries.util.log;version=
+ "1.0.0";uses:="org.osgi.framework,org.osgi.service.log,org.osgi.util.
+ tracker",org.apache.aries.util.manifest;version="1.0.0";uses:="org.ap
+ ache.aries.util,org.apache.aries.util.filesystem,org.osgi.framework",
+ org.apache.aries.util.messages;version="1.1.3",org.apache.aries.util.
+ nls;version="1.0.0";uses:="org.osgi.framework",org.apache.aries.util.
+ service.registry;version="1.0.0";uses:="org.osgi.framework",org.apach
+ e.aries.util.tracker;version="1.0.1";uses:="org.osgi.framework,org.os
+ gi.util.tracker",org.apache.aries.util.tracker.hook;version="1.1.3";u
+ ses:="org.osgi.framework,org.osgi.util.tracker"
+Implementation-Title: Apache Aries
+Implementation-Version: 1.1.3
+Import-Package: org.osgi.framework.hooks.bundle;resolution:=optional;v
+ ersion="[1.0,2)",org.osgi.framework.launch;resolution:=optional;versi
+ on="[1.0,2)",org.osgi.framework.wiring;resolution:=optional;version="
+ [1.0,2)",org.osgi.service.framework;resolution:=optional;version="[1.
+ 0,2)",org.osgi.service.log;resolution:=optional;version="[1.3,2)",org
+ .osgi.framework;version="[1.6,2)",org.osgi.util.tracker;version="[1.5
+ ,2)",org.eclipse.osgi.framework.internal.core;resolution:=optional,or
+ g.eclipse.osgi.framework.adaptor;resolution:=optional,org.eclipse.osg
+ i.internal.loader;resolution:=optional
+Private-Package: OSGi-INF
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.config.xml.internal.ServerXMLConfigurationMBeanImpl" configuration-policy="ignore" immediate="false">
+  <property name="jmx.objectname" type="String" value="WebSphere:name=com.ibm.websphere.config.mbeans.ServerXMLConfigurationMBean"/>
+  <service>
+    <provide interface="com.ibm.websphere.config.mbeans.ServerXMLConfigurationMBean"/>
+    <provide interface="javax.management.DynamicMBean"/>
+  </service>
+  <reference name="SystemConfiguration" cardinality="1..1" interface="com.ibm.ws.config.xml.internal.SystemConfiguration" bind="setSystemConfiguration" unbind="unsetSystemConfiguration"/>
+  <implementation class="com.ibm.ws.config.xml.internal.ServerXMLConfigurationMBeanImpl"/>
+</scr:component>

@@ -1,0 +1,176 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:37 CST 2019
+Bundle-Activator: com.ibm.ws.http.internal.HttpChannelProvider
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: HTTP protocol implementation bundle. This provides
+  an HTTP dispatcher for multiple containers to hook into to receive a
+  standard inbound HTTP connection interface, as well as the HTTP chan
+ nel for direct and exclusive access of traffic for specific appplicat
+ ion channels. An outbound HTTP channel is also implemented for client
+  traffic, version 1.0.
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: HTTP Transport
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.transport.http; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+DynamicImport-Package: com.ibm.wsspi.request.probe.bci
+Export-Package: com.ibm.wsspi.genericbnf;version="1.0";uses:="com.ibm.
+ wsspi.bytebuffer,com.ibm.wsspi.genericbnf.exception",com.ibm.wsspi.ge
+ nericbnf.exception;version="1.0",com.ibm.wsspi.http;version="2.0";use
+ s:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.annota
+ tion,javax.net.ssl",com.ibm.wsspi.http.channel;version="1.0";uses:="c
+ om.ibm.wsspi.genericbnf,com.ibm.wsspi.genericbnf.exception,com.ibm.ws
+ spi.http,com.ibm.wsspi.http.channel.cookies,com.ibm.wsspi.http.channe
+ l.inbound,com.ibm.wsspi.http.channel.values,com.ibm.wsspi.http.ee8,co
+ m.ibm.wsspi.tcpchannel",com.ibm.wsspi.http.channel.compression;versio
+ n="1.0";uses:="com.ibm.wsspi.bytebuffer,com.ibm.wsspi.http.channel.va
+ lues",com.ibm.wsspi.http.channel.cookies;version="1.0";uses:="com.ibm
+ .wsspi.http,com.ibm.wsspi.http.channel.values",com.ibm.wsspi.http.cha
+ nnel.error;version="1.0";uses:="com.ibm.wsspi.bytebuffer,com.ibm.wssp
+ i.genericbnf,com.ibm.wsspi.http.channel",com.ibm.wsspi.http.channel.e
+ xception;version="1.0",com.ibm.wsspi.http.channel.inbound;version="1.
+ 0";uses:="com.ibm.wsspi.bytebuffer,com.ibm.wsspi.channelfw,com.ibm.ws
+ spi.genericbnf.exception,com.ibm.wsspi.http.channel,com.ibm.wsspi.htt
+ p.channel.error,com.ibm.wsspi.http.channel.exception",com.ibm.wsspi.h
+ ttp.channel.outbound;version="1.0";uses:="com.ibm.wsspi.bytebuffer,co
+ m.ibm.wsspi.channelfw,com.ibm.wsspi.genericbnf.exception,com.ibm.wssp
+ i.http.channel,com.ibm.wsspi.http.channel.exception,com.ibm.wsspi.tcp
+ channel",com.ibm.wsspi.http.channel.values;version="1.0";uses:="com.i
+ bm.wsspi.genericbnf,com.ibm.wsspi.http.channel.error",com.ibm.wsspi.h
+ ttp.ee7;version="1.0.16";uses:="com.ibm.websphere.ras.annotation,com.
+ ibm.ws.ras.instrument.annotation,com.ibm.wsspi.channelfw,com.ibm.wssp
+ i.http,com.ibm.wsspi.http.channel.inbound,com.ibm.wsspi.tcpchannel",c
+ om.ibm.wsspi.http.ee8;version="4.1";uses:="com.ibm.wsspi.genericbnf,c
+ om.ibm.wsspi.http",com.ibm.wsspi.http.logging;version="1.0";uses:="co
+ m.ibm.wsspi.http.channel",com.ibm.ws.transport.access;version="1.0.16
+ ";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.a
+ nnotation,com.ibm.wsspi.channelfw,com.ibm.wsspi.tcpchannel",com.ibm.w
+ s.genericbnf;version="1.0",com.ibm.ws.http.dispatcher.classify;versio
+ n="1.0.16";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.ins
+ trument.annotation",com.ibm.ws.http.channel.outstream;version="1.0";u
+ ses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.anno
+ tation,com.ibm.wsspi.http",com.ibm.ws.http.channel.inputstream;versio
+ n="1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instru
+ ment.annotation,com.ibm.wsspi.http",com.ibm.ws.http.logging.source;ve
+ rsion="1.0.16";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras
+ .instrument.annotation,com.ibm.wsspi.collector.manager",com.ibm.ws.ht
+ tp2.upgrade;version="1.0";uses:="com.ibm.websphere.ras.annotation,com
+ .ibm.ws.ras.instrument.annotation,com.ibm.ws.transport.access"
+IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
+Import-Package: com.ibm.websphere.channelfw;version="[1.0,2)",com.ibm.
+ websphere.channelfw.osgi;version="[1.0,2)",com.ibm.websphere.event;ve
+ rsion="[1.0,2)",com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websp
+ here.ras.annotation;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2
+ )",com.ibm.ws.genericbnf;version="[1.0,2)",com.ibm.ws.http.channel.in
+ putstream;version="[1.0,2)",com.ibm.ws.http.channel.outstream;version
+ ="[1.0,2)",com.ibm.ws.http.dispatcher.classify;version="[1.0,2)",com.
+ ibm.ws.kernel.launch.service;version="[1.0,2)",com.ibm.ws.kernel.prod
+ uctinfo;version="[1.0,2)",com.ibm.ws.kernel.service.util;version="[2.
+ 1,3)",com.ibm.ws.logging.data;version="[1.0,2)",com.ibm.ws.ras.instru
+ ment.annotation;version="[1.0,2)",com.ibm.ws.runtime.update;version="
+ [1.0,2)",com.ibm.ws.threading;version="[1.0,2)",com.ibm.ws.threading.
+ listeners;version="[1.0,2)",com.ibm.ws.transport.access;version="[1.0
+ ,1.1)",com.ibm.wsspi.bytebuffer;version="[1.0,2)",com.ibm.wsspi.chann
+ elfw;version="[1.0,2)",com.ibm.wsspi.channelfw.base;version="[1.0,2)"
+ ,com.ibm.wsspi.channelfw.exception;version="[1.0,2)",com.ibm.wsspi.ch
+ annelfw.objectpool;version="[1.0,2)",com.ibm.wsspi.channelfw.utils;ve
+ rsion="[1.0,2)",com.ibm.wsspi.collector.manager;version="[1.0,2)",com
+ .ibm.wsspi.genericbnf;version="[1.0,1.1)",com.ibm.wsspi.genericbnf.ex
+ ception;version="[1.0,1.1)",com.ibm.wsspi.http;version="[2.0,2.1)",co
+ m.ibm.wsspi.http.channel.cookies;version="[1.0,1.1)",com.ibm.wsspi.ht
+ tp.channel.error;version="[1.0,1.1)",com.ibm.wsspi.http.channel.excep
+ tion;version="[1.0,1.1)",com.ibm.wsspi.http.channel.inbound;version="
+ [1.0,1.1)",com.ibm.wsspi.http.channel.outbound;version="[1.0,1.1)",co
+ m.ibm.wsspi.http.channel.values;version="[1.0,1.1)",com.ibm.wsspi.htt
+ p.ee8;version="[4.1,4.2)",com.ibm.wsspi.http.logging;version="[1.0,1.
+ 1)",com.ibm.wsspi.kernel.service.utils;version="[1.4,2)",com.ibm.wssp
+ i.logging;version="[1.1,2)",com.ibm.wsspi.tcpchannel;version="[1.0,2)
+ ",com.ibm.wsspi.timer;version="[1.0,2)",javax.net.ssl,org.osgi.framew
+ ork;version="[1.9,2)",org.osgi.service.component;version="[1.4,2)",or
+ g.osgi.service.event;version="[1.3,2)"
+Private-Package: com.ibm.ws.http.channel.h2internal.exceptions;version
+ ="1.0",com.ibm.ws.http.logging.internal;version="1.0",com.ibm.ws.http
+ .channel.internal;version="1.0",com.ibm.ws.http.internal;version="1.0
+ ",com.ibm.ws.http.channel.h2internal.huffman;version="1.0",com.ibm.ws
+ .http.channel.internal.cookies;version="1.0",com.ibm.ws.http.channel.
+ h2internal;version="1.0",com.ibm.ws.http,com.ibm.ws.http.channel.inte
+ rnal.values;version="1.0",com.ibm.ws.http.channel.h2internal.priority
+ ;version="1.0",com.ibm.ws.http.channel.internal.inbound;version="1.0"
+ ,com.ibm.ws.http.channel.internal.outbound;version="1.0",com.ibm.ws.h
+ ttp.dispatcher.internal.channel;version="1.0",com.ibm.ws.http.channel
+ .h2internal.hpack;version="1.0",com.ibm.ws.http.dispatcher.internal;v
+ ersion="1.0",com.ibm.ws.http.channel.internal.resources,com.ibm.ws.ht
+ tp.channel.h2internal.frames;version="1.0",com.ibm.ws.genericbnf.inte
+ rnal;version="1.0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.web
+ sphere.event.EventHandler",osgi.service;objectClass:List<String>="com
+ .ibm.ws.http.dispatcher.internal.HttpDispatcher",osgi.service;objectC
+ lass:List<String>="com.ibm.ws.http.dispatcher.internal.channel.Welcom
+ ePageHelper",osgi.service;objectClass:List<String>="com.ibm.ws.http.i
+ nternal.HttpEndpointImpl,com.ibm.ws.kernel.launch.service.PauseableCo
+ mponent,com.ibm.ws.runtime.update.RuntimeUpdateListener",osgi.service
+ ;objectClass:List<String>="com.ibm.ws.http.internal.HttpProxyRedirect
+ ",osgi.service;objectClass:List<String>="com.ibm.ws.http.internal.Vir
+ tualHostImpl",osgi.service;objectClass:List<String>="com.ibm.ws.http.
+ logging.internal.AccessLogger",osgi.service;objectClass:List<String>=
+ "com.ibm.wsspi.http.DefaultMimeTypes",osgi.service;objectClass:List<S
+ tring>="com.ibm.wsspi.http.EncodingUtils",osgi.service;objectClass:Li
+ st<String>="com.ibm.wsspi.http.HttpDateFormat",osgi.service;objectCla
+ ss:List<String>="com.ibm.wsspi.http.WelcomePage",welcome.translation.
+ provider;welcome.translation.provider="OSGi-INF/welcome/js/externaliz
+ e-string.js"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.websphere.channelfw.osgi.
+ CHFWBundle)";effective:=active,osgi.service;filter:="(objectClass=com
+ .ibm.websphere.channelfw.osgi.ChannelFactoryProvider)";effective:=act
+ ive;resolution:=optional,osgi.service;filter:="(objectClass=com.ibm.w
+ ebsphere.event.EventEngine)";effective:=active,osgi.service;filter:="
+ (objectClass=com.ibm.ws.http.dispatcher.internal.HttpDispatcher)";eff
+ ective:=active,osgi.service;filter:="(objectClass=com.ibm.ws.http.log
+ ging.internal.AccessLogger)";effective:=active;resolution:=optional,o
+ sgi.service;filter:="(objectClass=com.ibm.ws.threading.FutureMonitor)
+ ";effective:=active,osgi.service;filter:="(objectClass=com.ibm.wsspi.
+ channelfw.ChannelConfiguration)";effective:=active,osgi.service;filte
+ r:="(objectClass=com.ibm.wsspi.http.DefaultMimeTypes)";effective:=act
+ ive,osgi.service;filter:="(objectClass=com.ibm.wsspi.http.EncodingUti
+ ls)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.wss
+ pi.http.VirtualHostListener)";effective:=active;resolution:=optional,
+ osgi.service;filter:="(objectClass=com.ibm.wsspi.http.VirtualHostList
+ ener)";effective:=active;resolution:=optional;cardinality:=multiple,o
+ sgi.service;filter:="(objectClass=com.ibm.wsspi.http.WelcomePage)";ef
+ fective:=active;resolution:=optional;cardinality:=multiple,osgi.servi
+ ce;filter:="(objectClass=com.ibm.wsspi.http.WorkClassifier)";effectiv
+ e:=active;resolution:=optional,osgi.service;filter:="(objectClass=com
+ .ibm.wsspi.http.ee7.HttpTransportBehavior)";effective:=active;resolut
+ ion:=optional,osgi.service;filter:="(objectClass=com.ibm.wsspi.timer.
+ ApproximateTime)";effective:=active,osgi.service;filter:="(objectClas
+ s=java.util.concurrent.ExecutorService)";effective:=active,osgi.servi
+ ce;filter:="(objectClass=org.osgi.service.event.EventAdmin)";effectiv
+ e:=active,osgi.extender;filter:="(&(osgi.extender=osgi.component)(ver
+ sion>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.http.options.xml,OSGI-INF/com.i
+ bm.ws.http.logging.source.accesslog.xml,OSGI-INF/com.ibm.ws.http.remo
+ teip.xml,OSGI-INF/com.ibm.ws.http.channel.internal.inbound.HttpPipeli
+ neEventHandler.xml,OSGI-INF/com.ibm.ws.http.dispatcher.internal.HttpD
+ ispatcher.xml,OSGI-INF/com.ibm.ws.http.dispatcher.internal.channel.We
+ lcomePageHelper.xml,OSGI-INF/com.ibm.ws.http.internal.DefaultMimeType
+ sImpl.xml,OSGI-INF/com.ibm.ws.http.internal.DefaultWelcomePage.xml,OS
+ GI-INF/com.ibm.ws.http.internal.EncodingUtilsImpl.xml,OSGI-INF/com.ib
+ m.ws.http.internal.HttpDateFormatImpl.xml,OSGI-INF/com.ibm.ws.http.in
+ ternal.HttpEndpointImpl.xml,OSGI-INF/com.ibm.ws.http.internal.HttpPro
+ xyRedirect.xml,OSGI-INF/com.ibm.ws.http.internal.VirtualHostImpl.xml,
+ OSGI-INF/com.ibm.ws.http.logging.internal.AccessLogger.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: HttpTransport
+

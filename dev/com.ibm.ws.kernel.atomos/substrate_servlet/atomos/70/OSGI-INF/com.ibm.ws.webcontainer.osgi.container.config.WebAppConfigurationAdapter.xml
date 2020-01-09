@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer.osgi.container.config.WebAppConfigurationAdapter" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.webcontainer.osgi.webapp.WebAppConfiguration"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="AdaptorFactoryService" interface="com.ibm.wsspi.adaptable.module.adapters.AdapterFactoryService" target="(&amp;(containerToType=com.ibm.ws.container.service.annotations.WebAnnotations)(containerToType=com.ibm.ws.container.service.config.WebFragmentsInfo)(containerToType=com.ibm.ws.javaee.dd.web.WebApp)(containerToType=com.ibm.ws.javaee.dd.web.WebFragment)(containerToType=com.ibm.ws.javaee.dd.webbnd.WebBnd)(containerToType=com.ibm.ws.javaee.dd.webext.WebExt))" bind="setAdaptorFactoryService" unbind="unsetAdaptorFactoryService"/>
+  <reference name="WebAppConfiguratorHelperFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.container.config.WebAppConfiguratorHelperFactory" bind="setWebAppConfiguratorHelperFactory" unbind="unsetWebAppConfiguratorHelperFactory" policy-option="greedy"/>
+  <reference name="resourceRefConfigFactory" cardinality="1..1" interface="com.ibm.ws.resource.ResourceRefConfigFactory" bind="setResourceRefConfigFactory" unbind="unsetResourceRefConfigFactory"/>
+  <reference name="servletConfiguratorHelperFactory" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.config.ServletConfiguratorHelperFactory" bind="setServletConfiguratorHelperFactory" unbind="unsetServletConfiguratorHelperFactory" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.container.config.WebAppConfigurationAdapter"/>
+</scr:component>

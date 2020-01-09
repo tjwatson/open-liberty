@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.web.internal.WebModuleHandlerImpl">
+  <property name="type" type="String" value="web"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.app.manager.module.internal.ModuleHandler"/>
+  </service>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor"/>
+  <reference name="MetaDataService" interface="com.ibm.ws.container.service.metadata.MetaDataService" bind="setMetaDataService"/>
+  <reference name="StateChangeService" interface="com.ibm.ws.container.service.state.StateChangeService" bind="setStateChangeService"/>
+  <reference name="WebContainer" interface="com.ibm.ws.container.service.app.deploy.extended.ModuleRuntimeContainer" target="(type=web)" bind="setWebContainer"/>
+  <implementation class="com.ibm.ws.app.manager.web.internal.WebModuleHandlerImpl"/>
+</scr:component>

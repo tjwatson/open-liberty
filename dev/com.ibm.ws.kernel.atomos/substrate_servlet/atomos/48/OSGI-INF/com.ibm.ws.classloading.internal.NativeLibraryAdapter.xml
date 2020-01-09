@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.classloading.internal.NativeLibraryAdapter" configuration-policy="optional" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.classloading.internal.NativeLibrary"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.EntryAdapter"/>
+  </service>
+  <implementation class="com.ibm.ws.classloading.internal.NativeLibraryAdapter"/>
+</scr:component>

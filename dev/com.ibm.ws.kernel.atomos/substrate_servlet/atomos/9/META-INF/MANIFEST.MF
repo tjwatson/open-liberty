@@ -1,0 +1,83 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:33 CST 2019
+Bundle-Activator: com.ibm.ws.config.internal.WSConfigActivator
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS Config Admin Service version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS ConfigAdmin Service
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.config; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.config;version="1.0.16";uses:="com.i
+ bm.websphere.ras.annotation,com.ibm.ws.ras.instrument.annotation",com
+ .ibm.websphere.metatype;version="1.0.16";uses:="com.ibm.websphere.ras
+ .annotation,com.ibm.ws.ras.instrument.annotation,org.osgi.framework,o
+ rg.osgi.service.metatype",com.ibm.websphere.config.mbeans;version="1.
+ 2.0";ibm-spi-type=ibm-api,org.osgi.service.cm;version="1.6.0";uses:="
+ org.osgi.framework",com.ibm.ws.config.xml;version="1.0"
+Import-Package: org.osgi.service.cm;version="[1.6,1.7)",org.osgi.servi
+ ce.metatype;version="[1.1,2.0)",org.osgi.framework;version="[1.9,2.0)
+ ",com.ibm.websphere.config;version="[1.0,1.1)",com.ibm.websphere.conf
+ ig.mbeans;version="[1.2,1.3)",com.ibm.websphere.metatype;version="[1.
+ 0,1.1)",com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websphere.ras
+ .annotation;version="[1.0,2)",com.ibm.ws.config.ext;version="[1.0,2)"
+ ,com.ibm.ws.config.xml;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.
+ 0,2)",com.ibm.ws.kernel;version="[1.0,2)",com.ibm.ws.kernel.filemonit
+ or;version="[1.0,2)",com.ibm.ws.kernel.service.util;version="[2.1,3)"
+ ,com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws.ru
+ ntime.update;version="[1.0,2)",com.ibm.ws.threading.listeners;version
+ ="[1.0,2)",com.ibm.wsspi.kernel.filemonitor;version="[1.0,2)",com.ibm
+ .wsspi.kernel.service.location;version="[1.2,2)",com.ibm.wsspi.kernel
+ .service.utils;version="[1.4,2)",com.ibm.wsspi.logging;version="[1.1,
+ 2)",javax.management,javax.xml.crypto,javax.xml.crypto.dsig,javax.xml
+ .crypto.dsig.dom,javax.xml.crypto.dsig.keyinfo,javax.xml.namespace,ja
+ vax.xml.parsers,javax.xml.stream,javax.xml.stream.util,org.eclipse.eq
+ uinox.metatype;version="[1.3,2)",org.eclipse.osgi.util;version="[1.1,
+ 2)",org.osgi.service.component;version="[1.4,2)",org.osgi.service.eve
+ nt;version="[1.3,2)",org.osgi.util.tracker;version="[1.5,2)",org.w3c.
+ dom,org.xml.sax
+Private-Package: com.ibm.ws.config.admin,com.ibm.ws.config.xml.interna
+ l.nester,com.ibm.ws.config.schemagen.internal,com.ibm.ws.config.xml.i
+ nternal.validator,com.ibm.ws.config.xml.internal,com.ibm.ws.config.in
+ ternal.resources,com.ibm.ws.config.xml.internal.schema,com.ibm.ws.con
+ fig.internal,com.ibm.ws.config.xml.internal.metatype,com.ibm.ws.confi
+ g.admin.internal,com.ibm.ws.config.featuregen.internal;version="1.0",
+ org.eclipse.equinox.metatype.impl
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.web
+ sphere.config.mbeans.FeatureListMBean",osgi.service;objectClass:List<
+ String>="com.ibm.websphere.config.mbeans.ServerSchemaGenerator",osgi.
+ service;objectClass:List<String>="com.ibm.websphere.config.mbeans.Ser
+ verXMLConfigurationMBean,javax.management.DynamicMBean",osgi.service;
+ objectClass:List<String>="com.ibm.wsspi.logging.IntrospectableService
+ ",osgi.service;objectClass:List<String>="com.ibm.wsspi.logging.Intros
+ pector"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.websphere.metatype.Schema
+ Generator)";effective:=active,osgi.service;filter:="(objectClass=com.
+ ibm.ws.config.xml.internal.MetaTypeRegistry)";effective:=active,osgi.
+ service;filter:="(objectClass=com.ibm.ws.config.xml.internal.SystemCo
+ nfiguration)";effective:=active,osgi.service;filter:="(objectClass=co
+ m.ibm.wsspi.kernel.service.location.WsLocationAdmin)";effective:=acti
+ ve,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version>=1
+ .4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.config.schemagen.internal.xml,O
+ SGI-INF/com.ibm.websphere.config.metatypeFactoryService.xml,OSGI-INF/
+ com.ibm.ws.config.featuregen.internal.FeatureListMBeanImpl.xml,OSGI-I
+ NF/com.ibm.ws.config.schemagen.internal.ServerSchemaGeneratorImpl.xml
+ ,OSGI-INF/com.ibm.ws.config.xml.internal.ConfigIntrospection.xml,OSGI
+ -INF/com.ibm.ws.config.xml.internal.MetaTypeIntrospection.xml,OSGI-IN
+ F/com.ibm.ws.config.xml.internal.ServerXMLConfigurationMBeanImpl.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: config
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.jsp.webcontainerext.JSPExtensionFactory" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.jsp.2.2">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.webcontainer.extension.ExtensionFactory"/>
+  </service>
+  <reference name="ExpressionFactoryService" cardinality="0..1" interface="com.ibm.wsspi.el.ELFactoryWrapperForCDI" bind="setExpressionFactoryService" unbind="unsetExpressionFactoryService" policy-option="greedy"/>
+  <reference name="GlobalTagLibConfig" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.jsp.taglib.config.GlobalTagLibConfig" bind="setGlobalTagLibConfig" unbind="unsetGlobalTagLibConfig"/>
+  <reference name="classLoadingService" interface="com.ibm.wsspi.classloading.ClassLoadingService" field="classLoadingService"/>
+  <reference name="elValidatorExtFactory" interface="com.ibm.ws.jsp.translator.visitor.validator.ElValidatorExtFactory" field="elValidatorExtFactory"/>
+  <reference name="generatorUtilsExtFactory" interface="com.ibm.ws.jsp.translator.visitor.generator.GeneratorUtilsExtFactory" field="generatorUtilsExtFactory"/>
+  <reference name="jspVersionFactory" interface="com.ibm.ws.jsp.webcontainerext.JspVersionFactory" field="jspVersionFactory"/>
+  <reference name="locationService" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" field="locationService"/>
+  <reference name="prepareJspHelperFactory" interface="com.ibm.ws.jsp.webcontainerext.ws.PrepareJspHelperFactory" field="prepareJspHelperFactory"/>
+  <implementation class="com.ibm.ws.jsp.webcontainerext.JSPExtensionFactory"/>
+</scr:component>

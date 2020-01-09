@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.webcontainer.v31.httpTransportBehavior">
+  <property name="useEE7Streams" type="Boolean" value="true"/>
+  <service>
+    <provide interface="com.ibm.wsspi.http.ee7.HttpTransportBehavior"/>
+  </service>
+  <implementation class="com.ibm.wsspi.http.ee7.HttpTransportBehavior"/>
+</component>

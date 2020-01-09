@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.module.internal.DeployedAppServicesImpl" activate="activate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.app.manager.module.DeployedAppServices"/>
+  </service>
+  <reference name="ApplicationInfoFactory" interface="com.ibm.ws.container.service.app.deploy.extended.ApplicationInfoFactory" bind="setApplicationInfoFactory" unbind="unsetApplicationInfoFactory"/>
+  <reference name="ArtifactFactory" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" bind="setArtifactFactory" unbind="unsetArtifactFactory"/>
+  <reference name="ClassLoadingService" interface="com.ibm.wsspi.classloading.ClassLoadingService" bind="setClassLoadingService" unbind="unsetClassLoadingService"/>
+  <reference name="ConfigAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="GlobalSharedLibrary" interface="com.ibm.wsspi.library.Library" target="(id=global)" bind="setGlobalSharedLibrary" unbind="unsetGlobalSharedLibrary"/>
+  <reference name="LocationAdmin" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationAdmin" unbind="unsetLocationAdmin"/>
+  <reference name="MetaDataService" interface="com.ibm.ws.container.service.metadata.MetaDataService" bind="setMetaDataService" unbind="unsetMetaDataService"/>
+  <reference name="ModuleFactory" interface="com.ibm.wsspi.adaptable.module.AdaptableModuleFactory" bind="setModuleFactory" unbind="unsetModuleFactory"/>
+  <reference name="ModuleMetaDataExtender" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.extended.ModuleMetaDataExtender" bind="setModuleMetaDataExtender" unbind="unsetModuleMetaDataExtender" policy-option="greedy"/>
+  <reference name="NestedModuleMetaDataFactory" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.metadata.extended.NestedModuleMetaDataFactory" bind="setNestedModuleMetaDataFactory" unbind="unsetNestedModuleMetaDataFactory" policy-option="greedy"/>
+  <reference name="PermissionManager" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.classloading.java2sec.PermissionManager" bind="setPermissionManager" unbind="unsetPermissionManager" policy-option="greedy"/>
+  <reference name="StateChangeService" interface="com.ibm.ws.container.service.state.StateChangeService" bind="setStateChangeService" unbind="unsetStateChangeService"/>
+  <implementation class="com.ibm.ws.app.manager.module.internal.DeployedAppServicesImpl"/>
+</scr:component>

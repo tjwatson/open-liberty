@@ -1,0 +1,118 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:38 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS OSGi Gateway Class Loading Service
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS Class Loading Service
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.classloading
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.classloading;version="1.0.0";uses:="com.ibm
+ .websphere.ras.annotation,com.ibm.ws.container.service.app.deploy,com
+ .ibm.ws.ras.instrument.annotation,com.ibm.wsspi.adaptable.module,com.
+ ibm.wsspi.classloading,com.ibm.wsspi.library,org.osgi.service.cm",com
+ .ibm.ws.classloading.java2sec;version="1.0.16";uses:="com.ibm.websphe
+ re.ras.annotation,com.ibm.ws.kernel.boot.security,com.ibm.ws.ras.inst
+ rument.annotation,com.ibm.wsspi.classloading,org.osgi.framework,org.o
+ sgi.service.component,org.osgi.service.url",com.ibm.ws.classloading.s
+ erializable;version="1.1.0";uses:="com.ibm.websphere.ras.annotation,c
+ om.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.classloading",com.i
+ bm.wsspi.classloading;version="1.5.0";uses:="com.ibm.websphere.ras.an
+ notation,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.adaptable
+ .module,com.ibm.wsspi.library,org.osgi.framework",com.ibm.wsspi.libra
+ ry;version="1.2.0";uses:="com.ibm.wsspi.artifact,com.ibm.wsspi.classl
+ oading,com.ibm.wsspi.config"
+IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
+Import-Package: org.osgi.framework;version="[1.9,2.0)",com.ibm.websphe
+ re.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;version="[1
+ .0,2)",com.ibm.ws.artifact;version="[1.0,2)",com.ibm.ws.artifact.url;
+ version="[1.0,2)",com.ibm.ws.classloading.configuration;version="[1.0
+ ,2)",com.ibm.ws.classloading.serializable;version="[1.1,2)",com.ibm.w
+ s.container.service.app.deploy;version="[2.2,3)",com.ibm.ws.container
+ .service.metadata.extended;version="[1.0,2)",com.ibm.ws.dynamic.bundl
+ e;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.kern
+ el.boot.classloader;version="[1.0,2)",com.ibm.ws.kernel.boot.security
+ ;version="[1.0,2)",com.ibm.ws.kernel.feature;version="[1.0,2)",com.ib
+ m.ws.kernel.security.thread;version="[1.0,2)",com.ibm.ws.kernel.servi
+ ce.util;version="[2.1,3)",com.ibm.ws.ras.instrument.annotation;versio
+ n="[1.0,2)",com.ibm.ws.runtime.metadata;version="[1.1,2)",com.ibm.ws.
+ util;version="[1.0,2)",com.ibm.wsspi.adaptable.module;version="[1.0,2
+ )",com.ibm.wsspi.adaptable.module.adapters;version="[1.0,2)",com.ibm.
+ wsspi.artifact;version="[1.0,2)",com.ibm.wsspi.artifact.factory;versi
+ on="[1.0,2)",com.ibm.wsspi.artifact.overlay;version="[1.1,2)",com.ibm
+ .wsspi.classloading;version="[1.5,1.6)",com.ibm.wsspi.config;version=
+ "[1.0,2)",com.ibm.wsspi.kernel.equinox.module;version="[1.0,2)",com.i
+ bm.wsspi.kernel.service.location;version="[1.2,2)",com.ibm.wsspi.kern
+ el.service.utils;version="[1.4,2)",com.ibm.wsspi.library;version="[1.
+ 2,1.3)",com.ibm.wsspi.logging;version="[1.1,2)",javax.security.auth,o
+ rg.eclipse.equinox.region;version="[1.2,2)",org.osgi.framework.startl
+ evel;version="[1.0,2)",org.osgi.framework.wiring;version="[1.2,2)",or
+ g.osgi.resource;version="[1.0,2)",org.osgi.service.cm;version="[1.6,2
+ )",org.osgi.service.component;version="[1.4,2)",org.osgi.service.url;
+ version="[1.0,2)",org.osgi.util.tracker;version="[1.5,2)"
+Private-Package: com.ibm.ws.classloading.internal.providers,com.ibm.ws
+ .classloading.internal.resources,com.ibm.ws.classloading.internal,com
+ .ibm.ws.classloading.internal.util,com.ibm.ws.library.internal;versio
+ n="1.0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ classloading.ClassLoaderIdentifierService,com.ibm.ws.classloading.Lib
+ ertyClassLoadingService,com.ibm.wsspi.classloading.ClassLoadingServic
+ e,com.ibm.wsspi.logging.Introspector",osgi.service;objectClass:List<S
+ tring>="com.ibm.ws.classloading.LibraryAccess,com.ibm.wsspi.kernel.eq
+ uinox.module.ModuleDelegateClassLoaderFactory,org.osgi.service.cm.Man
+ agedServiceFactory",osgi.service;objectClass:List<String>="com.ibm.ws
+ spi.adaptable.module.adapters.ContainerAdapter",osgi.service;objectCl
+ ass:List<String>="com.ibm.wsspi.adaptable.module.adapters.EntryAdapte
+ r",osgi.service;objectClass:List<String>="com.ibm.wsspi.classloading.
+ ApplicationClassloadingService",osgi.service;objectClass:List<String>
+ ="org.osgi.service.cm.ManagedServiceFactory"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.classloading.ClassGene
+ rator)";effective:=active;resolution:=optional;cardinality:=multiple,
+ osgi.service;filter:="(objectClass=com.ibm.ws.classloading.MetaInfSer
+ vicesProvider)";effective:=active;resolution:=optional;cardinality:=m
+ ultiple,osgi.service;filter:="(objectClass=com.ibm.ws.classloading.co
+ nfiguration.GlobalClassloadingConfiguration)";effective:=active,osgi.
+ service;filter:="(objectClass=com.ibm.ws.container.service.metadata.e
+ xtended.MetaDataIdentifierService)";effective:=active,osgi.service;fi
+ lter:="(objectClass=com.ibm.ws.library.internal.LibraryStatusService)
+ ";effective:=active,osgi.service;filter:="(objectClass=com.ibm.wsspi.
+ artifact.factory.ArtifactContainerFactory)";effective:=active,osgi.se
+ rvice;filter:="(objectClass=com.ibm.wsspi.classloading.ClassLoadingSe
+ rvice)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.
+ wsspi.classloading.ResourceProvider)";effective:=active;resolution:=o
+ ptional;cardinality:=multiple,osgi.service;filter:="(objectClass=com.
+ ibm.wsspi.kernel.service.location.WsLocationAdmin)";effective:=active
+ ,osgi.service;filter:="(objectClass=com.ibm.wsspi.library.Application
+ ExtensionLibrary)";effective:=active;resolution:=optional;cardinality
+ :=multiple,osgi.service;filter:="(objectClass=com.ibm.wsspi.library.L
+ ibrary)";effective:=active,osgi.service;filter:="(objectClass=java.la
+ ng.instrument.Instrumentation)";effective:=active;resolution:=optiona
+ l,osgi.service;filter:="(objectClass=org.eclipse.equinox.region.Regio
+ nDigraph)";effective:=active,osgi.service;filter:="(objectClass=org.o
+ sgi.service.cm.ConfigurationAdmin)";effective:=active,osgi.service;fi
+ lter:="(objectClass=org.osgi.service.url.URLStreamHandlerService)";ef
+ fective:=active,osgi.extender;filter:="(&(osgi.extender=osgi.componen
+ t)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.security.java2sec.policyConfig.
+ xml,OSGI-INF/com.ibm.ws.classloading.java2sec.PermissionManager.xml,O
+ SGI-INF/com.ibm.ws.classloading.internal.ApplicationClassloadingServi
+ ceFactory.xml,OSGI-INF/com.ibm.ws.classloading.internal.ApplicationCl
+ assloadingServiceImpl.xml,OSGI-INF/com.ibm.ws.classloading.internal.C
+ lassLoadingButlerAdapter.xml,OSGI-INF/com.ibm.ws.classloading.interna
+ l.ClassLoadingServiceImpl.xml,OSGI-INF/com.ibm.ws.classloading.intern
+ al.NativeLibraryAdapter.xml,OSGI-INF/com.ibm.ws.library.internal.Shar
+ edLibraryFactory.xml
+Tool: Bnd-4.1.0.201810181252
+

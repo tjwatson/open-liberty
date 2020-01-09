@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:18 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Prototype URL handling; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Artifact URL Handling.
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.artifact.url
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.artifact.url;version="1.0";uses:="org.osgi.
+ framework"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.artifact.url;version=
+ "[1.0,1.1)",com.ibm.ws.artifact.zip.cache;version="[1.0,2)",com.ibm.w
+ s.ffdc;version="[1.0,2)",com.ibm.ws.kernel.security.thread;version="[
+ 1.0,2)",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ib
+ m.wsspi.kernel.service.utils;version="[1.4,2)",org.apache.aries.util.
+ tracker;version="[1.0,2)",org.osgi.framework;version="[1.9,2)",org.os
+ gi.service.component;version="[1.4,2)",org.osgi.service.url;version="
+ [1.0,2)",org.osgi.util.tracker;version="[1.5,2)"
+Private-Package: com.ibm.ws.artifact.url.internal
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Service-Component: OSGI-INF/com.ibm.ws.artifact.url.protocol.xml,OSGI-
+ INF/com.ibm.ws.artifact.url.protocol.wsjar.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: archive.artifact
+

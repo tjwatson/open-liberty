@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer" configuration-policy="require" modified="modified" configuration-pid="com.ibm.ws.webcontainer">
+  <property name="type" type="String" value="web"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.app.deploy.extended.ModuleRuntimeContainer"/>
+    <provide interface="com.ibm.wsspi.http.VirtualHostListener"/>
+  </service>
+  <reference name="AdapterFactoryDependency" interface="com.ibm.wsspi.adaptable.module.adapters.AdapterFactoryService" target="(containerToType=com.ibm.ws.webcontainer.osgi.webapp.WebAppConfiguration)" bind="setAdapterFactoryDependency" unbind="unsetAdapterFactoryDependency"/>
+  <reference name="AsyncContextFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.async.AsyncContextFactory" bind="setAsyncContextFactory" unbind="unsetAsyncContextFactory" policy-option="greedy"/>
+  <reference name="CacheServletWrapperFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.servlet.CacheServletWrapperFactory" bind="setCacheServletWrapperFactory" unbind="unsetCacheServletWrapperFactory" policy-option="greedy"/>
+  <reference name="CollaboratorService" interface="com.ibm.ws.webcontainer.collaborator.CollaboratorService" bind="setCollaboratorService" unbind="unsetCollaboratorService"/>
+  <reference name="ConnContextPool" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.srt.SRTConnectionContextPool" bind="setConnContextPool" unbind="unsetConnContextPool" policy-option="greedy"/>
+  <reference name="EncodingService" policy="dynamic" interface="com.ibm.wsspi.http.EncodingUtils" bind="setEncodingService" unbind="unsetEncodingService"/>
+  <reference name="EventService" policy="dynamic" interface="com.ibm.websphere.event.EventEngine" bind="setEventService" unbind="unsetEventService"/>
+  <reference name="ExecutorService" policy="dynamic" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="ExtensionFactory" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.extension.ExtensionFactory" bind="setExtensionFactory" unbind="unsetExtensionFactory"/>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="J2eeNameFactory" interface="com.ibm.websphere.csi.J2EENameFactory" bind="setJ2eeNameFactory" unbind="unsetJ2eeNameFactory"/>
+  <reference name="LocationService" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <reference name="MetaDataService" interface="com.ibm.ws.container.service.metadata.MetaDataService" bind="setMetaDataService" unbind="unsetMetaDataService"/>
+  <reference name="RequestFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.request.IRequestFactory" bind="setRequestFactory" unbind="unsetRequestFactory" policy-option="greedy"/>
+  <reference name="ResponseFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.response.IResponseFactory" bind="setResponseFactory" unbind="unsetResponseFactory" policy-option="greedy"/>
+  <reference name="URIMatcherFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.webcontainer.util.URIMatcherFactory" bind="setURIMatcherFactory" unbind="unsetURIMatcherFactory" policy-option="greedy"/>
+  <reference name="Version" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.javaee.version.ServletVersion" bind="setVersion" unbind="unsetVersion" policy-option="greedy"/>
+  <reference name="VirtualHostMgr" interface="com.ibm.ws.webcontainer.osgi.DynamicVirtualHostManager" bind="setVirtualHostMgr" unbind="unsetVirtualHostMgr"/>
+  <reference name="WebAppFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.webapp.WebAppFactory" bind="setWebAppFactory" unbind="unsetWebAppFactory" policy-option="greedy"/>
+  <reference name="cacheManager" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.webcontainer.cache.CacheManager" bind="setCacheManager" unbind="unsetCacheManager"/>
+  <reference name="classLoadingService" interface="com.ibm.wsspi.classloading.ClassLoadingService" bind="setClassLoadingService" unbind="unsetClassLoadingService"/>
+  <reference name="injectionEngine" policy="dynamic" interface="com.ibm.wsspi.injectionengine.InjectionEngine" bind="setInjectionEngine" unbind="unsetInjectionEngine"/>
+  <reference name="managedObjectService" policy="dynamic" interface="com.ibm.ws.managedobject.ManagedObjectService" bind="setManagedObjectService" unbind="unsetManagedObjectService" policy-option="greedy"/>
+  <reference name="servletContainerInitializers" cardinality="0..n" policy="dynamic" interface="javax.servlet.ServletContainerInitializer" bind="setServletContainerInitializers" unbind="unsetServletContainerInitializers"/>
+  <reference name="sessionHelper" interface="com.ibm.ws.webcontainer.osgi.session.SessionHelper" bind="setSessionHelper" unbind="unsetSessionHelper"/>
+  <reference name="transferService" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.servlet.ITransferContextService" bind="setTransferService" unbind="unsetTransferService"/>
+  <reference name="webMBeanRuntime" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.webcontainer.osgi.WebMBeanRuntime" bind="setWebMBeanRuntime" unbind="unsetWebMBeanRuntime"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.WebContainer"/>
+</scr:component>

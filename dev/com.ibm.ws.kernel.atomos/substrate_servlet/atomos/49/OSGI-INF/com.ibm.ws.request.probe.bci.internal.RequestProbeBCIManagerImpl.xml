@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.request.probe.bci.internal.RequestProbeBCIManagerImpl">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="instrumentation" cardinality="0..1" interface="java.lang.instrument.Instrumentation" bind="setInstrumentation" unbind="unsetInstrumentation"/>
+  <reference name="requestProbeMetaDataProvider" cardinality="1..n" policy="dynamic" interface="com.ibm.wsspi.request.probe.bci.RequestProbeTransformDescriptor" bind="setRequestProbeMetaDataProvider" unbind="unsetRequestProbeMetaDataProvider"/>
+  <implementation class="com.ibm.ws.request.probe.bci.internal.RequestProbeBCIManagerImpl"/>
+</scr:component>

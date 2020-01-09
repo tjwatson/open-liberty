@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.container.service.app.deploy.InjectionClassListAdapter" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.container.service.app.deploy.InjectionClassList"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="injectionClassListProviders" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.app.deploy.InjectionClassListProvider" bind="setInjectionClassListProviders" unbind="unsetInjectionClassListProviders"/>
+  <implementation class="com.ibm.ws.container.service.app.deploy.internal.InjectionClassListAdapter"/>
+</scr:component>

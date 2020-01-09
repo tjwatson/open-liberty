@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:31:33 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS EL 3.0, Version=3.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS EL 3.0
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.jasper.el.3.0
+Bundle-Vendor: IBM
+Bundle-Version: 3.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.apache.el;version="3.0.16";thread-context=true;use
+ s:="com.ibm.websphere.ras.annotation,javax.el,org.apache.el.parser",o
+ rg.apache.el.lang;version="3.0.16";thread-context=true;uses:="com.ibm
+ .websphere.ras.annotation,javax.el,org.apache.el.parser",org.apache.e
+ l.parser;version="3.0.16";uses:="com.ibm.websphere.ras.annotation,jav
+ ax.el,org.apache.el.lang",org.apache.el.util;version="3.0.16";uses:="
+ com.ibm.websphere.ras.annotation,javax.el,org.apache.el.lang",org.apa
+ che.el.stream;version="3.0.16";uses:="com.ibm.websphere.ras.annotatio
+ n,javax.el"
+Import-Package: javax.el;version="3.0.0",com.ibm.websphere.ras;version
+ ="[1.2,2)",com.ibm.websphere.ras.annotation;version="[1.0,2)",org.apa
+ che.el;version="[3.0,4)",org.apache.el.lang;version="[3.0,4)",org.apa
+ che.el.parser;version="[3.0,4)",org.apache.el.stream;version="[3.0,4)
+ ",org.apache.el.util;version="[3.0,4)"
+Private-Package: org.apache.el.*
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

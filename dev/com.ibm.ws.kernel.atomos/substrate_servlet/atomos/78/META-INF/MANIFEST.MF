@@ -1,0 +1,94 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:30:18 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS JSP 2.3, version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS JSP 2.3
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.jsp.2.3
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.jsp23.webcontainerext;version="2.3";uses:="
+ com.ibm.websphere.ras.annotation,com.ibm.ws.jsp.webcontainerext,com.i
+ bm.ws.ras.instrument.annotation",com.ibm.ws.jsp23.webcontainerext.ws;
+ version="2.3";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.jsp,
+ com.ibm.ws.jsp.webcontainerext,com.ibm.ws.jsp.webcontainerext.ws,com.
+ ibm.ws.ras.instrument.annotation,com.ibm.wsspi.webcontainer.servlet",
+ com.ibm.ws.jsp23.translator.visitor.validator;version="2.3";uses:="co
+ m.ibm.websphere.ras.annotation,com.ibm.ws.jsp,com.ibm.ws.jsp.configur
+ ation,com.ibm.ws.jsp.translator,com.ibm.ws.jsp.translator.visitor.val
+ idator,com.ibm.ws.ras.instrument.annotation,org.apache.jasper.compile
+ r,org.w3c.dom",com.ibm.ws.jsp23.translator.visitor.generator;version=
+ "2.3";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.jsp,com.ibm.
+ ws.jsp.translator.visitor.generator,com.ibm.ws.jsp.translator.visitor
+ .validator,com.ibm.ws.ras.instrument.annotation",org.apache.jasper;ve
+ rsion="2.3";uses:="javax.servlet",org.apache.jasper.el;thread-context
+ =true;version="2.3";uses:="javax.el,javax.servlet.jsp.el",org.apache.
+ jasper.runtime;version="2.3";thread-context=true;uses:="com.ibm.ws.js
+ p,com.ibm.ws.jsp.runtime,javax.el,javax.servlet,javax.servlet.http,ja
+ vax.servlet.jsp,javax.servlet.jsp.el,javax.servlet.jsp.tagext,org.apa
+ che.jasper,org.apache.jasper.el"
+Import-Package: javax.el;version="3.0",javax.servlet;version="[2.7.0,3
+ .0.0)",javax.servlet.http;version="[2.7.0,3.0.0)",javax.servlet.jsp;v
+ ersion="2.3",javax.servlet.jsp.el;version="2.3",javax.servlet.jsp.tag
+ ext;version="2.3",com.ibm.websphere.servlet.error;version=0,com.ibm.w
+ sspi.webcontainer;version="[1.5,2)",com.ibm.wsspi.webcontainer.servle
+ t;version="[3.0,4)",com.ibm.wsspi.webcontainer.util;version="[1.1,2)"
+ ,com.ibm.ws.webcontainer;version="[1.0,2)",com.ibm.ws.jsp;version="[2
+ .2,2.3)",com.ibm.ws.jsp.webcontainerext;version="2.2",com.ibm.ws.jsp.
+ translator;version="2.2",com.ibm.ws.jsp.translator.utils;version="2.2
+ ",com.ibm.ws.jsp.translator.visitor.validator;version="2.2",com.ibm.w
+ s.jsp.translator.visitor.generator;version="2.2",com.ibm.wsspi.webcon
+ tainer31.servlet;version="1.0",com.ibm.websphere.servlet31.response;v
+ ersion="1.0",com.ibm.ejs.ras;version="[1.0,2)",com.ibm.websphere.ras;
+ version="[1.2,2)",com.ibm.websphere.ras.annotation;version="[1.0,2)",
+ com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.jsp.configuration;versio
+ n="[2.2,3)",com.ibm.ws.jsp.runtime;version="[2.2,3)",com.ibm.ws.jsp.w
+ ebcontainerext.ws;version="[2.2,3)",com.ibm.ws.ras.instrument.annotat
+ ion;version="[1.0,2)",com.ibm.ws.util;version="[1.0,2)",com.ibm.wsspi
+ .el;version="[3.0,4)",org.apache.jasper;version="[2.3,3)",org.apache.
+ jasper.compiler;version="[2.2,3)",org.apache.jasper.el;version="[2.3,
+ 3)",org.w3c.dom,javax.servlet.resources;version="[2.7.0,3.0.0)",javax
+ .servlet.jsp.resources;version="2.3",com.ibm.ws.webcontainer.extensio
+ n;version="[2.0,3)",com.ibm.ws.webcontainer.util;version="[1.2,2)",co
+ m.ibm.ws.webcontainer.servlet;version="[2.0,3)",com.ibm.jtc.adapter;r
+ esolution:=optional;version="[1.1,2)",com.sun.tools.javac;resolution:
+ =optional,org.apache.webbeans.el;resolution:=optional,com.ibm.ws.mana
+ gedobject;resolution:=optional,org.apache.el;version="3.0.0",org.apac
+ he.el.lang;version="3.0.0",org.apache.el.parser;version="3.0.0",org.a
+ pache.el.util;version="3.0.0",org.eclipse.jdt.core.compiler;version="
+ 3.10.2";usage=JSP,org.eclipse.jdt.internal.compiler;version="3.10.2";
+ usage=JSP,org.eclipse.jdt.internal.compiler.classfmt;version="3.10.2"
+ ;usage=JSP,org.eclipse.jdt.internal.compiler.env;version="3.10.2";usa
+ ge=JSP,org.eclipse.jdt.internal.compiler.impl;version="3.10.2";usage=
+ JSP,org.eclipse.jdt.internal.compiler.problem;version="3.10.2";usage=
+ JSP,sun.io;resolution:=optional
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ jsp.translator.visitor.generator.GeneratorUtilsExtFactory",osgi.servi
+ ce;objectClass:List<String>="com.ibm.ws.jsp.translator.visitor.valida
+ tor.ElValidatorExtFactory",osgi.service;objectClass:List<String>="com
+ .ibm.ws.jsp.webcontainerext.JspVersionFactory",osgi.service;objectCla
+ ss:List<String>="com.ibm.ws.jsp.webcontainerext.ws.PrepareJspHelperFa
+ ctory"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version>=1.4
+ .0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.jsp23.translator.visitor.genera
+ tor.GeneratorUtilsExtFactoryImpl.xml,OSGI-INF/com.ibm.ws.jsp23.transl
+ ator.visitor.validator.ElValidatorExtFactoryImpl.xml,OSGI-INF/com.ibm
+ .ws.jsp23.webcontainerext.JspVersionFactoryImpl.xml,OSGI-INF/com.ibm.
+ ws.jsp23.webcontainerext.ws.PrepareJspHelper23Factory.xml
+Tool: Bnd-4.1.0.201810181252
+WLP-ServerName: IBM WebSphere Application Server
+WLP-ServerVersion: ${liberty.beta.version}
+

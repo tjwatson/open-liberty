@@ -1,0 +1,63 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:06 CST 2019
+Build-Jdk: 1.8.0_191
+Built-By: anjum.fatima@ibm.com
+Bundle-Activator: org.apache.felix.scr.impl.Activator
+Bundle-Category: osgi
+Bundle-Description: Implementation of the Declarative Services specifi
+ cation 1.4
+Bundle-Distributor: IBM
+Bundle-DocURL: http://felix.apache.org/site/apache-felix-service-compo
+ nent-runtime.html
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Felix Declarative Services
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.felix.scr
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+DynamicImport-Package: org.osgi.service.cm;version="[1.6,2)",org.osgi.
+ service.log;version="[1.3,2)",org.osgi.service.metatype;version="[1.1
+ ,2)"
+Embed-Dependency: kxml2;inline=org/kxml2/io/KXmlParser.class|org/xmlpu
+ ll/v1/XmlPull**
+Export-Package: org.apache.felix.scr.component;version="1.1.0";uses:="
+ org.osgi.service.component",org.apache.felix.scr.info;version="1.0.0"
+ ,org.osgi.service.component;version="1.4.0";uses:="org.osgi.framework
+ ",org.osgi.service.component.runtime;version="1.4.0";uses:="org.osgi.
+ framework,org.osgi.service.component.runtime.dto,org.osgi.util.promis
+ e",org.osgi.service.component.runtime.dto;version="1.4.0";uses:="org.
+ osgi.dto,org.osgi.framework.dto",org.osgi.util.function;version="1.1"
+ ,org.osgi.util.promise;version="1.1.1";uses:="org.osgi.util.function"
+IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
+Import-Package: org.osgi.service.cm;version="[1.6,2)";resolution:=opti
+ onal,org.osgi.service.log;version="[1.3,2)";resolution:=optional,org.
+ osgi.service.metatype;version="[1.2,2)";resolution:=optional,org.osgi
+ .service.packageadmin;version="[1.2,2)";resolution:=optional,org.apac
+ he.felix.service.command;resolution:=optional;version="[1.0,2)",org.a
+ pache.felix.scr.component;version="[1.1,1.2)",org.apache.felix.scr.in
+ fo;version="[1.0,1.1)",org.osgi.dto;version="[1.0,2)",org.osgi.framew
+ ork;version="[1.8,2)",org.osgi.framework.dto;version="[1.8,2)",org.os
+ gi.framework.startlevel;version="[1.0,2)",org.osgi.framework.wiring;v
+ ersion="[1.2,2)",org.osgi.service.component;version="[1.4,1.5)",org.o
+ sgi.service.component.runtime;version="[1.4,1.5)",org.osgi.service.co
+ mponent.runtime.dto;version="[1.4,1.5)",org.osgi.util.promise;version
+ ="[1.0,2)",org.osgi.util.tracker;version="[1.5,2)"
+Private-Package: org.apache.felix.scr.impl,org.apache.felix.scr.impl.c
+ onfig,org.apache.felix.scr.impl.helper,org.apache.felix.scr.impl.inje
+ ct,org.apache.felix.scr.impl.inject.field,org.apache.felix.scr.impl.i
+ nject.methods,org.apache.felix.scr.impl.logger,org.apache.felix.scr.i
+ mpl.manager,org.apache.felix.scr.impl.metadata,org.apache.felix.scr.i
+ mpl.parser,org.apache.felix.scr.impl.runtime,org.apache.felix.scr.imp
+ l.xml,org.kxml2.io,org.xmlpull.v1
+Provide-Capability: osgi.extender;osgi.extender="osgi.component";uses:
+ ="org.osgi.service.component";version:Version="1.4",osgi.service;obje
+ ctClass:List<String>="org.osgi.service.component.runtime.ServiceCompo
+ nentRuntime";uses:="org.osgi.service.component.runtime"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

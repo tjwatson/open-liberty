@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.ejbext.EJBJarExtComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.ejbext.EJBJarExt">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.ejbext.EJBJarExt"/>
+  </service>
+  <reference name="message-driven" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.ejbext.MessageDriven" target="(id=unbound)" bind="setMessage_driven" unbind="unsetMessage_driven"/>
+  <reference name="session" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.ejbext.Session" target="(id=unbound)" bind="setSession" unbind="unsetSession"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.ejbext.EJBJarExtComponentImpl"/>
+</scr:component>

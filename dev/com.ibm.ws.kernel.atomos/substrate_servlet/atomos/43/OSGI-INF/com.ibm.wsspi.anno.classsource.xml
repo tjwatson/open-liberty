@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.wsspi.anno.classsource" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.anno.classsource.ClassSource_Factory"/>
+  </service>
+  <implementation class="com.ibm.ws.anno.classsource.internal.ClassSourceImpl_Factory"/>
+</scr:component>

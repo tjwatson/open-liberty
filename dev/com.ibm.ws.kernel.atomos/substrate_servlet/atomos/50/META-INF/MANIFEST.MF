@@ -1,0 +1,114 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:22 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Injection Engine; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Injection
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.injection
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.wsspi.injectionengine;version="3.0.0";uses:="c
+ om.ibm.websphere.csi,com.ibm.ws.ffdc,com.ibm.ws.javaee.dd.common,com.
+ ibm.ws.javaee.dd.common.wsclient,com.ibm.ws.resource,com.ibm.ws.runti
+ me.metadata,com.ibm.wsspi.injectionengine.factory,javax.annotation,ja
+ vax.naming,javax.naming.spi",com.ibm.wsspi.injectionengine.factory;ve
+ rsion="2.0.0";uses:="com.ibm.ws.resource,com.ibm.wsspi.injectionengin
+ e,javax.annotation,javax.naming,javax.naming.spi",com.ibm.ws.injectio
+ nengine.osgi.util;version="1.0.0";uses:="com.ibm.websphere.ras.annota
+ tion,com.ibm.ws.javaee.dd.commonbnd,com.ibm.ws.javaee.dd.commonext,co
+ m.ibm.ws.ras.instrument.annotation,com.ibm.ws.resource,com.ibm.wsspi.
+ injectionengine"
+Import-Package: com.ibm.ejs.util;version="[1.1,2)",com.ibm.ejs.util.do
+ priv;version="[1.1,2)",com.ibm.websphere.csi;version="[4.0,5)",com.ib
+ m.websphere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;ve
+ rsion="[1.0,2)",com.ibm.ws.container.service.app.deploy;version="[2.2
+ ,3)",com.ibm.ws.container.service.app.deploy.extended;version="[1.0,2
+ )",com.ibm.ws.container.service.config.extended;version="[1.0,2)",com
+ .ibm.ws.container.service.metadata;version="[1.0,2)",com.ibm.ws.conta
+ iner.service.naming;version="[1.2,2)",com.ibm.ws.container.service.st
+ ate;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.in
+ jectionengine.osgi.util;version="[1.0,2)",com.ibm.ws.javaee.dd.app;ve
+ rsion="[1.0,2)",com.ibm.ws.javaee.dd.appbnd;version="[1.0,2)",com.ibm
+ .ws.javaee.dd.common;version="[1.2,2)",com.ibm.ws.javaee.dd.common.ws
+ client;version="[1.0,2)",com.ibm.ws.javaee.dd.commonbnd;version="[1.0
+ ,2)",com.ibm.ws.javaee.dd.commonext;version="[1.0,2)",com.ibm.ws.ras.
+ instrument.annotation;version="[1.0,2)",com.ibm.ws.resource;version="
+ [1.1,2)",com.ibm.ws.runtime.metadata;version="[1.1,2)",com.ibm.ws.ser
+ ialization;version="[1.1,2)",com.ibm.ws.threadContext;version="[1.1,2
+ )",com.ibm.ws.util;version="[1.0,2)",com.ibm.ws.util.dopriv;version="
+ [1.1,2)",com.ibm.wsspi.adaptable.module;version="[1.0,2)",com.ibm.wss
+ pi.injectionengine.factory;version="[2.0,3)",com.ibm.wsspi.kernel.ser
+ vice.utils;version="[1.4,2)",com.ibm.wsspi.logging;version="[1.1,2)",
+ com.ibm.wsspi.resource;version="[1.2,2)",javax.annotation,javax.annot
+ ation.sql,javax.naming,javax.naming.spi,javax.sql,org.osgi.framework;
+ version="[1.9,2)",org.osgi.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.injection.resources,com.ibm.ws.injectionen
+ gine.annotation,com.ibm.ws.injectionengine.factory;version="2.0.0",co
+ m.ibm.ws.injectionengine,com.ibm.ws.injectionengine.osgi.internal.nam
+ ing,com.ibm.ws.injectionengine.ffdc,com.ibm.ws.injectionengine.proces
+ sor,com.ibm.ws.injectionengine.osgi.internal
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ container.service.metadata.ApplicationMetaDataListener,com.ibm.ws.con
+ tainer.service.metadata.ComponentMetaDataListener,com.ibm.ws.containe
+ r.service.metadata.ModuleMetaDataListener,com.ibm.ws.container.servic
+ e.state.ApplicationStateListener,com.ibm.ws.injectionengine.osgi.inte
+ rnal.OSGiInjectionEngineImpl,com.ibm.wsspi.injectionengine.InjectionE
+ ngine",osgi.service;objectClass:List<String>="com.ibm.ws.container.se
+ rvice.naming.JavaColonNamingHelper",osgi.service;objectClass:List<Str
+ ing>="com.ibm.ws.container.service.naming.JavaColonNamingHelper,com.i
+ bm.ws.container.service.naming.RemoteJavaColonNamingHelper",osgi.serv
+ ice;objectClass:List<String>="com.ibm.ws.injectionengine.osgi.interna
+ l.IndirectJndiLookupObjectFactory,javax.naming.spi.ObjectFactory",osg
+ i.service;objectClass:List<String>="com.ibm.ws.injectionengine.osgi.i
+ nternal.ResourceFactoryObjectFactory,javax.naming.spi.ObjectFactory",
+ osgi.service;objectClass:List<String>="com.ibm.wsspi.logging.Introspe
+ ctor"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.container.service.meta
+ data.MetaDataSlotService)";effective:=active,osgi.service;filter:="(o
+ bjectClass=com.ibm.ws.container.service.naming.JavaColonNamingHelper)
+ ";effective:=active;resolution:=optional,osgi.service;filter:="(objec
+ tClass=com.ibm.ws.container.service.naming.RemoteObjectInstanceFactor
+ y)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.ws.i
+ njectionengine.osgi.internal.OSGiInjectionEngineImpl)";effective:=act
+ ive,osgi.service;filter:="(objectClass=com.ibm.ws.resource.ResourceFa
+ ctoryBuilder)";effective:=active;resolution:=optional;cardinality:=mu
+ ltiple,osgi.service;filter:="(objectClass=com.ibm.ws.resource.Resourc
+ eRefConfigFactory)";effective:=active,osgi.service;filter:="(objectCl
+ ass=com.ibm.ws.serialization.SerializationService)";effective:=active
+ ,osgi.service;filter:="(objectClass=com.ibm.wsspi.injectionengine.Inj
+ ectionMetaDataListener)";effective:=active;resolution:=optional;cardi
+ nality:=multiple,osgi.service;filter:="(objectClass=com.ibm.wsspi.inj
+ ectionengine.InjectionProcessorProvider)";effective:=active;resolutio
+ n:=optional;cardinality:=multiple,osgi.service;filter:="(objectClass=
+ com.ibm.wsspi.injectionengine.ObjectFactoryInfo)";effective:=active;r
+ esolution:=optional;cardinality:=multiple,osgi.service;filter:="(obje
+ ctClass=com.ibm.wsspi.injectionengine.factory.EJBLinkReferenceFactory
+ )";effective:=active;resolution:=optional,osgi.service;filter:="(obje
+ ctClass=com.ibm.wsspi.resource.ResourceBindingListener)";effective:=a
+ ctive;resolution:=optional;cardinality:=multiple,osgi.extender;filter
+ :="(&(osgi.extender=osgi.component)(version>=1.4.0)(!(version>=2.0.0)
+ ))"
+Service-Component: OSGI-INF/com.ibm.ws.injection.classProvider.xml,OSG
+ I-INF/com.ibm.ws.injectionengine.osgi.internal.IndirectJndiLookupObje
+ ctFactory.xml,OSGI-INF/com.ibm.ws.injectionengine.osgi.internal.Injec
+ tionIntrospector.xml,OSGI-INF/com.ibm.ws.injectionengine.osgi.interna
+ l.OSGiInjectionEngineImpl.xml,OSGI-INF/com.ibm.ws.injectionengine.osg
+ i.internal.ResourceFactoryObjectFactory.xml,OSGI-INF/com.ibm.ws.injec
+ tionengine.osgi.internal.naming.DeferredNonCompInjectionJavaColonHelp
+ er.xml,OSGI-INF/com.ibm.ws.injectionengine.osgi.internal.naming.Injec
+ tionJavaColonHelper.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: Injection
+

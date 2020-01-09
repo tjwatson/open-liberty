@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.webbnd.VirtualHostComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.webbnd.VirtualHost">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.webbnd.VirtualHost"/>
+  </service>
+  <implementation class="com.ibm.ws.javaee.ddmodel.webbnd.VirtualHostComponentImpl"/>
+</scr:component>

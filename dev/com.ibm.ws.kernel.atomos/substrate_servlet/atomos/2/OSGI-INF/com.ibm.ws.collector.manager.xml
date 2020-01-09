@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.collector.manager" immediate="true" modified="modified">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.collector.manager.CollectorManager"/>
+  </service>
+  <reference name="configurationAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigurationAdmin" unbind="unsetConfigurationAdmin"/>
+  <reference name="source" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.collector.manager.Source" bind="setSource" unbind="unsetSource"/>
+  <reference name="handler" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.collector.manager.Handler" bind="setHandler" unbind="unsetHandler"/>
+  <implementation class="com.ibm.ws.collector.manager.internal.CollectorManagerImpl"/>
+</scr:component>

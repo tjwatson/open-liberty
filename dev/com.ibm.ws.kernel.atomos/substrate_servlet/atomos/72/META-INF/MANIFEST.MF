@@ -1,0 +1,78 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:33:38 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Bundle for runtime changes supporting automatic pl
+ ugin-cfg.xml generation; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Plugin Runtime
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.webserver.plugin.runtime
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.webserver.plugin.runtime.collaborators;vers
+ ion="1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.inst
+ rument.annotation,com.ibm.wsspi.adaptable.module,com.ibm.wsspi.webcon
+ tainer.collaborator",com.ibm.ws.webserver.plugin.runtime.listeners;ve
+ rsion="1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.contai
+ ner.service.app.deploy,com.ibm.ws.container.service.state,com.ibm.ws.
+ ras.instrument.annotation,com.ibm.ws.runtime.update,com.ibm.ws.webcon
+ tainer.httpsession,com.ibm.ws.webcontainer.webapp,com.ibm.wsspi.kerne
+ l.service.location,com.ibm.wsspi.webcontainer.osgi.mbeans,javax.servl
+ et,org.osgi.framework",com.ibm.ws.webserver.plugin.runtime.requester;
+ version="1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.
+ instrument.annotation,com.ibm.ws.webserver.plugin.runtime.interfaces,
+ com.ibm.wsspi.kernel.service.location,javax.management,org.osgi.frame
+ work"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.container.service.app
+ .deploy;version="[2.2,3)",com.ibm.ws.container.service.state;version=
+ "[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.ras.instrument
+ .annotation;version="[1.0,2)",com.ibm.ws.runtime.update;version="[1.0
+ ,2)",com.ibm.ws.threading.listeners;version="[1.0,2)",com.ibm.ws.webc
+ ontainer.httpsession;version="[1.1,2)",com.ibm.ws.webcontainer.webapp
+ ;version="[1.0,2)",com.ibm.ws.webserver.plugin.runtime.interfaces;ver
+ sion="[1.0,2)",com.ibm.ws.webserver.plugin.runtime.listeners;version=
+ "[1.0,2)",com.ibm.wsspi.adaptable.module;version="[1.0,2)",com.ibm.ws
+ spi.kernel.service.location;version="[1.2,2)",com.ibm.wsspi.kernel.se
+ rvice.utils;version="[1.4,2)",com.ibm.wsspi.webcontainer.collaborator
+ ;version="[1.2,2)",com.ibm.wsspi.webcontainer.osgi.mbeans;version="[1
+ .0,2)",com.ibm.wsspi.webcontainer.webapp;version="[2.0,3)",javax.mana
+ gement,javax.servlet;version="[2.6,3)",org.osgi.framework;version="[1
+ .9,2)"
+Private-Package: com.ibm.ws.plugin.runtime.resources
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ container.service.state.ApplicationStateListener,com.ibm.ws.container
+ .service.state.ModuleStateListener,com.ibm.ws.runtime.update.RuntimeU
+ pdateListener",osgi.service;objectClass:List<String>="com.ibm.ws.webs
+ erver.plugin.runtime.interfaces.PluginConfigRequester",osgi.service;o
+ bjectClass:List<String>="com.ibm.wsspi.webcontainer.collaborator.WebA
+ ppInitializationCollaborator"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.webcontainer.httpsessi
+ on.SessionManager)";effective:=active,osgi.service;filter:="(objectCl
+ ass=com.ibm.ws.webserver.plugin.runtime.interfaces.PluginUtilityConfi
+ gGenerator)";effective:=active;resolution:=optional;cardinality:=mult
+ iple,osgi.service;filter:="(objectClass=com.ibm.wsspi.kernel.service.
+ location.WsLocationAdmin)";effective:=active,osgi.service;filter:="(o
+ bjectClass=com.ibm.wsspi.webcontainer.osgi.mbeans.GeneratePluginConfi
+ g)";effective:=active,osgi.service;filter:="(objectClass=java.util.co
+ ncurrent.ExecutorService)";effective:=active,osgi.extender;filter:="(
+ &(osgi.extender=osgi.component)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.webserver.plugin.runtime.collab
+ orators.GenPluginConfigCollaborator.xml,OSGI-INF/com.ibm.ws.webserver
+ .plugin.runtime.listeners.GeneratePluginConfigListener.xml,OSGI-INF/c
+ om.ibm.ws.webserver.plugin.runtime.requester.PluginConfigRequesterImp
+ l.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: PluginRuntime
+

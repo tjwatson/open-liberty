@@ -1,0 +1,77 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:59 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS Security Public APIs, version 1.1
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS Security Public APIs 
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.websphere.security; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.security;version="1.2.0";uses:="com.
+ ibm.websphere.ras.annotation,com.ibm.websphere.security.cred,com.ibm.
+ ws.ras.instrument.annotation,com.ibm.ws.security.intfc,org.osgi.frame
+ work,org.osgi.service.component",com.ibm.websphere.security.audit;ver
+ sion="1.0.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.i
+ nstrument.annotation,javax.security.auth",com.ibm.websphere.security.
+ audit.context;version="1.0.0";uses:="com.ibm.websphere.ras.annotation
+ ,com.ibm.ws.ras.instrument.annotation",com.ibm.websphere.security.aut
+ h;version="1.1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.web
+ sphere.security,com.ibm.ws.ras.instrument.annotation,com.ibm.ws.secur
+ ity.intfc,javax.security.auth,javax.security.auth.login,org.osgi.fram
+ ework,org.osgi.service.component",com.ibm.websphere.security.cred;ver
+ sion="1.2.0";uses:="com.ibm.websphere.security.auth,javax.security.au
+ th.login",com.ibm.ws.security.authentication.utility;version="1.0.0";
+ uses:="com.ibm.websphere.ras.annotation,com.ibm.websphere.security.cr
+ ed,com.ibm.ws.ras.instrument.annotation,javax.security.auth,org.ietf.
+ jgss",com.ibm.ws.security.core;version="1.1.0";uses:="com.ibm.websphe
+ re.ras.annotation,com.ibm.ws.ras.instrument.annotation",com.ibm.ws.se
+ curity.filemonitor;version="1.0.0";uses:="com.ibm.websphere.ras.annot
+ ation,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.kernel.filem
+ onitor,org.osgi.framework",com.ibm.ws.security.notifications;version=
+ "1.0.16";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instr
+ ument.annotation,org.osgi.framework,org.osgi.service.component",com.i
+ bm.ws.security.intfc;version="1.1.0";uses:="com.ibm.websphere.securit
+ y,javax.security.auth",com.ibm.ws.security.utils;version="1.1.0";uses
+ :="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.annotat
+ ion,com.ibm.wsspi.security.audit,org.osgi.framework,org.osgi.service.
+ component",com.ibm.wsspi.security.audit;version="1.0.0";uses:="com.ib
+ m.websphere.ras.annotation,com.ibm.websphere.security.audit,com.ibm.w
+ s.ras.instrument.annotation",com.ibm.wsspi.security.registry;version=
+ "1.1.0";uses:="com.ibm.websphere.ras.annotation,com.ibm.websphere.sec
+ urity,com.ibm.ws.ras.instrument.annotation,com.ibm.ws.security.intfc,
+ org.osgi.framework,org.osgi.service.component"
+Import-Package: com.ibm.ejs.ras;version="[1.0,2)",com.ibm.websphere.ra
+ s;version="[1.2,2)",com.ibm.websphere.ras.annotation;version="[1.0,2)
+ ",com.ibm.websphere.security;version="[1.2,2)",com.ibm.websphere.secu
+ rity.audit;version="[1.0,2)",com.ibm.websphere.security.auth;version=
+ "[1.1,1.2)",com.ibm.websphere.security.cred;version="[1.2,2)",com.ibm
+ .ws.ffdc;version="[1.0,2)",com.ibm.ws.kernel.security.thread;version=
+ "[1.0,2)",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.
+ ibm.ws.security.intfc;version="[1.1,2)",com.ibm.ws.security.utils;ver
+ sion="[1.1,2)",com.ibm.wsspi.kernel.filemonitor;version="[1.0,2)",com
+ .ibm.wsspi.kernel.service.utils;version="[1.4,2)",com.ibm.wsspi.secur
+ ity.audit;version="[1.0,2)",javax.security.auth,javax.security.auth.k
+ erberos,javax.security.auth.login,org.ietf.jgss,org.osgi.framework;ve
+ rsion="[1.9,2)",org.osgi.service.component;version="[1.4,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.wsspi.security.audit.Audi
+ tService)";effective:=active;resolution:=optional,osgi.extender;filte
+ r:="(&(osgi.extender=osgi.component)(version>=1.4.0)(!(version>=2.0.0
+ )))"
+Service-Component: OSGI-INF/wsSubjectService.xml,OSGI-INF/wsSecurityHe
+ lperService.xml,OSGI-INF/registryHelperService.xml,OSGI-INF/com.ibm.w
+ s.security.utils.SecurityUtils.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: security
+

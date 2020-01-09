@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.library.internal.SharedLibraryFactory" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.pid" type="String" value="com.ibm.ws.classloading.sharedlibrary"/>
+  <service>
+    <provide interface="org.osgi.service.cm.ManagedServiceFactory"/>
+    <provide interface="com.ibm.wsspi.kernel.equinox.module.ModuleDelegateClassLoaderFactory"/>
+    <provide interface="com.ibm.ws.classloading.LibraryAccess"/>
+  </service>
+  <reference name="ArtifactContainerFactory" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" bind="setArtifactContainerFactory" unbind="unsetArtifactContainerFactory"/>
+  <reference name="ClassLoadingService" interface="com.ibm.wsspi.classloading.ClassLoadingService" bind="setClassLoadingService" unbind="unsetClassLoadingService"/>
+  <reference name="ConfigAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+  <reference name="Digrah" interface="org.eclipse.equinox.region.RegionDigraph" bind="setDigrah"/>
+  <reference name="LocationService" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <implementation class="com.ibm.ws.library.internal.SharedLibraryFactory"/>
+</scr:component>

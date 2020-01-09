@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.container.service.app.deploy.extended.ApplicationInfoFactory">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.app.deploy.extended.ApplicationInfoFactory"/>
+  </service>
+  <reference name="j2eeNameFactory" cardinality="1..1" interface="com.ibm.websphere.csi.J2EENameFactory" bind="setJ2eeNameFactory" unbind="unsetJ2eeNameFactory"/>
+  <implementation class="com.ibm.ws.container.service.app.deploy.internal.ApplicationInfoFactoryImpl"/>
+</component>

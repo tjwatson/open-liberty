@@ -1,0 +1,98 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:24:30 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: com.ibm.ws.app.manager.module
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.app.manager.module
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.app.manager.module;version="1.0.16";uses:="
+ com.ibm.websphere.ras.annotation,com.ibm.ws.app.manager.module.intern
+ al,com.ibm.ws.classloading.java2sec,com.ibm.ws.container.service.app.
+ deploy,com.ibm.ws.container.service.app.deploy.extended,com.ibm.ws.co
+ ntainer.service.metadata,com.ibm.ws.container.service.metadata.extend
+ ed,com.ibm.ws.container.service.state,com.ibm.ws.ras.instrument.annot
+ ation,com.ibm.ws.runtime.metadata,com.ibm.ws.threading,com.ibm.wsspi.
+ adaptable.module,com.ibm.wsspi.application.handler,com.ibm.wsspi.arti
+ fact.factory,com.ibm.wsspi.classloading,com.ibm.wsspi.kernel.service.
+ location,com.ibm.wsspi.library,org.osgi.framework,org.osgi.service.cm
+ ",com.ibm.ws.app.manager.module.internal;version="1.0.16";uses:="com.
+ ibm.websphere.ras.annotation,com.ibm.ws.app.manager.module,com.ibm.ws
+ .classloading.java2sec,com.ibm.ws.container.service.app.deploy,com.ib
+ m.ws.container.service.app.deploy.extended,com.ibm.ws.container.servi
+ ce.metadata,com.ibm.ws.container.service.metadata.extended,com.ibm.ws
+ .container.service.state,com.ibm.ws.javaee.dd.common,com.ibm.ws.ras.i
+ nstrument.annotation,com.ibm.ws.runtime.metadata,com.ibm.ws.threading
+ ,com.ibm.wsspi.adaptable.module,com.ibm.wsspi.application.handler,com
+ .ibm.wsspi.artifact.factory,com.ibm.wsspi.classloading,com.ibm.wsspi.
+ kernel.service.location,com.ibm.wsspi.library,org.osgi.framework,org.
+ osgi.service.cm,org.osgi.service.component"
+Import-Package: com.ibm.ws.classloading.java2sec;version="[1.0,2)",com
+ .ibm.ws.container.service.app.deploy;version="[2.2,3)",com.ibm.websph
+ ere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;version="[
+ 1.0,2)",com.ibm.ws.app.manager.module;version="[1.0,2)",com.ibm.ws.ap
+ p.manager.module.internal;version="[1.0,2)",com.ibm.ws.classloading;v
+ ersion="[1.0,2)",com.ibm.ws.container.service.app.deploy.extended;ver
+ sion="[1.0,2)",com.ibm.ws.container.service.metadata;version="[1.0,2)
+ ",com.ibm.ws.container.service.metadata.extended;version="[1.0,2)",co
+ m.ibm.ws.container.service.state;version="[1.0,2)",com.ibm.ws.ffdc;ve
+ rsion="[1.0,2)",com.ibm.ws.javaee.dd.client;version="[1.0,2)",com.ibm
+ .ws.javaee.dd.common;version="[1.2,2)",com.ibm.ws.javaee.dd.connector
+ ;version="[1.0,2)",com.ibm.ws.javaee.dd.ejb;version="[1.1,2)",com.ibm
+ .ws.javaee.dd.permissions;version="[1.0,2)",com.ibm.ws.javaee.dd.web;
+ version="[1.2,2)",com.ibm.ws.javaee.dd.webext;version="[1.0,2)",com.i
+ bm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws.runtime.
+ metadata;version="[1.1,2)",com.ibm.ws.threadContext;version="[1.1,2)"
+ ,com.ibm.ws.threading;version="[1.0,2)",com.ibm.ws.threading.listener
+ s;version="[1.0,2)",com.ibm.wsspi.adaptable.module;version="[1.0,2)",
+ com.ibm.wsspi.application.handler;version="[1.2,2)",com.ibm.wsspi.art
+ ifact;version="[1.0,2)",com.ibm.wsspi.artifact.factory;version="[1.0,
+ 2)",com.ibm.wsspi.classloading;version="[1.5,2)",com.ibm.wsspi.config
+ ;version="[1.0,2)",com.ibm.wsspi.kernel.service.location;version="[1.
+ 2,2)",com.ibm.wsspi.kernel.service.utils;version="[1.4,2)",com.ibm.ws
+ spi.library;version="[1.2,2)",org.osgi.framework;version="[1.9,2)",or
+ g.osgi.service.cm;version="[1.6,2)",org.osgi.service.component;versio
+ n="[1.4,2)"
+Private-Package: com.ibm.ws.app.manager.module.internal.resources
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ app.manager.module.DeployedAppServices"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.classloading.java2sec.
+ PermissionManager)";effective:=active;resolution:=optional,osgi.servi
+ ce;filter:="(objectClass=com.ibm.ws.container.service.app.deploy.exte
+ nded.ApplicationInfoFactory)";effective:=active,osgi.service;filter:=
+ "(objectClass=com.ibm.ws.container.service.metadata.MetaDataService)"
+ ;effective:=active,osgi.service;filter:="(objectClass=com.ibm.ws.cont
+ ainer.service.metadata.extended.ModuleMetaDataExtender)";effective:=a
+ ctive;resolution:=optional;cardinality:=multiple,osgi.service;filter:
+ ="(objectClass=com.ibm.ws.container.service.metadata.extended.NestedM
+ oduleMetaDataFactory)";effective:=active;resolution:=optional;cardina
+ lity:=multiple,osgi.service;filter:="(objectClass=com.ibm.ws.containe
+ r.service.state.StateChangeService)";effective:=active,osgi.service;f
+ ilter:="(objectClass=com.ibm.ws.threading.FutureMonitor)";effective:=
+ active,osgi.service;filter:="(objectClass=com.ibm.wsspi.adaptable.mod
+ ule.AdaptableModuleFactory)";effective:=active,osgi.service;filter:="
+ (objectClass=com.ibm.wsspi.artifact.factory.ArtifactContainerFactory)
+ ";effective:=active,osgi.service;filter:="(objectClass=com.ibm.wsspi.
+ classloading.ClassLoadingService)";effective:=active,osgi.service;fil
+ ter:="(objectClass=com.ibm.wsspi.kernel.service.location.WsLocationAd
+ min)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.ws
+ spi.library.Library)";effective:=active,osgi.service;filter:="(object
+ Class=org.osgi.service.cm.ConfigurationAdmin)";effective:=active,osgi
+ .extender;filter:="(&(osgi.extender=osgi.component)(version>=1.4.0)(!
+ (version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.app.manager.module.internal.Dep
+ loyedAppServicesImpl.xml
+Tool: Bnd-4.1.0.201810181252
+

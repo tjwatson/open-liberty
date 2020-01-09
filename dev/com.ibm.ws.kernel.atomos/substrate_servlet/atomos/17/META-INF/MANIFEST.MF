@@ -1,0 +1,57 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:20:46 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebSphere kernel file monitor service, version 1.0
+  (for Java 1.6 and lower)
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebSphere kernel file monitor service
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.kernel.filemonitor; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.filemonitor;version="1.0",com.ibm.ws
+ spi.kernel.filemonitor;version="1.0.16";ibm-spi-type=spi,com.ibm.ws.k
+ ernel.filemonitor;version="1.0.0";uses:="com.ibm.wsspi.kernel.filemon
+ itor"
+Import-Package: com.ibm.websphere.filemonitor;version="[1.0,1.1)",com.
+ ibm.websphere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;
+ version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.kernel
+ ;version="[1.0,2)",com.ibm.ws.kernel.filemonitor;version="[1.0,1.1)",
+ com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.wsspi.
+ kernel.filemonitor;version="[1.0,2)",com.ibm.wsspi.kernel.service.loc
+ ation;version="[1.2,2)",com.ibm.wsspi.kernel.service.utils;version="[
+ 1.4,2)",javax.management,org.osgi.framework;version="[1.9,2)",org.osg
+ i.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.kernel.filemonitor.internal.scan,com.ibm.w
+ s.kernel.filemonitor.internal.resources,com.ibm.ws.kernel.filemonitor
+ .internal
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ kernel.filemonitor.FileNotification,com.ibm.wsspi.kernel.service.util
+ s.ServerQuiesceListener",osgi.service;objectClass:List<String>="javax
+ .management.DynamicMBean"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.kernel.LibertyProcess)
+ ";effective:=active,osgi.service;filter:="(objectClass=com.ibm.ws.ker
+ nel.filemonitor.FileNotification)";effective:=active,osgi.service;fil
+ ter:="(objectClass=com.ibm.wsspi.kernel.filemonitor.FileMonitor)";eff
+ ective:=active;resolution:=optional;cardinality:=multiple,osgi.servic
+ e;filter:="(objectClass=com.ibm.wsspi.kernel.service.location.WsLocat
+ ionAdmin)";effective:=active,osgi.service;filter:="(objectClass=java.
+ util.concurrent.ScheduledExecutorService)";effective:=active,osgi.ext
+ ender;filter:="(&(osgi.extender=osgi.component)(version>=1.4.0)(!(ver
+ sion>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.kernel.filemonitor.internal.Fil
+ eNotificationImpl.xml,OSGI-INF/com.ibm.ws.kernel.filemonitor.internal
+ .scan.ScanningCoreServiceImpl.xml
+Tool: Bnd-4.1.0.201810181252
+

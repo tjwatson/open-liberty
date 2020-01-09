@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.config.schemagen.internal.ServerSchemaGeneratorImpl" activate="activate" deactivate="deactivate">
+  <property name="jmx.objectname" type="String" value="WebSphere:name=com.ibm.ws.config.serverSchemaGenerator"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.config.mbeans.ServerSchemaGenerator"/>
+  </service>
+  <reference name="locationAdmin" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationAdmin" unbind="unsetLocationAdmin"/>
+  <reference name="schemaGen" interface="com.ibm.websphere.metatype.SchemaGenerator" bind="setSchemaGen" unbind="unsetSchemaGen"/>
+  <implementation class="com.ibm.ws.config.schemagen.internal.ServerSchemaGeneratorImpl"/>
+</scr:component>

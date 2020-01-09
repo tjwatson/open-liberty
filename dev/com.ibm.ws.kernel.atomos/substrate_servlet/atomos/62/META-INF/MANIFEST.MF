@@ -1,0 +1,52 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:33:29 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebContainer Cross-Origin Resource Sharing (CORS) 
+ Support; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebContainer CORS Support 
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.webcontainer.cors
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.webcontainer.cors.config;version="1.0.16";u
+ ses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.anno
+ tation,org.osgi.service.component"
+Import-Package: javax.servlet.http;version="[2.6,3)",com.ibm.ejs.ras;v
+ ersion="[1.0,2)",com.ibm.websphere.ras;version="[1.2,2)",com.ibm.webs
+ phere.ras.annotation;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,
+ 2)",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws
+ .webcontainer.cors.config;version="[1.0,2)",com.ibm.ws.webcontainer.o
+ sgi.interceptor;version="[1.1,2)",com.ibm.wsspi.kernel.service.utils;
+ version="[1.4,2)",org.osgi.framework;version="[1.9,2)",org.osgi.servi
+ ce.component;version="[1.4,2)",javax.servlet;version="[2.6,3)",javax.
+ servlet.annotation;version="[2.6,3)",javax.servlet.descriptor;version
+ ="[2.6,3)",javax.servlet.resources;version="[2.6,3)"
+Private-Package: com.ibm.ws.webcontainer.cors,com.ibm.ws.webcontainer.
+ cors.internal.resources,com.ibm.ws.webcontainer.cors.internal
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ webcontainer.cors.CorsHelper",osgi.service;objectClass:List<String>="
+ com.ibm.ws.webcontainer.cors.config.CorsConfig",osgi.service;objectCl
+ ass:List<String>="com.ibm.ws.webcontainer.osgi.interceptor.RequestInt
+ erceptor"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.webcontainer.cors.Cors
+ Helper)";effective:=active,osgi.service;filter:="(objectClass=com.ibm
+ .ws.webcontainer.cors.config.CorsConfig)";effective:=active;resolutio
+ n:=optional;cardinality:=multiple,osgi.extender;filter:="(&(osgi.exte
+ nder=osgi.component)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.webcontainer.cors.CorsHelper.xm
+ l,OSGI-INF/com.ibm.ws.webcontainer.cors.request.interceptor.xml,OSGI-
+ INF/com.ibm.ws.webcontainer.cors.config.CorsConfig.xml
+Tool: Bnd-4.1.0.201810181252
+

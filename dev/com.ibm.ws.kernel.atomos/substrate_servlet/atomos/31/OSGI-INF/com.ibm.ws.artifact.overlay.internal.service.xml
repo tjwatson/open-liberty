@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.artifact.overlay.internal.service" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.artifact.overlay.OverlayContainerFactory"/>
+  </service>
+  <reference name="containerFactory" cardinality="1..1" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" target="(&amp;(category=DIR)(category=JAR))" bind="setContainerFactory" unbind="unsetContainerFactory"/>
+  <implementation class="com.ibm.ws.artifact.overlay.internal.OverlayContainerFactoryImpl"/>
+</scr:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.artifact.file.service" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="category" type="String" value="DIR"/>
+  <property name="handlesType" type="String" value="java.io.File"/>
+  <service>
+    <provide interface="com.ibm.ws.artifact.contributor.ArtifactContainerFactoryHelper"/>
+  </service>
+  <reference name="containerFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" bind="setContainerFactory" unbind="unsetContainerFactory"/>
+  <implementation class="com.ibm.ws.artifact.file.internal.FileContainerFactory"/>
+</scr:component>

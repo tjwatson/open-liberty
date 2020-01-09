@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.webext.WebExtComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.webext.WebExt">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.webext.WebExt"/>
+  </service>
+  <reference name="file-serving-attribute" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.webext.Attribute" target="(id=unbound)" bind="setFile_serving_attribute" unbind="unsetFile_serving_attribute"/>
+  <reference name="invoker-attribute" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.webext.Attribute" target="(id=unbound)" bind="setInvoker_attribute" unbind="unsetInvoker_attribute"/>
+  <reference name="jsp-attribute" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.webext.Attribute" target="(id=unbound)" bind="setJsp_attribute" unbind="unsetJsp_attribute"/>
+  <reference name="mime-filter" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.webext.MimeFilter" target="(id=unbound)" bind="setMime_filter" unbind="unsetMime_filter"/>
+  <reference name="resource-ref" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.commonext.ResourceRef" target="(id=unbound)" bind="setResource_ref" unbind="unsetResource_ref"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.webext.WebExtComponentImpl"/>
+</scr:component>

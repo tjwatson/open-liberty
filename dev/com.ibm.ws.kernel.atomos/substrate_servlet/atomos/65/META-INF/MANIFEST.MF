@@ -1,0 +1,43 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:28 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Managed Object Service; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Managed Object
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.managedobject
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.managedobject;version="1.0.0";thread-contex
+ t=true;uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrum
+ ent.annotation,com.ibm.ws.runtime.metadata,com.ibm.wsspi.injectioneng
+ ine"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)
+ ",com.ibm.ws.managedobject;version="[1.0,1.1)",com.ibm.ws.ras.instrum
+ ent.annotation;version="[1.0,2)",com.ibm.ws.runtime.metadata;version=
+ "[1.1,2)",com.ibm.ws.serialization,com.ibm.wsspi.injectionengine;vers
+ ion="[3.0,4)"
+Private-Package: com.ibm.ws.managedobject.internal;version="1.0.0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ managedobject.DefaultManagedObjectService,com.ibm.ws.managedobject.Ma
+ nagedObjectService"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version>=1.4
+ .0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.managedobject.deserialization.x
+ ml,OSGI-INF/com.ibm.ws.managedobject.internal.ManagedObjectServiceImp
+ l.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: managedobject
+

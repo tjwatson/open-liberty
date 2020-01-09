@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webserver.plugin.runtime.listeners.GeneratePluginConfigListener" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.state.ApplicationStateListener"/>
+    <provide interface="com.ibm.ws.runtime.update.RuntimeUpdateListener"/>
+    <provide interface="com.ibm.ws.container.service.state.ModuleStateListener"/>
+  </service>
+  <reference name="Executor" cardinality="1..1" interface="java.util.concurrent.ExecutorService" bind="setExecutor" unbind="unsetExecutor"/>
+  <reference name="GeneratePluginConfig" cardinality="1..1" interface="com.ibm.wsspi.webcontainer.osgi.mbeans.GeneratePluginConfig" bind="setGeneratePluginConfig" unbind="unsetGeneratePluginConfig"/>
+  <reference name="LocationService" cardinality="1..1" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <reference name="SessionManager" cardinality="1..1" interface="com.ibm.ws.webcontainer.httpsession.SessionManager" bind="setSessionManager" unbind="unsetSessionManager"/>
+  <implementation class="com.ibm.ws.webserver.plugin.runtime.listeners.GeneratePluginConfigListener"/>
+</scr:component>

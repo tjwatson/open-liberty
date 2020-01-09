@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.http.internal.HttpProxyRedirect" configuration-policy="require" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.http.proxyredirect">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.http.internal.HttpProxyRedirect"/>
+  </service>
+  <implementation class="com.ibm.ws.http.internal.HttpProxyRedirect"/>
+</scr:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.jsp.taglib.InjectionService" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.webcontainer.collaborator.WebAppInjectionClassListCollaborator"/>
+  </service>
+  <implementation class="com.ibm.ws.jsp.taglib.InjectionServiceImpl"/>
+</component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.adaptable.module.factory.server" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.AdaptableModuleFactory"/>
+  </service>
+  <reference name="adapterFactoryService" cardinality="1..1" interface="com.ibm.wsspi.adaptable.module.adapters.AdapterFactoryService" bind="setAdapterFactoryService" unbind="unsetAdapterFactoryService"/>
+  <reference name="containerFactory" cardinality="1..1" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" target="(&amp;(category=DIR)(category=JAR)(category=LOOSE))" bind="setContainerFactory" unbind="unsetContainerFactory"/>
+  <reference name="overlayContainerFactory" cardinality="1..1" interface="com.ibm.wsspi.artifact.overlay.OverlayContainerFactory" bind="setOverlayContainerFactory" unbind="unsetOverlayContainerFactory"/>
+  <implementation class="com.ibm.ws.adaptable.module.internal.AdaptableModuleFactoryImpl"/>
+</scr:component>

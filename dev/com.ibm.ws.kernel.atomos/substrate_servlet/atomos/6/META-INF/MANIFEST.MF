@@ -1,0 +1,42 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.eclipse.equinox.metatype
+Bnd-LastModified: 1576765291464
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:31 CST 2019
+Bundle-Activator: org.eclipse.equinox.metatype.impl.Activator
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Equinox Metatype, version 1.4.200
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Equinox Metatype
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.eclipse.equinox.metatype
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.eclipse.equinox.metatype;version="1.3.0";uses:="or
+ g.osgi.framework,org.osgi.service.metatype",org.osgi.service.metatype
+ ;version="1.4.0";uses:="org.osgi.framework"
+Import-Package: javax.xml.parsers,org.eclipse.equinox.metatype;version
+ ="[1.3,2)",org.eclipse.osgi.util,org.osgi.framework,org.osgi.framewor
+ k.wiring,org.osgi.service.cm,org.osgi.service.log,org.osgi.service.me
+ tatype;version="[1.4,1.5)",org.osgi.util.tracker,org.xml.sax,org.xml.
+ sax.helpers
+Private-Package: org.eclipse.equinox.metatype.impl
+Provide-Capability: osgi.implementation;osgi.implementation="osgi.meta
+ type";version:Version="1.3";uses:="org.osgi.service.metatype",osgi.ex
+ tender;osgi.extender="osgi.metatype";version:Version="1.3";uses:="org
+ .osgi.service.metatype",osgi.service;objectClass:List<String>="org.os
+ gi.service.metatype.MetaTypeService";uses:="org.osgi.service.metatype
+ "
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

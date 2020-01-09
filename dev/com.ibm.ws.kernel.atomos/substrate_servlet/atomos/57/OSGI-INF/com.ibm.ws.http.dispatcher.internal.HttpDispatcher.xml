@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.http.dispatcher.internal.HttpDispatcher" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.http.dispatcher">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.http.dispatcher.internal.HttpDispatcher"/>
+  </service>
+  <reference name="Behavior" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.http.ee7.HttpTransportBehavior" bind="setBehavior" unbind="unsetBehavior" policy-option="greedy"/>
+  <reference name="WebContainer" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.http.VirtualHostListener" target="(service.pid=com.ibm.ws.webcontainer)" bind="setWebContainer" unbind="unsetWebContainer" updated="updatedWebContainer" policy-option="greedy"/>
+  <reference name="approxTime" policy="dynamic" interface="com.ibm.wsspi.timer.ApproximateTime" bind="setApproxTime" unbind="unsetApproxTime"/>
+  <reference name="chfwBundle" interface="com.ibm.websphere.channelfw.osgi.CHFWBundle" bind="setChfwBundle" unbind="unsetChfwBundle"/>
+  <reference name="encodingUtils" interface="com.ibm.wsspi.http.EncodingUtils" bind="setEncodingUtils" unbind="unsetEncodingUtils"/>
+  <reference name="eventService" interface="com.ibm.websphere.event.EventEngine" bind="setEventService" unbind="unsetEventService"/>
+  <reference name="executorService" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="workClassifier" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.http.WorkClassifier" bind="setWorkClassifier" unbind="unsetWorkClassifier"/>
+  <implementation class="com.ibm.ws.http.dispatcher.internal.HttpDispatcher"/>
+</scr:component>

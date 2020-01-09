@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.logging.internal.ffdcjanitor">
+  <reference name="scheduler" cardinality="1..1" interface="java.util.concurrent.ScheduledExecutorService" bind="setScheduler" unbind="unsetScheduler"/>
+  <implementation class="com.ibm.ws.logging.internal.osgi.FFDCJanitor"/>
+</scr:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer.cors.request.interceptor" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="InterceptPoint" type="String" value="AfterFilters"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.ranking" type="Integer" value="2147483647"/>
+  <service>
+    <provide interface="com.ibm.ws.webcontainer.osgi.interceptor.RequestInterceptor"/>
+  </service>
+  <reference name="corsHelper" interface="com.ibm.ws.webcontainer.cors.CorsHelper" bind="setCorsHelper" unbind="unsetCorsHelper"/>
+  <implementation class="com.ibm.ws.webcontainer.cors.CorsRequestInterceptor"/>
+</scr:component>

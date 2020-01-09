@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.container.service.metadata.MetaDataSlotService">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service servicefactory="true">
+    <provide interface="com.ibm.ws.container.service.metadata.MetaDataSlotService"/>
+  </service>
+  <reference name="metaDataService" cardinality="1..1" interface="com.ibm.ws.container.service.metadata.internal.MetaDataServiceImpl" bind="setMetaDataService" unbind="unsetMetaDataService"/>
+  <implementation class="com.ibm.ws.container.service.metadata.internal.MetaDataSlotServiceImpl"/>
+</scr:component>

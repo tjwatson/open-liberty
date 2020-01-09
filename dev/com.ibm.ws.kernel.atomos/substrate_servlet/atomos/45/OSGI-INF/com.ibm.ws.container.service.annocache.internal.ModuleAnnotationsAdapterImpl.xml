@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.container.service.annocache.internal.ModuleAnnotationsAdapterImpl" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.container.service.annocache.ModuleAnnotations"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="annoCacheService" interface="com.ibm.wsspi.annocache.service.AnnotationCacheService_Service" field="annoCacheService"/>
+  <implementation class="com.ibm.ws.container.service.annocache.internal.ModuleAnnotationsAdapterImpl"/>
+</scr:component>

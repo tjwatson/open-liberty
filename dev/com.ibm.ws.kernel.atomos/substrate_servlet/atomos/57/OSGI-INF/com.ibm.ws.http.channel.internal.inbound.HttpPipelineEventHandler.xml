@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.http.channel.internal.inbound.HttpPipelineEventHandler" activate="activate" deactivate="deactivate" configuration-pid="com.ibm.ws.http.HttpPipelineEventHandler">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="event.topics" type="String" value="com/ibm/ws/http/channel/events/PIPELINING"/>
+  <service>
+    <provide interface="com.ibm.websphere.event.EventHandler"/>
+  </service>
+  <implementation class="com.ibm.ws.http.channel.internal.inbound.HttpPipelineEventHandler"/>
+</scr:component>

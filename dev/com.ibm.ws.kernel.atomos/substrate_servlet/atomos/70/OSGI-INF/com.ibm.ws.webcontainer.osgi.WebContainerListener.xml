@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer.osgi.WebContainerListener" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="deferredMetaData" type="String" value="WEB"/>
+  <property name="supportsDeferredInit" type="Boolean" value="true"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.metadata.ModuleMetaDataListener"/>
+    <provide interface="org.osgi.framework.AllServiceListener"/>
+    <provide interface="com.ibm.ws.container.service.state.ApplicationStateListener"/>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+    <provide interface="com.ibm.ws.container.service.metadata.extended.DeferredMetaDataFactory"/>
+  </service>
+  <reference name="JEENameFactory" interface="com.ibm.websphere.csi.J2EENameFactory" bind="setJEENameFactory"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.WebContainerListener"/>
+</scr:component>

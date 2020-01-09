@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.resource.ResourceRefConfigFactory">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.resource.ResourceConfigFactory"/>
+    <provide interface="com.ibm.ws.resource.ResourceRefConfigFactory"/>
+  </service>
+  <implementation class="com.ibm.ws.resource.internal.ResourceRefConfigFactoryImpl"/>
+</component>

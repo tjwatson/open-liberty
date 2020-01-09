@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.kernel.server.internal.ServerEndpointControlMBeanImpl" configuration-policy="ignore" immediate="true">
+  <property name="jmx.objectname" type="String" value="WebSphere:feature=kernel,name=ServerEndpointControl"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.kernel.server.ServerEndpointControlMBean"/>
+  </service>
+  <reference name="pauseableComponentController" cardinality="1..1" policy="static" interface="com.ibm.ws.kernel.launch.service.PauseableComponentController" policy-option="greedy" field="pauseableComponentController"/>
+  <implementation class="com.ibm.ws.kernel.server.internal.ServerEndpointControlMBeanImpl"/>
+</scr:component>

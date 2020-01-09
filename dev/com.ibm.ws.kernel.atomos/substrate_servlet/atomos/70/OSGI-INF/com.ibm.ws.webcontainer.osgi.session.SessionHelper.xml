@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer.osgi.session.SessionHelper">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.webcontainer.osgi.session.SessionHelper"/>
+  </service>
+  <reference name="SessionContextRegistryImplFactory" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.session.impl.SessionContextRegistryImplFactory" bind="setSessionContextRegistryImplFactory" unbind="unsetSessionContextRegistryImplFactory" policy-option="greedy"/>
+  <reference name="SessionManager" cardinality="1..1" policy="dynamic" interface="com.ibm.ws.webcontainer.httpsession.SessionManager" bind="setSessionManager" unbind="unsetSessionManager"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.session.SessionHelper"/>
+</scr:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.appbnd.ApplicationBndAdapter" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.javaee.dd.appbnd.ApplicationBnd"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="configurations" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.appbnd.ApplicationBnd" policy-option="greedy" field="configurations" field-collection-type="service"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.appbnd.ApplicationBndAdapter"/>
+</scr:component>

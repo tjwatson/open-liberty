@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer.osgi.webapp.WebAppInjectionClassListAdapter" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.webcontainer.osgi.webapp.WebAppInjectionClassList"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+    <provide interface="com.ibm.ws.container.service.app.deploy.InjectionClassListProvider"/>
+  </service>
+  <reference name="webAppInjectionClassListCollaborators" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.webcontainer.collaborator.WebAppInjectionClassListCollaborator" bind="setWebAppInjectionClassListCollaborators" unbind="unsetWebAppInjectionClassListCollaborators" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.webcontainer.osgi.webapp.WebAppInjectionClassListAdapter"/>
+</scr:component>

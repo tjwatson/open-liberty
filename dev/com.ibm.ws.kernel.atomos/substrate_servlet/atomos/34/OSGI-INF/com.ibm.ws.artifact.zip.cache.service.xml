@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.artifact.zip.cache.service" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.artifact.zip.cache.ZipCachingService"/>
+  </service>
+  <implementation class="com.ibm.ws.artifact.zip.cache.internal.ZipCachingServiceImpl"/>
+</scr:component>

@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:08 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: JavaEE Deployment Descriptor API service, version 
+ 1.1
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: JavaEE Deployment Descriptor API service
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.javaee.dd.common
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.javaee.dd.common;version="1.2.0";uses:="com
+ .ibm.ws.javaee.dd.common.wsclient",com.ibm.ws.javaee.dd.common.wsclie
+ nt;version="1.0.0";uses:="com.ibm.ws.javaee.dd.common"
+Import-Package: com.ibm.ws.javaee.dd.common;version="[1.2,2)",com.ibm.
+ ws.javaee.dd.common.wsclient;version="[1.0,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

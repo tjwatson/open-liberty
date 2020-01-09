@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.jsp23.translator.visitor.validator.ElValidatorExtFactoryImpl">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.jsp.translator.visitor.validator.ElValidatorExtFactory"/>
+  </service>
+  <implementation class="com.ibm.ws.jsp23.translator.visitor.validator.ElValidatorExtFactoryImpl"/>
+</scr:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.artifact.zip.cache.internal.ZipCachingIntrospector" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <reference name="ZipCachingService" interface="com.ibm.ws.artifact.zip.cache.ZipCachingService" bind="setZipCachingService" unbind="unsetZipCachingService"/>
+  <implementation class="com.ibm.ws.artifact.zip.cache.internal.ZipCachingIntrospector"/>
+</scr:component>

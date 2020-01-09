@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev</groupId>
+  <artifactId>com.ibm.ws.org.apache.felix.gogo.command</artifactId>
+  <version>1.0.36.201912190818</version>
+  <description>Provides basic shell commands for Gogo.</description>
+  <name>Apache Felix Gogo Command</name>
+  <url>http://www.apache.org/</url>
+  <organization>
+    <name>The Apache Software Foundation</name>
+  </organization>
+  <licenses>
+    <license>
+      <name>http://www.apache.org/licenses/LICENSE-2.0.txt</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/OpenLiberty/open-liberty.git</connection>
+    <developerConnection>scm:git:https://github.com:OpenLiberty/open-liberty.git</developerConnection>
+    <url>https://github.com/OpenLiberty/open-liberty/tree/master</url>
+  </scm>
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.ear.internal.EARDeployedAppInfoFactoryImpl">
+  <property name="type" type="String" value="ear"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.app.manager.module.DeployedAppInfoFactory"/>
+  </service>
+  <reference name="ApplicationManager" interface="com.ibm.ws.app.manager.ApplicationManager" bind="setApplicationManager" unbind="unsetApplicationManager"/>
+  <reference name="ClientModuleHandler" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.app.manager.module.internal.ModuleHandler" target="(type=client)" bind="setClientModuleHandler" unbind="unsetClientModuleHandler" policy-option="greedy"/>
+  <reference name="ConnectorModuleHandler" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.app.manager.module.internal.ModuleHandler" target="(type=connector)" bind="setConnectorModuleHandler" unbind="unsetConnectorModuleHandler" policy-option="greedy"/>
+  <reference name="DeployedAppMBeanRuntime" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.app.manager.module.DeployedAppMBeanRuntime" bind="setDeployedAppMBeanRuntime" unbind="unsetDeployedAppMBeanRuntime" policy-option="greedy"/>
+  <reference name="EjbModuleHandler" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.app.manager.module.internal.ModuleHandler" target="(type=ejb)" bind="setEjbModuleHandler" unbind="unsetEjbModuleHandler" policy-option="greedy"/>
+  <reference name="Version" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.version.JavaEEVersion" bind="setVersion" unbind="unsetVersion" policy-option="greedy"/>
+  <reference name="WebModuleHandler" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.app.manager.module.internal.ModuleHandler" target="(type=web)" bind="setWebModuleHandler" unbind="unsetWebModuleHandler" policy-option="greedy"/>
+  <reference name="deployedAppServices" interface="com.ibm.ws.app.manager.module.DeployedAppServices" field="deployedAppServices"/>
+  <implementation class="com.ibm.ws.app.manager.ear.internal.EARDeployedAppInfoFactoryImpl"/>
+</scr:component>

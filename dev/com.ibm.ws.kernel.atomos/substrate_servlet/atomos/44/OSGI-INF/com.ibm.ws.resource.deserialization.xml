@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.resource.deserialization">
+  <property name="classes" type="String" value="com.ibm.ws.resource.internal.ResourceRefConfigImpl"/>
+  <service>
+    <provide interface="com.ibm.ws.serialization.DeserializationClassProvider"/>
+  </service>
+  <implementation class="com.ibm.ws.serialization.DeserializationClassProvider"/>
+</component>

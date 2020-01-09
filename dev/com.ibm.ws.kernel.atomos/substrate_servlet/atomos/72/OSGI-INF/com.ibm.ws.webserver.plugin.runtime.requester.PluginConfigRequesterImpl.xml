@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webserver.plugin.runtime.requester.PluginConfigRequesterImpl" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="jmx.objectname" type="String" value="WebSphere:feature=PluginUtility,name=PluginConfigRequester"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.webserver.plugin.runtime.interfaces.PluginConfigRequester"/>
+  </service>
+  <reference name="LocationAdmin" cardinality="1..1" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationAdmin" unbind="unsetLocationAdmin"/>
+  <reference name="PluginUtilityConfigGenerator" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.webserver.plugin.runtime.interfaces.PluginUtilityConfigGenerator" bind="setPluginUtilityConfigGenerator" unbind="unsetPluginUtilityConfigGenerator"/>
+  <implementation class="com.ibm.ws.webserver.plugin.runtime.requester.PluginConfigRequesterImpl"/>
+</scr:component>

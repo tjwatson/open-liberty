@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.javaee.dd.jsf.entry.adapter" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.javaee.dd.jsf.FacesConfig"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.EntryAdapter"/>
+  </service>
+  <reference name="version" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.version.FacesVersion" bind="setVersion" unbind="unsetVersion" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.jsf.FacesConfigEntryAdapter"/>
+</scr:component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.javaee.ddmodel.appbnd.SecurityRoleComponentImpl" configuration-policy="require" immediate="true" activate="activate" configuration-pid="com.ibm.ws.javaee.dd.appbnd.SecurityRole">
+  <property name="service.vendor" type="String" value=" IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.dd.appbnd.SecurityRole"/>
+  </service>
+  <reference name="group" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.appbnd.Group" target="(id=unbound)" bind="setGroup" unbind="unsetGroup"/>
+  <reference name="run-as" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.dd.appbnd.RunAs" target="(id=unbound)" field="run_as"/>
+  <reference name="special-subject" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.appbnd.SpecialSubject" target="(id=unbound)" bind="setSpecial_subject" unbind="unsetSpecial_subject"/>
+  <reference name="user" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.javaee.dd.appbnd.User" target="(id=unbound)" bind="setUser" unbind="unsetUser"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.appbnd.SecurityRoleComponentImpl"/>
+</scr:component>

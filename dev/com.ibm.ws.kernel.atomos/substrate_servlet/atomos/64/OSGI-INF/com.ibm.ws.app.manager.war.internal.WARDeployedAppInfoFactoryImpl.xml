@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.war.internal.WARDeployedAppInfoFactoryImpl">
+  <property name="type" type="String" value="war"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.app.manager.module.DeployedAppInfoFactory"/>
+  </service>
+  <reference name="applicationManager" interface="com.ibm.ws.app.manager.ApplicationManager" field="applicationManager"/>
+  <reference name="deployedAppServices" interface="com.ibm.ws.app.manager.module.DeployedAppServices" field="deployedAppServices"/>
+  <reference name="webModuleHandler" interface="com.ibm.ws.app.manager.module.internal.ModuleHandler" target="(type=web)" field="webModuleHandler"/>
+  <implementation class="com.ibm.ws.app.manager.war.internal.WARDeployedAppInfoFactoryImpl"/>
+</scr:component>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="wsSubjectService" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="subjectManagerService" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.security.intfc.SubjectManagerService" bind="setSubjectManagerService" unbind="unsetSubjectManagerService"/>
+  <implementation class="com.ibm.websphere.security.auth.WSSubject"/>
+</scr:component>

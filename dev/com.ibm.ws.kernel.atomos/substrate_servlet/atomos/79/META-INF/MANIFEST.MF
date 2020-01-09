@@ -1,0 +1,56 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:30:18 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: facade to provide a classloader for our internal j
+ stl classes for osgi application jsp backwards compatibility; version
+ =1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: jstl facode
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.jsp.jstl.facade
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Import-Package: javax.el;version="[2.2.0,4.0.0)",javax.servlet.jsp;ver
+ sion="[2.2,3.0)",javax.servlet.jsp.el;version="[2.2,3.0)",javax.servl
+ et.jsp.resources;version="[2.2,3.0)",javax.servlet.jsp.tagext;version
+ ="[2.2,3.0)",javax.servlet.jsp.jstl.core;version="[1.2.0,2.0.0)",java
+ x.servlet.jsp.jstl.fmt;version="[1.2.0,2.0.0)",javax.servlet.jsp.jstl
+ .sql;version="[1.2.0,2.0.0)",javax.servlet.jsp.jstl.tlv;version="[1.2
+ .0,2.0.0)",org.apache.taglibs.standard.extra.commons.collections;vers
+ ion="[2.2,3.0)",org.apache.taglibs.standard.extra.commons.collections
+ .iterators;version="[2.2,3.0)",org.apache.taglibs.standard.extra.comm
+ ons.collections.map;version="[2.2,3.0)",org.apache.taglibs.standard.e
+ xtra.spath;version="[2.2,3.0)",org.apache.taglibs.standard.functions;
+ version="[2.2,3.0)",org.apache.taglibs.standard.lang.jstl;version="[2
+ .2,3.0)",org.apache.taglibs.standard.lang.jstl.parser;version="[2.2,3
+ .0)",org.apache.taglibs.standard.lang.jstl.test;version="[2.2,3.0)",o
+ rg.apache.taglibs.standard.lang.jstl.test.beans;version="[2.2,3.0)",o
+ rg.apache.taglibs.standard.lang.support;version="[2.2,3.0)",org.apach
+ e.taglibs.standard.resources;version="[2.2,3.0)",org.apache.taglibs.s
+ tandard.tag.common.core;version="[2.2,3.0)",org.apache.taglibs.standa
+ rd.tag.common.fmt;version="[2.2,3.0)",org.apache.taglibs.standard.tag
+ .common.sql;version="[2.2,3.0)",org.apache.taglibs.standard.tag.commo
+ n.xml;version="[2.2,3.0)",org.apache.taglibs.standard.tag.el.core;ver
+ sion="[2.2,3.0)",org.apache.taglibs.standard.tag.el.fmt;version="[2.2
+ ,3.0)",org.apache.taglibs.standard.tag.el.sql;version="[2.2,3.0)",org
+ .apache.taglibs.standard.tag.el.xml;version="[2.2,3.0)",org.apache.ta
+ glibs.standard.tag.rt.core;version="[2.2,3.0)",org.apache.taglibs.sta
+ ndard.tag.rt.fmt;version="[2.2,3.0)",org.apache.taglibs.standard.tag.
+ rt.sql;version="[2.2,3.0)",org.apache.taglibs.standard.tag.rt.xml;ver
+ sion="[2.2,3.0)",org.apache.taglibs.standard.tei;version="[2.2,3.0)",
+ org.apache.taglibs.standard.tlv;version="[2.2,3.0)",org.apache.taglib
+ s.standard;version="[2.2,3.0)"
+Provide-Capability: com.ibm.ws.jsp.jstl.facade
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

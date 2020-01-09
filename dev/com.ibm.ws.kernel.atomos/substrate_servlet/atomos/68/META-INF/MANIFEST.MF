@@ -1,0 +1,97 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:33:35 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS WebContainer 8.1 with Servlet 3.1 support. Fac
+ tories only.
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS WebContainer Factories
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.webcontainer.servlet.3.1.factories
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.webcontainer31.async.factory;version="1.0";
+ uses:="com.ibm.ws.webcontainer.async,com.ibm.wsspi.webcontainer.servl
+ et,com.ibm.wsspi.webcontainer.webapp",com.ibm.ws.webcontainer31.osgi.
+ container.config.factory;version="1.0";uses:="com.ibm.ws.container.se
+ rvice.config,com.ibm.ws.resource,com.ibm.ws.webcontainer.osgi.contain
+ er.config",com.ibm.ws.webcontainer31.osgi.response.factory;version="1
+ .0";uses:="com.ibm.websphere.servlet.request,com.ibm.websphere.servle
+ t.response,com.ibm.ws.webcontainer.osgi.request,com.ibm.ws.webcontain
+ er.osgi.response,com.ibm.wsspi.http",com.ibm.ws.webcontainer31.osgi.s
+ rt.factory;version="1.0";uses:="com.ibm.ws.webcontainer.osgi.srt",com
+ .ibm.ws.webcontainer31.osgi.webapp.factory;version="1.0";uses:="com.i
+ bm.websphere.csi,com.ibm.ws.container.service.metadata,com.ibm.ws.man
+ agedobject,com.ibm.ws.webcontainer.osgi.webapp,com.ibm.wsspi.injectio
+ nengine",com.ibm.ws.webcontainer31.servlet.factory;version="1.0";uses
+ :="com.ibm.ws.webcontainer.servlet,com.ibm.ws.webcontainer.webapp,com
+ .ibm.wsspi.webcontainer.servlet,javax.servlet.http",com.ibm.ws.webcon
+ tainer31.session.impl.factory;version="1.0";uses:="com.ibm.ws.webcont
+ ainer.httpsession,com.ibm.ws.webcontainer.session.impl"
+Import-Package: com.ibm.websphere.csi;version="[4.0,5)",com.ibm.websph
+ ere.servlet.request;version="[1.1,2)",com.ibm.websphere.servlet.respo
+ nse;version="[2.0,3)",com.ibm.ws.container.service.config;version="[2
+ .0,3)",com.ibm.ws.container.service.metadata;version="[1.0,2)",com.ib
+ m.ws.javaee.version,com.ibm.ws.managedobject;version="[1.0,2)",com.ib
+ m.ws.resource;version="[1.1,2)",com.ibm.ws.webcontainer.async;version
+ ="[1.1,2)",com.ibm.ws.webcontainer.httpsession;version="[1.1,2)",com.
+ ibm.ws.webcontainer.osgi.container.config;version="[1.0,2)",com.ibm.w
+ s.webcontainer.osgi.request;version="[1.0,2)",com.ibm.ws.webcontainer
+ .osgi.response;version="[1.0,2)",com.ibm.ws.webcontainer.osgi.srt;ver
+ sion="[1.0,2)",com.ibm.ws.webcontainer.osgi.webapp;version="[1.0,2)",
+ com.ibm.ws.webcontainer.servlet;version="[2.0,3)",com.ibm.ws.webconta
+ iner.session.impl;version="[1.1,2)",com.ibm.ws.webcontainer.webapp;ve
+ rsion="[1.0,2)",com.ibm.ws.webcontainer31.async;version="[1.0,2)",com
+ .ibm.ws.webcontainer31.osgi.request;version="[1.0,2)",com.ibm.ws.webc
+ ontainer31.osgi.response;version="[1.0,2)",com.ibm.ws.webcontainer31.
+ osgi.srt;version="[1.0,2)",com.ibm.ws.webcontainer31.osgi.webapp;vers
+ ion="[1.0,2)",com.ibm.ws.webcontainer31.session.impl;version="[1.0,2)
+ ",com.ibm.wsspi.channelfw,com.ibm.wsspi.http;version="[2.0,3)",com.ib
+ m.wsspi.http.ee7;version="[1.0,2)",com.ibm.wsspi.injectionengine;vers
+ ion="[3.0,4)",com.ibm.wsspi.webcontainer.servlet;version="[3.0,4)",co
+ m.ibm.wsspi.webcontainer.util;version="[1.1,2)",com.ibm.wsspi.webcont
+ ainer.webapp;version="[2.0,3)",javax.servlet.http;version="[2.7,3)"
+Private-Package: com.ibm.wsspi.webcontainer31.util.factory;version="1.
+ 0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ webcontainer.async.AsyncContextFactory",osgi.service;objectClass:List
+ <String>="com.ibm.ws.webcontainer.osgi.container.config.WebAppConfigu
+ ratorHelperFactory",osgi.service;objectClass:List<String>="com.ibm.ws
+ .webcontainer.osgi.request.IRequestFactory,com.ibm.ws.webcontainer.os
+ gi.response.IResponseFactory",osgi.service;objectClass:List<String>="
+ com.ibm.ws.webcontainer.osgi.srt.SRTConnectionContextPool",osgi.servi
+ ce;objectClass:List<String>="com.ibm.ws.webcontainer.osgi.webapp.WebA
+ ppFactory",osgi.service;objectClass:List<String>="com.ibm.ws.webconta
+ iner.servlet.CacheServletWrapperFactory",osgi.service;objectClass:Lis
+ t<String>="com.ibm.ws.webcontainer.session.impl.SessionContextRegistr
+ yImplFactory",osgi.service;objectClass:List<String>="com.ibm.wsspi.we
+ bcontainer.util.URIMatcherFactory"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version>=1.4
+ .0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.webcontainer.v31.dd.xml,OSGI-IN
+ F/com.ibm.ws.webcontainer.v31.httpTransportBehavior.xml,OSGI-INF/com.
+ ibm.ws.webcontainer.v31.httpProtocolBehavior.xml,OSGI-INF/com.ibm.ws.
+ webcontainer31.async.factory.AsyncContextFactory31Impl.xml,OSGI-INF/c
+ om.ibm.ws.webcontainer31.osgi.container.config.factory.WebAppConfigur
+ atorFactory31Impl.xml,OSGI-INF/com.ibm.ws.webcontainer31.osgi.respons
+ e.factory.IRequestResponseFactory.xml,OSGI-INF/com.ibm.ws.webcontaine
+ r31.osgi.srt.factory.SRTConnectionContextPool31Impl.xml,OSGI-INF/com.
+ ibm.ws.webcontainer31.osgi.webapp.factory.WebAppFactoryImpl31.xml,OSG
+ I-INF/com.ibm.ws.webcontainer31.servlet.factory.CacheServletWrapperFa
+ ctory31Impl.xml,OSGI-INF/com.ibm.ws.webcontainer31.session.impl.facto
+ ry.SessionContextRegistryImplFactoryImpl31.xml,OSGI-INF/com.ibm.wsspi
+ .webcontainer31.util.factory.URIMatcherFactory31Impl.xml
+Tool: Bnd-4.1.0.201810181252
+WLP-ServerName: IBM WebSphere Application Server
+WLP-ServerVersion: ${liberty.beta.version}
+

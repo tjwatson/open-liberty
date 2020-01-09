@@ -1,0 +1,19 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+Apache Aries JMX Core via Whiteboards
+
+
+From: 'The Apache Software Foundation' (http://www.apache.org)
+  - Apache Aries Util (http://aries.apache.org/org.apache.aries.util) org.apache.aries:org.apache.aries.util:bundle:1.1.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Aries JMX API (http://aries.apache.org/org.apache.aries.jmx.parent/org.apache.aries.jmx.api) org.apache.aries.jmx:org.apache.aries.jmx.api:bundle:1.1.5
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Aries JMX Core (http://aries.apache.org/org.apache.aries.jmx.parent/org.apache.aries.jmx.core) org.apache.aries.jmx:org.apache.aries.jmx.core:bundle:1.1.5
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

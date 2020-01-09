@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.internal.ApplicationConfigurator" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate" modified="modified">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.pid" type="String" value="com.ibm.ws.app.manager"/>
+  <service>
+    <provide interface="org.osgi.service.cm.ManagedServiceFactory"/>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+    <provide interface="com.ibm.ws.runtime.update.RuntimeUpdateListener"/>
+    <provide interface="com.ibm.wsspi.application.lifecycle.ApplicationRecycleCoordinator"/>
+  </service>
+  <reference name="AdaptableModuleFactory" interface="com.ibm.wsspi.adaptable.module.AdaptableModuleFactory" bind="setAdaptableModuleFactory" unbind="unsetAdaptableModuleFactory"/>
+  <reference name="ApplicationManager" interface="com.ibm.ws.app.manager.ApplicationManager" bind="setApplicationManager" unbind="unsetApplicationManager"/>
+  <reference name="ApplicationMonitorConfigurator" interface="com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator" bind="setApplicationMonitorConfigurator" unbind="unsetApplicationMonitorConfigurator"/>
+  <reference name="ConfigurationAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigurationAdmin" unbind="unsetConfigurationAdmin"/>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="RuntimeUpdateManager" interface="com.ibm.ws.runtime.update.RuntimeUpdateManager" bind="setRuntimeUpdateManager" unbind="unsetRuntimeUpdateManager"/>
+  <reference name="appHandler" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.application.handler.ApplicationHandler" bind="setAppHandler" unbind="unsetAppHandler" policy-option="greedy"/>
+  <reference name="appRecycleComponent" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.application.lifecycle.ApplicationRecycleComponent" bind="setAppRecycleComponent" unbind="unsetAppRecycleComponent" policy-option="greedy"/>
+  <reference name="appRecycleContext" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.application.lifecycle.ApplicationRecycleContext" bind="setAppRecycleContext" unbind="unsetAppRecycleContext" policy-option="greedy"/>
+  <reference name="appTypeSupported" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.application.handler.ApplicationTypeSupported" bind="setAppTypeSupported" unbind="unsetAppTypeSupported" policy-option="greedy"/>
+  <reference name="containerFactory" interface="com.ibm.wsspi.artifact.factory.ArtifactContainerFactory" bind="setContainerFactory" unbind="unsetContainerFactory"/>
+  <reference name="executorService" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="locationService" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <reference name="scheduledExecutorService" interface="java.util.concurrent.ScheduledExecutorService" bind="setScheduledExecutorService" unbind="unsetScheduledExecutorService"/>
+  <implementation class="com.ibm.ws.app.manager.internal.ApplicationConfigurator"/>
+</scr:component>

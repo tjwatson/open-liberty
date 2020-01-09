@@ -1,0 +1,95 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:27 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Provides the channel framework that allows the cre
+ ation of channel chains for handling both inbound and outbound traffi
+ c. The TCP and UDP connector channels are included, version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Channel Framework
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.channelfw; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.channelfw;version="1.0";uses:="com.i
+ bm.websphere.endpoint,com.ibm.websphere.ras,com.ibm.wsspi.channelfw,c
+ om.ibm.wsspi.channelfw.exception",com.ibm.websphere.channelfw.osgi;ve
+ rsion="1.0";uses:="com.ibm.io.async,com.ibm.websphere.channelfw,com.i
+ bm.websphere.event,com.ibm.ws.kernel.feature,com.ibm.wsspi.bytebuffer
+ ,com.ibm.wsspi.channelfw,com.ibm.wsspi.kernel.service.utils,com.ibm.w
+ sspi.timer,org.osgi.framework,org.osgi.service.component",com.ibm.wss
+ pi.channelfw;version="1.0";uses:="com.ibm.websphere.channelfw,com.ibm
+ .websphere.channelfw.osgi,com.ibm.websphere.event,com.ibm.wsspi.byteb
+ uffer,com.ibm.wsspi.channelfw.exception",com.ibm.wsspi.channelfw.base
+ ;version="1.0";uses:="com.ibm.wsspi.channelfw",com.ibm.wsspi.channelf
+ w.exception;version="1.0",com.ibm.wsspi.channelfw.objectpool;version=
+ "1.0",com.ibm.wsspi.channelfw.utils;version="1.0";uses:="com.ibm.webs
+ phere.ras.annotation",com.ibm.wsspi.connmgmt;version="1.0";uses:="com
+ .ibm.wsspi.channelfw",com.ibm.wsspi.bytebuffer;version="1.0",com.ibm.
+ wsspi.tcpchannel;version="1.0";uses:="com.ibm.wsspi.bytebuffer,com.ib
+ m.wsspi.channelfw,javax.net.ssl",com.ibm.wsspi.udpchannel;version="1.
+ 0";uses:="com.ibm.wsspi.bytebuffer,com.ibm.wsspi.channelfw",com.ibm.w
+ ebsphere.endpoint;version="1.0",com.ibm.io.async;version="1.0.16";use
+ s:="com.ibm.websphere.ras,com.ibm.wsspi.bytebuffer,com.ibm.wsspi.chan
+ nelfw,com.ibm.wsspi.channelfw.objectpool"
+IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
+Import-Package: com.ibm.websphere.endpoint;version="[1.0,1.1)",com.ibm
+ .websphere.event;version="[1.0,2)",com.ibm.websphere.ras;version="[1.
+ 2,2)",com.ibm.websphere.ras.annotation;version="[1.0,2)",com.ibm.ws.f
+ fdc;version="[1.0,2)",com.ibm.ws.kernel.feature;version="[1.0,2)",com
+ .ibm.ws.kernel.security.thread;version="[1.0,2)",com.ibm.ws.kernel.se
+ rvice.util;version="[2.1,3)",com.ibm.wsspi.bytebuffer;version="[1.0,1
+ .1)",com.ibm.wsspi.channelfw.base;version="[1.0,1.1)",com.ibm.wsspi.c
+ hannelfw.exception;version="[1.0,1.1)",com.ibm.wsspi.channelfw.object
+ pool;version="[1.0,1.1)",com.ibm.wsspi.kernel.service.utils;version="
+ [1.4,2)",com.ibm.wsspi.tcpchannel;version="[1.0,1.1)",com.ibm.wsspi.t
+ imer;version="[1.0,2)",com.ibm.wsspi.udpchannel;version="[1.0,1.1)",j
+ avax.management,javax.net.ssl,org.osgi.framework;version="[1.9,2)",or
+ g.osgi.service.component;version="[1.4,2)"
+Private-Package: com.ibm.ws.bytebuffer.internal,com.ibm.ws.bytebuffer.
+ internal.resources,com.ibm.ws.channelfw.internal,com.ibm.ws.channelfw
+ .internal.chains,com.ibm.ws.channelfw.internal.discrim,com.ibm.ws.cha
+ nnelfw.internal.resources,com.ibm.ws.tcpchannel.internal,com.ibm.ws.t
+ cpchannel.internal.resources,com.ibm.ws.udpchannel.internal,com.ibm.w
+ s.udpchannel.internal.resources
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.web
+ sphere.channelfw.osgi.CHFWBundle,com.ibm.wsspi.kernel.service.utils.S
+ erverQuiesceListener",osgi.service;objectClass:List<String>="com.ibm.
+ ws.bytebuffer.internal.ByteBufferConfiguration"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.io.async.IAsyncProvider$A
+ syncIOHelper)";effective:=active;resolution:=optional,osgi.service;fi
+ lter:="(objectClass=com.ibm.websphere.channelfw.osgi.ChannelFactoryPr
+ ovider)";effective:=active;resolution:=optional;cardinality:=multiple
+ ,osgi.service;filter:="(objectClass=com.ibm.websphere.event.EventEngi
+ ne)";effective:=active,osgi.service;filter:="(objectClass=com.ibm.web
+ sphere.event.ScheduledEventService)";effective:=active,osgi.service;f
+ ilter:="(objectClass=com.ibm.ws.bytebuffer.internal.ByteBufferConfigu
+ ration)";effective:=active,osgi.service;filter:="(objectClass=com.ibm
+ .ws.kernel.feature.ServerStarted)";effective:=active;resolution:=opti
+ onal,osgi.service;filter:="(objectClass=com.ibm.wsspi.bytebuffer.WsBy
+ teBufferPoolManager$DirectByteBufferHelper)";effective:=active;resolu
+ tion:=optional,osgi.service;filter:="(objectClass=com.ibm.wsspi.chann
+ elfw.HttpProtocolBehavior)";effective:=active;resolution:=optional,os
+ gi.service;filter:="(objectClass=com.ibm.wsspi.timer.ApproximateTime)
+ ";effective:=active,osgi.service;filter:="(objectClass=java.util.conc
+ urrent.ExecutorService)";effective:=active,osgi.service;filter:="(obj
+ ectClass=java.util.concurrent.ScheduledExecutorService)";effective:=a
+ ctive,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version
+ >=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.tcpchannel.options.xml,OSGI-INF
+ /com.ibm.ws.udpchannel.options.xml,OSGI-INF/com.ibm.ws.channelfw.CHFW
+ EventHandler.xml,OSGI-INF/com.ibm.ws.channelfw.xml,OSGI-INF/com.ibm.w
+ s.bytebuffer.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: ChannelFramework
+

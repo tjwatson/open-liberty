@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.request.probe.RequestProbeService" immediate="true" modified="modified">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.request.probe.RequestProbeService"/>
+  </service>
+  <reference name="requestProbe" cardinality="1..n" policy="dynamic" interface="com.ibm.wsspi.probeExtension.ProbeExtension" bind="setRequestProbe" unbind="unsetRequestProbe"/>
+  <implementation class="com.ibm.ws.request.probe.RequestProbeService"/>
+</scr:component>

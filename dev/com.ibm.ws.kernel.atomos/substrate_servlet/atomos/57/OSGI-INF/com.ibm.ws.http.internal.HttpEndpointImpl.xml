@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.http.internal.HttpEndpointImpl" configuration-policy="require" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.http">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.http.internal.HttpEndpointImpl"/>
+    <provide interface="com.ibm.ws.runtime.update.RuntimeUpdateListener"/>
+    <provide interface="com.ibm.ws.kernel.launch.service.PauseableComponent"/>
+  </service>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="accessLogging" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.http.logging.internal.AccessLogger" bind="setAccessLogging" unbind="unsetAccessLogging" policy-option="greedy"/>
+  <reference name="chfwBundle" interface="com.ibm.websphere.channelfw.osgi.CHFWBundle" bind="setChfwBundle" unbind="unsetChfwBundle"/>
+  <reference name="eventService" cardinality="1..1" policy="dynamic" interface="org.osgi.service.event.EventAdmin" bind="setEventAdmin" unbind="unsetEventAdmin"/>
+  <reference name="executorService" policy="dynamic" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="httpDispatcher" interface="com.ibm.ws.http.dispatcher.internal.HttpDispatcher" bind="setHttpDispatcher" unbind="unsetHttpDispatcher"/>
+  <reference name="httpOptions" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.channelfw.ChannelConfiguration" bind="setHttpOptions" unbind="unsetHttpOptions" updated="updatedHttpOptions" policy-option="greedy"/>
+  <reference name="remoteIp" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.channelfw.ChannelConfiguration" bind="setRemoteIp" unbind="unsetRemoteIp" updated="updatedRemoteIp" policy-option="greedy"/>
+  <reference name="sslOptions" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.channelfw.ChannelConfiguration" bind="setSslOptions" unbind="unsetSslOptions" updated="updatedSslOptions" policy-option="greedy"/>
+  <reference name="sslSupport" cardinality="0..1" policy="dynamic" interface="com.ibm.websphere.channelfw.osgi.ChannelFactoryProvider" target="(type=SSLChannel)" bind="setSslSupport" unbind="unsetSslSupport" policy-option="greedy"/>
+  <reference name="tcpOptions" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.channelfw.ChannelConfiguration" bind="setTcpOptions" unbind="unsetTcpOptions" updated="updatedTcpOptions" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.http.internal.HttpEndpointImpl"/>
+</scr:component>

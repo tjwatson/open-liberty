@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:22:25 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS Timers, version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS Timers
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.timer; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.wsspi.timer;version="1.0";uses:="com.ibm.websp
+ here.ras.annotation,com.ibm.ws.ras.instrument.annotation"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.ras.instrument.annota
+ tion;version="[1.0,2)",com.ibm.wsspi.timer;version="[1.0,1.1)"
+Private-Package: com.ibm.ws.timer.internal;version="1.0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.wss
+ pi.timer.ApproximateTime"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=java.util.concurrent.ScheduledExe
+ cutorService)";effective:=active,osgi.extender;filter:="(&(osgi.exten
+ der=osgi.component)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.timer.internal.QuickApproxTimeI
+ mpl.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: timer
+

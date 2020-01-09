@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.webcontainer31.osgi.listener.RegisterEventListenerProvider" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="PostEventListenerProvider" interface="com.ibm.ws.webcontainer31.osgi.listener.PostEventListenerProvider" bind="setPostEventListenerProvider" unbind="unsetPostEventListenerProvider"/>
+  <reference name="PreEventListenerProvider" interface="com.ibm.ws.webcontainer31.osgi.listener.PreEventListenerProvider" bind="setPreEventListenerProvider" unbind="unsetPreEventListenerProvider"/>
+  <implementation class="com.ibm.ws.webcontainer31.osgi.listener.RegisterEventListenerProvider"/>
+</scr:component>

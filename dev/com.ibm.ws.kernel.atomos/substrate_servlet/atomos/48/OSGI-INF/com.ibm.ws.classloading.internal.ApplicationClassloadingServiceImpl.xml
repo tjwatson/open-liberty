@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.classloading.internal.ApplicationClassloadingServiceImpl" configuration-policy="require" configuration-pid="com.ibm.wsspi.classloading.classloader.app">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.classloading.ApplicationClassloadingService"/>
+  </service>
+  <reference name="classLoadingService" policy="static" interface="com.ibm.wsspi.classloading.ClassLoadingService" bind="setClassLoadingService" unbind="unsetClassLoadingService"/>
+  <reference name="configAdmin" policy="static" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+  <reference name="globalSharedLibrary" policy="static" interface="com.ibm.wsspi.library.Library" target="(id=global)" bind="setGlobalSharedLibrary" unbind="unsetGlobalSharedLibrary"/>
+  <reference name="libraryStatus" policy="dynamic" interface="com.ibm.ws.library.internal.LibraryStatusService" target="(id=unbound)" bind="setLibraryStatus" unbind="unsetLibraryStatus" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.classloading.internal.ApplicationClassloadingServiceImpl"/>
+</scr:component>

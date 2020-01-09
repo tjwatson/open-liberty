@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.serialization.internal.SerializationServiceImpl">
+  <service>
+    <provide interface="com.ibm.ws.serialization.SerializationService"/>
+  </service>
+  <reference name="classProviders" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.serialization.DeserializationClassProvider" bind="addClassProvider" unbind="removeClassProvider"/>
+  <reference name="replacers" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.serialization.SerializationObjectReplacer" bind="addReplacer" unbind="removeReplacer"/>
+  <reference name="resolvers" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.serialization.DeserializationObjectResolver" bind="addResolver" unbind="removeResolver"/>
+  <implementation class="com.ibm.ws.serialization.internal.SerializationServiceImpl"/>
+</scr:component>

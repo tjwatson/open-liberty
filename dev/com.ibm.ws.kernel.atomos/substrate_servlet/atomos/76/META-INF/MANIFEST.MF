@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:27:28 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: com.ibm.websphere.javaee.jstl.1.2
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.websphere.javaee.jstl.1.2; singleton:=tru
+ e
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: javax.servlet.jsp.jstl.core;version="1.2.0";uses:="jav
+ ax.el,javax.servlet,javax.servlet.http,javax.servlet.jsp,javax.servle
+ t.jsp.tagext",javax.servlet.jsp.jstl.fmt;version="1.2.0";uses:="javax
+ .servlet.jsp",javax.servlet.jsp.jstl.sql;version="1.2.0",javax.servle
+ t.jsp.jstl.tlv;version="1.2.0";uses:="javax.servlet.jsp.tagext"
+Import-Package: javax.servlet.jsp;version="[2.2.0,3.0.0)",javax.servle
+ t.jsp.tagext;version="[2.2.0,3.0.0)",javax.servlet;version="2.6.0",ja
+ vax.servlet.http;version="2.6.0",javax.xml.parsers;resolution:=option
+ al,org.apache.taglibs.standard.tag.common.fmt;resolution:=optional,or
+ g.xml.sax;resolution:=optional,org.xml.sax.helpers;resolution:=option
+ al,javax.el;version="[2.2.0,4.0.0)",org.apache.taglibs.standard.resou
+ rces;resolution:=optional
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

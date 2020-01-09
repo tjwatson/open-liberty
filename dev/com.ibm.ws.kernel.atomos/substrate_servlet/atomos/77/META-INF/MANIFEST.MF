@@ -1,0 +1,98 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:25:33 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: JDT Compiler, version 4.4.1
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: JDT Compiler
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.eclipse.jdt.core.3.10.2.v20160712-
+ 0000
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.eclipse.jdt.core;version="3.10.2";usage=JSP,org.ec
+ lipse.jdt.core.compiler;version="3.10.2";usage=JSP,org.eclipse.jdt.co
+ re.compiler.batch;version="3.10.2";usage=JSP;uses:="org.eclipse.jdt.c
+ ore.compiler",org.eclipse.jdt.internal.antadapter;version="3.10.2";us
+ age=JSP,org.eclipse.jdt.internal.compiler;version="3.10.2";usage=JSP;
+ uses:="org.eclipse.jdt.core,org.eclipse.jdt.core.compiler,org.eclipse
+ .jdt.internal.compiler.ast,org.eclipse.jdt.internal.compiler.classfmt
+ ,org.eclipse.jdt.internal.compiler.codegen,org.eclipse.jdt.internal.c
+ ompiler.env,org.eclipse.jdt.internal.compiler.impl,org.eclipse.jdt.in
+ ternal.compiler.lookup,org.eclipse.jdt.internal.compiler.parser,org.e
+ clipse.jdt.internal.compiler.problem,org.eclipse.jdt.internal.compile
+ r.util",org.eclipse.jdt.internal.compiler.apt.dispatch;version="3.10.
+ 2";usage=JSP;uses:="org.eclipse.jdt.internal.compiler,org.eclipse.jdt
+ .internal.compiler.apt.model,org.eclipse.jdt.internal.compiler.ast,or
+ g.eclipse.jdt.internal.compiler.batch,org.eclipse.jdt.internal.compil
+ er.env,org.eclipse.jdt.internal.compiler.impl,org.eclipse.jdt.interna
+ l.compiler.lookup,org.eclipse.jdt.internal.compiler.problem",org.ecli
+ pse.jdt.internal.compiler.apt.model;version="3.10.2";usage=JSP;uses:=
+ "org.eclipse.jdt.internal.compiler.apt.dispatch,org.eclipse.jdt.inter
+ nal.compiler.lookup",org.eclipse.jdt.internal.compiler.apt.util;versi
+ on="3.10.2";usage=JSP,org.eclipse.jdt.internal.compiler.ast;version="
+ 3.10.2";usage=JSP;uses:="org.eclipse.jdt.core.compiler,org.eclipse.jd
+ t.internal.compiler,org.eclipse.jdt.internal.compiler.codegen,org.ecl
+ ipse.jdt.internal.compiler.flow,org.eclipse.jdt.internal.compiler.imp
+ l,org.eclipse.jdt.internal.compiler.lookup,org.eclipse.jdt.internal.c
+ ompiler.parser,org.eclipse.jdt.internal.compiler.problem",org.eclipse
+ .jdt.internal.compiler.batch;version="3.10.2";usage=JSP;uses:="org.ec
+ lipse.jdt.core.compiler,org.eclipse.jdt.internal.compiler,org.eclipse
+ .jdt.internal.compiler.env,org.eclipse.jdt.internal.compiler.impl,org
+ .eclipse.jdt.internal.compiler.problem,org.eclipse.jdt.internal.compi
+ ler.util",org.eclipse.jdt.internal.compiler.classfmt;version="3.10.2"
+ ;usage=JSP;uses:="org.eclipse.jdt.internal.compiler.env,org.eclipse.j
+ dt.internal.compiler.impl,org.eclipse.jdt.internal.compiler.lookup",o
+ rg.eclipse.jdt.internal.compiler.codegen;version="3.10.2";usage=JSP;u
+ ses:="org.eclipse.jdt.internal.compiler,org.eclipse.jdt.internal.comp
+ iler.ast,org.eclipse.jdt.internal.compiler.classfmt,org.eclipse.jdt.i
+ nternal.compiler.impl,org.eclipse.jdt.internal.compiler.lookup,org.ec
+ lipse.jdt.internal.compiler.util",org.eclipse.jdt.internal.compiler.e
+ nv;version="3.10.2";usage=JSP;uses:="org.eclipse.jdt.internal.compile
+ r.impl",org.eclipse.jdt.internal.compiler.flow;version="3.10.2";usage
+ =JSP;uses:="org.eclipse.jdt.internal.compiler.ast,org.eclipse.jdt.int
+ ernal.compiler.codegen,org.eclipse.jdt.internal.compiler.lookup",org.
+ eclipse.jdt.internal.compiler.impl;version="3.10.2";usage=JSP;uses:="
+ org.eclipse.jdt.core.compiler,org.eclipse.jdt.internal.compiler,org.e
+ clipse.jdt.internal.compiler.ast,org.eclipse.jdt.internal.compiler.en
+ v,org.eclipse.jdt.internal.compiler.lookup",org.eclipse.jdt.internal.
+ compiler.lookup;version="3.10.2";usage=JSP;uses:="org.eclipse.jdt.int
+ ernal.compiler,org.eclipse.jdt.internal.compiler.ast,org.eclipse.jdt.
+ internal.compiler.classfmt,org.eclipse.jdt.internal.compiler.codegen,
+ org.eclipse.jdt.internal.compiler.env,org.eclipse.jdt.internal.compil
+ er.flow,org.eclipse.jdt.internal.compiler.impl,org.eclipse.jdt.intern
+ al.compiler.problem,org.eclipse.jdt.internal.compiler.util",org.eclip
+ se.jdt.internal.compiler.parser;version="3.10.2";usage=JSP;uses:="org
+ .eclipse.jdt.core.compiler,org.eclipse.jdt.internal.compiler,org.ecli
+ pse.jdt.internal.compiler.ast,org.eclipse.jdt.internal.compiler.env,o
+ rg.eclipse.jdt.internal.compiler.impl,org.eclipse.jdt.internal.compil
+ er.lookup,org.eclipse.jdt.internal.compiler.problem",org.eclipse.jdt.
+ internal.compiler.parser.diagnose;version="3.10.2";usage=JSP;uses:="o
+ rg.eclipse.jdt.internal.compiler.ast,org.eclipse.jdt.internal.compile
+ r.impl,org.eclipse.jdt.internal.compiler.parser",org.eclipse.jdt.inte
+ rnal.compiler.parser.unicode;version="3.10.2";usage=JSP,org.eclipse.j
+ dt.internal.compiler.parser.unicode6;version="3.10.2";usage=JSP,org.e
+ clipse.jdt.internal.compiler.parser.unicode6_2;version="3.10.2";usage
+ =JSP,org.eclipse.jdt.internal.compiler.problem;version="3.10.2";usage
+ =JSP;uses:="org.eclipse.jdt.core.compiler,org.eclipse.jdt.internal.co
+ mpiler,org.eclipse.jdt.internal.compiler.ast,org.eclipse.jdt.internal
+ .compiler.impl,org.eclipse.jdt.internal.compiler.lookup,org.eclipse.j
+ dt.internal.compiler.parser,org.eclipse.jdt.internal.compiler.util",o
+ rg.eclipse.jdt.internal.compiler.tool;version="3.10.2";usage=JSP;uses
+ :="org.eclipse.jdt.core.compiler,org.eclipse.jdt.internal.compiler,or
+ g.eclipse.jdt.internal.compiler.batch",org.eclipse.jdt.internal.compi
+ ler.util;version="3.10.2";usage=JSP;uses:="org.eclipse.jdt.internal.c
+ ompiler,org.eclipse.jdt.internal.compiler.ast,org.eclipse.jdt.interna
+ l.compiler.lookup"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

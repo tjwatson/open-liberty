@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.javaee.platform.v7">
+  <property name="version" type="String" value="7.0"/>
+  <property name="service.ranking" type="Integer" value="7"/>
+  <service>
+    <provide interface="com.ibm.ws.javaee.version.JavaEEVersion"/>
+  </service>
+  <implementation class="com.ibm.ws.javaee.version.JavaEEVersion"/>
+</component>

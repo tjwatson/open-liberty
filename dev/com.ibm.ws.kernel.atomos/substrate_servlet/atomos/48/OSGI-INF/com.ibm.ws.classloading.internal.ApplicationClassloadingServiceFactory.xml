@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.classloading.internal.ApplicationClassloadingServiceFactory" configuration-policy="ignore" configuration-pid="ApplicationClassloadingServiceFactory">
+  <property name="service.pid" type="String" value="com.ibm.wsspi.classloading.classloader"/>
+  <service>
+    <provide interface="org.osgi.service.cm.ManagedServiceFactory"/>
+  </service>
+  <reference name="configAdmin" policy="static" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+  <implementation class="com.ibm.ws.classloading.internal.ApplicationClassloadingServiceFactory"/>
+</scr:component>

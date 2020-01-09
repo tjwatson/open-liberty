@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:23:18 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: JavaEE Deployment Descriptor API service for EJB, 
+ version 1.1
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: JavaEE Deployment Descriptor API service for EJB
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.javaee.dd.ejb
+Bundle-Vendor: IBM
+Bundle-Version: 1.1.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.javaee.dd.ejb;version="1.1.0";uses:="com.ib
+ m.ws.javaee.dd.common",com.ibm.ws.javaee.dd.ejbbnd;version="1.0";uses
+ :="com.ibm.ws.javaee.dd,com.ibm.ws.javaee.dd.commonbnd",com.ibm.ws.ja
+ vaee.dd.ejbext;version="1.0";uses:="com.ibm.ws.javaee.dd,com.ibm.ws.j
+ avaee.dd.commonext"
+Import-Package: com.ibm.ws.javaee.dd;version="[1.0,2)",com.ibm.ws.java
+ ee.dd.common;version="[1.2,2)",com.ibm.ws.javaee.dd.commonbnd;version
+ ="[1.0,2)",com.ibm.ws.javaee.dd.commonext;version="[1.0,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

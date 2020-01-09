@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:31:32 CST 2019
+Build-Jdk: 1.7.0_51
+Built-By: gnodet
+Bundle-Activator: org.apache.felix.gogo.runtime.activator.Activator
+Bundle-Description: Apache Felix Gogo Subproject
+Bundle-Distributor: IBM
+Bundle-DocURL: http://www.apache.org/
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Felix Gogo Runtime
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.felix.gogo.runtime
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: org.apache.felix.service.command;status=provisional;ma
+ ndatory:=status;version="0.16.2",org.apache.felix.gogo.api;uses:="org
+ .apache.felix.service.command";version="0.16.2",org.apache.felix.serv
+ ice.threadio;status=provisional;mandatory:=status;version="0.16.2"
+Export-Service: org.apache.felix.service.threadio.ThreadIO,           
+                  org.apache.felix.service.command.CommandProcessor
+Import-Package: org.apache.felix.gogo.api;version="0.16.2",org.apache.
+ felix.service.command;status=provisional;version="0.16.2",org.apache.
+ felix.service.threadio;status=provisional;version="0.16.2",org.osgi.f
+ ramework,org.osgi.service.event;resolution:=optional,org.osgi.util.tr
+ acker
+Private-Package: org.apache.felix.gogo.runtime,org.apache.felix.gogo.r
+ untime.activator,org.apache.felix.gogo.runtime.threadio
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

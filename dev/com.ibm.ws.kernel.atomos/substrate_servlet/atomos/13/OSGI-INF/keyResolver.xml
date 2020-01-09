@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="keyResolver" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="variableRegistry" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.kernel.service.location.VariableRegistry" bind="setVariableRegistry" unbind="unsetVariableRegistry"/>
+  <implementation class="com.ibm.ws.crypto.util.VariableResolver"/>
+</component>

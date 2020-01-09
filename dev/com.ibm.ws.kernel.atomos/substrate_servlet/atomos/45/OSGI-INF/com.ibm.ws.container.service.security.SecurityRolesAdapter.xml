@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.container.service.security.SecurityRolesAdapter" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.container.service.security.SecurityRoles"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="configAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin"/>
+  <implementation class="com.ibm.ws.container.service.security.internal.SecurityRolesAdapter"/>
+</scr:component>

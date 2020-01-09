@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.container.service.state.StateChangeService">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.state.StateChangeService"/>
+    <provide interface="com.ibm.ws.container.service.state.internal.StateChangeServiceImpl"/>
+  </service>
+  <reference name="applicationStateListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.state.ApplicationStateListener" bind="addApplicationStateListener" unbind="removeApplicationStateListener"/>
+  <reference name="moduleStateListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.container.service.state.ModuleStateListener" bind="addModuleStateListener" unbind="removeModuleStateListener"/>
+  <implementation class="com.ibm.ws.container.service.state.internal.StateChangeServiceImpl"/>
+</component>

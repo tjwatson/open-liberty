@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.session" configuration-policy="require" immediate="true" modified="modified">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="locationService" cardinality="1..1" policy="dynamic" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService" policy-option="greedy"/>
+  <reference name="configAdmin" cardinality="1..1" interface="org.osgi.service.cm.ConfigurationAdmin" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+  <reference name="appRecycleService" cardinality="1..1" interface="com.ibm.wsspi.application.lifecycle.ApplicationRecycleCoordinator" bind="setAppRecycleService" unbind="unsetAppRecycleService"/>
+  <reference name="sessionStoreService" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.session.SessionStoreService" bind="setSessionStoreService" unbind="unsetSessionStoreService" policy-option="greedy"/>
+  <reference name="scheduledExecutorService" cardinality="1..1" interface="java.util.concurrent.ScheduledExecutorService" bind="setScheduledExecutorService" unbind="unsetScheduledExecutorService"/>
+  <implementation class="com.ibm.ws.webcontainer.httpsession.SessionMgrCoordinator"/>
+</scr:component>

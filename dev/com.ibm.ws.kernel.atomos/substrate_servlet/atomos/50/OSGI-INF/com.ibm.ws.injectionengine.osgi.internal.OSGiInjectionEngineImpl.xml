@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl"/>
+    <provide interface="com.ibm.wsspi.injectionengine.InjectionEngine"/>
+    <provide interface="com.ibm.ws.container.service.metadata.ApplicationMetaDataListener"/>
+    <provide interface="com.ibm.ws.container.service.metadata.ModuleMetaDataListener"/>
+    <provide interface="com.ibm.ws.container.service.metadata.ComponentMetaDataListener"/>
+    <provide interface="com.ibm.ws.container.service.state.ApplicationStateListener"/>
+  </service>
+  <reference name="MetaDataSlotService" interface="com.ibm.ws.container.service.metadata.MetaDataSlotService" bind="setMetaDataSlotService" unbind="unsetMetaDataSlotService"/>
+  <reference name="ResourceRefConfigFactory" interface="com.ibm.ws.resource.ResourceRefConfigFactory" bind="setResourceRefConfigFactory" unbind="unsetResourceRefConfigFactory"/>
+  <reference name="ejbLinkReferenceFactory" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.injectionengine.factory.EJBLinkReferenceFactory" bind="setEJBLinkReferenceFactory" unbind="unsetEJBLinkReferenceFactory"/>
+  <reference name="registerInjectionMetaDataListener" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.injectionengine.InjectionMetaDataListener" bind="registerInjectionMetaDataListener" unbind="unregisterInjectionMetaDataListener"/>
+  <reference name="registerInjectionProcessorProvider" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.injectionengine.InjectionProcessorProvider" bind="registerInjectionProcessorProvider" unbind="unregisterInjectionProcessorProvider"/>
+  <reference name="registerObjectFactoryInfo" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.injectionengine.ObjectFactoryInfo" bind="registerObjectFactoryInfo" unbind="unregisterObjectFactoryInfo"/>
+  <reference name="resourceBindingListeners" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.resource.ResourceBindingListener" bind="setResourceBindingListener" unbind="unsetResourceBindingListener"/>
+  <reference name="resourceFactoryBuilders" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.resource.ResourceFactoryBuilder" bind="setResourceFactoryBuilder" unbind="unsetResourceFactoryBuilder"/>
+  <implementation class="com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl"/>
+</scr:component>

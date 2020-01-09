@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.ear.internal.EARApplicationHandlerImpl" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="type" type="String" value="ear"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.application.handler.ApplicationHandler"/>
+  </service>
+  <reference name="FutureMonitor" policy="dynamic" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="deployedAppFactory" interface="com.ibm.ws.app.manager.module.DeployedAppInfoFactory" target="(type=ear)" bind="setDeployedAppFactory" unbind="unsetDeployedAppFactory"/>
+  <implementation class="com.ibm.ws.app.manager.ear.internal.EARApplicationHandlerImpl"/>
+</scr:component>

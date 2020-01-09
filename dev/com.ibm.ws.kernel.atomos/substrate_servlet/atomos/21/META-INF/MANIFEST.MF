@@ -1,0 +1,56 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:31:22 CST 2019
+Build-Jdk: 1.7.0_51
+Built-By: David
+Bundle-Activator: org.apache.aries.jmx.core.whiteboard.Activator
+Bundle-Description: This bundle contains an implementation of the JMX 
+ Core specification which registers the        MBeans as services in t
+ he service registry. This allows the whiteboard module to be        u
+ sed to register the MBeans.
+Bundle-Distributor: IBM
+Bundle-DocURL: http://www.apache.org
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Aries JMX Core via Whiteboards
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.aries.jmx.core.whiteboard
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+DynamicImport-Package: org.osgi.jmx.service.cm;version="[1.3,2)",org.o
+ sgi.jmx.service.permissionadmin;version="[1.2,2)",org.osgi.jmx.servic
+ e.provisioning;version="[1.2,2)",org.osgi.jmx.service.useradmin;versi
+ on="[1.1,2)",org.osgi.service.cm;version="[1.4,2)",org.osgi.service.p
+ ermissionadmin;version="[1.2,2)",org.osgi.service.provisioning;versio
+ n="[1.2,2)",org.osgi.service.useradmin;version="[1.1,2)"
+Export-Package: org.apache.aries.jmx.codec;version="1.1.0";uses:="java
+ x.management,javax.management.openmbean,org.osgi.framework,org.osgi.f
+ ramework.wiring,org.osgi.service.packageadmin,org.osgi.service.startl
+ evel,org.osgi.service.useradmin"
+Implementation-Title: Apache Aries
+Implementation-Version: 1.1.5
+Import-Package: org.apache.aries.util;version="[1.0,2)",javax.manageme
+ nt,javax.management.openmbean,org.osgi.framework;version="[1.6,2)",or
+ g.osgi.framework.wiring;version="[1.0,2)",org.osgi.jmx;version="[1.1,
+ 2)",org.osgi.jmx.framework;version="[1.7,2)",org.osgi.jmx.framework.w
+ iring;version="[1.1,2)",org.osgi.jmx.service.cm;version="[1.3,2)",org
+ .osgi.jmx.service.permissionadmin;version="[1.2,2)",org.osgi.jmx.serv
+ ice.provisioning;version="[1.2,2)",org.osgi.jmx.service.useradmin;ver
+ sion="[1.1,2)",org.osgi.service.cm;version="[1.4,2)",org.osgi.service
+ .log;version="[1.3,2)",org.osgi.service.packageadmin;version="[1.2,2)
+ ",org.osgi.service.permissionadmin;version="[1.2,2)",org.osgi.service
+ .provisioning;resolution:=optional;version="[1.2,2)",org.osgi.service
+ .startlevel;version="[1.1,2)",org.osgi.service.useradmin;resolution:=
+ optional;version="[1.1,2)",org.osgi.util.tracker;version="[1.5,2)"
+Private-Package: org.apache.aries.jmx,org.apache.aries.jmx.agent,org.a
+ pache.aries.jmx.cm,org.apache.aries.jmx.core.whiteboard,org.apache.ar
+ ies.jmx.framework,org.apache.aries.jmx.framework.wiring,org.apache.ar
+ ies.jmx.permissionadmin,org.apache.aries.jmx.provisioning,org.apache.
+ aries.jmx.useradmin,org.apache.aries.jmx.util,org.apache.aries.jmx.ut
+ il.shared
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

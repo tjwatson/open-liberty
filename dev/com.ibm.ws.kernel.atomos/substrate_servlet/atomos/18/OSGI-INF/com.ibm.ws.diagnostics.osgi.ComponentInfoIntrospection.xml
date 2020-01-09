@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.diagnostics.osgi.ComponentInfoIntrospection">
+  <service>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <reference name="ScrInfo" cardinality="1..1" interface="org.apache.felix.scr.info.ScrInfo" bind="setScrInfo" unbind="unsetScrInfo"/>
+  <implementation class="com.ibm.ws.diagnostics.osgi.ComponentInfoIntrospection"/>
+</scr:component>

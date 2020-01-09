@@ -1,0 +1,164 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:21:28 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: This bundle provides service interfaces for use by
+  container helpers to link into container services. Typical use is to
+  provide interfaces under which containers can publish to the SR as a
+  whiteboard ; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Container service interfaces
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.container.service
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ejs.j2c;version="1.1.0",com.ibm.ejs.util;versi
+ on="1.1.0";uses:="com.ibm.websphere.ras.annotation",com.ibm.ejs.util.
+ dopriv;version="1.1.0";uses:="com.ibm.ws.util",com.ibm.jtc.adapter;ve
+ rsion="1.1.0",com.ibm.websphere.csi;version="4.0.0",com.ibm.ws.contai
+ ner.service.annotations;version="2.0.0";uses:="com.ibm.ws.container.s
+ ervice.config,com.ibm.wsspi.adaptable.module,com.ibm.wsspi.anno.class
+ source,com.ibm.wsspi.anno.info,com.ibm.wsspi.anno.targets",com.ibm.ws
+ .container.service.annotations.internal;version="1.1";uses:="com.ibm.
+ websphere.ras.annotation,com.ibm.ws.container.service.annotations,com
+ .ibm.ws.container.service.config,com.ibm.ws.ras.instrument.annotation
+ ,com.ibm.wsspi.adaptable.module,com.ibm.wsspi.adaptable.module.adapte
+ rs,com.ibm.wsspi.anno.classsource,com.ibm.wsspi.anno.info,com.ibm.wss
+ pi.anno.service,com.ibm.wsspi.anno.targets,com.ibm.wsspi.artifact,com
+ .ibm.wsspi.artifact.overlay,org.osgi.framework,org.osgi.service.compo
+ nent",com.ibm.ws.container.service.annocache;version="1.0";uses:="com
+ .ibm.websphere.ras.annotation,com.ibm.ws.container.service.annotation
+ s,com.ibm.ws.container.service.app.deploy,com.ibm.ws.container.servic
+ e.config,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.adaptable
+ .module,com.ibm.wsspi.adaptable.module.adapters,com.ibm.wsspi.annocac
+ he.classsource,com.ibm.wsspi.annocache.info,com.ibm.wsspi.annocache.t
+ argets",com.ibm.ws.container.service.annocache.internal;version="1.0"
+ ;uses:="com.ibm.websphere.ras,com.ibm.websphere.ras.annotation,com.ib
+ m.ws.container.service.annocache,com.ibm.ws.container.service.annotat
+ ions,com.ibm.ws.container.service.app.deploy,com.ibm.ws.container.ser
+ vice.config,com.ibm.ws.ras.instrument.annotation,com.ibm.wsspi.adapta
+ ble.module,com.ibm.wsspi.anno.classsource,com.ibm.wsspi.anno.info,com
+ .ibm.wsspi.anno.targets,com.ibm.wsspi.annocache.classsource,com.ibm.w
+ sspi.annocache.info,com.ibm.wsspi.annocache.service,com.ibm.wsspi.ann
+ ocache.targets,com.ibm.wsspi.artifact,com.ibm.wsspi.artifact.overlay"
+ ,com.ibm.ws.container.service.app.deploy;version="2.2.0";uses:="com.i
+ bm.websphere.ras.annotation,com.ibm.ws.ras.instrument.annotation,com.
+ ibm.wsspi.adaptable.module",com.ibm.ws.container.service.app.deploy.e
+ xtended;version="1.0.16";uses:="com.ibm.ws.container.service.app.depl
+ oy,com.ibm.ws.container.service.metadata,com.ibm.ws.container.service
+ .state,com.ibm.ws.runtime.metadata,com.ibm.wsspi.adaptable.module",co
+ m.ibm.ws.container.service.config;version="2.0";uses:="com.ibm.ws.con
+ tainer.service.annotations,com.ibm.ws.javaee.dd.web,com.ibm.ws.javaee
+ .dd.webbnd,com.ibm.ws.javaee.dd.webext,com.ibm.wsspi.adaptable.module
+ ",com.ibm.ws.container.service.config.extended;version="1.0.16";uses:
+ ="com.ibm.websphere.ras.annotation,com.ibm.ws.javaee.dd.commonbnd,com
+ .ibm.ws.javaee.dd.commonext,com.ibm.ws.ras.instrument.annotation,com.
+ ibm.ws.resource",com.ibm.ws.container.service.config.internal;version
+ ="1.1";uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.container.s
+ ervice.config,com.ibm.ws.javaee.version,com.ibm.ws.ras.instrument.ann
+ otation,com.ibm.wsspi.adaptable.module,com.ibm.wsspi.adaptable.module
+ .adapters,com.ibm.wsspi.artifact,com.ibm.wsspi.artifact.overlay,org.o
+ sgi.framework",com.ibm.ws.container.service.metadata;version="1.0";us
+ es:="com.ibm.websphere.ras.annotation,com.ibm.ws.ras.instrument.annot
+ ation,com.ibm.ws.runtime.metadata,com.ibm.wsspi.adaptable.module",com
+ .ibm.ws.container.service.metadata.extended;version="1.0.16";uses:="c
+ om.ibm.ws.container.service.app.deploy.extended,com.ibm.ws.container.
+ service.metadata,com.ibm.ws.runtime.metadata",com.ibm.ws.container.se
+ rvice.naming;version="1.2";uses:="com.ibm.websphere.ras.annotation,co
+ m.ibm.ws.ras.instrument.annotation,javax.naming",com.ibm.ws.container
+ .service.security;version="1.0";uses:="com.ibm.ws.javaee.dd.appbnd",c
+ om.ibm.ws.container.service.state;version="1.0";uses:="com.ibm.websph
+ ere.ras.annotation,com.ibm.ws.container.service.app.deploy,com.ibm.ws
+ .ras.instrument.annotation",com.ibm.ws.exception;version="1.0",com.ib
+ m.ws.runtime.metadata;version="1.1.0";uses:="com.ibm.websphere.csi",c
+ om.ibm.ws.threadContext;version="1.1.0";uses:="com.ibm.ejs.j2c,com.ib
+ m.ws.runtime.metadata,com.ibm.ws.util",com.ibm.ws.util;version="1.0";
+ uses:="com.ibm.websphere.ras.annotation,com.ibm.ws.exception,com.ibm.
+ ws.runtime.metadata,com.ibm.wsspi.runtime",com.ibm.ws.util.dopriv;ver
+ sion="1.1.0",com.ibm.wsspi.runtime;version="1.0",com.ibm.ws.xml;versi
+ on="1.1.0";uses:="javax.xml.parsers,org.w3c.dom,org.xml.sax",com.ibm.
+ ws.URL;version="1.0"
+Import-Package: com.ibm.ejs.j2c;version="[1.1,2)",com.ibm.ejs.ras;vers
+ ion="[1.0,2)",com.ibm.ejs.util;version="[1.1,2)",com.ibm.jtc.adapter;
+ version="[1.1,1.2)",com.ibm.websphere.csi;version="[4.0,5)",com.ibm.w
+ ebsphere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;versi
+ on="[1.0,2)",com.ibm.ws.container.service.annocache;version="[1.0,1.1
+ )",com.ibm.ws.container.service.annotations;version="[2.0,2.1)",com.i
+ bm.ws.container.service.app.deploy;version="[2.2,2.3)",com.ibm.ws.con
+ tainer.service.app.deploy.extended;version="[1.0,1.1)",com.ibm.ws.con
+ tainer.service.config;version="[2.0,2.1)",com.ibm.ws.container.servic
+ e.metadata;version="[1.0,1.1)",com.ibm.ws.container.service.metadata.
+ extended;version="[1.0,1.1)",com.ibm.ws.container.service.security;ve
+ rsion="[1.0,1.1)",com.ibm.ws.container.service.state;version="[1.0,1.
+ 1)",com.ibm.ws.exception;version="[1.0,1.1)",com.ibm.ws.ffdc;version=
+ "[1.0,2)",com.ibm.ws.javaee.dd.appbnd;version="[1.0,2)",com.ibm.ws.ja
+ vaee.dd.commonbnd;version="[1.0,2)",com.ibm.ws.javaee.dd.commonext;ve
+ rsion="[1.0,2)",com.ibm.ws.javaee.dd.web;version="[1.2,2)",com.ibm.ws
+ .javaee.dd.web.common;version="[1.3,2)",com.ibm.ws.javaee.dd.webbnd;v
+ ersion="[1.0,2)",com.ibm.ws.javaee.dd.webext;version="[1.0,2)",com.ib
+ m.ws.javaee.version;version="[1.0,2)",com.ibm.ws.kernel,com.ibm.ws.ke
+ rnel.productinfo;version="[1.0,2)",com.ibm.ws.kernel.security.thread;
+ version="[1.0,2)",com.ibm.ws.kernel.service.util;version="[2.1,3)",co
+ m.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws.resou
+ rce;version="[1.1,2)",com.ibm.ws.runtime.metadata;version="[1.1,2)",c
+ om.ibm.ws.serialization,com.ibm.ws.util;version="[1.0,1.1)",com.ibm.w
+ sspi.adaptable.module;version="[1.0,2)",com.ibm.wsspi.adaptable.modul
+ e.adapters;version="[1.0,2)",com.ibm.wsspi.anno.classsource;version="
+ [1.1,2)",com.ibm.wsspi.anno.info;version="[1.0,2)",com.ibm.wsspi.anno
+ .service;version="[1.0,2)",com.ibm.wsspi.anno.targets;version="[1.0,2
+ )",com.ibm.wsspi.anno.util;version="[1.0,2)",com.ibm.wsspi.annocache.
+ classsource;version="[1.0,2)",com.ibm.wsspi.annocache.info;version="[
+ 1.0,2)",com.ibm.wsspi.annocache.service;version="[1.0,2)",com.ibm.wss
+ pi.annocache.targets;version="[1.0,2)",com.ibm.wsspi.artifact;version
+ ="[1.0,2)",com.ibm.wsspi.artifact.overlay;version="[1.1,2)",com.ibm.w
+ sspi.kernel.service.utils;version="[1.4,2)",com.ibm.wsspi.runtime;ver
+ sion="[1.0,1.1)",javax.naming,javax.xml.parsers,org.osgi.framework;ve
+ rsion="[1.9,2)",org.osgi.service.cm;version="[1.6,2)",org.osgi.servic
+ e.component;version="[1.4,2)",org.w3c.dom,org.xml.sax,org.xml.sax.hel
+ pers
+Private-Package: com.ibm.ws.container.service.security.internal;versio
+ n="1.0",com.ibm.ws.container.service.app.deploy.internal;version="1.0
+ ",com.ibm.ws.container.service.metadata.internal,com.ibm.ws.container
+ .service.state.internal,com.ibm.ws.container.service.resources,com.ib
+ m.ws.runtime
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.ws.
+ container.service.naming.RemoteObjectInstanceFactory",osgi.service;ob
+ jectClass:List<String>="com.ibm.wsspi.adaptable.module.adapters.Conta
+ inerAdapter"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.wsspi.annocache.service.A
+ nnotationCacheService_Service)";effective:=active,osgi.extender;filte
+ r:="(&(osgi.extender=osgi.component)(version>=1.4.0)(!(version>=2.0.0
+ )))"
+Service-Component: OSGI-INF/com.ibm.ws.container.service.annotations.C
+ ontainerAnnotationsAdapter.xml,OSGI-INF/com.ibm.ws.container.service.
+ annotations.ModuleAnnotationsAdapter.xml,OSGI-INF/com.ibm.ws.containe
+ r.service.annotations.WebAnnotationsAdapter.xml,OSGI-INF/com.ibm.ws.c
+ ontainer.service.app.deploy.extended.ApplicationInfoFactory.xml,OSGI-
+ INF/com.ibm.ws.container.service.app.deploy.InjectionClassListAdapter
+ .xml,OSGI-INF/com.ibm.ws.container.service.app.deploy.WebModuleClasse
+ sInfoAdapter.xml,OSGI-INF/com.ibm.ws.container.service.config.WebFrag
+ mentsInfoAdapter.xml,OSGI-INF/com.ibm.ws.container.service.metadata.M
+ etaDataService.xml,OSGI-INF/com.ibm.ws.container.service.metadata.Met
+ aDataSlotService.xml,OSGI-INF/com.ibm.ws.container.service.metadata.i
+ nternal.J2EENameFactoryImpl.xml,OSGI-INF/com.ibm.ws.container.service
+ .serialization.classProvider.xml,OSGI-INF/com.ibm.ws.container.servic
+ e.security.SecurityRolesAdapter.xml,OSGI-INF/com.ibm.ws.container.ser
+ vice.state.StateChangeService.xml,OSGI-INF/com.ibm.ws.container.servi
+ ce.annocache.internal.CDIContainerAnnotationsAdapterImpl.xml,OSGI-INF
+ /com.ibm.ws.container.service.annocache.internal.ContainerAnnotations
+ AdapterImpl.xml,OSGI-INF/com.ibm.ws.container.service.annocache.inter
+ nal.ModuleAnnotationsAdapterImpl.xml,OSGI-INF/com.ibm.ws.container.se
+ rvice.annocache.internal.WebAnnotationsAdapterImpl.xml,OSGI-INF/com.i
+ bm.ws.container.service.naming.RemoteObjectInstanceFactoryImpl.xml
+Tool: Bnd-4.1.0.201810181252
+

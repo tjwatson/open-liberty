@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="registryHelperService" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="wsSecurityService" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.security.intfc.WSSecurityService" bind="setWsSecurityService" unbind="unsetWsSecurityService"/>
+  <implementation class="com.ibm.wsspi.security.registry.RegistryHelper"/>
+</scr:component>

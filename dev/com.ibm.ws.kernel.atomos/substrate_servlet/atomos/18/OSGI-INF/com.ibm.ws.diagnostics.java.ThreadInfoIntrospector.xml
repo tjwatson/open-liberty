@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.diagnostics.java.ThreadInfoIntrospector">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <implementation class="com.ibm.ws.diagnostics.java.ThreadInfoIntrospector"/>
+</component>

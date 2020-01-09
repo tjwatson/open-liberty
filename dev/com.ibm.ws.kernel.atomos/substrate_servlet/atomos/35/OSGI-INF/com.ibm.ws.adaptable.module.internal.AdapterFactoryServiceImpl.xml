@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.adaptable.module.internal.AdapterFactoryServiceImpl" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <reference name="containerHelper" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter" bind="setContainerHelper" unbind="unsetContainerHelper" policy-option="greedy"/>
+  <reference name="entryHelper" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.adaptable.module.adapters.EntryAdapter" bind="setEntryHelper" unbind="unsetEntryHelper" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.adaptable.module.internal.AdapterFactoryServiceImpl"/>
+</scr:component>

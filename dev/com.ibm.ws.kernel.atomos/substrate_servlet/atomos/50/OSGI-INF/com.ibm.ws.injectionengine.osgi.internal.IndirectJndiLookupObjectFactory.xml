@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.injectionengine.osgi.internal.IndirectJndiLookupObjectFactory" activate="activate">
+  <service>
+    <provide interface="javax.naming.spi.ObjectFactory"/>
+    <provide interface="com.ibm.ws.injectionengine.osgi.internal.IndirectJndiLookupObjectFactory"/>
+  </service>
+  <reference name="InjectionEngine" interface="com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl" bind="setInjectionEngine" unbind="unsetInjectionEngine"/>
+  <reference name="JavaCompDefault" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.container.service.naming.JavaColonNamingHelper" target="(javaCompDefault=true)" bind="setJavaCompDefault" unbind="unsetJavaCompDefault"/>
+  <implementation class="com.ibm.ws.injectionengine.osgi.internal.IndirectJndiLookupObjectFactory"/>
+</scr:component>

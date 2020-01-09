@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.threading.PolicyExecutorProvider" configuration-policy="ignore">
+  <service>
+    <provide interface="com.ibm.ws.threading.PolicyExecutorProvider"/>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+  </service>
+  <reference name="globalExecutor" interface="java.util.concurrent.ExecutorService" target="(component.name=com.ibm.ws.threading)" field="globalExecutor"/>
+  <implementation class="com.ibm.ws.threading.PolicyExecutorProvider"/>
+</scr:component>

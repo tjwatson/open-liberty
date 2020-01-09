@@ -1,0 +1,71 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:20:40 CST 2019
+Bundle-Activator: com.ibm.ws.kernel.service.location.internal.Activato
+ r
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebSphere kernel services, version 1.3
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebSphere kernel services
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.kernel.service
+Bundle-Vendor: IBM
+Bundle-Version: 1.3.36.201912190818
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.kernel.server;version="1.0.0";ibm-sp
+ i-type=ibm-api;uses:="javax.management",com.ibm.wsspi.kernel.service.
+ location;version="1.2.0";ibm-spi-type=spi;uses:="com.ibm.websphere.ra
+ s.annotation,com.ibm.ws.ras.instrument.annotation",com.ibm.wsspi.kern
+ el.service.utils;version="1.4.0";ibm-spi-type=spi;uses:="com.ibm.webs
+ phere.ras,com.ibm.websphere.ras.annotation,com.ibm.ws.ffdc,com.ibm.ws
+ .ras.instrument.annotation,org.osgi.framework,org.osgi.service.compon
+ ent",com.ibm.ws.kernel.service.util;version="2.1.0";uses:="com.ibm.we
+ bsphere.ras.annotation,com.ibm.ws.ras.instrument.annotation,javax.xml
+ .stream,org.eclipse.osgi.report.resolution,org.osgi.framework,org.osg
+ i.framework.hooks.resolver,org.osgi.framework.wiring,org.osgi.service
+ .component,org.osgi.util.tracker",com.ibm.ws.common.internal.encoder;
+ version="1.0.16"
+Import-Package: com.ibm.websphere.kernel.server;version="[1.0,1.1)",co
+ m.ibm.websphere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotatio
+ n;version="[1.0,2)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.kern
+ el.launch.service;version="[1.0,2)",com.ibm.ws.kernel.productinfo;ver
+ sion="[1.0,2)",com.ibm.ws.kernel.security.thread;version="[1.0,2)",co
+ m.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.wsspi.ke
+ rnel.service.location;version="[1.2,2)",com.ibm.wsspi.kernel.service.
+ utils;version="[1.4,1.5)",javax.management,javax.naming,javax.naming.
+ spi,javax.xml.stream,org.eclipse.osgi.report.resolution;version="[1.0
+ ,2)",org.osgi.framework;version="[1.9,2)",org.osgi.framework.hooks.re
+ solver;version="[1.0,2)",org.osgi.framework.wiring;version="[1.2,2)",
+ org.osgi.resource;version="[1.0,2)",org.osgi.service.component;versio
+ n="[1.4,2)",org.osgi.service.resolver;version="[1.1,2)",org.osgi.util
+ .tracker;version="[1.5,2)"
+Private-Package: com.ibm.ws.kernel.server.internal;version="1.0.0",com
+ .ibm.ws.kernel.service.utils.resources,com.ibm.ws.kernel.service.loca
+ tion.internal.resources,com.ibm.ws.kernel.service.location.internal,c
+ om.ibm.ws.kernel.pseudo.internal.resources,com.ibm.ws.kernel.pseudo.i
+ nternal;version="1.0"
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.web
+ sphere.kernel.server.ServerEndpointControlMBean",osgi.service;objectC
+ lass:List<String>="com.ibm.websphere.kernel.server.ServerInfoMBean,ja
+ vax.management.DynamicMBean"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.kernel.launch.service.
+ PauseableComponentController)";effective:=active,osgi.service;filter:
+ ="(objectClass=com.ibm.wsspi.kernel.service.location.VariableRegistry
+ )";effective:=active,osgi.service;filter:="(objectClass=com.ibm.wsspi
+ .kernel.service.location.WsLocationAdmin)";effective:=active,osgi.ext
+ ender;filter:="(&(osgi.extender=osgi.component)(version>=1.4.0)(!(ver
+ sion>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.kernel.server.internal.ServerEn
+ dpointControlMBeanImpl.xml,OSGI-INF/com.ibm.ws.kernel.server.internal
+ .ServerInfoMBeanImpl.xml
+Tool: Bnd-4.1.0.201810181252
+

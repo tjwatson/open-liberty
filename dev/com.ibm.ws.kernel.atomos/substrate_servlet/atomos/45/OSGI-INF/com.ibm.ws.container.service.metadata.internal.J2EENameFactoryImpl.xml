@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.container.service.metadata.internal.J2EENameFactoryImpl">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.csi.J2EENameFactory"/>
+  </service>
+  <implementation class="com.ibm.ws.container.service.metadata.internal.J2EENameFactoryImpl"/>
+</component>

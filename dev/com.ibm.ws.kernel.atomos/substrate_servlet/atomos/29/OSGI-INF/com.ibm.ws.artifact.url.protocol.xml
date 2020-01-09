@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.artifact.url.protocol" configuration-policy="ignore">
+  <property name="url.handler.protocol" type="String" value="notabundleresource"/>
+  <service>
+    <provide interface="org.osgi.service.url.URLStreamHandlerService"/>
+    <provide interface="com.ibm.ws.artifact.url.URLService"/>
+  </service>
+  <implementation class="com.ibm.ws.artifact.url.internal.URLStreamHandlerServiceImpl"/>
+</scr:component>

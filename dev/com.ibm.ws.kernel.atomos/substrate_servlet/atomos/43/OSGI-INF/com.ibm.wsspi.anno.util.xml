@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.wsspi.anno.util" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.anno.util.Util_Factory"/>
+  </service>
+  <implementation class="com.ibm.ws.anno.util.internal.UtilImpl_Factory"/>
+</scr:component>

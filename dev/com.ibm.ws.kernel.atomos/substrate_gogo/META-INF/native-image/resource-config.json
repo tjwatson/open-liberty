@@ -32,6 +32,7 @@
     {"pattern":"org/eclipse/osgi/internal/permadmin/implied.permissions"},
     {"pattern":"org/eclipse/osgi/internal/signedcontent/SignedContentMessages.properties"},
     {"pattern":"org/eclipse/osgi/internal/url/SetAccessible.bytes"},
-    {"pattern":"org/eclipse/osgi/internal/url/SetAccessible.java.src"}
+    {"pattern":"org/eclipse/osgi/internal/url/SetAccessible.java.src"},
+    {"pattern":"atomos/.*$"}
   ]
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.http.internal.VirtualHostImpl" configuration-policy="require" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.http.virtualhost">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.http.internal.VirtualHostImpl"/>
+  </service>
+  <reference name="listener" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.http.VirtualHostListener" bind="setListener" unbind="unsetListener"/>
+  <reference name="mimeTypeDefaults" interface="com.ibm.wsspi.http.DefaultMimeTypes" bind="setMimeTypeDefaults" unbind="unsetMimeTypeDefaults"/>
+  <implementation class="com.ibm.ws.http.internal.VirtualHostImpl"/>
+</scr:component>

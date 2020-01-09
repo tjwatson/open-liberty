@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.session.SessionManagerMBeanImpl" configuration-policy="optional" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.session">
+  <property name="jmx.objectname" type="String" value="WebSphere:name=com.ibm.ws.jmx.mbeans.sessionManagerMBean"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.session.SessionManagerMBean"/>
+    <provide interface="javax.management.DynamicMBean"/>
+  </service>
+  <implementation class="com.ibm.ws.session.SessionManagerMBeanImpl"/>
+</scr:component>

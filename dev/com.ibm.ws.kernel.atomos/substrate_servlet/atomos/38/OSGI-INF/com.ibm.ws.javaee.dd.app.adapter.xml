@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="com.ibm.ws.javaee.dd.app.adapter" configuration-policy="ignore">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.javaee.dd.app.Application"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="version" cardinality="0..1" policy="dynamic" interface="com.ibm.ws.javaee.version.JavaEEVersion" bind="setVersion" unbind="unsetVersion" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.javaee.ddmodel.app.ApplicationAdapter"/>
+</scr:component>

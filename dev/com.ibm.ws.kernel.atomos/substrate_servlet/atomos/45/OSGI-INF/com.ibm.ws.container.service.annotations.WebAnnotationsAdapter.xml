@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.container.service.annotations.WebAnnotationsAdapter" configuration-policy="optional">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="toType" type="String" value="com.ibm.ws.container.service.annotations.WebAnnotations"/>
+  <service>
+    <provide interface="com.ibm.wsspi.adaptable.module.adapters.ContainerAdapter"/>
+  </service>
+  <reference name="annoService" cardinality="0..1" policy="dynamic" interface="com.ibm.wsspi.anno.service.AnnotationService_Service" bind="setAnnoService" unbind="unsetAnnoService"/>
+  <implementation class="com.ibm.ws.container.service.annotations.internal.WebAnnotationsAdapter"/>
+</scr:component>

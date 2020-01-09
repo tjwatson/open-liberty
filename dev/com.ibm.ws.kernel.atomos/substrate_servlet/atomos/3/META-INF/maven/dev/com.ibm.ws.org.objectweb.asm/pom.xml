@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev</groupId>
+  <artifactId>com.ibm.ws.org.objectweb.asm</artifactId>
+  <version>1.0.36.201912191037</version>
+  <description>ASM all classes</description>
+  <name>ASM all classes</name>
+  <url>http://asm.ow2.org</url>
+  <licenses>
+    <license>
+      <name>BSD-3-Clause</name>
+      <url>https://asm.ow2.io/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/OpenLiberty/open-liberty.git</connection>
+    <developerConnection>scm:git:https://github.com:OpenLiberty/open-liberty.git</developerConnection>
+    <url>https://github.com/OpenLiberty/open-liberty/tree/master</url>
+  </scm>
+</project>

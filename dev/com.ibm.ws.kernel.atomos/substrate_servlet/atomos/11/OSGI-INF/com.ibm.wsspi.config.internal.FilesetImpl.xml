@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.wsspi.config.internal.FilesetImpl" configuration-policy="require" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.kernel.metatype.helper.fileset">
+  <property name="monitor.recurse" type="Boolean" value="false"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="monitor.filter" type="String" value="files"/>
+  <reference name="Listener" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.config.FilesetChangeListener" bind="setListener" unbind="unsetListener"/>
+  <reference name="LocationAdmin" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationAdmin"/>
+  <implementation class="com.ibm.wsspi.config.internal.FilesetImpl"/>
+</scr:component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev</groupId>
+  <artifactId>com.ibm.ws.org.apache.commons.io</artifactId>
+  <version>1.0.36.201912190818</version>
+  <description>The Apache Commons IO library contains utility classes, stream implementations, file filters,file comparators, endian transformation classes, and much more.</description>
+  <name>Apache Commons IO</name>
+  <url>http://commons.apache.org/proper/commons-io/</url>
+  <organization>
+    <name>The Apache Software Foundation</name>
+  </organization>
+  <licenses>
+    <license>
+      <name>https://www.apache.org/licenses/LICENSE-2.0.txt</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/OpenLiberty/open-liberty.git</connection>
+    <developerConnection>scm:git:https://github.com:OpenLiberty/open-liberty.git</developerConnection>
+    <url>https://github.com/OpenLiberty/open-liberty/tree/master</url>
+  </scm>
+</project>

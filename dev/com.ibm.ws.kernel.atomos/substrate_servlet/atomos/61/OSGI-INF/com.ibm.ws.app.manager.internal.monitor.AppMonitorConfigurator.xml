@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator" configuration-policy="require" immediate="true" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.app.manager.monitor">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator"/>
+  </service>
+  <reference name="ApplicationMonitor" interface="com.ibm.ws.app.manager.internal.monitor.ApplicationMonitor" bind="setApplicationMonitor" unbind="unsetApplicationMonitor"/>
+  <reference name="DropinMonitor" interface="com.ibm.ws.app.manager.internal.monitor.DropinMonitor" bind="setDropinMonitor" unbind="unsetDropinMonitor"/>
+  <implementation class="com.ibm.ws.app.manager.internal.monitor.AppMonitorConfigurator"/>
+</scr:component>

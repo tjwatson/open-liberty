@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.injectionengine.osgi.internal.naming.DeferredNonCompInjectionJavaColonHelper">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.ranking" type="Integer" value="-1"/>
+  <service>
+    <provide interface="com.ibm.ws.container.service.naming.JavaColonNamingHelper"/>
+  </service>
+  <reference name="InjectionEngine" interface="com.ibm.ws.injectionengine.osgi.internal.OSGiInjectionEngineImpl" bind="setInjectionEngine" unbind="unsetInjectionEngine"/>
+  <reference name="RemoteObjectInstanceFactory" policy="static" interface="com.ibm.ws.container.service.naming.RemoteObjectInstanceFactory" bind="setRemoteObjectInstanceFactory" unbind="unsetRemoteObjectInstanceFactory" policy-option="greedy"/>
+  <reference name="SerializationService" interface="com.ibm.ws.serialization.SerializationService" bind="setSerializationService"/>
+  <implementation class="com.ibm.ws.injectionengine.osgi.internal.naming.DeferredNonCompInjectionJavaColonHelper"/>
+</scr:component>
