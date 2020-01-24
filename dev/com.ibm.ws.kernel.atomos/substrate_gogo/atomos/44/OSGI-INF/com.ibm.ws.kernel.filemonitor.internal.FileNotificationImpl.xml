@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.kernel.filemonitor.internal.FileNotificationImpl" configuration-policy="ignore" immediate="true">
+  <property name="jmx.objectname" type="String" value="WebSphere:service=com.ibm.ws.kernel.filemonitor.FileNotificationMBean"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="javax.management.DynamicMBean"/>
+  </service>
+  <reference name="NotificationDelegate" interface="com.ibm.ws.kernel.filemonitor.FileNotification" bind="setNotificationDelegate" unbind="unsetNotificationDelegate"/>
+  <implementation class="com.ibm.ws.kernel.filemonitor.internal.FileNotificationImpl"/>
+</scr:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.threading.internal.ThreadingIntrospector" configuration-policy="ignore" immediate="true">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.logging.Introspector"/>
+  </service>
+  <reference name="WSExecutorService" interface="com.ibm.wsspi.threading.WSExecutorService" bind="setWSExecutorService" unbind="unsetWSExecutorService"/>
+  <reference name="provider" interface="com.ibm.ws.threading.PolicyExecutorProvider" field="provider"/>
+  <implementation class="com.ibm.ws.threading.internal.ThreadingIntrospector"/>
+</scr:component>

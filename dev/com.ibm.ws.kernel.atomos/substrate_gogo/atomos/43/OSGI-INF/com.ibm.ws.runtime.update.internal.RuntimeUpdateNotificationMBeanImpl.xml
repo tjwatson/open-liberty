@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.runtime.update.internal.RuntimeUpdateNotificationMBeanImpl" configuration-policy="ignore" immediate="false">
+  <property name="jmx.objectname" type="String" value="WebSphere:name=com.ibm.websphere.runtime.update.RuntimeUpdateNotificationMBean"/>
+  <service>
+    <provide interface="com.ibm.websphere.runtime.update.RuntimeUpdateNotificationMBean"/>
+    <provide interface="javax.management.DynamicMBean"/>
+    <provide interface="com.ibm.ws.runtime.update.RuntimeUpdateListener"/>
+  </service>
+  <implementation class="com.ibm.ws.runtime.update.internal.RuntimeUpdateNotificationMBeanImpl"/>
+</scr:component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener" configuration-policy="ignore">
+  <service>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+  </service>
+  <implementation class="com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener"/>
+</scr:component>

@@ -1,0 +1,60 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Thu Dec 19 08:20:44 CST 2019
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebSphere Liberty kernel launcher, version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebSphere Liberty kernel bootstrap
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.kernel.boot; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.36.201912190818
+Class-Path: com.ibm.ws.kernel.boot.nls_1.0.36.jar
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.kernel.launch.service;version="1.0",com.ibm
+ .ws.kernel;version="1.0",com.ibm.ws.kernel.boot.classloader;version="
+ 1.0.0",com.ibm.ws.kernel.boot.delegated.zos;version="1.0",com.ibm.ws.
+ kernel.boot.jmx.service;version="1.0",com.ibm.ws.kernel.boot.security
+ ;version="1.0.16";thread-context=true,com.ibm.ws.kernel.productinfo;v
+ ersion="1.0.16",com.ibm.ws.kernel.provisioning;version="1.0",com.ibm.
+ ws.kernel.security.thread;version="1.0",com.ibm.ws.kernel.provisionin
+ g.packages;version="1.0",com.ibm.ws.kernel.boot.utils;version="1.0.16
+ ",com.ibm.wsspi.kernel.security.thread;version="1.0";ibm-spi-type=spi
+Import-Package: com.ibm.ejs.ras;version="[1.0,2)",com.ibm.websphere.ra
+ s;version="[1.2,2)",com.ibm.websphere.ras.annotation;version="[1.0,2)
+ ",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.kernel;version="[1.0,1
+ .1)",com.ibm.ws.kernel.boot.classloader;version="[1.0,1.1)",com.ibm.w
+ s.kernel.boot.security;version="[1.0,2)",com.ibm.ws.kernel.boot.utils
+ ;version="[1.0,2)",com.ibm.ws.kernel.launch.service;version="[1.0,1.1
+ )",com.ibm.ws.kernel.security.thread;version="[1.0,1.1)",com.ibm.ws.r
+ as.instrument.annotation;version="[1.0,2)",com.ibm.wsspi.kernel.secur
+ ity.thread;version="[1.0,1.1)",com.ibm.wsspi.logging;version="[1.1,2)
+ ",com.ibm.wsspi.logprovider;version="[1.0,2)",javax.management,javax.
+ management.loading,javax.management.remote,javax.net,javax.net.ssl,ja
+ vax.security.auth,javax.security.auth.callback,javax.security.auth.lo
+ gin,javax.security.auth.spi,javax.tools,javax.xml.stream,org.atomos.f
+ ramework,org.eclipse.osgi.container,org.osgi.framework.connect,org.os
+ gi.framework.launch;version="[1.2,2)",org.osgi.framework.startlevel;v
+ ersion="[1.0,2)",org.osgi.framework.wiring;version="[1.2,2)",org.osgi
+ .util.tracker;version="[1.5,2)"
+Main-Class: com.ibm.ws.kernel.boot.cmdline.EnvCheck
+Private-Package: com.ibm.ws.kernel.boot.logging;version="1.0.16",com.i
+ bm.ws.kernel.boot.cmdline;version="1.0.16",com.ibm.ws.kernel.boot.res
+ ources,com.ibm.ws.kernel.boot.internal;version="1.0.16",com.ibm.ws.ke
+ rnel.boot.internal.commands;version="1.0.16",com.ibm.ws.kernel.boot.j
+ mx.internal;version="1.0.16",com.ibm.ws.kernel.boot.archive;version="
+ 1.0.16",com.ibm.ws.kernel.boot;version="1.0.16",com.ibm.ws.kernel.lau
+ nch.internal;version="1.0.16",com.ibm.ws.kernel.internal.classloader;
+ version="1.0.16",com.ibm.wsspi.kernel.embeddable;version="1.1",org.os
+ gi.framework
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

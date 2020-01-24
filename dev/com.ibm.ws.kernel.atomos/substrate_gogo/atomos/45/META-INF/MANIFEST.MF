@@ -1,0 +1,64 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:46:50 CST 2020
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: Introspection code in support of must gather for t
+ he core; version=1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: Introspection for diagnostics
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.diagnostics
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+DynamicImport-Package: org.osgi.service.blueprint.container;version="[
+ 1.0.0,2.0.0)",org.osgi.service.blueprint.reflect;version="[1.0.0,2.0.
+ 0)"
+Export-Package: com.ibm.ws.diagnostics;version="1.0";uses:="com.ibm.we
+ bsphere.ras.annotation,com.ibm.ws.ras.instrument.annotation,javax.man
+ agement"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.ws.config.xml;version="[
+ 1.0,2)",com.ibm.ws.diagnostics;version="[1.0,2)",com.ibm.ws.ffdc;vers
+ ion="[1.0,2)",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",
+ com.ibm.wsspi.logging;version="[1.1,2)",javax.management,javax.manage
+ ment.openmbean,org.apache.felix.scr.info;version="[1.0,2)",org.eclips
+ e.equinox.region;version="[1.2,2)",org.osgi.framework;version="[1.9,2
+ )",org.osgi.framework.startlevel;version="[1.0,2)",org.osgi.framework
+ .wiring;version="[1.2,2)",org.osgi.service.cm;version="[1.6,2)"
+Private-Package: com.ibm.ws.diagnostics.osgi,com.ibm.ws.diagnostics.ja
+ va
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.wss
+ pi.logging.Introspector"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.config.xml.ConfigVaria
+ bles)";effective:=active,osgi.service;filter:="(objectClass=org.apach
+ e.felix.scr.info.ScrInfo)";effective:=active,osgi.service;filter:="(o
+ bjectClass=org.eclipse.equinox.region.RegionDigraph)";effective:=acti
+ ve,osgi.extender;filter:="(&(osgi.extender=osgi.component)(version>=1
+ .4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.diagnostics.java.EnvironmentVar
+ iables.xml,OSGI-INF/com.ibm.ws.diagnostics.java.JavaRuntimeInformatio
+ n.xml,OSGI-INF/com.ibm.ws.diagnostics.java.JavaHeapMBeanIntrospector.
+ xml,OSGI-INF/com.ibm.ws.diagnostics.java.NetworkInterfaces.xml,OSGI-I
+ NF/com.ibm.ws.diagnostics.java.OperatingSystemMBeanIntrospector.xml,O
+ SGI-INF/com.ibm.ws.diagnostics.java.ThreadInfoIntrospector.xml,OSGI-I
+ NF/com.ibm.ws.logging.internal.bundlestate.xml,OSGI-INF/com.ibm.ws.lo
+ gging.internal.bundlewiring.xml,OSGI-INF/com.ibm.ws.logging.internal.
+ serviceinfo.xml,OSGI-INF/com.ibm.ws.logging.internal.configurationinf
+ o.xml,OSGI-INF/com.ibm.ws.diagnostics.osgi.BlueprintIntrospector.xml,
+ OSGI-INF/com.ibm.ws.diagnostics.osgi.ComponentInfoIntrospection.xml,O
+ SGI-INF/com.ibm.ws.diagnostics.osgi.ConfigVariableIntrospection.xml,O
+ SGI-INF/com.ibm.ws.diagnostics.osgi.LoggingIntrospector.xml,OSGI-INF/
+ com.ibm.ws.diagnostics.osgi.RegionIntrospection.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: Diagnostics
+

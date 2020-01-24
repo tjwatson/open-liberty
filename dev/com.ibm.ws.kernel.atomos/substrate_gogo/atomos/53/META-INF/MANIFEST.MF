@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:49:13 CST 2020
+Build-Jdk: 1.7.0_51
+Built-By: David
+Bundle-Activator: org.apache.felix.gogo.shell.Activator
+Bundle-Description: Apache Felix Gogo Subproject
+Bundle-Distributor: IBM
+Bundle-DocURL: http://www.apache.org/
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Felix Gogo Shell
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.apache.felix.gogo.shell
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Import-Package: org.apache.felix.service.command;status=provisional;ve
+ rsion="0.10",org.osgi.framework,org.osgi.service.startlevel,org.osgi.
+ util.tracker
+Private-Package: org.apache.felix.gogo.options,org.apache.felix.gogo.s
+ hell
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

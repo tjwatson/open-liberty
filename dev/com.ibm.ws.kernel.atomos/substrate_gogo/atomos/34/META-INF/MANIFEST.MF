@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.eclipse.equinox.coordinator
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:40:20 CST 2020
+Build-Jdk: 1.8.0_162
+Built-By: genie.releng
+Bundle-Activator: org.eclipse.equinox.coordinator.Activator
+Bundle-Distributor: IBM
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-Localization: plugin
+Bundle-ManifestVersion: 2
+Bundle-Name: %bundleName
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.eclipse.equinox.coordinator
+Bundle-Vendor: %bundleVendor
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/equino
+ x/rt.equinox.bundles.git;path="bundles/org.eclipse.equinox.coordinato
+ r";tag="I20180827-2000";commitId=a05e887ec911edc1bdde68182cf6a2dbad65
+ 915e
+Export-Package: org.osgi.service.coordinator;version="1.0.2";uses:="or
+ g.osgi.framework"
+Import-Package: org.eclipse.osgi.util;version="[1.1,2.0)",org.osgi.fra
+ mework;version="[1.6,2.0)",org.osgi.service.coordinator;version="[1.0
+ ,1.1)",org.osgi.service.log;version="[1.3,2.0)",org.osgi.util.tracker
+ ;version="[1.5,2.0)",org.osgi.service.component;version="[1.1,2.0)";r
+ esolution:=optional
+Private-Package: about_files,org.eclipse.equinox.coordinator
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.ibm.ws.logging.source.ffdcsource">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.wsspi.collector.manager.Source"/>
+  </service>
+  <reference name="bufferManager" cardinality="1..1" interface="com.ibm.wsspi.collector.manager.BufferManager" target="(source=com.ibm.ws.logging.ffdc.source.ffdcsource)" bind="setBufferManager" unbind="unsetBufferManager"/>
+  <implementation class="com.ibm.ws.logging.ffdc.source.FFDCSource"/>
+</scr:component>

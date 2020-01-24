@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Fri Jan 17 15:50:28 CST 2020
+Bundle-Distributor: IBM
+Bundle-DocURL: http://asm.ow2.org
+Bundle-License: BSD-3-Clause;link=https://asm.ow2.io/LICENSE.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: ASM all classes
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.objectweb.asm
+Bundle-Version: 1.0.37.202001171549
+Created-By: 1.8.0_232 (Oracle Corporation)
+DynamicImport-Package: *
+Export-Package: org.objectweb.asm;version="7.2",org.objectweb.asm.comm
+ ons;version="7.2";uses:="org.objectweb.asm,org.objectweb.asm.signatur
+ e,org.objectweb.asm.tree",org.objectweb.asm.signature;version="7.2",o
+ rg.objectweb.asm.tree;version="7.2";uses:="org.objectweb.asm",org.obj
+ ectweb.asm.tree.analysis;version="7.2";uses:="org.objectweb.asm,org.o
+ bjectweb.asm.tree",org.objectweb.asm.util;version="7.2";uses:="org.ob
+ jectweb.asm,org.objectweb.asm.signature"
+Implementation-Title: ASM all classes
+Implementation-Version: 7.2
+Import-Package: org.objectweb.asm;version="[7.2,8)",org.objectweb.asm.
+ signature;version="[7.2,8)",org.objectweb.asm.tree;version="[7.2,8)",
+ org.objectweb.asm.tree.analysis;version="[7.2,8)"
+Module-Requires: org.objectweb.asm;transitive=true,org.objectweb.asm.t
+ ree;transitive=true,org.objectweb.asm.tree.analysis;transitive=true
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

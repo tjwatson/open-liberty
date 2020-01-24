@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl" configuration-policy="ignore" immediate="true" activate="activate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.runtime.update.RuntimeUpdateManager"/>
+  </service>
+  <reference name="ExecutorService" cardinality="1..1" interface="java.util.concurrent.ExecutorService" bind="setExecutorService"/>
+  <reference name="FutureMonitor" interface="com.ibm.ws.threading.FutureMonitor" bind="setFutureMonitor" unbind="unsetFutureMonitor"/>
+  <reference name="LocationAdmin" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationAdmin" unbind="unsetLocationAdmin"/>
+  <reference name="Process" policy="static" interface="com.ibm.ws.kernel.LibertyProcess" bind="setProcess"/>
+  <reference name="RuntimeUpdateListener" cardinality="0..n" policy="dynamic" interface="com.ibm.ws.runtime.update.RuntimeUpdateListener" bind="setRuntimeUpdateListener" unbind="unsetRuntimeUpdateListener" policy-option="greedy"/>
+  <implementation class="com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl"/>
+</scr:component>

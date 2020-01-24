@@ -49,3 +49,5 @@ $JAVA_HOME/bin/native-image -cp \
 substrate_gogo:\
 "substrate_build/temp/gogo/wlp/substrate_lib/*"\
  -H:Name=substrate_build/temp/gogo/wlp/liberty
+
+mv substrate_build/temp/gogo/wlp/substrate_lib substrate_build/temp/gogo/wlp/classpath_lib

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.kernel.filemonitor.internal.scan.ScanningCoreServiceImpl" configuration-policy="optional" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="com.ibm.ws.kernel.filemonitor">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.ws.kernel.filemonitor.FileNotification"/>
+    <provide interface="com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener"/>
+  </service>
+  <reference name="Location" policy="dynamic" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocation" unbind="unsetLocation"/>
+  <reference name="Monitor" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.kernel.filemonitor.FileMonitor" target="(|(monitor.files=*)(monitor.directories=*))" bind="setMonitor" unbind="unsetMonitor" updated="updatedMonitor"/>
+  <reference name="Process" policy="static" interface="com.ibm.ws.kernel.LibertyProcess" bind="setProcess"/>
+  <reference name="Scheduler" policy="dynamic" interface="java.util.concurrent.ScheduledExecutorService" target="(deferrable=false)" bind="setScheduler" unbind="unsetScheduler"/>
+  <implementation class="com.ibm.ws.kernel.filemonitor.internal.scan.ScanningCoreServiceImpl"/>
+</scr:component>

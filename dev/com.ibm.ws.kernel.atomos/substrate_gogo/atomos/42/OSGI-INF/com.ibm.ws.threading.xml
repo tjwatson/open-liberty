@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.threading" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="java.util.concurrent.ExecutorService"/>
+    <provide interface="com.ibm.wsspi.threading.WSExecutorService"/>
+  </service>
+  <reference name="Interceptor" cardinality="0..n" policy="dynamic" interface="com.ibm.wsspi.threading.ExecutorServiceTaskInterceptor" bind="setInterceptor" unbind="unsetInterceptor"/>
+  <reference name="ThreadFactory" cardinality="0..1" policy="dynamic" interface="java.util.concurrent.ThreadFactory" target="(com.ibm.ws.threading.defaultExecutorThreadFactory=true)" bind="setThreadFactory" unbind="unsetThreadFactory"/>
+  <implementation class="com.ibm.ws.threading.internal.ExecutorServiceImpl"/>
+</scr:component>

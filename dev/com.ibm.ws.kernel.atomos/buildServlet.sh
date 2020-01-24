@@ -57,3 +57,5 @@ $JAVA_HOME/bin/native-image -cp \
 substrate_servlet:\
 "substrate_build/temp/servlet/wlp/substrate_lib/*"\
  -H:Name=substrate_build/temp/servlet/wlp/liberty
+
+mv substrate_build/temp/servlet/wlp/substrate_lib substrate_build/temp/servlet/wlp/classpath_lib

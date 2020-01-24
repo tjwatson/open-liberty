@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.threading.internal.ScheduledExecutorImpl">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="deferrable" type="Boolean" value="false"/>
+  <service>
+    <provide interface="java.util.concurrent.ScheduledExecutorService"/>
+  </service>
+  <reference name="executor" cardinality="1..1" interface="java.util.concurrent.ExecutorService" bind="setExecutor" unbind="unsetExecutor"/>
+  <implementation class="com.ibm.ws.threading.internal.ScheduledExecutorImpl"/>
+</component>

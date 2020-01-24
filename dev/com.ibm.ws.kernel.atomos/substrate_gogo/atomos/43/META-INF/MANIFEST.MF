@@ -1,0 +1,58 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:39:39 CST 2020
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WAS Runtime Update Service version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WAS Runtime Update Service
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.runtime.update; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.websphere.runtime.update;version="1.0",com.ibm
+ .ws.runtime.update;version="1.0.16";uses:="com.ibm.ws.threading.liste
+ ners"
+Import-Package: com.ibm.websphere.ras;version="[1.2,2)",com.ibm.websph
+ ere.ras.annotation;version="[1.0,2)",com.ibm.websphere.runtime.update
+ ;version="[1.0,1.1)",com.ibm.ws.ffdc;version="[1.0,2)",com.ibm.ws.ker
+ nel;version="[1.0,2)",com.ibm.ws.kernel.launch.service;version="[1.0,
+ 2)",com.ibm.ws.ras.instrument.annotation;version="[1.0,2)",com.ibm.ws
+ .runtime.update;version="[1.0,1.1)",com.ibm.ws.threading;version="[1.
+ 0,2)",com.ibm.ws.threading.listeners;version="[1.0,2)",com.ibm.wsspi.
+ kernel.service.location;version="[1.2,2)",com.ibm.wsspi.kernel.servic
+ e.utils;version="[1.4,2)",javax.management,org.osgi.framework;version
+ ="[1.9,2)"
+Private-Package: com.ibm.ws.runtime.update.internal,com.ibm.ws.runtime
+ .update.internal.resources
+Provide-Capability: osgi.service;objectClass:List<String>="com.ibm.web
+ sphere.runtime.update.RuntimeUpdateNotificationMBean,com.ibm.ws.runti
+ me.update.RuntimeUpdateListener,javax.management.DynamicMBean",osgi.s
+ ervice;objectClass:List<String>="com.ibm.ws.runtime.update.RuntimeUpd
+ ateManager",osgi.service;objectClass:List<String>="com.ibm.wsspi.kern
+ el.service.utils.ServerQuiesceListener"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+ ,osgi.service;filter:="(objectClass=com.ibm.ws.kernel.LibertyProcess)
+ ";effective:=active,osgi.service;filter:="(objectClass=com.ibm.ws.run
+ time.update.RuntimeUpdateListener)";effective:=active;resolution:=opt
+ ional;cardinality:=multiple,osgi.service;filter:="(objectClass=com.ib
+ m.ws.threading.FutureMonitor)";effective:=active,osgi.service;filter:
+ ="(objectClass=com.ibm.wsspi.kernel.service.location.WsLocationAdmin)
+ ";effective:=active,osgi.service;filter:="(objectClass=java.util.conc
+ urrent.ExecutorService)";effective:=active,osgi.extender;filter:="(&(
+ osgi.extender=osgi.component)(version>=1.4.0)(!(version>=2.0.0)))"
+Service-Component: OSGI-INF/com.ibm.ws.runtime.update.internal.Pauseab
+ leComponentQuiesceListener.xml,OSGI-INF/com.ibm.ws.runtime.update.int
+ ernal.RuntimeUpdateManagerImpl.xml,OSGI-INF/com.ibm.ws.runtime.update
+ .internal.RuntimeUpdateNotificationMBeanImpl.xml
+Tool: Bnd-4.1.0.201810181252
+WS-TraceGroup: runtime.update
+

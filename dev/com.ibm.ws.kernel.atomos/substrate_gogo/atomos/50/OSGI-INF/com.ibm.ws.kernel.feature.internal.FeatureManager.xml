@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.kernel.feature.internal.FeatureManager" configuration-policy="ignore" immediate="true" activate="activate" deactivate="deactivate">
+  <property name="service.vendor" type="String" value="IBM"/>
+  <property name="service.pid" type="String" value="com.ibm.ws.kernel.feature"/>
+  <service>
+    <provide interface="com.ibm.ws.kernel.feature.FeatureProvisioner"/>
+    <provide interface="com.ibm.ws.kernel.launch.service.FrameworkReady"/>
+    <provide interface="org.osgi.service.cm.ManagedService"/>
+  </service>
+  <reference name="AtomosRuntime" cardinality="0..1" interface="org.atomos.framework.AtomosRuntime" bind="setAtomosRuntime" unbind="unsetAtomosRuntime"/>
+  <reference name="digraph" interface="org.eclipse.equinox.region.RegionDigraph" bind="setDigraph" unbind="unsetDigraph"/>
+  <reference name="eventAdminService" interface="org.osgi.service.event.EventAdmin" bind="setEventAdminService" unbind="unsetEventAdminService"/>
+  <reference name="executorService" interface="java.util.concurrent.ExecutorService" bind="setExecutorService" unbind="unsetExecutorService"/>
+  <reference name="locationService" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setLocationService" unbind="unsetLocationService"/>
+  <reference name="runtimeUpdateManager" interface="com.ibm.ws.runtime.update.RuntimeUpdateManager" bind="setRuntimeUpdateManager" unbind="unsetRuntimeUpdateManager"/>
+  <reference name="variableRegistry" interface="com.ibm.wsspi.kernel.service.location.VariableRegistry" bind="setVariableRegistry" unbind="unsetVariableRegistry"/>
+  <implementation class="com.ibm.ws.kernel.feature.internal.FeatureManager"/>
+</scr:component>

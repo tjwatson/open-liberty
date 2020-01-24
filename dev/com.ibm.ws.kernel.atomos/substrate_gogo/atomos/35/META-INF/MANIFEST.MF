@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.eclipse.equinox.region
+Bnd-LastModified: 1579012765838
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:39:25 CST 2020
+Build-Jdk: 1.8.0_192
+Built-By: genie.releng
+Bundle-Distributor: IBM
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.org.eclipse.equinox.region
+Bundle-Vendor: %Bundle-Vendor
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/equino
+ x/rt.equinox.bundles.git;path="bundles/org.eclipse.equinox.region";ta
+ g="I20190911-1805";commitId=6ffb4eff147fa51a4a2e6523387b546f860098d5
+Export-Package: org.eclipse.equinox.region;version="1.2.0"
+ExtensionBundle-Activator: org.eclipse.equinox.internal.region.RegionM
+ anager
+Fragment-Host: system.bundle
+Private-Package: org.eclipse.equinox.internal.region,org.eclipse.equin
+ ox.internal.region.hook,org.eclipse.equinox.internal.region.managemen
+ t,org.eclipse.equinox.region.management
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-4.1.0.201810181252
+

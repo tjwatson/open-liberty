@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.ibm.ws.kernel.server.internal.ServerInfoMBeanImpl" configuration-policy="ignore" immediate="true">
+  <property name="jmx.objectname" type="String" value="WebSphere:feature=kernel,name=ServerInfo"/>
+  <property name="service.vendor" type="String" value="IBM"/>
+  <service>
+    <provide interface="com.ibm.websphere.kernel.server.ServerInfoMBean"/>
+    <provide interface="javax.management.DynamicMBean"/>
+  </service>
+  <reference name="VariableRegistry" interface="com.ibm.wsspi.kernel.service.location.VariableRegistry" bind="setVariableRegistry" unbind="unsetVariableRegistry"/>
+  <reference name="WsLocationAdmin" interface="com.ibm.wsspi.kernel.service.location.WsLocationAdmin" bind="setWsLocationAdmin" unbind="unsetWsLocationAdmin"/>
+  <implementation class="com.ibm.ws.kernel.server.internal.ServerInfoMBeanImpl"/>
+</scr:component>

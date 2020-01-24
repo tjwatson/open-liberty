@@ -1,0 +1,50 @@
+Manifest-Version: 1.0
+Build-Identifier: SNAPSHOT-Tue Jan 14 08:48:04 CST 2020
+Bundle-Activator: com.ibm.ws.logging.internal.osgi.Activator
+Bundle-Copyright: Copyright (c) 1999, 2019 IBM Corporation and others.
+  All rights reserved. This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v1.0 wh
+ ich accompanies this distribution, and is available at http://www.ecl
+ ipse.org/legal/epl-v10.html.
+Bundle-Description: WebSphere Logging OSGi adapter, version 1.0
+Bundle-License: Eclipse Public License; url=https://www.eclipse.org/le
+ gal/epl-v10.html
+Bundle-ManifestVersion: 2
+Bundle-Name: WebSphere Logging OSGi adapter
+Bundle-SCM: connection=scm:git:https://github.com/OpenLiberty/open-lib
+ erty.git, developerConnection=scm:git:https://github.com:OpenLiberty/
+ open-liberty.git, url=https://github.com/OpenLiberty/open-liberty/tre
+ e/master
+Bundle-SymbolicName: com.ibm.ws.logging.osgi; singleton:=true
+Bundle-Vendor: IBM
+Bundle-Version: 1.0.37.202001140837
+Created-By: 11.0.5 (Eclipse OpenJ9)
+Export-Package: com.ibm.ws.logging.osgi;version="1.0.16"
+IBM-Default-Config: OSGI-INF/wlp/defaultInstances.xml
+Import-Package: org.objectweb.asm,org.objectweb.asm.commons,org.object
+ web.asm.tree,org.objectweb.asm.util,org.apache.tools.ant;resolution:=
+ optional,org.apache.tools.ant.types;resolution:=optional,com.ibm.webs
+ phere.ras;version="[1.2,2)",com.ibm.websphere.ras.annotation;version=
+ "[1.0,2)",com.ibm.ws.collector.manager.buffer;version="[1.0,2)",com.i
+ bm.ws.ffdc;version="[1.0,2)",com.ibm.ws.ffdc.annotation;version="[1.0
+ ,2)",com.ibm.ws.logging;version="[1.0,2)",com.ibm.ws.logging.osgi;ver
+ sion="[1.0,1.1)",com.ibm.ws.logging.source;version="[1.0,2)",com.ibm.
+ ws.logging.utils;version="[1.0,2)",com.ibm.wsspi.collector.manager;ve
+ rsion="[1.0,2)",com.ibm.wsspi.logging;version="[1.1,2)",org.eclipse.e
+ quinox.log;version="[1.1,2)",org.osgi.framework;version="[1.10,2)",or
+ g.osgi.service.cm;version="[1.6,2)",org.osgi.service.log;version="[1.
+ 4,2)",org.osgi.service.log.admin;version="[1.0,2)",org.osgi.util.trac
+ ker;version="[1.5,2)",org.xml.sax,org.xml.sax.helpers
+Private-Package: com.ibm.ws.ras.instrument.internal.bci;version="1.0.1
+ 6",com.ibm.ws.ras.instrument.internal.main;version="1.0.16",com.ibm.w
+ s.ras.instrument.internal.buildtasks;version="1.0.16",com.ibm.ws.ras.
+ instrument.internal.xml;version="1.0.16",com.ibm.ws.ras.instrument.in
+ ternal.model;version="1.0.16",com.ibm.ws.ras.instrument.annotation;ve
+ rsion="1.0",com.ibm.ws.ras.instrument.internal.introspect;version="1.
+ 0.16",com.ibm.ws.logging.internal.osgi.resources,com.ibm.ws.logging.i
+ nternal.osgi;version="1.1"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Service-Component: OSGI-INF/com.ibm.ws.logging.internal.ffdcjanitor.xm
+ l
+Tool: Bnd-4.1.0.201810181252
+

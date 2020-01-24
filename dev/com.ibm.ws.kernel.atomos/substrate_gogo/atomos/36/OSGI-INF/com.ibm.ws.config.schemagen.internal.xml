@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="com.ibm.ws.config.schemagen.internal">
+  <service>
+    <provide interface="com.ibm.websphere.metatype.SchemaGenerator"/>
+  </service>
+  <reference name="metaTypeService" cardinality="1..1" interface="org.eclipse.equinox.metatype.EquinoxMetaTypeService" bind="setMetaTypeService" unbind="unsetMetaTypeService"/>
+  <implementation class="com.ibm.ws.config.schemagen.internal.SchemaGeneratorImpl"/>
+</component>
