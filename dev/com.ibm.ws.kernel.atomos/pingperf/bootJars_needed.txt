@@ -1,0 +1,4 @@
+lib/org.eclipse.osgi_3.15.0.jar
+lib/com.ibm.ws.kernel.equinox.module_1.0.37.jar
+lib/com.ibm.ws.logging_1.0.37.jar
+lib/com.ibm.ws.kernel.boot_1.0.37.jar
