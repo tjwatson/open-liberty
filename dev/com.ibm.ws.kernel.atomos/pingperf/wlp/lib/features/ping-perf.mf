@@ -1,0 +1,13 @@
+IBM-Feature-Version: 2
+IBM-ShortName: pingperf
+Subsystem-Content: org.hotspot.test.jaxrs.ping; version=1.0, 
+ com.ibm.websphere.appserver.servlet-3.0; ibm.tolerates:="3.1,4.0"; type="osgi.subsystem.feature",
+ com.ibm.websphere.appserver.cdi-2.0; type="osgi.subsystem.feature",
+ com.ibm.wsspi.appserver.webBundle-1.0; type="osgi.subsystem.feature"
+Subsystem-Description: Ping perf app converted to wab for testing
+Subsystem-ManifestVersion: 1
+Subsystem-Name: pingperf
+Subsystem-SymbolicName: com.ibm.ws.pingperf; visibility:=public
+Subsystem-Type: osgi.subsystem.feature
+Subsystem-Version: 1.0.5
+IBM-Test-Feature: true
