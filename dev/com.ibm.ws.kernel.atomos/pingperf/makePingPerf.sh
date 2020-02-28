@@ -58,8 +58,8 @@ cat > ./build/launchPingPerf.sh <<- EOF
 	            debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
 	            ;;
 	        clean)
-	            rm -fr $new_wlp/usr/servers/defaultServer/workarea
-	            echo rm -fr $new_wlp/usr/servers/defaultServer/workarea
+	            rm -fr $minified_wlp/usr/servers/defaultServer/workarea
+	            echo rm -fr $minified_wlp/usr/servers/defaultServer/workarea
 	            ;;
 	    esac
 	    shift
