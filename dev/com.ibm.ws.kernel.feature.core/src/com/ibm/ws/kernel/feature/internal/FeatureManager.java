@@ -1233,7 +1233,12 @@ public class FeatureManager implements FeatureProvisioner, FrameworkReady, Manag
         // resolve the features
         // TODO Note that we are just supporting all types at runtime right now.  In the future this may be restricted by the actual running process type
         Result result = featureResolver.resolveFeatures(restrictedRespository, kernelFeaturesHolder.getKernelFeatures(), rootFeatures, Collections.<String> emptySet(),
-                                                        allowMultipleVersions);
+                                                        false);
+        if (allowMultipleVersions) {
+            if (!result.getConflicts().isEmpty()) {
+                result = featureResolver.resolveFeatures(restrictedRespository, kernelFeaturesHolder.getKernelFeatures(), rootFeatures, Collections.<String> emptySet(), true);
+            }
+        }
         restrictedAccessAttempts.addAll(restrictedRepoAccessAttempts);
 
         return result;
