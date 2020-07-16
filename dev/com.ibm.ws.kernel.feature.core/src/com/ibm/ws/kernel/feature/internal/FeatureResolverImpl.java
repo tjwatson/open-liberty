@@ -439,13 +439,6 @@ public class FeatureResolverImpl implements FeatureResolver {
         // Check for tolerated versions; but only if the preferred version is a singleton or we did not find the preferred version
         if (tolerates != null && (candidateNames.isEmpty() || isSingleton)) {
             for (String tolerate : tolerates) {
-                if (selectionContext._allowMultipleVersions) {
-                    // if we are in minify mode (_allowMultipleVersions) then we only want to continue to look for
-                    // tolerated versions until we have found one candidate
-                    if (!!!candidateNames.isEmpty()) {
-                        break;
-                    }
-                }
                 String toleratedSymbolicName = baseSymbolicName + '-' + tolerate;
                 ProvisioningFeatureDefinition toleratedCandidateDef = selectionContext.getRepository().getFeature(toleratedSymbolicName);
                 if (toleratedCandidateDef != null && !!!candidateNames.contains(toleratedCandidateDef.getSymbolicName()) && isAccessible(includingFeature, toleratedCandidateDef)) {
@@ -471,6 +464,10 @@ public class FeatureResolverImpl implements FeatureResolver {
             // We selected one candidate; now process the selected
             String selectedName = candidateNames.get(0);
             processSelected(selectionContext.getRepository().getFeature(selectedName), allowedTolerations, chain, result, selectionContext);
+        } else if (selectionContext._allowMultipleVersions) {
+            for (String candidateName : candidateNames) {
+                processSelected(selectionContext.getRepository().getFeature(candidateName), allowedTolerations, chain, result, selectionContext);
+            }
         }
     }
 
