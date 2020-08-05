@@ -2,7 +2,7 @@
 symbolicName=com.ibm.websphere.appserver.javaeePlatform-8.0
 IBM-Process-Types: client, server
 -features=com.ibm.websphere.appserver.javaeePlatform-7.0
--bundles=com.ibm.ws.javaee.platform.v8, \
+-bundles=com.ibm.ws.javaee.platform.v8; start-phase:=SERVICE_EARLY, \
  com.ibm.ws.javaee.version
 kind=ga
 edition=core
