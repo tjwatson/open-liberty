@@ -609,7 +609,7 @@
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-core</artifactId>
-      <version>3.1.8.RELEASE</version>
+      <version>3.4.5</version>
     </dependency>
     <dependency>
       <groupId>io.reactivex.rxjava2</groupId>
