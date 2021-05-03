@@ -1484,12 +1484,12 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-model</artifactId>
-      <version>3.5.0</version>
+      <version>3.8.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-model</artifactId>
-      <version>3.6.3</version>
+      <version>3.8.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
