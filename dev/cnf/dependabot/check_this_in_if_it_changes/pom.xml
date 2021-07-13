@@ -2359,7 +2359,7 @@
     <dependency>
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
-      <version>3.4.1.Final</version>
+      <version>3.4.2.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.narayana.arjunacore</groupId>
@@ -3839,7 +3839,7 @@
     <dependency>
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
-      <version>3.3.2.Final</version>
+      <version>3.4.2.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss</groupId>
