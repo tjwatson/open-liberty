@@ -16,16 +16,22 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.security.auth.login.AppConfigurationEntry.LoginModuleControlFlag;
 
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleEvent;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.SynchronousBundleListener;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 
@@ -53,7 +59,7 @@ import com.ibm.wsspi.kernel.service.utils.FilterUtils;
 import com.ibm.wsspi.library.Library;
 
 @Component(configurationPid = "com.ibm.ws.security.authentication.internal.jaas.jaasLoginModuleConfig", configurationPolicy = ConfigurationPolicy.REQUIRE, property = "service.vendor=IBM")
-public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig {
+public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig, SynchronousBundleListener {
     private static final TraceComponent tc = Tr.register(JAASLoginModuleConfigImpl.class);
 
     public static final String CERTIFICATE = "certificate";
@@ -97,10 +103,19 @@ public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig {
 
     private ClassLoadingService classLoadingService;
 
+    private final AtomicBoolean needReload = new AtomicBoolean();
+    private final AtomicReference<Bundle> trackBundle = new AtomicReference<>();
+
     @Activate
-    protected void activate(ModuleConfig moduleConfig, Map<String, Object> props) {
+    protected void activate(BundleContext context, ModuleConfig moduleConfig, Map<String, Object> props) {
+        context.addBundleListener(this);
         this.moduleConfig = moduleConfig;
         processConfigProps(props);
+    }
+
+    @Deactivate
+    protected void deactivate(BundleContext context) {
+        context.removeBundleListener(this);
     }
 
     /**
@@ -116,6 +131,7 @@ public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig {
         if (isDefaultLoginModule()) {
             String target = getTargetClassName(originalLoginModuleClassName, options);
             Class<?> cl = getTargetClassForName(target);
+            trackBundle(cl);
             options.put(LoginModuleProxy.KERNEL_DELEGATE, cl);
         } else {
             if (sharedLibrary == null && classProviderAppInfo == null) // nowhere to load the login module class from
@@ -130,6 +146,28 @@ public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig {
             options = processDelegateOptions(options, originalLoginModuleClassName, classProviderAppInfo, classLoadingService, sharedLibrary, false);
         }
         this.options = options;
+    }
+
+    /**
+     * @param cl
+     */
+    private void trackBundle(Class<?> cl) {
+        if (cl != null) {
+            final Bundle loginModuleClassBundle = FrameworkUtil.getBundle(cl);
+            if (loginModuleClassBundle != null) {
+                trackBundle.set(loginModuleClassBundle);
+            }
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void bundleChanged(BundleEvent event) {
+        if ((event.getType() & BundleEvent.UNRESOLVED) != 0) {
+            if (trackBundle.compareAndSet(event.getBundle(), null)) {
+                needReload.set(true);
+            }
+        }
     }
 
     @FFDCIgnore(ClassNotFoundException.class)
@@ -410,12 +448,14 @@ public class JAASLoginModuleConfigImpl implements JAASLoginModuleConfig {
 
     @Override
     public void reloadDelegateClass() {
-        String targetClass = ((Class<?>) options.get(LoginModuleProxy.KERNEL_DELEGATE)).getName();
-        if (targetClass != null) {
-            if (TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
-                Tr.debug(tc, "Reloading delegate class: " + targetClass);
+        if (needReload.compareAndSet(true, false)) {
+            String targetClass = ((Class<?>) options.get(LoginModuleProxy.KERNEL_DELEGATE)).getName();
+            if (targetClass != null) {
+                if (TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
+                    Tr.debug(tc, "Reloading delegate class: " + targetClass);
+                }
+                options.put(LoginModuleProxy.KERNEL_DELEGATE, getTargetClassForName(targetClass));
             }
-            options.put(LoginModuleProxy.KERNEL_DELEGATE, getTargetClassForName(targetClass));
         }
     }
 }
