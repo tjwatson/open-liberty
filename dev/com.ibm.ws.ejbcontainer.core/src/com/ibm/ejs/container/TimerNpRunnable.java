@@ -69,6 +69,7 @@ public abstract class TimerNpRunnable implements Runnable {
      */
     @Override
     public void run() {
+        System.out.println("RUNNING: " + this);
         final boolean isTraceOn = TraceComponent.isAnyTracingEnabled();
         if (isTraceOn && tc.isEntryEnabled()) // F743-425.CodRev
             Tr.entry(tc, "run: " + ivTimer.ivTaskId); // F743-425.CodRev

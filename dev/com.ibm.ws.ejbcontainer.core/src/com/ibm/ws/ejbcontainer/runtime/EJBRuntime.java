@@ -81,11 +81,12 @@ public interface EJBRuntime {
      *
      * @param activator the activator
      * @param type
-     *            <ul>
-     *            <li>{@link Activator#UNCACHED_ACTIVATION_STRATEGY} <li>{@link Activator#STATEFUL_ACTIVATE_ONCE_ACTIVATION_STRATEGY} <li>
-     *            {@link Activator#STATEFUL_ACTIVATE_TRAN_ACTIVATION_STRATEGY} <li>{@link Activator#STATEFUL_ACTIVATE_SESSION_ACTIVATION_STRATEGY} <li>
-     *            {@link Activator#OPTA_ENTITY_ACTIVATION_STRATEGY} <li>{@link Activator#OPTB_ENTITY_ACTIVATION_STRATEGY} <li>{@link Activator#OPTC_ENTITY_ACTIVATION_STRATEGY} <li>
-     *            {@link Activator#ENTITY_SESSIONAL_TRAN_ACTIVATION_STRATEGY} <li>{@link Activator#READONLY_ENTITY_ACTIVATION_STRATEGY} </ul>
+     *                      <ul>
+     *                      <li>{@link Activator#UNCACHED_ACTIVATION_STRATEGY} <li>{@link Activator#STATEFUL_ACTIVATE_ONCE_ACTIVATION_STRATEGY} <li>
+     *                      {@link Activator#STATEFUL_ACTIVATE_TRAN_ACTIVATION_STRATEGY} <li>{@link Activator#STATEFUL_ACTIVATE_SESSION_ACTIVATION_STRATEGY} <li>
+     *                      {@link Activator#OPTA_ENTITY_ACTIVATION_STRATEGY} <li>{@link Activator#OPTB_ENTITY_ACTIVATION_STRATEGY}
+     *                      <li>{@link Activator#OPTC_ENTITY_ACTIVATION_STRATEGY} <li>
+     *                      {@link Activator#ENTITY_SESSIONAL_TRAN_ACTIVATION_STRATEGY} <li>{@link Activator#READONLY_ENTITY_ACTIVATION_STRATEGY} </ul>
      * @return the activation strategy, or null
      */
     ActivationStrategy createActivationStrategy(Activator activator, int type, PassivationPolicy passivationPolicy);
@@ -102,7 +103,7 @@ public interface EJBRuntime {
      * method makes no assumptions about the thread context.
      *
      * @param hr this is the object that holds all information needed to
-     *            initialize this EJB type.
+     *               initialize this EJB type.
      * @return HomeInternal (EJSHome) object representing the fully initialized EJB type.
      * @throws ContainerEJBException if an exception occurs while initializing
      */
@@ -113,11 +114,11 @@ public interface EJBRuntime {
      * being processed. Only the type and J2EEName fields of the bean are valid
      * at the time this method is called.
      *
-     * @param bmd the bean metadata
+     * @param bmd       the bean metadata
      * @param hasRemote <tt>true</tt> if the bean has a remote interface
      * @return a WCCMMetaData for this runtime
      * @throws ContainerException if the bean type is not allowed by this
-     *             runtime environment.
+     *                                runtime environment.
      */
     WCCMMetaData setupBean(BeanMetaData bmd, boolean hasRemote) throws ContainerException;
 
@@ -127,25 +128,25 @@ public interface EJBRuntime {
      * to ensure that an appropriate message has been logged.
      *
      * @throws ContainerException if the container was unable to initialize the
-     *             asynchronous component or if asynchronous methods are not allowed by this
-     *             runtime environment
+     *                                asynchronous component or if asynchronous methods are not allowed by this
+     *                                runtime environment
      */
     void setupAsync() throws ContainerException;
 
     /**
      * Schedules an asynchronous method to be called.
      *
-     * @param wrapper the wrapper that originated the asynchronous method call
+     * @param wrapper    the wrapper that originated the asynchronous method call
      * @param methodInfo the method info
-     * @param methodId the method info id
-     * @param args the arguments to the wrapper
+     * @param methodId   the method info id
+     * @param args       the arguments to the wrapper
      * @return the future to return to the client, or null if the method had a
      *         void return type
-     * @throws EJBException if asynchronous EJBs are not allowed by this
-     *             runtime environment or if any exception occurs while trying to schedule
-     *             the async method
+     * @throws EJBException    if asynchronous EJBs are not allowed by this
+     *                             runtime environment or if any exception occurs while trying to schedule
+     *                             the async method
      * @throws RemoteException if the bean implements rmi remote business interface, wrap
-     *             the exception in a RemoteException instead of EJBException
+     *                             the exception in a RemoteException instead of EJBException
      */
     Future<?> scheduleAsync(EJSWrapperBase wrapper, EJBMethodInfoImpl methodInfo, int methodId, Object[] args) throws RemoteException;
 
@@ -155,8 +156,8 @@ public interface EJBRuntime {
      * to ensure that an appropriate message has been logged.
      *
      * @throws ContainerException if the container was unable to initialize the
-     *             timer service component or if timers are not supported by this runtime
-     *             environment
+     *                                timer service component or if timers are not supported by this runtime
+     *                                environment
      */
     void setupTimers(BeanMetaData bmd) throws ContainerException;
 
@@ -166,15 +167,15 @@ public interface EJBRuntime {
      * <tt>interval</tt> is <tt>0</tt>, then the timer is single-action.
      * Otherwise, the timer is interval-based.
      *
-     * @param beanO the bean
+     * @param beanO      the bean
      * @param expiration the initial expiration for a single-action or
-     *            interval-based timer, or <tt>null</tt> for a calendar-based timer
-     * @param interval the interval for an interval-based timer, or
-     *            <tt>-1</tt> for a single-action or calendar-based timer
-     * @param schedule the schedule for a calendar-based timer, or <tt>null</tt>
-     *            for a single-action or interval-based timer
-     * @param info application information to be delivered to the timeout
-     *            method, or null
+     *                       interval-based timer, or <tt>null</tt> for a calendar-based timer
+     * @param interval   the interval for an interval-based timer, or
+     *                       <tt>-1</tt> for a single-action or calendar-based timer
+     * @param schedule   the schedule for a calendar-based timer, or <tt>null</tt>
+     *                       for a single-action or interval-based timer
+     * @param info       application information to be delivered to the timeout
+     *                       method, or null
      * @param persistent true if the should be persistent
      */
     Timer createTimer(BeanO beanO, Date expiration, long interval, ScheduleExpression schedule, Serializable info, boolean persistent);
@@ -201,8 +202,8 @@ public interface EJBRuntime {
      * This method is intended for use by the timer task handler when it
      * has been deserialized and is invoking the timeout callback. <p>
      *
-     * @param taskId unique identity of the Timer
-     * @param j2eeName unique EJB name composed of Application-Module-Component
+     * @param taskId      unique identity of the Timer
+     * @param j2eeName    unique EJB name composed of Application-Module-Component
      * @param taskHandler persistent timer task handler associated with the taskId
      * @return persistent timer instance
      */
@@ -236,7 +237,7 @@ public interface EJBRuntime {
      *
      * @return Timer represented by the specified taskId
      * @throws NoSuchObjectLocalException if the timer no longer exists in persistent store
-     *             or has been cancelled in the current transaction.
+     *                                        or has been cancelled in the current transaction.
      */
     Timer getPersistentTimerFromStore(long taskId) throws NoSuchObjectLocalException;
 
@@ -275,8 +276,8 @@ public interface EJBRuntime {
      * lateTimerThreshold after the scheduled timer expiration.
      *
      * @param scheduledRuntime the scheduled expiration time
-     * @param timerId unique timer identifier for the logged message
-     * @param j2eeName unique identifier of the timer bean
+     * @param timerId          unique timer identifier for the logged message
+     * @param j2eeName         unique identifier of the timer bean
      */
     void checkLateTimerThreshold(Date scheduledRunTime, String timerId, J2EEName j2eeName);
 
@@ -351,9 +352,9 @@ public interface EJBRuntime {
      * specified key. <p>
      *
      * @param remoteObject the <code>EJSRemoteWrapper</code> object to register, must be
-     *            ready to receive remote calls <p>
+     *                         ready to receive remote calls <p>
      *
-     * @param key the <code>ByteArray</code> object
+     * @param key          the <code>ByteArray</code> object
      *
      *
      * @exception CSIException thrown if the registration fails <p>
@@ -368,7 +369,7 @@ public interface EJBRuntime {
      * the hashcode of the servant key does not need to be re-computed. <p>
      *
      * @param remoteObject the <code>EJSRemoteWrapper</code> object to register, must be
-     *            ready to receive remote calls <p>
+     *                         ready to receive remote calls <p>
      *
      * @exception CSIException thrown if the registration fails <p>
      */
@@ -406,8 +407,8 @@ public interface EJBRuntime {
      * @param home Home of the bean performing the lookup.
      *
      * @throws IllegalArgumentException - The Container throws the exception
-     *             if the given name does not match an entry within the
-     *             component's environment.
+     *                                      if the given name does not match an entry within the
+     *                                      component's environment.
      */
     Object javaColonLookup(String name, EJSHome home);
 
@@ -431,7 +432,7 @@ public interface EJBRuntime {
      * Returns the BeanOFactory for the the specified bean type. <p>
      *
      * @param type one of the supported types defined on {@link BeanOFactory}
-     * @param bmd the corresponding BeanMetaData, or null for home of homes
+     * @param bmd  the corresponding BeanMetaData, or null for home of homes
      */
     // F88119
     BeanOFactory getBeanOFactory(BeanOFactoryType type, BeanMetaData bmd);
@@ -446,7 +447,7 @@ public interface EJBRuntime {
      * is thrown if the runtime does not support the appropriate implementation.
      *
      * @param bmd bean metadata that is used to determine if the MDB uses the
-     *            older style MessageListener or newer JCA MessageEndpoint.
+     *                older style MessageListener or newer JCA MessageEndpoint.
      */
     // F88119
     Class<?> getMessageEndpointFactoryImplClass(BeanMetaData bmd) throws ClassNotFoundException;
@@ -460,7 +461,7 @@ public interface EJBRuntime {
      * is thrown if the runtime does not support the appropriate implementation.
      *
      * @param bmd bean metadata that is used to determine if the MDB uses the
-     *            older style MessageListener or newer JCA MessageEndpoint.
+     *                older style MessageListener or newer JCA MessageEndpoint.
      * @return the MessageListener impl class or null to indicate JCA MessageEndpoint.
      */
     // F88119
@@ -470,7 +471,7 @@ public interface EJBRuntime {
      * Retrieves the MessageEndpointCollaborator instance.
      *
      * @param bmd The bean metadata that is used to determine if the MDB uses the
-     *            older style MessageListener or newer JCA MessageEndpoint.
+     *                older style MessageListener or newer JCA MessageEndpoint.
      *
      * @return The MessageEndpointCollaborator instance.
      */
@@ -505,7 +506,7 @@ public interface EJBRuntime {
      * supported operation.
      *
      * @throws EJBNotFoundException thrown if looking up or injecting a remote
-     *             interface is unsupported
+     *                                  interface is unsupported
      */
     void checkRemoteSupported(EJSHome home, String interfaceName) throws EJBNotFoundException;
 
@@ -524,4 +525,13 @@ public interface EJBRuntime {
      * @return the XAResource
      */
     public XAResource getRRSXAResource(BeanMetaData bmd, Xid xid) throws XAResourceNotAvailableException;
+
+    /**
+     * If checkpoint is happening this will delay the timer start until after restore.
+     * Once restore happens the timer will be started automatically
+     *
+     * @param timer
+     * @return true if the timer is to be delayed.
+     */
+    public boolean delayTimerStartUntilRetore(TimerNpImpl timer);
 }

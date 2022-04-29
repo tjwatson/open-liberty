@@ -284,6 +284,14 @@ public final class TimerNpImpl implements Timer, PassivatorSerializable {
         return ivExpiration;
     }
 
+    public void restore() {
+        long current = System.currentTimeMillis();
+        for (long next = calculateNextExpiration(); next > 0 && next < current; next = calculateNextExpiration()) {
+            // just advanced to the next
+        }
+        start();
+    }
+
     /**
      * Registers the timer with the TimerService (so that it will be found by
      * getTimers) and either schedules the timer for execution or places it
@@ -308,6 +316,9 @@ public final class TimerNpImpl implements Timer, PassivatorSerializable {
      * timers that are being rescheduled due to rollback.
      */
     public void start() {
+        if (ivContainer.getEJBRuntime().delayTimerStartUntilRetore(this)) {
+            return;
+        }
         final boolean isTraceOn = TraceComponent.isAnyTracingEnabled();
         if (isTraceOn && tc.isEntryEnabled())
             Tr.entry(tc, "start: " + this);

@@ -29,10 +29,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBException;
@@ -175,6 +178,7 @@ import com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener;
 
 import io.openliberty.checkpoint.spi.CheckpointPhase;
 
+@SuppressWarnings("restriction")
 @Component(service = { ApplicationStateListener.class, DeferredMetaDataFactory.class, EJBRuntimeImpl.class, ServerQuiesceListener.class },
            configurationPid = "com.ibm.ws.ejbcontainer.runtime",
            configurationPolicy = ConfigurationPolicy.REQUIRE,
@@ -259,6 +263,7 @@ public class EJBRuntimeImpl extends AbstractEJBRuntime implements ApplicationSta
     private static final String CUSTOM_BINDINGS_ON_ERROR = "customBindingsOnError";
 
     private final CheckpointPhase checkpointPhase;
+    private final AtomicReference<Queue<TimerNpImpl>> restoreDelayTimers = new AtomicReference<>(new ConcurrentLinkedQueue<>());
 
     @Activate
     public EJBRuntimeImpl(@Reference(cardinality = ReferenceCardinality.OPTIONAL) CheckpointPhase checkpointPhase) {
@@ -1717,6 +1722,37 @@ public class EJBRuntimeImpl extends AbstractEJBRuntime implements ApplicationSta
     @Override
     public boolean isCheckpointApplications() {
         return CheckpointPhase.APPLICATIONS == checkpointPhase;
+    }
+
+    @Reference( //
+               service = CheckpointPhase.class, //
+               target = "(" + CheckpointPhase.CHECKPOINT_RESTORED_PROPERTY + "=true)", //
+               cardinality = ReferenceCardinality.OPTIONAL, //
+               policy = ReferencePolicy.DYNAMIC, //
+               unbind = "ignoreCheckpointRestored")
+    protected final void checkpointRestored(ServiceReference<?> checkpoint) {
+        Collection<TimerNpImpl> timers = this.restoreDelayTimers.getAndSet(null);
+        System.out.println("RESTORING TIMERS: " + timers);
+        timers.forEach(TimerNpImpl::restore);
+    }
+
+    protected final void ignoreCheckpointRestored(ServiceReference<?> checkpoint) {
+        // we really don't care about this, but needed to avoid compile errors
+    }
+
+    @Override
+    public boolean delayTimerStartUntilRetore(TimerNpImpl timer) {
+        if (checkpointPhase != CheckpointPhase.APPLICATIONS || checkpointPhase.restored()) {
+            return false;
+        }
+        System.out.println("DELAYING TIMER: " + timer);
+        Queue<TimerNpImpl> existing = this.restoreDelayTimers.getAndUpdate((timers) -> {
+            if (timers != null) {
+                timers.add(timer);
+            }
+            return timers;
+        });
+        return existing != null;
     }
 
     @Override
