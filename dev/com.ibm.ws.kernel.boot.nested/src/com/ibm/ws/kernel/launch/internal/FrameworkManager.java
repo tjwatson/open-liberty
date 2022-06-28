@@ -636,7 +636,16 @@ public class FrameworkManager {
                     restoredHookProps.put(CheckpointHook.MULTI_THREADED_HOOK, Boolean.TRUE);
                     fwkContext.registerService(CheckpointHook.class, new CheckpointHook() {
                         @Override
+                        public void prepare() {
+                            if (sc != null) {
+                                sc.close();
+                                sc = null;
+                            }
+                        }
+
+                        @Override
                         public void restore() {
+                            startServerCommandListener();
                             phaseRegProps.put(CHECKPOINT_RESTORED_PROPERTY, Boolean.TRUE);
                             phaseReg.setProperties(phaseRegProps);
                         }
