@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2022 IBM Corporation and others.
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -322,6 +322,8 @@ public class LaunchArguments {
                 return CheckpointPhase.AFTER_APP_START.toString();
             case "beforeappstart":
                 return CheckpointPhase.BEFORE_APP_START.toString();
+            case "apprequested":
+                return CheckpointPhase.APP_REQUESTED.toString();
 
             //INACTIVE is not a valid command line option. It and any non-valid phase name passed in
             // map to themselves and are coded as errors by follow on argument handling.
@@ -344,6 +346,12 @@ public class LaunchArguments {
         }
 
         if (CheckpointPhase.getPhase() == CheckpointPhase.INACTIVE && checkpointPhase != null) {
+            System.out.println(MessageFormat.format(BootstrapConstants.messages.getString("error.invalidPhaseName"), checkpointPhase));
+            System.out.println();
+            return ReturnCode.BAD_ARGUMENT;
+        }
+        // beta check for APP_REQUETED
+        if (!isBetaEdition() && CheckpointPhase.getPhase() == CheckpointPhase.APP_REQUESTED) {
             System.out.println(MessageFormat.format(BootstrapConstants.messages.getString("error.invalidPhaseName"), checkpointPhase));
             System.out.println();
             return ReturnCode.BAD_ARGUMENT;

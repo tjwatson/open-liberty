@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2022 IBM Corporation and others.
+ * Copyright (c) 2022, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -33,14 +33,14 @@ import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 
 import io.openliberty.asm.ASMHelper;
-import io.openliberty.checkpoint.internal.criu.DeployCheckpoint;
+import io.openliberty.checkpoint.internal.criu.BeforeAppStartCheckpoint;
 
 /**
  *
  */
 public class CheckpointTransformer implements ClassFileTransformer {
     private static final TraceComponent tc = Tr.register(CheckpointTransformer.class);
-    private static final String CLASS_DEPLOY_CHECKPOINT_NAME = DeployCheckpoint.class.getName();
+    private static final String CLASS_DEPLOY_CHECKPOINT_NAME = BeforeAppStartCheckpoint.class.getName();
     private static final String CLASS_DEPLOY_CHECKPOINT_PATH = CLASS_DEPLOY_CHECKPOINT_NAME.replace('.', '/');
 
     @Override

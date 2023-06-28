@@ -36,7 +36,16 @@ public enum CheckpointPhase {
     /**
      * Phase that indicates there is no checkpoint being done.
      */
-    INACTIVE(true);
+    INACTIVE(true),
+
+    /**
+     * Phase that allows applications to request a checkpoint. If the
+     * application never requests the checkpoint then a checkpoint will
+     * happen after all configured applications have started.
+     *
+     * @see #AFTER_APP_START
+     */
+    APP_REQUESTED;
 
     /**
      * The checkpoint phase service property used to store the checkpoint phase when registered as a service.
