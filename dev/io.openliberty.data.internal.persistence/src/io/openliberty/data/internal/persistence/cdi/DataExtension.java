@@ -63,6 +63,8 @@ import com.ibm.wsspi.kernel.service.utils.FilterUtils;
 import com.ibm.wsspi.persistence.DatabaseStore;
 import com.ibm.wsspi.resource.ResourceFactory;
 
+import io.openliberty.checkpoint.spi.CheckpointHook;
+import io.openliberty.checkpoint.spi.CheckpointPhase;
 import io.openliberty.data.internal.persistence.EntityDefiner;
 import io.openliberty.data.internal.persistence.QueryInfo;
 import jakarta.annotation.Generated;
@@ -229,6 +231,26 @@ public class DataExtension implements Extension, PrivilegedAction<DataExtensionP
             }
         }
 
+        CheckpointPhase phase = CheckpointPhase.getPhase();
+        if (phase.restored() || !phase.addMultiThreadedHook(new DefineEntitiesOnRestore(entityGroups))) {
+            defineEntities(entityGroups);
+        }
+    }
+
+    class DefineEntitiesOnRestore implements CheckpointHook {
+        final Map<EntityGroupKey, EntityDefiner> entityGroups;
+
+        public DefineEntitiesOnRestore(Map<EntityGroupKey, EntityDefiner> entityGroups) {
+            this.entityGroups = entityGroups;
+        }
+
+        @Override
+        public void restore() {
+            defineEntities(entityGroups);
+        }
+    }
+
+    private void defineEntities(Map<EntityGroupKey, EntityDefiner> entityGroups) {
         for (EntityDefiner entityDefiner : entityGroups.values()) {
             provider.executor.submit(entityDefiner);
         }

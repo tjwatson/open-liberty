@@ -1,0 +1,35 @@
+< appAuthentication-3.1 (EE 11)
+< appSecurity-6.0 (EE 11)
+< beanValidation-3.1 (EE 11)
+< cdi-4.1 (EE 11)
+< concurrent-3.1 (EE 11)
+< crac-1.4 (beta-only)
+< expressionLanguage-6.0 (EE 11)
+< faces-5.0 (EE 11)
+< jaxws-2.2 (beta-only)
+< microProfile-6.1 (MP 6.1)
+< mpConfig-3.1 (MP 6.1)
+< mpMetrics-5.1 (MP 6.1)
+< mpTelemetry-1.1 (MP 6.1)
+< pages-4.0 (EE 11)
+< persistence-3.2 (EE 11)
+< persistenceContainer-3.2 (EE 11)
+< restfulWS-4.0 (EE 11)
+< restfulWSClient-4.0 (EE 11)
+< servlet-6.1 (EE 11)
+< springBoot-3.0 (beta-only)
+< webProfile-11.0 (EE 11)
+< websocket-2.2 (EE 11)
+< xmlWS-3.0 (beta-only)
+< xmlWS-4.0 (beta-only)
+
+
+
+< appSecurity-1.0
+< javaMail-1.6
+< jdbc-4.1
+< jdbc-4.3
+< localConnector-1.0
+< mail-2.0
+< mail-2.1
+< passwordUtilities-1.0

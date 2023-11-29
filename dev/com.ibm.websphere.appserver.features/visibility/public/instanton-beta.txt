@@ -1,0 +1,4 @@
+./jaxws-2.2/com.ibm.websphere.appserver.jaxws-2.2.feature
+./springBoot-3.0/io.openliberty.springBoot-3.0.feature
+./xmlWS-3.0/io.openliberty.xmlWS-3.0.feature
+./xmlWS-4.0/io.openliberty.xmlWS-4.0.feature
