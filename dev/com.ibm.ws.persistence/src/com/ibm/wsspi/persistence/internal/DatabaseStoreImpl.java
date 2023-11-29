@@ -53,6 +53,8 @@ import com.ibm.wsspi.resource.ResourceConfig;
 import com.ibm.wsspi.resource.ResourceConfigFactory;
 import com.ibm.wsspi.resource.ResourceFactory;
 
+import io.openliberty.checkpoint.spi.CheckpointPhase;
+
 /**
  * Uses a database as a persistent store.
  */
@@ -246,15 +248,23 @@ public class DatabaseStoreImpl implements DatabaseStore {
             }
         }
 
+        strategy = (String) this.properties.get("keyGenerationStrategy");
         DataSource dataSource = (DataSource) dataSourceFactory.createResource(resourceInfo);
-        String dbProductName = getDatabaseProductName(((WSDataSource) dataSource)).toLowerCase();
-        if (dbProductName.contains("informix") || dbProductName.startsWith("ids/")) {
-            // Defect 168450 - PersistenceService is currently disabled when running with Informix.
-            // Once the informix issues are fixed, this exception will be removed.
-            // When informix is using a DB2 driver, the product name is determined by db2 and is
-            // similar to: ids/nt64
-            throw new UnsupportedOperationException(dbProductName);
-        }
+        CheckpointPhase.onRestore(() -> {
+            String dbProductName = getDatabaseProductName(((WSDataSource) dataSource)).toLowerCase();
+            if (dbProductName.contains("informix") || dbProductName.startsWith("ids/")) {
+                // Defect 168450 - PersistenceService is currently disabled when running with Informix.
+                // Once the informix issues are fixed, this exception will be removed.
+                // When informix is using a DB2 driver, the product name is determined by db2 and is
+                // similar to: ids/nt64
+                throw new UnsupportedOperationException(dbProductName);
+            }
+            if ("AUTO".equals(strategy)) {
+                strategy = dbProductName.contains("oracle") ? "SEQUENCE"
+                                : dbProductName.contains("adaptive server") || dbProductName.contains("sybase") ? "TABLE"
+                                                : "IDENTITY";
+            }
+        });
 
         DataSource nonJTADataSource;
         if (nonJTADataSourceFactory == null)
@@ -271,13 +281,6 @@ public class DatabaseStoreImpl implements DatabaseStore {
             if (trace && tc.isEntryEnabled())
                 Tr.exit(this, tc, "createPersistenceServiceUnit", "deactivated");
             throw new IllegalStateException(errMsg);
-        }
-
-        strategy = (String) this.properties.get("keyGenerationStrategy");
-        if ("AUTO".equals(strategy)) {
-            strategy = dbProductName.contains("oracle") ? "SEQUENCE"
-                            : dbProductName.contains("adaptive server") || dbProductName.contains("sybase") ? "TABLE"
-                                            : "IDENTITY";
         }
 
         // TODO: replace temporary code specific to persistentExecutor with general solution that applies the
@@ -337,8 +340,9 @@ public class DatabaseStoreImpl implements DatabaseStore {
             if (!(entitySet.equals(SpecialEntitySet.PERSISTENT_EXECUTOR) && entityClassNames.length == 1)) {
                 boolean createTables = (Boolean) this.properties.get("createTables");
                 boolean dropTables = (Boolean) this.properties.get("dropTables");
-                if (createTables || dropTables)
-                    dropAndOrCreateTables(persistenceServiceUnit, createTables, dropTables);
+                if (createTables || dropTables) {
+                    CheckpointPhase.onRestore(() -> dropAndOrCreateTables(persistenceServiceUnit, createTables, dropTables));
+                }
             }
 
             if (deactivated) {
