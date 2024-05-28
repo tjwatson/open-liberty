@@ -12,6 +12,13 @@
  *******************************************************************************/
 package test.jakarta.data.jpa;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Properties;
+
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -48,20 +55,25 @@ public class DataJPATestCheckpoint extends FATServletClient {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        // Get driver type
-        DatabaseContainerType type = DatabaseContainerType.valueOf(testContainer);
-        server.addEnvVar("DB_DRIVER", type.getDriverName());
-
         // Set up server DataSource properties
-        DatabaseContainerUtil.setupDataSourceDatabaseProperties(server, testContainer);
+        DatabaseContainerUtil.setupDataSourcePropertiesForCheckpoint(server, testContainer);
 
         WebArchive war = ShrinkHelper.buildDefaultApp("DataJPATestApp", "test.jakarta.data.jpa.web");
         ShrinkHelper.exportAppToServer(server, war);
-        server.setCheckpoint(CheckpointPhase.AFTER_APP_START, true, null);
+
+        configureEnvVariable(server, Collections.singletonMap("DB_DRIVER", DatabaseContainerType.valueOf(testContainer).getDriverName()));
+
+        server.setCheckpoint(CheckpointPhase.AFTER_APP_START, false, null);
         server.addCheckpointRegexIgnoreMessage("DSRA8020E.*data.createTables");
         server.addCheckpointRegexIgnoreMessage("DSRA8020E.*data.dropTables");
         server.addCheckpointRegexIgnoreMessage("DSRA8020E.*data.tablePrefix");
         server.startServer();
+
+        //Server started, application started, checkpoint taken, server is now stopped.
+        //Configure environment variable used by servlet
+        configureEnvVariable(server, Collections.singletonMap("DB_DRIVER", DatabaseContainerType.valueOf(testContainer).getDriverName()));
+
+        server.checkpointRestore();
     }
 
     @AfterClass
@@ -72,5 +84,14 @@ public class DataJPATestCheckpoint extends FATServletClient {
         server.stopServer("DSRA8020E.*data.createTables",
                           "DSRA8020E.*data.dropTables",
                           "DSRA8020E.*data.tablePrefix");
+    }
+
+    static void configureEnvVariable(LibertyServer server, Map<String, String> newEnv) throws Exception {
+        Properties serverEnvProperties = new Properties();
+        serverEnvProperties.putAll(newEnv);
+        File serverEnvFile = new File(server.getFileFromLibertyServerRoot("server.env").getAbsolutePath());
+        try (OutputStream out = new FileOutputStream(serverEnvFile)) {
+            serverEnvProperties.store(out, "");
+        }
     }
 }
