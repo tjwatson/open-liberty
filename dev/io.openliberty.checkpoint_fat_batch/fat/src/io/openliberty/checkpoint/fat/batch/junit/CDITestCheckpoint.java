@@ -10,7 +10,7 @@
  * Contributors:
  *   IBM Corporation - initial API and implementation
  *******************************************************************************/
-package batch.fat.junit;
+package io.openliberty.checkpoint.fat.batch.junit;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -20,10 +20,10 @@ import org.junit.runner.RunWith;
 import com.ibm.ws.jbatch.test.FatUtils;
 import com.ibm.ws.jbatch.test.BatchAppUtils;
 
-import batch.fat.util.BatchFATHelper;
 import componenttest.annotation.CheckpointTest;
 import componenttest.custom.junit.runner.FATRunner;
 import componenttest.topology.impl.LibertyServerFactory;
+import io.openliberty.checkpoint.fat.batch.util.BatchFATHelper;
 import io.openliberty.checkpoint.spi.CheckpointPhase;
 
 /**
@@ -38,7 +38,6 @@ public class CDITestCheckpoint extends BatchFATHelper {
     @BeforeClass
     public static void setup() throws Exception {
 
-        server = LibertyServerFactory.getLibertyServer("checkpointbatchFAT");
         // Just happens to be a config that works we could reuse.  Could rename.
         BatchFATHelper.setConfig("CDITestCheckpoint/server.xml", testClass);
 

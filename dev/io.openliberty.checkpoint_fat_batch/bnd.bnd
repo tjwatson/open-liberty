@@ -36,7 +36,8 @@ tested.features:\
     com.ibm.websphere.javaee.cdi.1.2;version=latest,\
 	com.ibm.websphere.javaee.servlet.3.1;version=latest,\
 	com.ibm.ws.jbatch.fat.common;version=latest,\
-	io.openliberty.org.apache.commons.logging;version=latest
+	io.openliberty.org.apache.commons.logging;version=latest,\
+	com.ibm.ws.kernel.service;version=latest
 
 -testpath: \
  com.ibm.ws.org.apache.commons.io;version=latest,\

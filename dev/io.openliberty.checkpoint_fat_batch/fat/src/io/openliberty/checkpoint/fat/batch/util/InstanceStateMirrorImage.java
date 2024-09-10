@@ -1,0 +1,64 @@
+/*******************************************************************************
+ * Copyright (c) 2015, 2020 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   IBM Corporation - initial API and implementation
+ *******************************************************************************/
+package io.openliberty.checkpoint.fat.batch.util;
+
+/**
+ * Did a copy paste of
+ * com.ibm.jbatch.container.ws.JobInstance until I figure out how to copy that class into this FAT.
+ * 
+ * InstanceState for the JobInstance record.
+ * 
+ */
+public enum InstanceStateMirrorImage {
+
+    /**
+     * The JobInstance has been submitted but not yet dispatched.
+     */
+    SUBMITTED,
+
+    /**
+     * The JobInstance has been queued to JMS, but not yet consumed by an endpoint.
+     */
+    JMS_QUEUED,
+
+    /**
+     * The JobInstance has been consumed by an endpoint, but a JobExecution
+     * has not yet started.
+     */
+    JMS_CONSUMED,
+
+    /**
+     * The JobInstance has been dispatched and a JobExecution has been started.
+     */
+    DISPATCHED,
+
+    /**
+     * The JobInstance failed. This matches its BatchStatus.
+     */
+    FAILED,
+
+    /**
+     * The JobInstance has been stopped. This matches its BatchStatus.
+     */
+    STOPPED,
+
+    /**
+     * The JobInstance completed. This matches its BatchStatus.
+     */
+    COMPLETED,
+
+    /**
+     * The JobInstance was abandoned. This matches its BatchStatus.
+     */
+    ABANDONED;
+}
