@@ -12,7 +12,8 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
-import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.DELEGATES;
+import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
+import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.SELF;
 import static com.ibm.ws.classloading.internal.Util.freeze;
@@ -44,7 +45,7 @@ class ParentLastClassLoader extends AppClassLoader {
         super(parent, config, urls, access, redefiner, generator, globalConfig, systemTransformers);
     }
 
-    static final List<SearchLocation> PARENT_LAST_SEARCH_ORDER = freeze(list(SELF, DELEGATES, PARENT));
+    static final List<SearchLocation> PARENT_LAST_SEARCH_ORDER = freeze(list(BEFORE_DELEGATES, SELF, AFTER_DELEGATES, PARENT));
 
     /** Provides the search order so the {@link ShadowClassLoader} can use it. */
     @Override

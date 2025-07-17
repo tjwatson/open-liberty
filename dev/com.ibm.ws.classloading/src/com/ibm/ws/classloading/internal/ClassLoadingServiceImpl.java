@@ -83,6 +83,8 @@ import com.ibm.ws.classloading.serializable.ClassLoaderIdentityImpl;
 import com.ibm.ws.container.service.metadata.extended.MetaDataIdentifierService;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.kernel.boot.utils.KeyBasedLockStore;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.ws.runtime.metadata.ComponentMetaData;
 import com.ibm.ws.runtime.metadata.MetaData;
 import com.ibm.wsspi.adaptable.module.Container;
@@ -475,7 +477,14 @@ public class ClassLoadingServiceImpl implements LibertyClassLoadingService<Liber
             return loader;
         EnumSet<ApiType> apiTypeVisibility = lib.getApiTypeVisibility();
 
+        Order searchOrder = Order.afterApp;
+        if (lib instanceof ExtendedLibraryMethods) {
+            searchOrder = ((ExtendedLibraryMethods) lib).search();
+        }
+
         ClassLoaderConfiguration clsCfg = createClassLoaderConfiguration()
+                        // if the library is searched before app then we must use parentLast for the shared library
+                        .setDelegateToParentAfterCheckingLocalClasspath(searchOrder == Order.beforeApp)
                         .setId(clId)
                         .setSharedLibraries(lib.id()); // Configure lib binaries
 

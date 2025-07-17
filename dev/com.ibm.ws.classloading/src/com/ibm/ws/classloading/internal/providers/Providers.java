@@ -29,10 +29,12 @@ import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.ws.classloading.internal.DeclaredApiAccess;
 import com.ibm.ws.classloading.internal.LibertyLoader;
+import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.BlockingList;
 import com.ibm.ws.classloading.internal.util.BlockingList.Logger;
 import com.ibm.ws.classloading.internal.util.BlockingListMaker;
 import com.ibm.ws.classloading.internal.util.CompositeIterable;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.ws.library.internal.SharedLibraryFactory;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
@@ -40,6 +42,15 @@ import com.ibm.wsspi.kernel.service.utils.FilterUtils;
 import com.ibm.wsspi.library.Library;
 
 public class Providers {
+    public static final class LibraryInfo {
+        public final LibertyLoader loader;
+        public final Order order;
+        LibraryInfo(LibertyLoader loader, Order order) {
+            this.loader = loader;
+            this.order = order;
+        }
+    }
+
     static final TraceComponent tc = Tr.register(Providers.class);
     static BundleContext bundleContext;
 
@@ -67,7 +78,7 @@ public class Providers {
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraries).listenForElements(getLibraries).log(LOGGER).useKeys(privateLibraries).make();
     }
 
-    public static List<LibertyLoader> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
+    public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
         List<String> commonLibIds = config.getCommonLibraries();
         if (commonLibIds == null || commonLibIds.isEmpty()) {
             if (tc.isDebugEnabled())
@@ -90,7 +101,7 @@ public class Providers {
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraryLoaders).listenForElements(getLibraryLoaders).log(LOGGER).useKeys(commonLibIds).make();
     }
 
-    public static List<LibertyLoader> getProviderLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
+    public static List<Providers.LibraryInfo> getProviderLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
         final String methodName = "getProviderLoaders(): ";
         List<String> providerIds = config.getClassProviders();
         if (providerIds == null || providerIds.isEmpty()) {
@@ -115,8 +126,8 @@ public class Providers {
     }
 
     @SuppressWarnings("unchecked")
-    public static Iterable<LibertyLoader> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
-        return new CompositeIterable<LibertyLoader>(getCommonLibraryLoaders(config, apiAccess), getProviderLoaders(config, apiAccess));
+    public static Iterable<Providers.LibraryInfo> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
+        return new CompositeIterable<Providers.LibraryInfo>(getCommonLibraryLoaders(config, apiAccess), getProviderLoaders(config, apiAccess));
     }
 
     /**

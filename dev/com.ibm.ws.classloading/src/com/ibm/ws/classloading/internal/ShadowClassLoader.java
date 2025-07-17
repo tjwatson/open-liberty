@@ -65,12 +65,14 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
     };
 
     private final AppClassLoader shadowedLoader;
-    private final Iterable<LibertyLoader> delegateLoaders;
+    private final Iterable<LibertyLoader> beforeAppDelegateLoaders;
+    private final Iterable<LibertyLoader> afterAppDelegateLoaders;
 
     ShadowClassLoader(AppClassLoader shadowed) {
         super(getShadow(shadowed.parent));
         this.shadowedLoader = shadowed;
-        this.delegateLoaders = getShadows(shadowed.getDelegateLoaders());
+        this.beforeAppDelegateLoaders = getShadows(shadowed.getBeforeAppDelegateLoaders());
+        this.afterAppDelegateLoaders = getShadows(shadowed.getAfterAppDelegateLoaders());
     }
 
     /** create a {@link ShadowClassLoader} for the specified loader if it is an {@link AppClassLoader}. */
@@ -118,6 +120,11 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
             for (SearchLocation what : shadowedLoader.getSearchOrder()) {
                 try {
                     switch (what) {
+                        case BEFORE_DELEGATES: 
+                            result = loadFrom(beforeAppDelegateLoaders, className, returnNull);
+                            if (result != null) {
+                                return result;
+                            }
                         case PARENT:
                             if (parent instanceof LibertyLoader) {
                                 result = ((LibertyLoader) parent).loadClass(className, false, false, returnNull);
@@ -132,16 +139,10 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
                             if (result != null) {
                                 return result;
                             }
-                        case DELEGATES:
-                            for (LibertyLoader delegate : delegateLoaders) {
-                                try {
-                                    result = delegate.loadClass(className, false, false, returnNull);
-                                    if (result != null) {
-                                        return result;
-                                    }
-                                } catch (ClassNotFoundException e) {
-                                    lastException = e;
-                                }
+                        case AFTER_DELEGATES:
+                            result = loadFrom(afterAppDelegateLoaders, className, returnNull);
+                            if (result != null) {
+                                return result;
                             }
                             break;
                         default:
@@ -160,6 +161,24 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
             lastException = new ClassNotFoundException(className);
         }
         throw lastException;
+    }
+
+    private Class<?> loadFrom(Iterable<LibertyLoader> delegates, String className, boolean returnNull) throws ClassNotFoundException {
+        ClassNotFoundException lastException = null;
+        for (LibertyLoader delegate : delegates) {
+            try {
+                Class<?> result = delegate.loadClass(className, false, false, returnNull);
+                if (result != null) {
+                    return result;
+                }
+            } catch (ClassNotFoundException e) {
+                lastException = e;
+            }
+        }
+        if (lastException != null) {
+            throw lastException;
+        }
+        return null;
     }
 
     @Override

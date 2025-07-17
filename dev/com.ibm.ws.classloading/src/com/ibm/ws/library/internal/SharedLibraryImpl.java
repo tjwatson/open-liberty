@@ -49,7 +49,7 @@ import com.ibm.wsspi.library.LibraryChangeListener;
  * This class defines the <library> element implementation in the server.xml allowing users
  * to specify shared libraries used by web applications
  */
-public class SharedLibraryImpl implements Library, SpiLibrary {
+public class SharedLibraryImpl implements Library, SpiLibrary, ExtendedLibraryMethods {
     private static final TraceComponent tc = Tr.register(SharedLibraryImpl.class);
 
     private volatile boolean deleted;
@@ -218,6 +218,12 @@ public class SharedLibraryImpl implements Library, SpiLibrary {
     public Collection<ArtifactContainer> getContainers() {
         final LibraryGeneration currentGen = currentGeneration;
         return currentGen == null ? null : currentGen.getContainers();
+    }
+
+    @Override
+    public Order search() {
+        final LibraryGeneration currentGen = currentGeneration;
+        return currentGen == null ? Order.afterApp : currentGen.search();
     }
 
     void setLibraryServiceProperties(Dictionary<String, Object> svcProps) {

@@ -29,15 +29,17 @@ import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.ws.classloading.ClassProvider;
 import com.ibm.ws.classloading.LibertyClassLoader;
 import com.ibm.ws.classloading.internal.LibertyLoader;
+import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.BlockingList.Listener;
 import com.ibm.ws.classloading.internal.util.BlockingList.Retriever;
 import com.ibm.ws.classloading.internal.util.BlockingList.Slot;
 import com.ibm.ws.classloading.internal.util.ElementNotReadyException;
 import com.ibm.ws.classloading.internal.util.ElementNotValidException;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.classloading.ApiType;
 
-public class GetProviderLoaders implements Retriever<String, LibertyLoader>, Listener<String, LibertyLoader> {
+public class GetProviderLoaders implements Retriever<String, Providers.LibraryInfo>, Listener<String, Providers.LibraryInfo> {
     static final TraceComponent tc = Tr.register(GetProviderLoaders.class);
 
     private final String id;
@@ -49,7 +51,7 @@ public class GetProviderLoaders implements Retriever<String, LibertyLoader>, Lis
     }
 
     @Override
-    public void listenFor(final String providerId, final Slot<? super LibertyLoader> slot) {
+    public void listenFor(final String providerId, final Slot<? super Providers.LibraryInfo> slot) {
         String filterString = String.format("(&(%s=%s)(id=%s))",
                                             OBJECTCLASS,
                                             ClassProvider.class.getName(),
@@ -83,7 +85,7 @@ public class GetProviderLoaders implements Retriever<String, LibertyLoader>, Lis
     }
 
     @Override
-    public LibertyLoader fetch(String pid) throws ElementNotReadyException, ElementNotValidException {
+    public Providers.LibraryInfo fetch(String pid) throws ElementNotReadyException, ElementNotValidException {
         final String methodName = "fetch(): ";
         if (bundleContext == null) {
             throw new ElementNotValidException("Cannot retrieve providers outside OSGi framework");
@@ -110,7 +112,7 @@ public class GetProviderLoaders implements Retriever<String, LibertyLoader>, Lis
         return getLoaderFromProvider(pid, refs.iterator().next());
     }
 
-    private LibertyLoader getLoaderFromProvider(String providerId, ServiceReference<ClassProvider> providerRef)
+    private Providers.LibraryInfo getLoaderFromProvider(String providerId, ServiceReference<ClassProvider> providerRef)
                     throws ElementNotReadyException, ElementNotValidException {
         final String methodName = "getLoaderFromProvider(): ";
 
@@ -141,7 +143,7 @@ public class GetProviderLoaders implements Retriever<String, LibertyLoader>, Lis
             throw new ElementNotValidException("Provider API types do not match class loader API types");
         }
 
-        return ll;
+        return new Providers.LibraryInfo(ll, Order.afterApp);
     }
 
 }

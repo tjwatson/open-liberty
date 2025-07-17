@@ -27,6 +27,6 @@ public final class SharedLibraryConstants {
 
     @Trivial
     public enum SharedLibraryAttribute {
-        name, id, description, filesetRef, apiTypeVisibility, fileRef, folderRef, pathRef
+        name, id, description, filesetRef, apiTypeVisibility, fileRef, folderRef, pathRef, search
     }
 }

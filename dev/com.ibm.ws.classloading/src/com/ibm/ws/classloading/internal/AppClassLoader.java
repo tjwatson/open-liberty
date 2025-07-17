@@ -12,7 +12,8 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
-import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.DELEGATES;
+import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
+import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.SELF;
 import static com.ibm.ws.classloading.internal.ClassLoadingConstants.LS;
@@ -55,10 +56,13 @@ import com.ibm.websphere.ras.annotation.Trivial;
 import com.ibm.ws.classloading.ClassGenerator;
 import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration;
 import com.ibm.ws.classloading.internal.providers.Providers;
+import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.ClassRedefiner;
 import com.ibm.ws.classloading.internal.util.FeatureSuggestion;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.kernel.security.thread.ThreadIdentityManager;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
@@ -129,10 +133,10 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     }
 
     enum SearchLocation {
-        PARENT, SELF, DELEGATES
+        BEFORE_DELEGATES, PARENT, SELF, AFTER_DELEGATES
     };
 
-    static final List<SearchLocation> PARENT_FIRST_SEARCH_ORDER = freeze(list(PARENT, SELF, DELEGATES));
+    static final List<SearchLocation> PARENT_FIRST_SEARCH_ORDER = freeze(list(BEFORE_DELEGATES, PARENT, SELF, AFTER_DELEGATES));
 
     private final Set<String> packagesDefined = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>()); 
 
@@ -153,7 +157,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
 
     protected final ClassLoaderConfiguration config;
     private volatile List<Library> privateLibraries;
-    private final Iterable<LibertyLoader> delegateLoaders;
+    private final Iterable<LibertyLoader> beforeAppDelegateLoaders;
+    private final Iterable<LibertyLoader> afterAppDelegateLoaders;
     private final List<File> nativeLibraryFiles = new ArrayList<File>();
     private final List<ClassFileTransformer> transformers = new ArrayList<ClassFileTransformer>();
     private final List<ClassFileTransformer> systemTransformers;
@@ -169,13 +174,34 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         for (Container container : config.getNativeLibraryContainers())
             addNativeLibraryContainer(container);
         this.privateLibraries = Providers.getPrivateLibraries(config);
-        this.delegateLoaders = Providers.getDelegateLoaders(config, apiAccess);
+
+        List<LibertyLoader> tmpBeforeApp = new ArrayList<>();
+        List<LibertyLoader> tmpAfterApp = new ArrayList<>();
+        for (LibraryInfo loaderInfo : Providers.getDelegateLoaders(config, apiAccess)) {
+            switch (loaderInfo.order) {
+                case afterApp:
+                    tmpAfterApp.add(loaderInfo.loader);
+                    break;
+                case beforeApp:
+                    tmpBeforeApp.add(loaderInfo.loader);
+                    break;
+                default:
+                    break;
+            }
+        }
+        this.beforeAppDelegateLoaders = tmpBeforeApp.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(tmpBeforeApp);
+        this.afterAppDelegateLoaders = tmpAfterApp.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(tmpAfterApp);
         this.generator = generator;
     }
 
-    /** Provides the delegate loaders so the {@link ShadowClassLoader} can mimic the structure. */
-    Iterable<LibertyLoader> getDelegateLoaders() {
-        return delegateLoaders;
+    /** Provides the before delegate loaders so the {@link ShadowClassLoader} can mimic the structure. */
+    Iterable<LibertyLoader> getBeforeAppDelegateLoaders() {
+        return beforeAppDelegateLoaders;
+    }
+
+    /** Provides the before delegate loaders so the {@link ShadowClassLoader} can mimic the structure. */
+    Iterable<LibertyLoader> getAfterAppDelegateLoaders() {
+        return afterAppDelegateLoaders;
     }
 
     /** Provides the search order so the {@link ShadowClassLoader} can use it. */
@@ -231,9 +257,13 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         URL result = null;
         Object token = ThreadIdentityManager.runAsServer();
         try {
-            result = super.findResource(name);
+            // TODO this really should be before parent!
+            result = findResourceCommonLibraryClassLoaders(name, beforeAppDelegateLoaders);
             if (result == null) {
-                result = findResourceCommonLibraryClassLoaders(name);
+                result = super.findResource(name);
+            }
+            if (result == null) {
+                result = findResourceCommonLibraryClassLoaders(name, afterAppDelegateLoaders);
             }
         } finally {
             ThreadIdentityManager.reset(token);
@@ -255,8 +285,12 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     public CompositeEnumeration<URL> findResources(String name) throws IOException {
         Object token = ThreadIdentityManager.runAsServer();
         try {
-            CompositeEnumeration<URL> enumerations = new CompositeEnumeration<URL>(super.findResources(name));
-            return findResourcesCommonLibraryClassLoaders(name, enumerations);
+            // TODO this should delegate before parent!
+            CompositeEnumeration<URL> enumerations = findResourcesCommonLibraryClassLoaders(name, new CompositeEnumeration<>(), beforeAppDelegateLoaders);
+
+            enumerations.add(super.findResources(name));
+
+            return findResourcesCommonLibraryClassLoaders(name, enumerations, afterAppDelegateLoaders);
         } finally {
             ThreadIdentityManager.reset(token);
         }
@@ -319,10 +353,18 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     @Override
     protected final Class<?> findClass(String name, boolean returnNull) throws ClassNotFoundException {
         String resourceName = Util.convertClassNameToResourceName(name);
+
+        // TODO this should be before parent!
+        final boolean RETURN_NULL_FOR_NO_CLASS = true;
+        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(resourceName, RETURN_NULL_FOR_NO_CLASS, beforeAppDelegateLoaders);
+        if (beforeAppLoad != null) {
+            return beforeAppLoad;
+        }
+
         ByteResourceInformation byteResInfo = findClassBytes(name, resourceName);
         if (byteResInfo == null) {
             // Check the common libraries.
-            return findClassCommonLibraryClassLoaders(name, returnNull);
+            return findClassCommonLibraryClassLoaders(name, returnNull, afterAppDelegateLoaders);
         }
 
         byte[] bytes = transformers.isEmpty() && systemTransformers.isEmpty() ?
@@ -671,8 +713,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @throws ClassNotFoundException if the class isn't found.
      */
     @FFDCIgnore(ClassNotFoundException.class)
-    private Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull) throws ClassNotFoundException {
-        for (LibertyLoader cl : delegateLoaders) {
+    private Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull, Iterable<LibertyLoader> delegates) throws ClassNotFoundException {
+        for (LibertyLoader cl : delegates) {
             try {
                 Class<?> rc = cl.loadClass(name, false, true, true);
                 if (rc != null) {
@@ -696,8 +738,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      *
      * @return The resource, if found. Otherwise null.
      */
-    private URL findResourceCommonLibraryClassLoaders(String name) {
-        for (LibertyLoader cl : delegateLoaders) {
+    private URL findResourceCommonLibraryClassLoaders(String name, Iterable<LibertyLoader> delegates) {
+        for (LibertyLoader cl : delegates) {
             URL url = cl.findResource(name);
             if (url != null) {
                 return url;
@@ -716,8 +758,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @return The enumerations parameter is populated by this method and returned. It contains
      *         all the resources found under all the common library classloaders.
      */
-    private CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations) throws IOException {
-        for (LibertyLoader cl : delegateLoaders) {
+    private CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations, Iterable<LibertyLoader> delegates) throws IOException {
+        for (LibertyLoader cl : delegates) {
             enumerations.add(cl.findResources(name));
         }
         return enumerations;
@@ -741,7 +783,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     private void copyLibraryElementsToClasspath(Library library) {
         Collection<File> files = library.getFiles();
-        addToClassPath(library.getContainers());
+        boolean prepend = ((ExtendedLibraryMethods) library).search() == Order.beforeApp;
+        addToClassPath(library.getContainers(), prepend);
         if (files != null && !!!files.isEmpty()) {
             for (File file : files) {
 

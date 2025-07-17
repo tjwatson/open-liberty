@@ -22,6 +22,8 @@ import com.ibm.ws.classloading.internal.util.BlockingList.Retriever;
 import com.ibm.ws.classloading.internal.util.BlockingList.Slot;
 import com.ibm.ws.classloading.internal.util.ElementNotReadyException;
 import com.ibm.ws.classloading.internal.util.ElementNotValidException;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods;
+import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.library.Library;
 
@@ -30,7 +32,8 @@ import com.ibm.wsspi.library.Library;
  * It holds no references to the AppClassLoader object, so it cannot prevent
  * the AppClassLoader from being collected.
  */
-public class GetLibraryLoaders implements Retriever<String, LibertyLoader>, Listener<String, LibertyLoader> {
+public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInfo>, Listener<String, Providers.LibraryInfo> {
+
     static final TraceComponent tc = Tr.register(GetLibraryLoaders.class);
     private final EnumSet<ApiType> ownerAPIs;
     private final String ownerID;
@@ -42,18 +45,19 @@ public class GetLibraryLoaders implements Retriever<String, LibertyLoader>, List
     }
 
     @Override
-    public LibertyLoader fetch(String id) throws ElementNotReadyException, ElementNotValidException {
+    public Providers.LibraryInfo fetch(String id) throws ElementNotReadyException, ElementNotValidException {
         Library lib = Providers.getSharedLibrary(id);
         if (lib == null)
             throw new ElementNotReadyException(id);
         if (libraryAndLoaderApiTypesDoNotMatch(lib))
             throw new ElementNotValidException();
-        return (LibertyLoader) lib.getClassLoader();
+        Order order = lib instanceof ExtendedLibraryMethods ? ((ExtendedLibraryMethods)lib).search() : Order.afterApp;
+        return new Providers.LibraryInfo((LibertyLoader) lib.getClassLoader(), order);
     }
 
     /** invoked by the blocking list when a synchronous fetch operation fails */
     @Override
-    public void listenFor(final String libraryId, final Slot<? super LibertyLoader> slot) {
+    public void listenFor(final String libraryId, final Slot<? super Providers.LibraryInfo> slot) {
         // Create a shared library listener
         new AbstractLibraryListener(libraryId, ownerID, Providers.bundleContext) {
             @Override
@@ -74,7 +78,8 @@ public class GetLibraryLoaders implements Retriever<String, LibertyLoader>, List
                     slot.delete();
                 } else {
                     final LibertyLoader libCL = (LibertyLoader) library.getClassLoader();
-                    slot.fill(libCL);
+                    Order order = library instanceof ExtendedLibraryMethods ? ((ExtendedLibraryMethods)library).search() : Order.afterApp;
+                    slot.fill(new Providers.LibraryInfo(libCL, order));
                 }
                 deregister();
             }

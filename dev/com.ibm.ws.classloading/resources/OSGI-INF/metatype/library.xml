@@ -72,6 +72,15 @@
         default="spec\,ibm-api\,api\,stable"
     />
 
+    <AD name="internal" description="internal use only"
+        id="search"
+        required="false" 
+        type="String" 
+        ibm:beta="true"
+        default="afterApp" >
+        <Option label="Before Application" value="beforeApp"/>
+        <Option label="After Application" value="afterApp"/>
+    </AD>
     <!-- Revisit this in the first fixpack to give proper multi-choice support with defaults.
     <AD name="%library.apis" description="%library.apis.desc"
         id="apiTypeVisibility"
