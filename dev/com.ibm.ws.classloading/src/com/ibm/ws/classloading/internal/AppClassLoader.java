@@ -12,6 +12,8 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.beforeApp;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;
@@ -243,6 +245,18 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         return apiAccess.getApiTypeVisibility();
     }
 
+    @Override
+    public URL getResource(String name) {
+        URL result = findResourceCommonLibraryClassLoaders(name, beforeApp);
+        if (result == null) {
+            result = parent.getResource(name);
+        }
+        if (result == null) {
+            result = findResource(name);
+        }
+        return result;
+    }
+
     /**
      * Search order:
      * 1. This classloader.
@@ -258,13 +272,9 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         URL result = null;
         Object token = ThreadIdentityManager.runAsServer();
         try {
-            // TODO this really should be before parent!
-            result = findResourceCommonLibraryClassLoaders(name, beforeAppDelegateLoaders);
+            result = super.findResource(name);
             if (result == null) {
-                result = super.findResource(name);
-            }
-            if (result == null) {
-                result = findResourceCommonLibraryClassLoaders(name, afterAppDelegateLoaders);
+                result = findResourceCommonLibraryClassLoaders(name, afterApp);
             }
         } finally {
             ThreadIdentityManager.reset(token);
@@ -286,12 +296,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     public CompositeEnumeration<URL> findResources(String name) throws IOException {
         Object token = ThreadIdentityManager.runAsServer();
         try {
-            // TODO this should delegate before parent!
-            CompositeEnumeration<URL> enumerations = findResourcesCommonLibraryClassLoaders(name, new CompositeEnumeration<>(), beforeAppDelegateLoaders);
-
-            enumerations.add(super.findResources(name));
-
-            return findResourcesCommonLibraryClassLoaders(name, enumerations, afterAppDelegateLoaders);
+            CompositeEnumeration<URL> enumerations = new CompositeEnumeration<URL>(super.findResources(name));
+            return findResourcesCommonLibraryClassLoaders(name, enumerations, afterApp);
         } finally {
             ThreadIdentityManager.reset(token);
         }
@@ -303,28 +309,9 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     @Override
     @Trivial
     public Enumeration<URL> getResources(String name) throws IOException {
-        /*
-         * The default implementation of getResources never calls getResources on its parent, instead it just calls findResources on all of the loaders parents. We know that our
-         * parent will be a gateway class loader that changes the order that resources are loaded but it does this in getResources (as that is where the order *should* be changed
-         * according to the JavaDoc). Therefore call getResources on our parent and then findResources on ourself.
-         */
-        // Note we don't need to worry about getSystemResources as our parent will do that for us
-        try {
-            final String f_name = name;
-            final ClassLoader f_parent = parent;
-
-            Enumeration<URL> eURL = AccessController.doPrivileged(new java.security.PrivilegedExceptionAction<Enumeration<URL>>() {
-                @Override
-                public Enumeration<URL> run() throws Exception {
-                    return f_parent.getResources(f_name);
-                }
-            });
-
-            return new CompositeEnumeration<URL>(eURL).add(this.findResources(name));
-
-        } catch (PrivilegedActionException pae) {
-            return null;
-        }
+        return findResourcesCommonLibraryClassLoaders(name, new CompositeEnumeration<>(), beforeApp) //
+                        .add(this.parent.getResources(name)) //
+                        .add(this.findResources(name));
     }
 
     /** Returns the Bundle of the Top Level class loader */
@@ -353,18 +340,11 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     @Override
     protected final Class<?> findClass(String name, boolean returnNull) throws ClassNotFoundException {
-        // TODO this should be before parent!
-        final boolean RETURN_NULL_FOR_NO_CLASS = true;
-        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(name, RETURN_NULL_FOR_NO_CLASS, beforeAppDelegateLoaders);
-        if (beforeAppLoad != null) {
-            return beforeAppLoad;
-        }
-
         String resourceName = Util.convertClassNameToResourceName(name);
         ByteResourceInformation byteResInfo = findClassBytes(name, resourceName);
         if (byteResInfo == null) {
             // Check the common libraries.
-            return findClassCommonLibraryClassLoaders(name, returnNull, afterAppDelegateLoaders);
+            return findClassCommonLibraryClassLoaders(name, returnNull, afterApp);
         }
 
         byte[] bytes = transformers.isEmpty() && systemTransformers.isEmpty() ?
@@ -660,6 +640,12 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     @FFDCIgnore(ClassNotFoundException.class)
     protected Class<?> findOrDelegateLoadClass(String name, boolean onlySearchSelf, boolean returnNull) throws ClassNotFoundException {
+        final boolean RETURN_NULL_FOR_NO_CLASS = true;
+        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(name, RETURN_NULL_FOR_NO_CLASS, beforeApp);
+        if (beforeAppLoad != null) {
+            return beforeAppLoad;
+        }
+
         // parent is really only null for unit tests
         if (parent == null) {
             return super.loadClass(name, false);
@@ -703,6 +689,13 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         throw findException;
     }
 
+    @Trivial
+    private Iterable<LibertyLoader> getDelegates(LibraryPrecidence precidence) {
+        if (precidence == LibraryPrecidence.beforeApp) {
+            return beforeAppDelegateLoaders;
+        }
+        return afterAppDelegateLoaders;
+    }
     /**
      * Search for the class using the common library classloaders.
      *
@@ -713,8 +706,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @throws ClassNotFoundException if the class isn't found.
      */
     @FFDCIgnore(ClassNotFoundException.class)
-    private Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull, Iterable<LibertyLoader> delegates) throws ClassNotFoundException {
-        for (LibertyLoader cl : delegates) {
+    protected Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull, LibraryPrecidence precidence) throws ClassNotFoundException {
+        for (LibertyLoader cl : getDelegates(precidence)) {
             try {
                 Class<?> rc = cl.loadClass(name, false, true, true);
                 if (rc != null) {
@@ -738,8 +731,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      *
      * @return The resource, if found. Otherwise null.
      */
-    private URL findResourceCommonLibraryClassLoaders(String name, Iterable<LibertyLoader> delegates) {
-        for (LibertyLoader cl : delegates) {
+    protected URL findResourceCommonLibraryClassLoaders(String name, LibraryPrecidence precidence) {
+        for (LibertyLoader cl : getDelegates(precidence)) {
             URL url = cl.findResource(name);
             if (url != null) {
                 return url;
@@ -758,8 +751,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @return The enumerations parameter is populated by this method and returned. It contains
      *         all the resources found under all the common library classloaders.
      */
-    private CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations, Iterable<LibertyLoader> delegates) throws IOException {
-        for (LibertyLoader cl : delegates) {
+    protected CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations, LibraryPrecidence precidence) throws IOException {
+        for (LibertyLoader cl : getDelegates(precidence)) {
             enumerations.add(cl.findResources(name));
         }
         return enumerations;

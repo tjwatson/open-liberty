@@ -12,6 +12,8 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.beforeApp;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;
@@ -32,6 +34,7 @@ import com.ibm.ws.classloading.internal.util.ClassRedefiner;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
+import com.ibm.wsspi.kernel.service.utils.CompositeEnumeration;
 
 /**
  * A version of the standard URLClassLoader that checks the child level first
@@ -60,23 +63,35 @@ class ParentLastClassLoader extends AppClassLoader {
 
     @Override
     @Trivial
-    public URL getResource(String resName) {
-        // search order: 1) my class path 2) parent loader
-        URL result = findResource(resName);
-        return result == null ? this.parent.getResource(resName) : result;
+    public URL getResource(String name) {
+        URL result = findResourceCommonLibraryClassLoaders(name, beforeApp);
+        if (result == null) {
+            result = findResource(name);
+        }
+        if (result == null) {
+            result = parent.getResource(name);
+        }
+        return result;
     }
 
     @Override
     @Trivial
     public Enumeration<URL> getResources(String resName) throws IOException {
-        // search order: 1) my class path 2) parent loader
-        return super.findResources(resName).add(this.parent.getResources(resName));
+        // search order: 1)  my class path 2) parent loader
+        return findResourcesCommonLibraryClassLoaders(resName, new CompositeEnumeration<>(), beforeApp) //
+                        .add(this.findResources(resName)) //
+                        .add(this.parent.getResources(resName));
     }
 
     @FFDCIgnore(ClassNotFoundException.class)
     @Override
     @Trivial
     protected Class<?> findOrDelegateLoadClass(String className, boolean onlySearchSelf, boolean returnNull) throws ClassNotFoundException {
+        final boolean RETURN_NULL_FOR_NO_CLASS = true;
+        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(className, RETURN_NULL_FOR_NO_CLASS, beforeApp);
+        if (beforeAppLoad != null) {
+            return beforeAppLoad;
+        }
         ClassNotFoundException findClassException = null;
         // search order: 1) my class path 2) parent loader
         Class<?> rc = null;
