@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014,2019 IBM Corporation and others.
+ * Copyright (c) 2014, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -27,14 +27,13 @@ import org.osgi.framework.ServiceReference;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
 import com.ibm.ws.classloading.internal.DeclaredApiAccess;
 import com.ibm.ws.classloading.internal.LibertyLoader;
-import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.BlockingList;
 import com.ibm.ws.classloading.internal.util.BlockingList.Logger;
 import com.ibm.ws.classloading.internal.util.BlockingListMaker;
 import com.ibm.ws.classloading.internal.util.CompositeIterable;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.ws.library.internal.SharedLibraryFactory;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
@@ -44,10 +43,10 @@ import com.ibm.wsspi.library.Library;
 public class Providers {
     public static final class LibraryInfo {
         public final LibertyLoader loader;
-        public final Order order;
-        LibraryInfo(LibertyLoader loader, Order order) {
+        public final LibraryPrecidence precidence;
+        LibraryInfo(LibertyLoader loader, LibraryPrecidence precidence) {
             this.loader = loader;
-            this.order = order;
+            this.precidence = precidence;
         }
     }
 
@@ -78,7 +77,7 @@ public class Providers {
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraries).listenForElements(getLibraries).log(LOGGER).useKeys(privateLibraries).make();
     }
 
-    public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
+    public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecidence precidence) {
         List<String> commonLibIds = config.getCommonLibraries();
         if (commonLibIds == null || commonLibIds.isEmpty()) {
             if (tc.isDebugEnabled())
@@ -97,7 +96,7 @@ public class Providers {
 
         // this list will try to retrieve the libraries on demand
         // and it will block until they are available
-        GetLibraryLoaders getLibraryLoaders = new GetLibraryLoaders(config.getId().getId(), gwApis);
+        GetLibraryLoaders getLibraryLoaders = new GetLibraryLoaders(config.getId().getId(), gwApis, precidence);
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraryLoaders).listenForElements(getLibraryLoaders).log(LOGGER).useKeys(commonLibIds).make();
     }
 
@@ -126,8 +125,8 @@ public class Providers {
     }
 
     @SuppressWarnings("unchecked")
-    public static Iterable<Providers.LibraryInfo> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess) {
-        return new CompositeIterable<Providers.LibraryInfo>(getCommonLibraryLoaders(config, apiAccess), getProviderLoaders(config, apiAccess));
+    public static Iterable<Providers.LibraryInfo> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecidence precidence) {
+        return new CompositeIterable<Providers.LibraryInfo>(getCommonLibraryLoaders(config, apiAccess, precidence), getProviderLoaders(config, apiAccess));
     }
 
     /**

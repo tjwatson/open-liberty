@@ -55,14 +55,13 @@ import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.websphere.ras.annotation.Trivial;
 import com.ibm.ws.classloading.ClassGenerator;
 import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
 import com.ibm.ws.classloading.internal.providers.Providers;
 import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.ClassRedefiner;
 import com.ibm.ws.classloading.internal.util.FeatureSuggestion;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
 import com.ibm.ws.kernel.security.thread.ThreadIdentityManager;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.adaptable.module.Container;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.classloading.ClassLoaderConfiguration;
@@ -165,9 +164,11 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     private final DeclaredApiAccess apiAccess;
     private final ClassGenerator generator;
     private final ConcurrentHashMap<String, ProtectionDomain> protectionDomains = new ConcurrentHashMap<String, ProtectionDomain>();
+    private final LibraryPrecidence libraryPrecidence;
 
     AppClassLoader(ClassLoader parent, ClassLoaderConfiguration config, List<Container> containers, DeclaredApiAccess access, ClassRedefiner redefiner, ClassGenerator generator, GlobalClassloadingConfiguration globalConfig, List<ClassFileTransformer> systemTransformers) {
         super(containers, parent, redefiner, globalConfig);
+        this.libraryPrecidence = globalConfig.libraryPrecidence();
         this.systemTransformers = systemTransformers;
         this.config = config;
         this.apiAccess = access;
@@ -177,8 +178,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
 
         List<LibertyLoader> tmpBeforeApp = new ArrayList<>();
         List<LibertyLoader> tmpAfterApp = new ArrayList<>();
-        for (LibraryInfo loaderInfo : Providers.getDelegateLoaders(config, apiAccess)) {
-            switch (loaderInfo.order) {
+        for (LibraryInfo loaderInfo : Providers.getDelegateLoaders(config, apiAccess, libraryPrecidence)) {
+            switch (loaderInfo.precidence) {
                 case afterApp:
                     tmpAfterApp.add(loaderInfo.loader);
                     break;
@@ -352,15 +353,14 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     @Override
     protected final Class<?> findClass(String name, boolean returnNull) throws ClassNotFoundException {
-        String resourceName = Util.convertClassNameToResourceName(name);
-
         // TODO this should be before parent!
         final boolean RETURN_NULL_FOR_NO_CLASS = true;
-        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(resourceName, RETURN_NULL_FOR_NO_CLASS, beforeAppDelegateLoaders);
+        Class<?> beforeAppLoad = findClassCommonLibraryClassLoaders(name, RETURN_NULL_FOR_NO_CLASS, beforeAppDelegateLoaders);
         if (beforeAppLoad != null) {
             return beforeAppLoad;
         }
 
+        String resourceName = Util.convertClassNameToResourceName(name);
         ByteResourceInformation byteResInfo = findClassBytes(name, resourceName);
         if (byteResInfo == null) {
             // Check the common libraries.
@@ -783,8 +783,7 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     private void copyLibraryElementsToClasspath(Library library) {
         Collection<File> files = library.getFiles();
-        boolean prepend = ((ExtendedLibraryMethods) library).search() == Order.beforeApp;
-        addToClassPath(library.getContainers(), prepend);
+        addToClassPath(library.getContainers(), libraryPrecidence == LibraryPrecidence.beforeApp);
         if (files != null && !!!files.isEmpty()) {
             for (File file : files) {
 

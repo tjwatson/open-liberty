@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 IBM Corporation and others.
+ * Copyright (c) 2011, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -20,8 +20,6 @@ import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 
 import org.osgi.framework.Bundle;
 
@@ -125,6 +123,7 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
                             if (result != null) {
                                 return result;
                             }
+                            break;
                         case PARENT:
                             if (parent instanceof LibertyLoader) {
                                 result = ((LibertyLoader) parent).loadClass(className, false, false, returnNull);
@@ -134,11 +133,13 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
                             } else {
                                 return parent.loadClass(className);
                             }
+                            break;
                         case SELF:
                             result = findClass(className, returnNull);
                             if (result != null) {
                                 return result;
                             }
+                            break;
                         case AFTER_DELEGATES:
                             result = loadFrom(afterAppDelegateLoaders, className, returnNull);
                             if (result != null) {

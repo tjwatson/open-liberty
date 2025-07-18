@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 IBM Corporation and others.
+ * Copyright (c) 2014, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal.providers;
 
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
 import static com.ibm.ws.classloading.internal.providers.Providers.bundleContext;
 import static org.osgi.framework.Constants.OBJECTCLASS;
 import static org.osgi.framework.Constants.SERVICE_VENDOR;
@@ -29,14 +30,12 @@ import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.ws.classloading.ClassProvider;
 import com.ibm.ws.classloading.LibertyClassLoader;
 import com.ibm.ws.classloading.internal.LibertyLoader;
-import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.BlockingList.Listener;
 import com.ibm.ws.classloading.internal.util.BlockingList.Retriever;
 import com.ibm.ws.classloading.internal.util.BlockingList.Slot;
 import com.ibm.ws.classloading.internal.util.ElementNotReadyException;
 import com.ibm.ws.classloading.internal.util.ElementNotValidException;
 import com.ibm.ws.ffdc.annotation.FFDCIgnore;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.classloading.ApiType;
 
 public class GetProviderLoaders implements Retriever<String, Providers.LibraryInfo>, Listener<String, Providers.LibraryInfo> {
@@ -143,7 +142,8 @@ public class GetProviderLoaders implements Retriever<String, Providers.LibraryIn
             throw new ElementNotValidException("Provider API types do not match class loader API types");
         }
 
-        return new Providers.LibraryInfo(ll, Order.afterApp);
+        // Class providers are always afterApp for now
+        return new Providers.LibraryInfo(ll, afterApp);
     }
 
 }

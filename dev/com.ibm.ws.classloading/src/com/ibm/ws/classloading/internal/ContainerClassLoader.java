@@ -1226,6 +1226,10 @@ abstract class ContainerClassLoader extends LibertyLoader implements Keyed<Class
             containers = Collections.emptyList();
         }
 
+        UniversalContainerList(boolean copyOnWrite) {
+            containers = copyOnWrite ? new CopyOnWriteArrayList<>() : new ArrayList<>();
+        }
+
         /**
          * @param containerUniversalContainer
          * @return
@@ -1235,10 +1239,7 @@ abstract class ContainerClassLoader extends LibertyLoader implements Keyed<Class
             return containers.contains(container);
         }
 
-        UniversalContainerList(boolean copyOnWrite) {
-            containers = copyOnWrite ? new CopyOnWriteArrayList<>() : new ArrayList<>();
-        }
-
+        @Trivial
         void add(UniversalContainer container, boolean prepend) {
             if (prepend) {
                 containers.add(prependIndex++, container);

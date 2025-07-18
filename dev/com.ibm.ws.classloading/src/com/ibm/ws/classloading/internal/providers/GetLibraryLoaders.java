@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 IBM Corporation and others.
+ * Copyright (c) 2014, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -16,14 +16,13 @@ import java.util.EnumSet;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
 import com.ibm.ws.classloading.internal.LibertyLoader;
 import com.ibm.ws.classloading.internal.util.BlockingList.Listener;
 import com.ibm.ws.classloading.internal.util.BlockingList.Retriever;
 import com.ibm.ws.classloading.internal.util.BlockingList.Slot;
 import com.ibm.ws.classloading.internal.util.ElementNotReadyException;
 import com.ibm.ws.classloading.internal.util.ElementNotValidException;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.wsspi.classloading.ApiType;
 import com.ibm.wsspi.library.Library;
 
@@ -37,11 +36,13 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
     static final TraceComponent tc = Tr.register(GetLibraryLoaders.class);
     private final EnumSet<ApiType> ownerAPIs;
     private final String ownerID;
+    private final LibraryPrecidence precidence;
 
     /** Create a listener that does not listen straight away */
-    GetLibraryLoaders(String ownerId, EnumSet<ApiType> ownerAPIs) {
+    GetLibraryLoaders(String ownerId, EnumSet<ApiType> ownerAPIs, LibraryPrecidence precidence) {
         this.ownerID = ownerId;
         this.ownerAPIs = ownerAPIs;
+        this.precidence = precidence;
     }
 
     @Override
@@ -51,8 +52,7 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
             throw new ElementNotReadyException(id);
         if (libraryAndLoaderApiTypesDoNotMatch(lib))
             throw new ElementNotValidException();
-        Order order = lib instanceof ExtendedLibraryMethods ? ((ExtendedLibraryMethods)lib).search() : Order.afterApp;
-        return new Providers.LibraryInfo((LibertyLoader) lib.getClassLoader(), order);
+        return new Providers.LibraryInfo((LibertyLoader) lib.getClassLoader(), precidence);
     }
 
     /** invoked by the blocking list when a synchronous fetch operation fails */
@@ -78,8 +78,7 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
                     slot.delete();
                 } else {
                     final LibertyLoader libCL = (LibertyLoader) library.getClassLoader();
-                    Order order = library instanceof ExtendedLibraryMethods ? ((ExtendedLibraryMethods)library).search() : Order.afterApp;
-                    slot.fill(new Providers.LibraryInfo(libCL, order));
+                    slot.fill(new Providers.LibraryInfo(libCL, precidence));
                 }
                 deregister();
             }

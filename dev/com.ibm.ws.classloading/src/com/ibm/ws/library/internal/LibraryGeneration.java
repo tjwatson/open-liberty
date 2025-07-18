@@ -14,8 +14,6 @@ package com.ibm.ws.library.internal;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
-import com.ibm.ws.kernel.productinfo.ProductInfo;
-import com.ibm.ws.library.internal.ExtendedLibraryMethods.Order;
 import com.ibm.ws.library.internal.SharedLibraryImpl.ClasspathType;
 import com.ibm.wsspi.artifact.ArtifactContainer;
 import com.ibm.wsspi.classloading.ApiType;
@@ -42,7 +40,6 @@ final class LibraryGeneration {
     private final Collection<? extends File> files;
     private final Collection<? extends File> folders;
     private final Collection<? extends ArtifactContainer> fileAndFolderContainers;
-    private final Order search;
 
     private final Collection<Fileset> filesets;
     private final ConcurrentLinkedQueue<ServiceRegistration<?>> filesetListenerRegs = new ConcurrentLinkedQueue<ServiceRegistration<?>>();
@@ -65,7 +62,6 @@ final class LibraryGeneration {
         String[] fileRef = null;
         String[] folderRef = null;
         String[] pathRef = null;
-        Order search = Order.afterApp;
         for (SharedLibraryConstants.SharedLibraryAttribute attr : SharedLibraryConstants.SharedLibraryAttribute.values()) {
             Object o = props.get(attr.toString());
             switch (attr) {
@@ -83,9 +79,6 @@ final class LibraryGeneration {
                     continue;
                 case pathRef:
                     pathRef = (String[]) o;
-                    continue;
-                case search:
-                    search = Order.valueOf((String) o);
                     continue;
                 default:
                     continue;
@@ -115,7 +108,6 @@ final class LibraryGeneration {
         } else {
             filesets = new ArrayBlockingQueue<Fileset>(filesetRefs.size());
         }
-        this.search = search;
     }
 
     private List<ArtifactContainer> initContainers(Collection<File> files, Collection<File> folders) {
@@ -166,10 +158,6 @@ final class LibraryGeneration {
         } else {
             new FilesetListener(library, this, filesetRefs, filesets, filesetListenerRegs);
         }
-    }
-
-    Order search() {
-        return search;
     }
 
     @SuppressWarnings("unchecked")
