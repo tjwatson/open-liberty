@@ -27,7 +27,7 @@ import org.osgi.framework.ServiceReference;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
-import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence;
 import com.ibm.ws.classloading.internal.DeclaredApiAccess;
 import com.ibm.ws.classloading.internal.LibertyLoader;
 import com.ibm.ws.classloading.internal.util.BlockingList;
@@ -43,10 +43,10 @@ import com.ibm.wsspi.library.Library;
 public class Providers {
     public static final class LibraryInfo {
         public final LibertyLoader loader;
-        public final LibraryPrecidence precidence;
-        LibraryInfo(LibertyLoader loader, LibraryPrecidence precidence) {
+        public final LibraryPrecedence precedence;
+        LibraryInfo(LibertyLoader loader, LibraryPrecedence precedence) {
             this.loader = loader;
-            this.precidence = precidence;
+            this.precedence = precedence;
         }
     }
 
@@ -77,7 +77,7 @@ public class Providers {
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraries).listenForElements(getLibraries).log(LOGGER).useKeys(privateLibraries).make();
     }
 
-    public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecidence precidence) {
+    public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecedence precedence) {
         List<String> commonLibIds = config.getCommonLibraries();
         if (commonLibIds == null || commonLibIds.isEmpty()) {
             if (tc.isDebugEnabled())
@@ -96,7 +96,7 @@ public class Providers {
 
         // this list will try to retrieve the libraries on demand
         // and it will block until they are available
-        GetLibraryLoaders getLibraryLoaders = new GetLibraryLoaders(config.getId().getId(), gwApis, precidence);
+        GetLibraryLoaders getLibraryLoaders = new GetLibraryLoaders(config.getId().getId(), gwApis, precedence);
         return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraryLoaders).listenForElements(getLibraryLoaders).log(LOGGER).useKeys(commonLibIds).make();
     }
 
@@ -125,8 +125,8 @@ public class Providers {
     }
 
     @SuppressWarnings("unchecked")
-    public static Iterable<Providers.LibraryInfo> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecidence precidence) {
-        return new CompositeIterable<Providers.LibraryInfo>(getCommonLibraryLoaders(config, apiAccess, precidence), getProviderLoaders(config, apiAccess));
+    public static Iterable<Providers.LibraryInfo> getDelegateLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecedence precedence) {
+        return new CompositeIterable<Providers.LibraryInfo>(getCommonLibraryLoaders(config, apiAccess, precedence), getProviderLoaders(config, apiAccess));
     }
 
     /**

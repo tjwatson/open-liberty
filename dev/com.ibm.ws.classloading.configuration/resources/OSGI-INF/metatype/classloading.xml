@@ -25,7 +25,7 @@
     />
 
     <AD name="internal" description="internal use only"
-        id="libraryPrecidence"
+        id="libraryPrecedence"
         required="false" 
         type="String" 
         ibm:beta="true"

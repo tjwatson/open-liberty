@@ -12,8 +12,7 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.beforeApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence.beforeApp;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;

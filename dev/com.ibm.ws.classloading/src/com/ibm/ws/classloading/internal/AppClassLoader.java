@@ -12,8 +12,8 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.beforeApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence.afterApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence.beforeApp;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.AFTER_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.BEFORE_DELEGATES;
 import static com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation.PARENT;
@@ -57,7 +57,7 @@ import com.ibm.websphere.ras.TraceComponent;
 import com.ibm.websphere.ras.annotation.Trivial;
 import com.ibm.ws.classloading.ClassGenerator;
 import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration;
-import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence;
 import com.ibm.ws.classloading.internal.providers.Providers;
 import com.ibm.ws.classloading.internal.providers.Providers.LibraryInfo;
 import com.ibm.ws.classloading.internal.util.ClassRedefiner;
@@ -166,11 +166,11 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     private final DeclaredApiAccess apiAccess;
     private final ClassGenerator generator;
     private final ConcurrentHashMap<String, ProtectionDomain> protectionDomains = new ConcurrentHashMap<String, ProtectionDomain>();
-    private final LibraryPrecidence libraryPrecidence;
+    private final LibraryPrecedence libraryPrecedence;
 
     AppClassLoader(ClassLoader parent, ClassLoaderConfiguration config, List<Container> containers, DeclaredApiAccess access, ClassRedefiner redefiner, ClassGenerator generator, GlobalClassloadingConfiguration globalConfig, List<ClassFileTransformer> systemTransformers) {
         super(containers, parent, redefiner, globalConfig);
-        this.libraryPrecidence = globalConfig.libraryPrecidence();
+        this.libraryPrecedence = globalConfig.libraryPrecedence();
         this.systemTransformers = systemTransformers;
         this.config = config;
         this.apiAccess = access;
@@ -180,8 +180,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
 
         List<LibertyLoader> tmpBeforeApp = new ArrayList<>();
         List<LibertyLoader> tmpAfterApp = new ArrayList<>();
-        for (LibraryInfo loaderInfo : Providers.getDelegateLoaders(config, apiAccess, libraryPrecidence)) {
-            switch (loaderInfo.precidence) {
+        for (LibraryInfo loaderInfo : Providers.getDelegateLoaders(config, apiAccess, libraryPrecedence)) {
+            switch (loaderInfo.precedence) {
                 case afterApp:
                     tmpAfterApp.add(loaderInfo.loader);
                     break;
@@ -690,8 +690,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     }
 
     @Trivial
-    private Iterable<LibertyLoader> getDelegates(LibraryPrecidence precidence) {
-        if (precidence == LibraryPrecidence.beforeApp) {
+    private Iterable<LibertyLoader> getDelegates(LibraryPrecedence precedence) {
+        if (precedence == LibraryPrecedence.beforeApp) {
             return beforeAppDelegateLoaders;
         }
         return afterAppDelegateLoaders;
@@ -706,8 +706,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @throws ClassNotFoundException if the class isn't found.
      */
     @FFDCIgnore(ClassNotFoundException.class)
-    protected Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull, LibraryPrecidence precidence) throws ClassNotFoundException {
-        for (LibertyLoader cl : getDelegates(precidence)) {
+    protected Class<?> findClassCommonLibraryClassLoaders(String name, boolean returnNull, LibraryPrecedence precedence) throws ClassNotFoundException {
+        for (LibertyLoader cl : getDelegates(precedence)) {
             try {
                 Class<?> rc = cl.loadClass(name, false, true, true);
                 if (rc != null) {
@@ -731,8 +731,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      *
      * @return The resource, if found. Otherwise null.
      */
-    protected URL findResourceCommonLibraryClassLoaders(String name, LibraryPrecidence precidence) {
-        for (LibertyLoader cl : getDelegates(precidence)) {
+    protected URL findResourceCommonLibraryClassLoaders(String name, LibraryPrecedence precedence) {
+        for (LibertyLoader cl : getDelegates(precedence)) {
             URL url = cl.findResource(name);
             if (url != null) {
                 return url;
@@ -751,8 +751,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      * @return The enumerations parameter is populated by this method and returned. It contains
      *         all the resources found under all the common library classloaders.
      */
-    protected CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations, LibraryPrecidence precidence) throws IOException {
-        for (LibertyLoader cl : getDelegates(precidence)) {
+    protected CompositeEnumeration<URL> findResourcesCommonLibraryClassLoaders(String name, CompositeEnumeration<URL> enumerations, LibraryPrecedence precedence) throws IOException {
+        for (LibertyLoader cl : getDelegates(precedence)) {
             enumerations.add(cl.findResources(name));
         }
         return enumerations;
@@ -776,7 +776,7 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      */
     private void copyLibraryElementsToClasspath(Library library) {
         Collection<File> files = library.getFiles();
-        addToClassPath(library.getContainers(), libraryPrecidence == LibraryPrecidence.beforeApp);
+        addToClassPath(library.getContainers(), libraryPrecedence == LibraryPrecedence.beforeApp);
         if (files != null && !!!files.isEmpty()) {
             for (File file : files) {
 

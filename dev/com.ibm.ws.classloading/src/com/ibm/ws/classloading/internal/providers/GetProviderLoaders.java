@@ -12,7 +12,7 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal.providers;
 
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.afterApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence.afterApp;
 import static com.ibm.ws.classloading.internal.providers.Providers.bundleContext;
 import static org.osgi.framework.Constants.OBJECTCLASS;
 import static org.osgi.framework.Constants.SERVICE_VENDOR;

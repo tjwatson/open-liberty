@@ -25,6 +25,7 @@ import org.osgi.framework.Bundle;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
+import com.ibm.websphere.ras.annotation.Trivial;
 import com.ibm.ws.classloading.internal.AppClassLoader.SearchLocation;
 import com.ibm.ws.classloading.internal.ContainerClassLoader.ByteResourceInformation;
 import com.ibm.ws.classloading.internal.util.Keyed;
@@ -164,6 +165,8 @@ class ShadowClassLoader extends LibertyLoader implements Keyed<ClassLoaderIdenti
         throw lastException;
     }
 
+    @FFDCIgnore(ClassNotFoundException.class)
+    @Trivial
     private Class<?> loadFrom(Iterable<LibertyLoader> delegates, String className, boolean returnNull) throws ClassNotFoundException {
         ClassNotFoundException lastException = null;
         for (LibertyLoader delegate : delegates) {

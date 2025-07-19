@@ -12,7 +12,7 @@
  *******************************************************************************/
 package com.ibm.ws.classloading.internal;
 
-import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence.beforeApp;
+import static com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence.beforeApp;
 import static com.ibm.ws.classloading.internal.ClassLoadingConstants.SHARED_LIBRARY_DOMAIN;
 import static com.ibm.ws.classloading.internal.ClassLoadingConstants.SPI_SHARED_LIBRARY_DOMAIN;
 import static org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE;
@@ -477,7 +477,7 @@ public class ClassLoadingServiceImpl implements LibertyClassLoadingService<Liber
 
         ClassLoaderConfiguration clsCfg = createClassLoaderConfiguration()
                         // if the library is searched before app then we must use parentLast for the shared library
-                        .setDelegateToParentAfterCheckingLocalClasspath(globalConfig.libraryPrecidence() == beforeApp)
+                        .setDelegateToParentAfterCheckingLocalClasspath(globalConfig.libraryPrecedence() == beforeApp)
                         .setId(clId)
                         .setSharedLibraries(lib.id()); // Configure lib binaries
 

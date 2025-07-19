@@ -28,12 +28,12 @@ import com.ibm.ws.kernel.productinfo.ProductInfo;
            configurationPid = "com.ibm.ws.classloading.global", property = "service.vendor=IBM")
 public class GlobalClassloadingConfiguration {
     private static String USE_JAR_URLS_KEY = "useJarUrls";
-    private static String LIBRARY_PRECIDENCE_KEY = "libraryPrecidence";
+    private static String LIBRARY_PRECEDENCE_KEY = "libraryPrecedence";
     static final TraceComponent tc = Tr.register(GlobalClassloadingConfiguration.class);
 
     private final AtomicBoolean issuedBetaMessage = new AtomicBoolean(false);
     private volatile boolean useJarUrls = false;
-    private volatile LibraryPrecidence libraryPrecidence = LibraryPrecidence.afterApp;
+    private volatile LibraryPrecedence libraryPrecedence = LibraryPrecedence.afterApp;
 
     @Activate
     protected void activate(Map<String, Object> properties) {
@@ -43,21 +43,21 @@ public class GlobalClassloadingConfiguration {
     @Modified
     protected void modified(Map<String, Object> props) {
         this.useJarUrls = (Boolean) props.get(USE_JAR_URLS_KEY);
-        LibraryPrecidence checkValue = LibraryPrecidence.valueOf((String) props.get(LIBRARY_PRECIDENCE_KEY));
-        if (checkValue == LibraryPrecidence.beforeApp) {
+        LibraryPrecedence checkValue = LibraryPrecedence.valueOf((String) props.get(LIBRARY_PRECEDENCE_KEY));
+        if (checkValue == LibraryPrecedence.beforeApp) {
             if (!ProductInfo.getBetaEdition()) {
-                checkValue = LibraryPrecidence.afterApp;
+                checkValue = LibraryPrecedence.afterApp;
                 if (issuedBetaMessage.compareAndSet(false, true)) {
-                    Tr.info(tc, "BETA: The attribute '" + LIBRARY_PRECIDENCE_KEY + "' can only be used with the Open Liberty BETA.");
+                    Tr.info(tc, "BETA: The attribute '" + LIBRARY_PRECEDENCE_KEY + "' can only be used with the Open Liberty BETA.");
                 }
             } else {
                 // Running beta exception, issue message if we haven't already issued one for this class
                 if (issuedBetaMessage.compareAndSet(false, true)) {
-                    Tr.info(tc, "BETA: The attribute '" + LIBRARY_PRECIDENCE_KEY + "' is being used with the value '" + checkValue + "'");
+                    Tr.info(tc, "BETA: The attribute '" + LIBRARY_PRECEDENCE_KEY + "' is being used with the value '" + checkValue + "'");
                 }
             }
         }
-        libraryPrecidence = checkValue;
+        libraryPrecedence = checkValue;
     }
 
     /**
@@ -67,12 +67,12 @@ public class GlobalClassloadingConfiguration {
         return useJarUrls;
     }
 
-    public enum LibraryPrecidence {
+    public enum LibraryPrecedence {
         beforeApp,
         afterApp
     }
 
-    public LibraryPrecidence libraryPrecidence() {
-        return libraryPrecidence;
+    public LibraryPrecedence libraryPrecedence() {
+        return libraryPrecedence;
     }
 }

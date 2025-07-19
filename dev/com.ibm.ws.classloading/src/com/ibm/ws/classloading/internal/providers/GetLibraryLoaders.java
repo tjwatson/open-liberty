@@ -16,7 +16,7 @@ import java.util.EnumSet;
 
 import com.ibm.websphere.ras.Tr;
 import com.ibm.websphere.ras.TraceComponent;
-import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecidence;
+import com.ibm.ws.classloading.configuration.GlobalClassloadingConfiguration.LibraryPrecedence;
 import com.ibm.ws.classloading.internal.LibertyLoader;
 import com.ibm.ws.classloading.internal.util.BlockingList.Listener;
 import com.ibm.ws.classloading.internal.util.BlockingList.Retriever;
@@ -36,13 +36,13 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
     static final TraceComponent tc = Tr.register(GetLibraryLoaders.class);
     private final EnumSet<ApiType> ownerAPIs;
     private final String ownerID;
-    private final LibraryPrecidence precidence;
+    private final LibraryPrecedence precedence;
 
     /** Create a listener that does not listen straight away */
-    GetLibraryLoaders(String ownerId, EnumSet<ApiType> ownerAPIs, LibraryPrecidence precidence) {
+    GetLibraryLoaders(String ownerId, EnumSet<ApiType> ownerAPIs, LibraryPrecedence precedence) {
         this.ownerID = ownerId;
         this.ownerAPIs = ownerAPIs;
-        this.precidence = precidence;
+        this.precedence = precedence;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
             throw new ElementNotReadyException(id);
         if (libraryAndLoaderApiTypesDoNotMatch(lib))
             throw new ElementNotValidException();
-        return new Providers.LibraryInfo((LibertyLoader) lib.getClassLoader(), precidence);
+        return new Providers.LibraryInfo((LibertyLoader) lib.getClassLoader(), precedence);
     }
 
     /** invoked by the blocking list when a synchronous fetch operation fails */
@@ -78,7 +78,7 @@ public class GetLibraryLoaders implements Retriever<String, Providers.LibraryInf
                     slot.delete();
                 } else {
                     final LibertyLoader libCL = (LibertyLoader) library.getClassLoader();
-                    slot.fill(new Providers.LibraryInfo(libCL, precidence));
+                    slot.fill(new Providers.LibraryInfo(libCL, precedence));
                 }
                 deregister();
             }
