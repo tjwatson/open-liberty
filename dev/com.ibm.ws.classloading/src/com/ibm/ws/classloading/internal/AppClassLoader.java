@@ -49,6 +49,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.osgi.framework.Bundle;
 
@@ -157,7 +158,8 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
     }
 
     protected final ClassLoaderConfiguration config;
-    private volatile List<Library> privateLibraries;
+    private final AtomicReference<List<Library>> patchLibraries;
+    private final AtomicReference<List<Library>> privateLibraries;
     private final Iterable<LibertyLoader> beforeAppDelegateLoaders;
     private final Iterable<LibertyLoader> afterAppDelegateLoaders;
     private final List<File> nativeLibraryFiles = new ArrayList<File>();
@@ -176,7 +178,9 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
         this.apiAccess = access;
         for (Container container : config.getNativeLibraryContainers())
             addNativeLibraryContainer(container);
-        this.privateLibraries = Providers.getPrivateLibraries(config);
+
+        this.patchLibraries = new AtomicReference<>(Providers.getPatchLibraries(config));
+        this.privateLibraries = new AtomicReference<>(Providers.getPrivateLibraries(config));
 
         List<LibertyLoader> tmpBeforeApp = new ArrayList<>();
         List<LibertyLoader> tmpAfterApp = new ArrayList<>();
@@ -760,12 +764,21 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
 
     @Override
     protected void lazyInit() {
-        // process all the libraries
-        if (privateLibraries != null)
-            for (Library lib : privateLibraries)
-                copyLibraryElementsToClasspath(lib);
-        // nullify the field - it's not needed any more
-        privateLibraries = null;
+        // process all the patch and private libraries
+
+        List<Library> curPatchLibraries = patchLibraries.getAndSet(null);
+        if (curPatchLibraries != null) {
+            for (Library lib : curPatchLibraries) {
+                copyLibraryElementsToClasspath(lib, true);
+            }
+        }
+
+        List<Library> curPrivateLibraries = privateLibraries.getAndSet(null);
+        if (curPrivateLibraries != null) {
+            for (Library lib : curPrivateLibraries) {
+                copyLibraryElementsToClasspath(lib, false);
+            }
+        }
     }
 
     /**
@@ -774,9 +787,9 @@ public class AppClassLoader extends ContainerClassLoader implements SpringLoader
      *
      * @param library
      */
-    private void copyLibraryElementsToClasspath(Library library) {
+    private void copyLibraryElementsToClasspath(Library library, boolean prepend) {
         Collection<File> files = library.getFiles();
-        addToClassPath(library.getContainers(), libraryPrecedence == LibraryPrecedence.beforeApp);
+        addToClassPath(library.getContainers(), prepend);
         if (files != null && !!!files.isEmpty()) {
             for (File file : files) {
 

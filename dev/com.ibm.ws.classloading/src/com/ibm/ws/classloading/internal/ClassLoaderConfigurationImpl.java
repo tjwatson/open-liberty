@@ -32,6 +32,7 @@ class ClassLoaderConfigurationImpl implements ClassLoaderConfiguration {
     private boolean includeAppExtensions;
     private ClassLoaderIdentity id;
     private ClassLoaderIdentity parentId;
+    private List<String> patchLibraries = Collections.emptyList();
     private List<String> sharedLibraries = new ArrayList<String>();
     private List<String> commonLibraries = Collections.emptyList();
     private List<String> providers = Collections.emptyList();
@@ -59,6 +60,12 @@ class ClassLoaderConfigurationImpl implements ClassLoaderConfiguration {
     @Override
     public ClassLoaderConfiguration setSharedLibraries(List<String> libs) {
         this.sharedLibraries = libs == null ? Collections.<String> emptyList() : libs;
+        return this;
+    }
+
+    @Override
+    public ClassLoaderConfiguration setPatchLibraries(List<String> libs) {
+        this.patchLibraries = libs == null ? Collections.<String> emptyList() : libs;
         return this;
     }
 
@@ -129,6 +136,11 @@ class ClassLoaderConfigurationImpl implements ClassLoaderConfiguration {
     @Trivial
     public ClassLoaderIdentity getParentId() {
         return parentId;
+    }
+
+    @Override
+    public List<String> getPatchLibraries() {
+        return Collections.unmodifiableList(patchLibraries);
     }
 
     @Override

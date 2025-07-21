@@ -59,10 +59,15 @@ public class Providers {
     }
 
     public static List<Library> getPrivateLibraries(ClassLoaderConfiguration config) {
-        List<String> privateLibraries = config.getSharedLibraries();
-        if (privateLibraries == null || privateLibraries.isEmpty()) {
+        return getLibraries(config.getId().getId(), config.getSharedLibraries());
+    }
+    public static List<Library> getPatchLibraries(ClassLoaderConfiguration config) {
+        return getLibraries(config.getId().getId(), config.getPatchLibraries());
+    }
+    public static List<Library> getLibraries(String ownerId, List<String> libraryIds) {
+        if (libraryIds == null || libraryIds.isEmpty()) {
             if (tc.isDebugEnabled())
-                Tr.debug(tc, "RETURN (privateLibraries == null || privateLibraries.isEmpty())");
+                Tr.debug(tc, "RETURN (libraryIds == null || libraryIds.isEmpty())");
             return Collections.emptyList();
         }
 
@@ -73,8 +78,8 @@ public class Providers {
             return Collections.emptyList();
         }
 
-        GetLibraries getLibraries = new GetLibraries(config.getId().getId());
-        return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraries).listenForElements(getLibraries).log(LOGGER).useKeys(privateLibraries).make();
+        GetLibraries getLibraries = new GetLibraries(ownerId);
+        return BlockingListMaker.defineList().waitFor(10, SECONDS).fetchElements(getLibraries).listenForElements(getLibraries).log(LOGGER).useKeys(libraryIds).make();
     }
 
     public static List<Providers.LibraryInfo> getCommonLibraryLoaders(ClassLoaderConfiguration config, DeclaredApiAccess apiAccess, LibraryPrecedence precedence) {
