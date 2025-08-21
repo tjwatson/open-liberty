@@ -1,4 +1,4 @@
-# Contributing to Open Liberty
+# Contributing to Open Liberty TJW
 Anyone can contribute to the Open Liberty project and we welcome your contributions!
 
 There are multiple ways to contribute: report bugs, fix bugs, contribute code, improve upon documentation, etc.  You must follow these guidelines:
