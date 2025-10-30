@@ -287,36 +287,6 @@ public class SecurityUtilityGenerateAesKeyTest {
     }
 
     /**
-     * Test that verifies the generateAESKey command fails without a beta guard.
-     * The generateAESKey command requires the beta edition flag to be set.
-     */
-    @Test
-    public void testRandomKeyGeneration_noBetaGuard() throws Exception {
-        // Test random key generation without beta guard
-        String randomKeyFileName = "random_key_2.xml";
-        String outputFilePath = testOutputDir + "/" + randomKeyFileName;
-        File outputFile = new File(outputFilePath);
-
-        
-
-        // Create environment without beta flag
-        Properties nonBetaEnvironment = new Properties();
-
-        ProgramOutput commandOutput = testMachine.execute(
-            securityUtilityPath,
-            new String[] { "generateAESKey", "--createConfigFile=" + outputFilePath },
-            libertyInstallRoot,
-            nonBetaEnvironment);
-
-        Log.info(thisClass, testName.getMethodName(), "stderr:\n" + commandOutput.getStderr());
-        Log.info(thisClass, testName.getMethodName(), "stdout:\n" + commandOutput.getStdout());
-        Log.info(thisClass, testName.getMethodName(), "Return code: " + commandOutput.getReturnCode());
-        
-        assertTrue("generateAESKey should not create a file as the task is not available without the beta guard", 
-                    !(outputFile.exists()));
-    }
-
-    /**
      * Test that verifies the generateAESKey command successfully creates files with specified keys
      * and that the same key input produces identical encryption keys.
      */

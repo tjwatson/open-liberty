@@ -19,7 +19,7 @@ def puTestFilesDir   = file("${puTestPublishDir}/files")
 def puCcBaseDir      = file("${projectDir}/../com.ibm.ws.crypto.sample.customencryption/build")
 def puCcBundleDir    = file("${puCcBaseDir}/libs")
 def puCcFeatureDir   = file("${puCcBundleDir}/publish/usr/extension/lib/features")
-def puCcExtensionDir = file("${puCcBundleDir}/publish/bin/tools/extensions/ws-customPasswordEncryption")
+def puCcExtensionDir = file("${puCcBundleDir}/publish/_bin/tools/extensions/ws-customPasswordEncryption")
 
 configurations {
     requiredLibs {

@@ -19,8 +19,8 @@
 
 ext {
     extJarName = 'customEncryption.jar'
-    extJarInputDir = "${projectDir}/publish/bin/tools/extensions/ws-customPasswordEncryption/${extJarName}"
-    extJarOutputDir = "${buildDir}/publish/bin/tools/extensions/ws-customPasswordEncryption"
+    extJarInputDir = "${projectDir}/publish/_bin/tools/extensions/ws-customPasswordEncryption/${extJarName}"
+    extJarOutputDir = "${buildDir}/publish/_bin/tools/extensions/ws-customPasswordEncryption"
     featureDir = "publish/usr/extension/lib"
     featureName = "customEncryption-1.0.mf"
     featureBundleName = "com.ibm.ws.crypto.sample.customencryption.jar"
