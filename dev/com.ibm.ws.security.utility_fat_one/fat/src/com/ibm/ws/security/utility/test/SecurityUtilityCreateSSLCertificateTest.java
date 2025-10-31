@@ -48,10 +48,12 @@ import com.ibm.websphere.simplicity.Machine;
 import com.ibm.websphere.simplicity.ProgramOutput;
 import com.ibm.websphere.simplicity.log.Log;
 
+import componenttest.topology.impl.JavaInfo;
 import componenttest.topology.impl.LibertyClient;
 import componenttest.topology.impl.LibertyClientFactory;
 import componenttest.topology.impl.LibertyServer;
 import componenttest.topology.impl.LibertyServerFactory;
+import io.openliberty.checkpoint.spi.CheckpointPhase;
 import componenttest.custom.junit.runner.FATRunner;
 
 /**
@@ -430,6 +432,43 @@ public class SecurityUtilityCreateSSLCertificateTest {
     }
 
     /**
+     * Configures and checkpoints and restores a server with the keystore configuration from command output.
+     * 
+     * @param commandOutput Output from createSSLCertificate command
+     * @param server Server to configure and start
+     * @throws Exception If an error occurs during server configuration or startup
+     */
+    private void runCheckpointServer(ProgramOutput commandOutput, LibertyServer server, String aesKey) throws Exception {
+        try {
+            if (!JavaInfo.forCurrentVM().isCriuSupported()) {
+                // skip testing InstantOn if CRIU is not supported on this platform
+                return;
+            }
+            // clean up previous overrides file before checkpoint
+            deleteFileIfExists(sslTestServer.pathToAutoFVTTestFiles + "overrides.xml");
+
+            // do checkpoint
+            server.setCheckpoint(CheckpointPhase.AFTER_APP_START, false, null);
+            server.startServer("checkpoint-test.log");
+
+            // configure AES key after checkpoint
+            String ksSnippet = formatXmlInclude(commandOutput, aesKey);
+            writeStringToServerOverride(ksSnippet, server);
+
+            // Restore from checkpoint after configuring the AES key 
+            server.checkpointRestore();
+
+            // Verify keystore loaded successfully
+            String keystoreLoadedMessage = server.waitForStringInLogUsingMark("Successfully loaded default keystore", 5000);
+            assertTrue("Server did not log Successfully loaded default keystore", keystoreLoadedMessage != null);
+
+            server.stopServer();
+        } finally {
+            server.unsetCheckpoint();
+        }
+    }
+
+    /**
      * Configures and starts a client with the keystore configuration from command output.
      *
      * @param commandOutput Output from createSSLCertificate command
@@ -554,7 +593,7 @@ public class SecurityUtilityCreateSSLCertificateTest {
 
         runserver(commandOutput, sslTestServer, aesEncryptionKey);
 
-
+        runCheckpointServer(commandOutput, sslTestServer, aesEncryptionKey);
     }
 
     /**
@@ -597,6 +636,8 @@ public class SecurityUtilityCreateSSLCertificateTest {
         
 
         runserver(commandOutput, sslTestServer, aesEncryptionKey);
+
+        runCheckpointServer(commandOutput, sslTestServer, aesEncryptionKey);
     }
 
     /**

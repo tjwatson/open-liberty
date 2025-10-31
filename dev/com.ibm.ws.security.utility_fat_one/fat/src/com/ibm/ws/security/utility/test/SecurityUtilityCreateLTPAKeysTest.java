@@ -41,8 +41,10 @@ import com.ibm.websphere.simplicity.Machine;
 import com.ibm.websphere.simplicity.ProgramOutput;
 import com.ibm.websphere.simplicity.log.Log;
 
+import componenttest.topology.impl.JavaInfo;
 import componenttest.topology.impl.LibertyServer;
 import componenttest.topology.impl.LibertyServerFactory;
+import io.openliberty.checkpoint.spi.CheckpointPhase;
 import componenttest.custom.junit.runner.FATRunner;
 
 /**
@@ -461,6 +463,31 @@ public class SecurityUtilityCreateLTPAKeysTest {
         assertNotNull("Expected LTPA configuration ready message not found in the log.",
                       ltpaTestServer.waitForStringInLogUsingMark("CWWKS4105I", 5000));
         ltpaTestServer.stopServer();
+
+        if (!JavaInfo.forCurrentVM().isCriuSupported()) {
+            // skip testing InstantOn if CRIU is not supported on this platform
+            return;
+        }
+
+        try {
+            // clean up previous overrides file before checkpoint
+            deleteFileIfExists(ltpaTestServer.pathToAutoFVTTestFiles + "overrides.xml", "overrides");
+
+            // do checkpoint
+            ltpaTestServer.setCheckpoint(CheckpointPhase.AFTER_APP_START, false, null);
+            ltpaTestServer.startServer("checkpoint-test.log");
+
+            // Configure the AES key again
+            writeStringToServerOverride(ltpaSnippet, ltpaTestServer);
+            // Restore from checkpoint after configuring the AES key 
+            ltpaTestServer.checkpointRestore();
+            // Verify startup log contains LTPA initialization
+            assertNotNull("Expected LTPA configuration ready message not found in the log.",
+                    ltpaTestServer.waitForStringInLogUsingMark("CWWKS4105I", 5000));
+            ltpaTestServer.stopServer();
+        } finally {
+            ltpaTestServer.unsetCheckpoint();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -506,6 +533,31 @@ public class SecurityUtilityCreateLTPAKeysTest {
         assertNotNull("Expected LTPA configuration ready message not found in the log.",
                       ltpaTestServer.waitForStringInLogUsingMark("CWWKS4105I", 5000));
         ltpaTestServer.stopServer();
+
+        if (!JavaInfo.forCurrentVM().isCriuSupported()) {
+            // skip testing InstantOn if CRIU is not supported on this platform
+            return;
+        }
+
+        try {
+            // clean up previous overrides file before checkpoint
+            deleteFileIfExists(ltpaTestServer.pathToAutoFVTTestFiles + "overrides.xml", "overrides");
+
+            // do checkpoint
+            ltpaTestServer.setCheckpoint(CheckpointPhase.AFTER_APP_START, false, null);
+            ltpaTestServer.startServer("checkpoint-test.log");
+
+            // Configure the AES key again
+            writeStringToServerOverride(ltpaSnippet, ltpaTestServer);
+            // Restore from checkpoint after configuring the AES key 
+            ltpaTestServer.checkpointRestore();
+            // Verify startup log contains LTPA initialization
+            assertNotNull("Expected LTPA configuration ready message not found in the log.",
+                    ltpaTestServer.waitForStringInLogUsingMark("CWWKS4105I", 5000));
+            ltpaTestServer.stopServer();
+        } finally {
+            ltpaTestServer.unsetCheckpoint();
+        }
     }
 
     /**
