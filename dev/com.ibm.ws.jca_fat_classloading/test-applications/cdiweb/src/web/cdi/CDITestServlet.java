@@ -13,25 +13,33 @@
 package web.cdi;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.ibm.ws.jca.fat.classloading.cdilib.CDIBean;
+import com.ibm.ws.jca.fat.classloading.cdilib.CDIExtension;
 
 import componenttest.app.FATServlet;
-import jakarta.inject.Inject;
+import jakarta.resource.ConnectionFactoryDefinition;
+import jakarta.resource.spi.ResourceAdapter;
 import jakarta.servlet.annotation.WebServlet;
 
+@ConnectionFactoryDefinition(
+                             name = "java:module/env/eis/dummyra",
+                             interfaceName = "jakarta.resource.spi.ResourceAdapter",
+                             resourceAdapter = "fvtra",
+                             properties = "autoCloseConnections=true")
 @WebServlet("/*")
 public class CDITestServlet extends FATServlet {
     private static final long serialVersionUID = 1L;
 
-    @Inject
-    private CDIBean cdiBean;
+    @Resource(name = "java:module/env/eis/dummyra")
+    private ResourceAdapter dummyra;
 
     /**
-     * Test that CDI bean from library can be injected and used.
+     * Test that CDI extension from library is loaded and invoked by the CDI container.
      *
      * @param request HTTP request
      * @param out     writer for the HTTP response
@@ -40,8 +48,8 @@ public class CDITestServlet extends FATServlet {
     @Test
     public void testCDIBeanFromLibrary() throws Exception {
 
-        assertNotNull("CDI Bean was not injected", cdiBean);
-        assertEquals(CDIBean.MESSAGE, cdiBean.getMessage());
+        assertTrue("CDI Extension was not loaded", CDIExtension.isExtensionLoaded());
+        assertEquals(CDIExtension.MESSAGE, CDIExtension.getMessage());
 
     }
 }

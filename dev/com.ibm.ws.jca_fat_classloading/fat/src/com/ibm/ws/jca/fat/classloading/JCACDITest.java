@@ -46,8 +46,9 @@ public class JCACDITest extends FATServletClient {
     @BeforeClass
     public static void setUp() throws Exception {
 
-        // Create cdi library jar with beans.xml
+        // Create cdi library jar with service provider
         JavaArchive cdilib = ShrinkHelper.buildJavaArchive("cdilib", "com.ibm.ws.jca.fat.classloading.cdilib");
+        cdilib.addAsServiceProvider("jakarta.enterprise.inject.spi.Extension", "com.ibm.ws.jca.fat.classloading.cdilib.CDIExtension");
 
         // Create web application
         WebArchive war = ShrinkHelper.buildDefaultApp(CDI_WAR_NAME, "web.cdi");
