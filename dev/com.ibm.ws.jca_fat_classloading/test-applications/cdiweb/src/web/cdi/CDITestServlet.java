@@ -15,28 +15,28 @@ package web.cdi;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Resource;
-
 import org.junit.Test;
 
 import com.ibm.ws.jca.fat.classloading.cdilib.CDIExtension;
 
 import componenttest.app.FATServlet;
-import jakarta.resource.ConnectionFactoryDefinition;
+import jakarta.annotation.Resource;
+import jakarta.resource.AdministeredObjectDefinition;
 import jakarta.resource.spi.ResourceAdapter;
 import jakarta.servlet.annotation.WebServlet;
 
-@ConnectionFactoryDefinition(
-                             name = "java:module/env/eis/dummyra",
-                             interfaceName = "jakarta.resource.spi.ResourceAdapter",
-                             resourceAdapter = "fvtra",
-                             properties = "autoCloseConnections=true")
+@AdministeredObjectDefinition(name = "java:comp/env/jca/dummyaod",
+                              description = "Test Administered Object",
+                              resourceAdapter = "DummyRA",
+                              className = "com.ibm.adapter.message.FVTMessageProviderImpl",
+                              interfaceName = "jakarta.resource.spi.ResourceAdapter",
+                              properties = { "autoCloseConnections=true" })
 @WebServlet("/*")
 public class CDITestServlet extends FATServlet {
     private static final long serialVersionUID = 1L;
 
-    @Resource(name = "java:module/env/eis/dummyra")
-    private ResourceAdapter dummyra;
+    @Resource(lookup = "java:comp/env/jca/dummyaod")
+    ResourceAdapter dummyra;
 
     /**
      * Test that CDI extension from library is loaded and invoked by the CDI container.

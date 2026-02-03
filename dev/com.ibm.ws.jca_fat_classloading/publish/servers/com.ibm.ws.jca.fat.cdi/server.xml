@@ -24,11 +24,6 @@
     </featureManager>
 
     <include optional="true" location="../fatTestPorts.xml"/>
-
-    <resourceAdapter id="DummyRA" location="${server.config.dir}connectors/fvtra.rar" autoStart="true">
-      <classloader/>
-      <properties.DummyRA userName="Mr. Classy Loader" password="secret" />
-    </resourceAdapter>
     
     <library id="cdilib">
         <fileset dir="${server.config.dir}libraries" includes="cdilib.jar"/>
@@ -36,5 +31,8 @@
     
     <application location="${server.config.dir}apps/cdiapp.ear">
         <classloader commonLibraryRef="cdilib"/>
+        <resourceAdapter id="DummyRA" autoStart="true">
+          <properties.DummyRA userName="Mr. Classy Loader" password="secret" />
+        </resourceAdapter>
     </application>
 </server>

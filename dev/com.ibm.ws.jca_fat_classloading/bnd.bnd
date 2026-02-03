@@ -30,8 +30,8 @@ tested.features:\
 fat.project: true
 
 -buildpath:\
-    com.ibm.websphere.javaee.annotation.1.1;version=latest,\
     com.ibm.ws.componenttest.2.0;version=latest,\
+    io.openliberty.jakarta.annotation.2.0;version=latest,\
     io.openliberty.jakarta.cdi.3.0;version=latest,\
     io.openliberty.jakarta.connectors.2.0;version=latest,\
     io.openliberty.jakarta.messaging.3.0;version=latest,\
