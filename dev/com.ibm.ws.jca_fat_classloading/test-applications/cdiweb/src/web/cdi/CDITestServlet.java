@@ -40,10 +40,6 @@ public class CDITestServlet extends FATServlet {
 
     /**
      * Test that CDI extension from library is loaded and invoked by the CDI container.
-     *
-     * @param request HTTP request
-     * @param out     writer for the HTTP response
-     * @throws Exception if an error occurs.
      */
     @Test
     public void testCDIBeanFromLibrary() throws Exception {

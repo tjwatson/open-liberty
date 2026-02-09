@@ -19,15 +19,16 @@ import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ibm.websphere.simplicity.ShrinkHelper;
 
 import componenttest.annotation.Server;
+import componenttest.annotation.TestServlet;
 import componenttest.custom.junit.runner.FATRunner;
 import componenttest.topology.impl.LibertyServer;
 import componenttest.topology.utils.FATServletClient;
+import web.cdi.CDITestServlet;
 
 /**
  * Tests classloading and application start sequence for an ear application
@@ -36,12 +37,13 @@ import componenttest.topology.utils.FATServletClient;
 @RunWith(FATRunner.class)
 public class JCACDITest extends FATServletClient {
 
-    @Server("com.ibm.ws.jca.fat.cdi")
-    public static LibertyServer server;
-
     private static final String CDI_WAR_NAME = "cdiweb";
     private static final String CDI_APP_NAME = "cdiapp";
     private static final String RAR_NAME = "fvtra";
+
+    @Server("com.ibm.ws.jca.fat.cdi")
+    @TestServlet(servlet = CDITestServlet.class, path = CDI_APP_NAME)
+    public static LibertyServer server;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -72,13 +74,5 @@ public class JCACDITest extends FATServletClient {
     public static void tearDown() throws Exception {
         if (server.isStarted())
             server.stopServer();
-    }
-
-    /**
-     * Test that a CDI bean from a library in an EAR can be injected into a web application.
-     */
-    @Test
-    public void testCDIBeanFromLibrary() throws Exception {
-        runTest(server, CDI_WAR_NAME, getTestMethodSimpleName());
     }
 }
