@@ -25,12 +25,7 @@
 
     <include optional="true" location="../fatTestPorts.xml"/>
     
-    <library id="cdilib">
-        <fileset dir="${server.config.dir}libraries" includes="cdilib.jar"/>
-    </library>
-    
     <application location="${server.config.dir}apps/cdiapp.ear">
-        <classloader commonLibraryRef="cdilib"/>
         <resourceAdapter id="DummyRA" autoStart="true">
           <properties.DummyRA userName="Mr. Classy Loader" password="secret" />
         </resourceAdapter>
