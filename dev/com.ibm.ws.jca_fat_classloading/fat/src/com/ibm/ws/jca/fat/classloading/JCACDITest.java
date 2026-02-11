@@ -42,7 +42,7 @@ public class JCACDITest extends FATServletClient {
     private static final String RAR_NAME = "fvtra";
 
     @Server("com.ibm.ws.jca.fat.cdi")
-    @TestServlet(servlet = CDITestServlet.class, path = CDI_APP_NAME)
+    @TestServlet(servlet = CDITestServlet.class, path = CDI_WAR_NAME)
     public static LibertyServer server;
 
     @BeforeClass
