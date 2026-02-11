@@ -24,5 +24,8 @@
       <context-root>/cdiweb</context-root>
     </web>
   </module>
+  <module>
+    <connector>fvtra.rar</connector>
+  </module>
   <library-directory>lib</library-directory>
 </application>

@@ -56,7 +56,7 @@ public class JCACDITest extends FATServletClient {
         WebArchive war = ShrinkHelper.buildDefaultApp(CDI_WAR_NAME, "web.cdi");
 
         // Create rar application
-        ResourceAdapterArchive rar = ShrinkHelper.defaultRar(server, RAR_NAME, "ra");
+        ResourceAdapterArchive rar = ShrinkHelper.buildDefaultRar(RAR_NAME, "ra");
 
         // Create ear with library directory containing the CDI library
         EnterpriseArchive ear = ShrinkWrap.create(EnterpriseArchive.class, CDI_APP_NAME + ".ear")
