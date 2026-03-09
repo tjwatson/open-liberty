@@ -20,6 +20,7 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.osgi.internal.loader.BundleLoader;
 import org.eclipse.osgi.internal.loader.ModuleClassLoader;
@@ -58,8 +59,9 @@ class GatewayClassLoader extends ClassLoader implements DeclaredApiAccess, Bundl
     private final GatewayConfiguration config;
     private final JVMPackages jvmPackages;
     private final Object wiringMonitor = new Object() {};
+
     private final Bundle bundle;
-    private BundleWiring wiring = null;
+    private final AtomicReference<BundleLoader> loaderRef = new AtomicReference<>();
     private final ClassLoader cl;
     private volatile BundleLoader bLoader;
     private final CompositeResourceProvider resourceProviders;
@@ -94,17 +96,18 @@ class GatewayClassLoader extends ClassLoader implements DeclaredApiAccess, Bundl
         if (bundleLoader instanceof BundleReference) {
             this.cl = null;
             this.bundle = ((BundleReference) bundleLoader).getBundle();
-            this.wiring = bundle.adapt(BundleWiring.class);
-            if (this.wiring == null) {
+            BundleWiring currentWiring = bundle.adapt(BundleWiring.class);
+            if (currentWiring == null) {
                 throw new IllegalStateException("Gateway bundle is not resolved.");
             }
             // Just getting the loader again to make sure it is the latest.
             // This is Equinox specific stuff to avoid CNFE if possible
-            ModuleClassLoader moduleLoader = (ModuleClassLoader) wiring.getClassLoader();
+            ModuleClassLoader moduleLoader = (ModuleClassLoader) currentWiring.getClassLoader();
             if (moduleLoader == null) {
                 throw new IllegalStateException("Gateway bundle does not have a class loader.");
             }
             this.bLoader = moduleLoader.getBundleLoader();
+            this.loaderRef.set(bLoader);
         } else {
             // not really a bundle class loader!!
             this.bundle = null;
@@ -241,19 +244,18 @@ class GatewayClassLoader extends ClassLoader implements DeclaredApiAccess, Bundl
 
     void populateNewLoader() throws ClassLoadingConfigurationException {
         if (bundle != null) {
-            synchronized (wiringMonitor) {
-                if (wiring == null || !wiring.isCurrent()) {
-                    wiring = bundle.adapt(BundleWiring.class);
-                    if (wiring != null) {
-                        ModuleClassLoader newLoader = (ModuleClassLoader) wiring.getClassLoader();
-                        if (newLoader == null) {
-                            throw new ClassLoadingConfigurationException("No class loader available for the gateway bundle.");
-                        }
-                        // This is Equinox specific stuff to avoid CNFE if possible
-                        this.bLoader = newLoader.getBundleLoader();
+            this.bLoader = loaderRef.updateAndGet((l) -> {
+                if (l == null || !l.getWiring().isCurrent()) {
+                    BundleWiring w = bundle.adapt(BundleWiring.class);
+                    ModuleClassLoader newLoader =  w == null ? null : (ModuleClassLoader) w.getClassLoader();
+                    if (newLoader == null) {
+                        throw new ClassLoadingConfigurationException("No class loader available for the gateway bundle.");
                     }
+                    // This is Equinox specific stuff to avoid CNFE if possible
+                    return newLoader.getBundleLoader();
                 }
-            }
+                return l;
+            });
         }
     }
 
@@ -262,4 +264,9 @@ class GatewayClassLoader extends ClassLoader implements DeclaredApiAccess, Bundl
         return bundle;
     }
 
+    @Override
+    @Trivial
+    public String toString() {
+        return "GatewayClassLoader" + '@' + Integer.toHexString(this.hashCode()) + " " + config;
+    }
 }

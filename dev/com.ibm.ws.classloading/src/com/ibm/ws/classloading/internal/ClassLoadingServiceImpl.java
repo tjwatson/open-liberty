@@ -648,7 +648,7 @@ public class ClassLoadingServiceImpl implements LibertyClassLoadingService<Liber
          */
 
         GatewayConfiguration gwConfig = this.createGatewayConfiguration()
-                        .setApplicationName("ThreadContextClassLoader")
+                        .setApplicationName("ThreadContextClassLoader: " + key)
                         .setDynamicImportPackage("*;thread-context=\"true\"")
                         .setDelegateToSystem(false);
         ClassLoaderConfiguration clConfig = this.createClassLoaderConfiguration().setId(createIdentity("Thread Context", key));

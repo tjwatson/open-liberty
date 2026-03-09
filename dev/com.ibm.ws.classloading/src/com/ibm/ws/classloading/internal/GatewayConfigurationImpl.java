@@ -156,4 +156,8 @@ class GatewayConfigurationImpl implements GatewayConfiguration {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "GatewayConfiguration: " + appName + ": " + apiTypeVisibility;
+    }
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.ServiceConfigurationError;
@@ -30,17 +31,16 @@ import org.osgi.framework.wiring.BundleWiring;
 public class ResourceProvider {
     private static final String RESOURCE_LIST_PROPERTY = "resources";
 
-    private Collection<String> resourceNames;
+    private Collection<String> resourceNames = Collections.emptyList();
 
     private ClassLoader bundleLoader;
 
-    private String bundleID;
+    private String toString;
 
     /**
      * DS method to activate this component
      */
     protected void activate(BundleContext bCtx, Map<String, Object> properties) {
-        bundleID = bCtx.getBundle().getSymbolicName() + "-" + bCtx.getBundle().getVersion();
         bundleLoader = bCtx.getBundle().adapt(BundleWiring.class).getClassLoader();
         try {
             Object prop = properties.get(RESOURCE_LIST_PROPERTY);
@@ -58,11 +58,12 @@ public class ResourceProvider {
                 // Internal WAS error => no NLS
                 throw new ClassLoadingConfigurationException("Unexpected value for property " + RESOURCE_LIST_PROPERTY + "=" + prop);
             }
+            toString = bCtx.getBundle().getSymbolicName() + "-" + bCtx.getBundle().getVersion() + "-" + resourceNames;
         } catch (ClassLoadingConfigurationException e) {
             // catch the exception so it is FFDC'd by the implementation
             // re-throw to abort component creation
             // Internal WAS error => no NLS
-            throw new ServiceConfigurationError("Incorrectly configured ResourceProvider in bundle " + bundleID, e);
+            throw new ServiceConfigurationError("Incorrectly configured ResourceProvider in bundle " + bCtx.getBundle().getSymbolicName() + "-" + bCtx.getBundle().getVersion(), e);
         }
     }
 
@@ -76,5 +77,10 @@ public class ResourceProvider {
 
     public Collection<String> getResourceNames() {
         return resourceNames;
+    }
+
+    @Override
+    public String toString() {
+        return toString;
     }
 }
