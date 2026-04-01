@@ -27,6 +27,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
@@ -439,7 +440,8 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
             }
 
             if (listeners.size() > 0) {
-                Tr.warning(tc, "quiesce.listeners.not.complete", listeners.size());
+                Tr.warning(tc, "quiesce.listeners.not.complete", listeners.size(),
+                           listeners.stream().map(l -> l.getClass().getName()).collect(Collectors.joining(", ")));
             }
 
             if (tc.isDebugEnabled()) {
