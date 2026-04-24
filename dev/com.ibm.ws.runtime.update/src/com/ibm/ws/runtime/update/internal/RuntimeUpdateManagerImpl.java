@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2023 IBM Corporation and others.
+ * Copyright (c) 2013, 2026 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
@@ -58,6 +58,9 @@ import com.ibm.wsspi.kernel.service.location.WsLocationAdmin;
 import com.ibm.wsspi.kernel.service.location.WsLocationConstants;
 import com.ibm.wsspi.kernel.service.utils.FrameworkState;
 import com.ibm.wsspi.kernel.service.utils.ServerQuiesceListener;
+
+import io.openliberty.runtime.LibertyRuntimeConstants;
+import io.openliberty.runtime.LibertyRuntimeConstants.Type;
 
 /**
  *
@@ -309,11 +312,57 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
                 normalServerStop.set(false);
             } else {
                 // NICE / NORMAL STOP
+                // Find all shutdown hooks and notify them first
+                final ConcurrentLinkedQueue<Object> invoking = new ConcurrentLinkedQueue<>();
+                try {
+                    shutdownHooks(invoking, bundleCtx.getServiceReferences(Runnable.class, "(" + LibertyRuntimeConstants.TYPE_PROPERTY + "=" + Type.SHUTDOWN_HOOK + ")"));
+                } catch (InvalidSyntaxException e) {
+                    // auto-FFDC - should not happen with the filter above
+                }
                 // Find all ServerQueisceListeners and notify them
                 try {
-                    quiesceListeners(bundleCtx.getServiceReferences(ServerQuiesceListener.class, null));
+                    quiesceListeners(invoking, bundleCtx.getServiceReferences(ServerQuiesceListener.class, null));
                 } catch (InvalidSyntaxException e) {
                     // not going to happen with a null filter.
+                }
+            }
+        }
+    }
+
+    /**
+     * @param serviceReferences
+     */
+    private void shutdownHooks(final ConcurrentLinkedQueue<Object> invoking, Collection<ServiceReference<Runnable>> hookRefs) {
+        FutureCollection hookFutures = new FutureCollection();
+        // Queue the notification of each hook (unbounded queue)
+        for (ServiceReference<Runnable> ref : hookRefs) {
+            final Runnable hook = bundleCtx.getService(ref);
+            if (hook != null) {
+
+                hookFutures.add(executorService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            invoking.add(hook);
+                            if (TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
+                                Tr.debug(tc, "Running shutdown hook: " + hook);
+                            }
+                            hook.run();
+                            if (TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
+                                Tr.debug(tc, "Completed shutdown hook: " + hook);
+                            }
+
+                        } catch (Throwable t) {
+                            // Auto-FFDC here..
+                        } finally {
+                            invoking.remove(hook);
+                        }
+                    }
+                }));
+                ThreadQuiesce tq = (ThreadQuiesce) executorService;
+                int quiesceTimeout = tq.getQuiesceTimeout();
+                if (!hookFutures.isComplete(0, quiesceTimeout)) {
+                    // TODO log errors for hooks that did not complete
                 }
             }
         }
@@ -327,7 +376,7 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
      * @param listenerRefs Collection of {@code ServiceReference}s for {@code ServerQuiesceListener}s
      */
 
-    private void quiesceListeners(Collection<ServiceReference<ServerQuiesceListener>> listenerRefs) {
+    private void quiesceListeners(final ConcurrentLinkedQueue<Object> invoking, Collection<ServiceReference<ServerQuiesceListener>> listenerRefs) {
         // Make a copy of existing notifications: we can't hold the lock around notifications
         // to iterate while waiting for the existing notifications to complete because that would
         // lock-out cleanupNotifications.
@@ -367,7 +416,6 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
         FutureCollection quiesceListenerFutures = new FutureCollection();
 
         // Queue the notification of each listener (unbounded queue)
-        final ConcurrentLinkedQueue<ServerQuiesceListener> listeners = new ConcurrentLinkedQueue<ServerQuiesceListener>();
         for (ServiceReference<ServerQuiesceListener> ref : listenerRefs) {
             final ServerQuiesceListener listener = bundleCtx.getService(ref);
             if (listener != null) {
@@ -376,7 +424,7 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
                     @Override
                     public void run() {
                         try {
-                            listeners.add(listener);
+                            invoking.add(listener);
                             if (TraceComponent.isAnyTracingEnabled() && tc.isDebugEnabled()) {
                                 Tr.debug(tc, "Invoking serverStopping() on listener: " + listener);
                             }
@@ -388,7 +436,7 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
                         } catch (Throwable t) {
                             // Auto-FFDC here..
                         } finally {
-                            listeners.remove(listener);
+                            invoking.remove(listener);
                         }
                     }
                 }));
@@ -432,17 +480,17 @@ public class RuntimeUpdateManagerImpl implements RuntimeUpdateManager, Synchrono
                 Tr.warning(tc, "notifications.not.complete", notificationCount, String.join(", ", incompleteNotifications));
             }
 
-            List<String> runningListenerClasses = Collections.emptyList();
-            if (listeners.size() > 0) {
-                // snapshot listener classes to avoid timing issues
-                runningListenerClasses = listeners.stream().map(l -> l.getClass().getName()).collect(Collectors.toList());
-                if (runningListenerClasses.size() > 0) {
-                    Tr.warning(tc, "quiesce.listeners.not.complete", runningListenerClasses.size(),
-                               String.join(", ", runningListenerClasses));
+            List<String> invokingObjects = Collections.emptyList();
+            if (invoking.size() > 0) {
+                // snapshot invoking classes to avoid timing issues
+                invokingObjects = invoking.stream().map(Object::toString).collect(Collectors.toList());
+                if (invokingObjects.size() > 0) {
+                    Tr.warning(tc, "quiesce.listeners.not.complete", invokingObjects.size(),
+                               String.join(", ", invokingObjects));
                 }
             }
 
-            count = count - notificationCount - runningListenerClasses.size();
+            count = count - notificationCount - invokingObjects.size();
             if (count > 0) {
                 Tr.warning(tc, "quiesce.waiting.on.threads", count);
             }

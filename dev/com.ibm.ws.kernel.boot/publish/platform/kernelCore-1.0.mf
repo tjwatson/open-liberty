@@ -29,7 +29,8 @@ IBM-API-Package: com.ibm.websphere.config.mbeans; type="ibm-api",
  com.ibm.websphere.logging; type="ibm-api",
  com.ibm.websphere.logging.hpel; type="ibm-api",
  com.ibm.websphere.kernel.server; type="ibm-api",
- io.openliberty.checkpoint.internal.criu; type="internal"
+ io.openliberty.checkpoint.internal.criu; type="internal",
+ io.openliberty.runtime; type="ibm-api"
 IBM-SPI-Package: com.ibm.websphere.crypto,
  com.ibm.wsspi.config,
  com.ibm.wsspi.kernel.filemonitor,

@@ -1,5 +1,5 @@
 #*******************************************************************************
-# Copyright (c) 2017, 2025 IBM Corporation and others.
+# Copyright (c) 2017, 2026 IBM Corporation and others.
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License 2.0
 # which accompanies this distribution, and is available at
@@ -23,16 +23,21 @@ Bundle-SymbolicName: com.ibm.ws.runtime.update; singleton:=true
 # for the exported API.
 Export-Package: \
  com.ibm.websphere.runtime.update;provide:=true, \
- com.ibm.ws.runtime.update;provide:=true
+ com.ibm.ws.runtime.update;provide:=true, \
+ io.openliberty.runtime;provide:=true
 
 WS-TraceGroup: runtime.update
 
-Private-Package: com.ibm.ws.runtime.update.internal*
+Private-Package: com.ibm.ws.runtime.update.internal*, io.openliberty.runtime*
 
 -dsannotations: \
   com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl, \
   com.ibm.ws.runtime.update.internal.RuntimeUpdateNotificationMBeanImpl, \
-  com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener
+  com.ibm.ws.runtime.update.internal.PauseableComponentQuiesceListener, \
+  io.openliberty.runtime.internal.RuntimeImpl, \
+  io.openliberty.runtime.internal.ShutdownHooksAdd, \
+  io.openliberty.runtime.internal.ShutdownHooksRemove
+
 
 instrument.classesExcludes: com/ibm/ws/runtime/update/internal/resources/*.class
 
