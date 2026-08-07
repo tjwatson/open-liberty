@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.EnumSet;
+import java.util.Map;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
@@ -256,7 +258,17 @@ public class SharedLibraryImpl implements Library, SpiLibrary {
         // That is, the first entry is the service with the highest ranking and the
         // lowest service id. Use SERVICE_RANKING to define a partial order for library
         // change notifications.
-        for (LibraryChangeListener listener : ls.getTracked().values()) {
+        notifyListeners(ls.getTracked());
+    }
+
+    /**
+     * Notify a pre-captured snapshot of listeners.  Callers that need to exclude
+     * listeners registered <em>during</em> a service-publication event (see
+     * {@link #publishGeneration}) should snapshot {@code getTracked()} before
+     * triggering that event and pass the snapshot here.
+     */
+    private void notifyListeners(Map<?, LibraryChangeListener> listeners) {
+        for (LibraryChangeListener listener : listeners.values()) {
             if (deleted) {
                 return;
             }
@@ -376,8 +388,40 @@ public class SharedLibraryImpl implements Library, SpiLibrary {
                 libGen.cancel();
             }
         }
+
+        // Snapshot the listener set BEFORE registering/updating the Library service.
+        //
+        // Registering the Library service (inside setLibraryServiceProperties) fires a
+        // synchronous OSGi service event.  A consumer that reacts to that event on the
+        // same thread may call getSharedLibraryClassLoader(), which creates a new
+        // AppClassLoader and registers a WeakLibraryListener for it.  Because
+        // libraryListenersTracker is already open, that WeakLibraryListener is
+        // immediately added to the tracker's tracked set.
+        //
+        // If we called notifyListeners() after setLibraryServiceProperties() using the
+        // live tracker snapshot, the just-registered WeakLibraryListener would be
+        // included, and its update() would immediately evict the AppClassLoader that was
+        // just created for the current generation -- before any consumer has had a chance
+        // to use it.
+        //
+        // By capturing the snapshot first we guarantee that only listeners which existed
+        // *before* this generation was published receive the change notification.  Listeners
+        // registered as a direct result of this publication have nothing stale to evict.
+        final Map<?, LibraryChangeListener> listenerSnapshot = getListenerSnapshot();
         setLibraryServiceProperties(libraryGeneration.getProperties());
-        notifyListeners();
+        notifyListeners(listenerSnapshot);
+    }
+
+    /**
+     * Returns a snapshot of the currently tracked {@link LibraryChangeListener} services,
+     * or an empty map if the tracker has not been opened yet.
+     */
+    private Map<?, LibraryChangeListener> getListenerSnapshot() {
+        final ServiceTracker<LibraryChangeListener, LibraryChangeListener> ls = libraryListenersTracker;
+        if (ls == null) {
+            return Collections.emptyMap();
+        }
+        return ls.getTracked();
     }
 
 
