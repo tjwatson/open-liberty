@@ -9,20 +9,21 @@
  *******************************************************************************/
 package io.openliberty.classloading.classpath.fat;
 
-import static io.openliberty.classloading.classpath.fat.FATSuite.LIB_PRECEDENCE_AFTER_APP_SERVER;
-import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_DUMMY_RAR;
+import static io.openliberty.classloading.classpath.fat.FATSuite.LIBRARY_USER_TEST_SERVER;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB1_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB2_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB3_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB4_JAR;
-import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECEDENCE_APP;
-import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECEDENCE_WAR;
+import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIBRARY_USER_APP;
+import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIBRARY_USER_WAR;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 
@@ -34,13 +35,13 @@ import componenttest.annotation.TestServlet;
 import componenttest.custom.junit.runner.FATRunner;
 import componenttest.topology.impl.LibertyServer;
 import componenttest.topology.utils.FATServletClient;
-import io.openliberty.classloading.library.precedence.test.app.LibPrecedenceAfterAppTestServlet;
+import io.openliberty.classloading.library.test.app.LibraryUserTestServlet;
 
 @RunWith(FATRunner.class)
-public class LibraryPrecedenceAfterAppTests extends FATServletClient {
+public class LibraryServiceTests extends FATServletClient {
 
-    @Server(LIB_PRECEDENCE_AFTER_APP_SERVER)
-    @TestServlet(servlet = LibPrecedenceAfterAppTestServlet.class, contextRoot = TEST_LIB_PRECEDENCE_APP)
+    @Server(LIBRARY_USER_TEST_SERVER)
+    @TestServlet(servlet = LibraryUserTestServlet.class, contextRoot = TEST_LIBRARY_USER_APP)
     public static LibertyServer server;
 
     @Rule
@@ -48,22 +49,37 @@ public class LibraryPrecedenceAfterAppTests extends FATServletClient {
 
     @BeforeClass
     public static void setupTestServer() throws Exception {
-        server.installSystemFeature("apiTestFeature-1.0");
-        assertTrue("apiTestFeature-1.0 should have been lib/features",
-                   server.fileExistsInLibertyInstallRoot("lib/features/apiTestFeature-1.0.mf"));
-        server.installSystemBundle("test.bundle.api");
-        assertTrue("test.bundle.threading.jar should have been copied to lib",
-                   server.fileExistsInLibertyInstallRoot("lib/test.bundle.api.jar"));
+        server.installSystemFeature("testLibraryUser-1.0");
+        assertTrue("testLibraryUser-1.0 should have been lib/features",
+                   server.fileExistsInLibertyInstallRoot("lib/features/testLibraryUser-1.0.mf"));
+        server.installSystemBundle("test.library.user");
+        assertTrue("test.library.user.jar should have been copied to lib",
+                   server.fileExistsInLibertyInstallRoot("lib/test.library.user.jar"));
 
-        ShrinkHelper.exportAppToServer(server, TEST_LIB_PRECEDENCE_WAR, DeployOptions.SERVER_ONLY);
+        ShrinkHelper.exportAppToServer(server, TEST_LIBRARY_USER_WAR, DeployOptions.SERVER_ONLY);
 
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB1_JAR, DeployOptions.SERVER_ONLY);
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB2_JAR, DeployOptions.SERVER_ONLY);
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB3_JAR, DeployOptions.SERVER_ONLY);
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB4_JAR, DeployOptions.SERVER_ONLY);
-        ShrinkHelper.exportToServer(server, "/ras", TEST_DUMMY_RAR, DeployOptions.SERVER_ONLY);
 
         server.startServer();
+    }
+
+    @Test
+    public void testSynchGetShareClassLoader() {
+        doTestGetShareClassLoader("TEST_SYNC");
+    }
+
+    @Test
+    public void testAsynchGetShareClassLoader() {
+        doTestGetShareClassLoader("TEST_ASYNC");
+    }
+
+    void doTestGetShareClassLoader(String test) {
+        String result = server.waitForStringInLog(test + " getSharedLibraryClassLoader -");
+        assertNotNull(test + " not found", result);
+        assertTrue(result, result.contains("SUCCESS"));
     }
 
     @AfterClass
@@ -71,11 +87,11 @@ public class LibraryPrecedenceAfterAppTests extends FATServletClient {
         try {
             server.stopServer();
         } finally {
-            server.uninstallSystemFeature("apiTestFeature-1.0");
-            assertFalse("Failed to clean up installed file: lib/features/apiTestFeature-1.0",
-                        server.fileExistsInLibertyInstallRoot("lib/features/apiTestFeature-1.0.mf"));
-            server.uninstallSystemBundle("test.bundle.api");
-            assertFalse("Failed to clean up installed file: lib/test.bundle.api.jar", server.fileExistsInLibertyInstallRoot("lib/test.bundle.api.jar"));
+            server.uninstallSystemFeature("testLibraryUser-1.0");
+            assertFalse("Failed to clean up installed file: lib/features/testLibraryUser-1.0",
+                        server.fileExistsInLibertyInstallRoot("lib/features/testLibraryUser-1.0.mf"));
+            server.uninstallSystemBundle("test.library.user");
+            assertFalse("Failed to clean up installed file: lib/test.library.user.jar", server.fileExistsInLibertyInstallRoot("lib/test.library.user.jar"));
         }
     }
 

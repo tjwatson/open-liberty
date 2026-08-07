@@ -15,8 +15,8 @@ import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB1_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB2_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB3_JAR;
 import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB4_JAR;
-import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECECENCE_APP;
-import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECENCENC_WAR;
+import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECEDENCE_APP;
+import static io.openliberty.classloading.classpath.fat.FATSuite.TEST_LIB_PRECEDENCE_WAR;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -40,7 +40,7 @@ import io.openliberty.classloading.library.precedence.test.app.LibPrecedenceBefo
 public class LibraryPrecedenceBeforeAppTests extends FATServletClient {
 
     @Server(LIB_PRECEDENCE_BEFORE_APP_SERVER)
-    @TestServlet(servlet = LibPrecedenceBeforeAppTestServlet.class, contextRoot = TEST_LIB_PRECECENCE_APP)
+    @TestServlet(servlet = LibPrecedenceBeforeAppTestServlet.class, contextRoot = TEST_LIB_PRECEDENCE_APP)
     public static LibertyServer server;
 
     @Rule
@@ -55,7 +55,7 @@ public class LibraryPrecedenceBeforeAppTests extends FATServletClient {
         assertTrue("test.bundle.threading.jar should have been copied to lib",
                    server.fileExistsInLibertyInstallRoot("lib/test.bundle.api.jar"));
 
-        ShrinkHelper.exportAppToServer(server, TEST_LIB_PRECENCENC_WAR, DeployOptions.SERVER_ONLY);
+        ShrinkHelper.exportAppToServer(server, TEST_LIB_PRECEDENCE_WAR, DeployOptions.SERVER_ONLY);
 
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB1_JAR, DeployOptions.SERVER_ONLY);
         ShrinkHelper.exportToServer(server, "/libs", TEST_LIB2_JAR, DeployOptions.SERVER_ONLY);
